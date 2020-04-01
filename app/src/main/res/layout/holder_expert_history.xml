@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_70"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dp_1"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvIssue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_12"
+                tools:text="的顺丰到付" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/color_999999"
+                tools:text="的顺丰到付" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvOpenCode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:gravity="center"
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/color_999999"
+            tools:text="的顺丰到付" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvMethod"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/color_999999"
+                tools:text="的顺丰到付" />
+
+            <TextView
+                android:id="@+id/tvCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/sp_12"
+                android:gravity="center"
+                android:textColor="@color/color_999999"
+                tools:text="的顺丰到付" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvResult"
+            android:layout_width="0dp"
+            android:textSize="@dimen/sp_12"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            tools:text="的顺丰到付" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_EEEEEE" />
+</RelativeLayout>

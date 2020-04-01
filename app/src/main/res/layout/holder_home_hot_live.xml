@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.caipiaobao.widget.cardview.LCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardViewItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/dp_10"
+    app:bottomShadowHeight="@dimen/dp_10"
+    app:cornerRadius="@dimen/dp_6"
+    app:elevationAffectShadowSize="true"
+    app:shadowColor="@color/color_f7f7f7"
+    app:shadowStartAlpha="200">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/rlHotLive"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_120"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivHotLiveLogo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:placeholderImageScaleType="fitXY"
+                app:placeholderImage="@mipmap/ic_placeholder"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvHotLiveTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_20"
+                android:background="@drawable/shape_home_hot_title"
+                android:gravity="center"
+                android:paddingStart="@dimen/dp_6"
+                android:paddingEnd="@dimen/dp_10"
+                android:text="@string/loading"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12"
+                tools:ignore="ContentDescription" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgTag"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:visibility="gone"
+                android:background="@mipmap/ic_live_chat_red_envelope"
+                />
+
+            <ImageView
+                android:id="@+id/tiaodan"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_50"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_alignParentEnd="true"
+                android:layout_above="@+id/imgTag"
+                android:visibility="gone"
+                android:src="@mipmap/tiaodan"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_30"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/shape_controller_bottom_gradient">
+                <TextView
+                    android:id="@+id/tvHotLiveIntro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginBottom="@dimen/dp_6"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:maxEms="7"
+                    android:text="@string/loading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tvHotLiveNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:layout_marginBottom="@dimen/dp_6"
+                    android:textColor="@color/white"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:maxEms="10"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="我是标我是标签解说我是标签解说我是标签解说签解说" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_36"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rlHotLive"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="@color/white"
+
+            app:rv_cornerRadius_BL="@dimen/dp_6"
+            app:rv_cornerRadius_BR="@dimen/dp_6">
+
+            <TextView
+                android:id="@+id/tvHotLiveName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_6"
+                android:text="@string/loading"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_12" />
+
+            <com.fenghuang.caipiaobao.widget.gif.GifImageView
+                android:id="@+id/ivHotLiveStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_toEndOf="@+id/tvHotLiveName"
+                android:src="@drawable/ic_home_live_gif"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@id/tvHotLiveTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_6"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_12"
+                tools:text="性感" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivHotLiveTag"
+                android:layout_width="@dimen/dp_12"
+                android:layout_height="@dimen/dp_12"
+                android:scaleType="fitXY"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dp_2"
+                app:roundAsCircle="true"
+                android:layout_toStartOf="@+id/tvHotLiveTag"
+                tools:ignore="ContentDescription" />
+        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.fenghuang.caipiaobao.widget.cardview.LCardView>

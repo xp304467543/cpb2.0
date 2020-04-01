@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.drawee.view.SimpleDraweeView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ivQuizImage"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_120"
+    app:roundedCornerRadius="@dimen/dp_6"
+    app:actualImageScaleType="focusCrop"
+    app:placeholderImage="@mipmap/ic_placeholder"
+    app:placeholderImageScaleType="fitXY"
+    android:scaleType="centerCrop"
+    tools:ignore="ContentDescription" />
+

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/cover_player_controller_top_container"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_controller_top_gradient"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            tools:ignore="UselessParent">
+
+            <ImageView
+                android:id="@+id/cover_player_controller_image_view_back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp_8"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_back" />
+
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:id="@+id/containerAttention"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                app:rv_backgroundColor="#4D000000"
+                app:rv_cornerRadius="@dimen/dp_18">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="@dimen/dp_30"
+                    android:layout_height="@dimen/dp_30"
+                    app:placeholderImage="@mipmap/ic_base_user"
+                    app:roundAsCircle="true" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:gravity="center"
+                    android:minWidth="@dimen/dp_20"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/topName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="刘禹锡" />
+
+                    <TextView
+                        android:id="@+id/topOnLine"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_10"
+                        tools:text="4" />
+                </LinearLayout>
+
+                <com.fenghuang.baselib.widget.round.RoundTextView
+                    android:id="@+id/topAttention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:gravity="center"
+                    android:paddingStart="@dimen/dp_5"
+                    android:paddingTop="@dimen/dp_1"
+                    android:paddingEnd="@dimen/dp_5"
+                    android:paddingBottom="@dimen/dp_1"
+                    android:text="+ 关注"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    app:rv_backgroundColor="@color/color_FF513E"
+                    app:rv_cornerRadius="@dimen/dp_15" />
+
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+            <TextView
+                android:id="@+id/tvRoomId"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_10"
+                android:visibility="gone"
+                tools:ignore="NestedWeights"
+                tools:text="43999人" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/cover_player_controller_bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/shape_controller_bottom_gradient"
+        android:orientation="horizontal">
+        <!--竖屏底部 -->
+        <LinearLayout
+            android:id="@+id/containerLand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_2">
+
+                <TextView
+                    android:id="@+id/tvAnchorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:text="大皇宫"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_14"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvOnlinePeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:text="在线人数 560"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAnchorName" />
+
+                <TextView
+                    android:id="@+id/tvBottomRoomID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginBottom="@dimen/dp_4"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_10"
+                    app:layout_constraintStart_toEndOf="@+id/tvOnlinePeople"
+                    app:layout_constraintTop_toBottomOf="@+id/tvAnchorName"
+                    tools:text="房间ID 888888" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/cover_player_controller_image_view_play_state"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp12"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_video_player_btn_pause" />
+
+            <ImageView
+                android:id="@+id/cover_player_controller_refresh"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp12"
+                android:src="@drawable/ic_player_refresh" />
+
+            <ImageView
+                android:id="@+id/cover_player_controller_image_view_switch_screen"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp11"
+                android:scaleType="centerInside"
+                android:src="@mipmap/icon_full_screen" />
+
+        </LinearLayout>
+
+        <!--横屏底部 -->
+        <LinearLayout
+            android:id="@+id/containerHor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/bottomPlayOrPause"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="11dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_video_player_btn_pause" />
+
+            <ImageView
+                android:id="@+id/bottomRefresh"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/dp_40"
+                android:contentDescription="@string/app_name"
+                android:padding="11dp"
+                android:src="@drawable/ic_player_refresh" />
+
+            <ImageView
+                android:id="@+id/bottomDanMu"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="9dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_player_danmu" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/bottomInput"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_10"
+                android:text="说点什么吧~"
+                android:textColor="@color/color_DDDDDD"
+                android:textSize="@dimen/sp_11"
+                app:rv_backgroundColor="@color/ffffff"
+                app:rv_cornerRadius="@dimen/dp_18"
+                app:rv_strokeColor="@color/color_DDDDDD"
+                app:rv_strokeWidth="0.5dp"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/bottomRecharge"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_live_chat_recharge" />
+
+            <ImageView
+                android:id="@+id/bottomRed"
+                android:layout_width="50dp"
+                android:layout_height="@dimen/dp_40"
+                android:contentDescription="@string/app_name"
+                android:padding="8dp"
+                android:src="@mipmap/ic_live_chat_red_envelope" />
+
+            <ImageView
+                android:id="@+id/bottomGift"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:contentDescription="@string/app_name"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_live_chat_gift" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imgRedTips"
+        android:layout_width="50dp"
+        android:layout_height="80dp"
+        android:padding="@dimen/dp_2"
+        android:visibility="gone"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_marginBottom="@dimen/dp_70"
+        android:src="@mipmap/ic_live_chat_red_envelope_tips" />
+
+</RelativeLayout>

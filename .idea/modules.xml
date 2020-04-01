@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DanmakuFlameMaster/DanmakuFlameMaster.iml" filepath="$PROJECT_DIR$/DanmakuFlameMaster/DanmakuFlameMaster.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baselib/baselib.iml" filepath="$PROJECT_DIR$/baselib/baselib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cpb2.0.iml" filepath="$PROJECT_DIR$/cpb2.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/playerlibrary/playerlibrary.iml" filepath="$PROJECT_DIR$/playerlibrary/playerlibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxnetgo/rxnetgo.iml" filepath="$PROJECT_DIR$/rxnetgo/rxnetgo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/utakephoto/utakephoto.iml" filepath="$PROJECT_DIR$/utakephoto/utakephoto.iml" />
+    </modules>
+  </component>
+</project>

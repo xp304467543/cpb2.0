@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F7FA"
+    android:orientation="vertical">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        android:paddingEnd="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_10"
+        tools:ignore="RtlSymmetry" />
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:id="@+id/moreHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+            <TextView
+                android:id="@+id/emptyHolder"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/grey_4a"
+                android:text="此彩种暂无直播"/>
+
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:id="@+id/holder"
+                android:layout_width="@dimen/dp_110"
+                android:layout_height="@dimen/dp_110"
+                android:layout_centerInParent="true"
+                app:rv_backgroundColor="#BFAFAFAF"
+                android:visibility="gone"
+                app:rv_cornerRadius="@dimen/dp_10">
+
+                <ProgressBar
+                    android:id="@+id/loadingView"
+                    style="@android:style/Widget.ProgressBar"
+                    android:layout_width="@dimen/dp_28"
+                    android:layout_height="@dimen/dp_28"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:indeterminateDrawable="@drawable/loading_rotate" />
+
+                <TextView
+                    android:id="@+id/tvLoadingMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/loadingView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="@string/app_loading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_13" />
+
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+        </RelativeLayout>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:id="@+id/moreFoot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

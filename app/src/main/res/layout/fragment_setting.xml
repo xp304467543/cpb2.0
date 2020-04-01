@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/setPassWord"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56">
+
+        <TextView
+            android:id="@+id/tvPassWordSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="@string/mine_modify_pass_word"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@mipmap/arrow_right"
+            android:contentDescription="@string/app_name" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_f5f5f5" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/linSetPayPassWord"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56">
+
+        <TextView
+            android:id="@+id/tvPayPassWordSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="@string/mine_pay_pass_set"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/tvPayPassWordNotSet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_toStartOf="@+id/imgArrow"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/imgArrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@mipmap/arrow_right"
+            android:contentDescription="@string/app_name" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_f5f5f5" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_56">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_20"
+            android:text="@string/mine_live_float_setting"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16" />
+
+
+        <com.fenghuang.caipiaobao.widget.SwitchButton
+            android:id="@+id/videoSwitch"
+            android:layout_width="@dimen/dp_45"
+            android:layout_height="@dimen/dp_27"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:contentDescription="@string/app_name" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_f5f5f5" />
+    </RelativeLayout>
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/btExitLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginStart="@dimen/dp_36"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_36"
+        android:gravity="center"
+        android:text="@string/mine_login_out"
+        android:textColor="@color/color_666666"
+        app:rv_backgroundColor="@color/color_f5f5f5"
+        app:rv_backgroundPressColor="@color/color_f5f5f5"
+        app:rv_cornerRadius="@dimen/dp_45" />
+</LinearLayout>

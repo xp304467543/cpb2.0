@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <!--状态栏-->
+    <View
+        android:id="@+id/statusViewBet"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/topBars"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusViewBet">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="投注"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_18" />
+
+        <ImageView
+            android:id="@+id/betBack"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_15"
+            android:padding="@dimen/dp_2"
+            android:src="@mipmap/ic_arrow_back_black" />
+
+        <ImageView
+            android:id="@+id/betRefresh"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:padding="@dimen/dp_6"
+            android:src="@mipmap/refresh" />
+    </RelativeLayout>
+
+
+    <com.fenghuang.baselib.web.utils.ZpWebView
+        android:id="@+id/baseBetWebView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBars" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

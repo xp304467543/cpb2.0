@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smartRefreshCommentOn"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:id="@+id/smartRefreshHeaderCommentOn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingTop="@dimen/dp_4">
+
+
+                <RelativeLayout
+                    android:id="@+id/topWave"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.fenghuang.caipiaobao.widget.WaveView
+                        android:id="@+id/circleWave"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/commentAnchorPhoto"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_marginStart="@dimen/dp_15"
+                        app:actualImageScaleType="focusCrop"
+                        android:layout_centerInParent="true"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:placeholderImage="@mipmap/ic_base_user"
+                        app:placeholderImageScaleType="fitXY"
+                        app:roundAsCircle="true" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:id="@+id/commentAnchorName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13"
+                    app:layout_constraintStart_toEndOf="@+id/topWave"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="三生三世" />
+
+                <TextView
+                    android:id="@+id/commentAnchorTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintStart_toEndOf="@+id/topWave"
+                    app:layout_constraintTop_toBottomOf="@+id/commentAnchorName"
+                    tools:text="201-22-22" />
+
+                <TextView
+                    android:id="@+id/commentAnchorContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:textColor="@color/color_333333"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:textSize="@dimen/sp_16"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/topWave"
+                    tools:text="三生三世三生三世三生三世三生三世三生三世三生三世三生三世" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentAnchorImg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:overScrollMode="never"
+                    app:layout_constraintTop_toBottomOf="@+id/commentAnchorContent" />
+
+                <View
+                    android:id="@+id/commentLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:background="@color/color_F5F7FA"
+                    app:layout_constraintTop_toBottomOf="@+id/commentAnchorImg" />
+
+                <TextView
+                    android:id="@+id/tvPl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/commentLine"
+                    tools:text="评论 (12)" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentOnList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:overScrollMode="never"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPl" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/ffffff"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_35"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_weight="1"
+            android:background="@drawable/button_grey_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/etCommentChat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/dp_12"
+                android:singleLine="true"
+                android:text="你想对他说点什么吗?"
+                android:textColor="@color/color_CCCCCC"
+                android:textSize="@dimen/sp_12"
+                tools:ignore="NestedWeights,RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/imgCommentEmoji"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp_4"
+                android:src="@mipmap/ic_live_emoji" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvSendMessage"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:background="@drawable/button_grey_background"
+            android:gravity="center"
+            android:text="@string/live_room_send"
+            android:textColor="@color/grey_95" />
+
+    </LinearLayout>
+</LinearLayout>

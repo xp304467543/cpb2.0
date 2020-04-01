@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:id="@+id/pagerGridContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/selector_item_view_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/im_item_icon"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="50dp"
+        app:placeholderImage="@mipmap/ic_placeholder"
+        app:placeholderImageScaleType="fitXY"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tv_item_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textSize="12sp" />
+    <TextView
+        android:id="@+id/tvGiftPrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey_e6"
+        android:layout_marginTop="3dp"
+        android:textSize="11sp"
+        />
+</LinearLayout>

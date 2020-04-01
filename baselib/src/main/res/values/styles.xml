@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+        <item name="background">@color/grey_f7</item>
+        <item name="colorWhite">@color/white</item>
+        <item name="colorBlack">@color/black</item>
+    </style>
+
+    <!--<style name="BaseAppThemeWithActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">-->
+    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+    <!--<item name="colorAccent">@color/colorAccent</item>-->
+    <!--</style>-->
+
+
+    <!--滑动返回的Activity样式-->
+    <style name="SwipeBackStyle" parent="BaseAppTheme">
+        <item name="android:windowBackground">@color/grey_f7</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/RightEnterAnimationStyle</item>
+    </style>
+
+
+    <!--全屏的主题-->
+    <style name="FullScreenStyle" parent="BaseAppTheme">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/RightEnterAnimationStyle</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+
+    <!-- 右侧弹出和返回的样式-->
+    <style name="RightEnterAnimationStyle" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/anim_slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/anim_slide_out_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_no</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_no</item>
+    </style>
+
+    <!-- 渐变弹窗的样式-->
+    <style name="AlphaEnterAnimationStyle" mce_bogus="1" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/anim_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+    </style>
+
+    <!--Transparent-->
+    <style name="TransparentStyle" parent="BaseAppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/RightEnterAnimationStyle</item>
+    </style>
+
+
+    <!--仿Dialog弹出的透明样式-->
+    <style name="TransparentDialogStyle" parent="BaseAppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@style/AlphaEnterAnimationStyle</item>
+    </style>
+
+    <!--MaterialDialog主题-->
+    <style name="AlertDialog_Material" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMinor">360dp</item>
+    </style>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+
+    <!--toolbar的主题-->
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">?attr/toolbarForeground</item>
+        <item name="android:actionMenuTextAppearance">@style/ToolbarMenuTextAppearance</item>
+    </style>
+
+    <!--menu上弹出的样式-->
+    <style name="ToolbarMenuPopTheme" parent="AppTheme.PopupOverlay">
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <!--toolbar标题的样式-->
+    <style name="ToolbarTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">?attr/colorWhite</item>
+    </style>
+
+    <!--TabLayout的样式-->
+    <style name="TabLayoutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/sp_15</item>
+    </style>
+
+    <!--toolbar主页的样式-->
+    <style name="ToolbarMainTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/sp_20</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/toolbarForeground</item>
+    </style>
+
+    <!--toolbar上的菜单文字样式，不是弹出menu的样式，是在toolbar上的menu的样式-->
+    <style name="ToolbarMenuTextAppearance" parent="TextAppearance.AppCompat.Menu">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:textColor">?attr/toolbarForeground</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--系统的主题-->
+    <!--系统的主题-->
+    <!--系统的主题-->
+    <!--统一颜色主题-->
+    <style name="ColorTheme" parent="BaseAppTheme">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="background">@color/background</item>
+        <item name="colorWhite">@color/white</item>
+        <item name="colorBlack">@color/black</item>
+    </style>
+
+    <!--红色主题-->
+    <style name="RedTheme" parent="ColorTheme">
+        <item name="toolbarBackground">@color/colorPrimary</item>
+        <item name="toolbarForeground">@color/white</item>
+        <item name="android:colorBackground">@color/viewBackground</item>
+    </style>
+
+    <!--白色主题-->
+    <style name="WhiteTheme" parent="ColorTheme">
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="toolbarBackground">@color/white</item>
+        <item name="toolbarForeground">@color/colorPrimary</item>
+    </style>
+
+    <!--黑色主题-->
+    <style name="BlackTheme" parent="ColorTheme">
+        <item name="colorPrimaryDark">@color/colorBlackAccent</item>
+        <item name="toolbarBackground">@color/colorBlackAccent</item>
+        <item name="toolbarForeground">@color/white</item>
+    </style>
+
+    <style name="crowd_item_progressBar">
+
+               
+        <item name="android:indeterminateOnly">false</item>
+
+               
+        <item name="android:progressDrawable">@drawable/progress_bar_web_horizontal</item>
+
+               
+        <item name="android:minHeight">10dp</item>
+
+               
+        <item name="android:maxHeight">10dp</item>
+
+    </style>
+
+    <style name="picture_browse_activity_style">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/black</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <color name="default_background_color">@android:color/transparent</color>
+    <color name="default_progress_color">#33b5e5</color>
+    <color name="default_stroke_color">#33b5e5</color>
+    <color name="default_text_color">#333333</color>
+
+    <declare-styleable name="LoadingProgressBarView">
+        <attr name="android:text"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="ppvProgress" format="integer"/>
+        <attr name="ppvMax" format="integer"/>
+        <attr name="ppvStartAngle" format="integer"/>
+        <attr name="ppvInverted" format="boolean"/>
+        <attr name="ppvCounterclockwise" format="boolean"/>
+        <attr name="ppvStrokeWidth" format="dimension"/>
+        <attr name="ppvBackgroundColor" format="reference|color"/>
+        <attr name="ppvProgressColor" format="reference|color"/>
+        <attr name="ppvStrokeColor" format="reference|color"/>
+        <attr name="ppvShowStroke" format="boolean"/>
+        <attr name="ppvShowText" format="boolean"/>
+        <attr name="ppvTypeface" format="string"/>
+        <attr name="ppvImage" format="reference"/>
+        <attr name="ppvProgressFillType" format="enum">
+            <enum name="radial" value="0"/>
+            <enum name="center" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

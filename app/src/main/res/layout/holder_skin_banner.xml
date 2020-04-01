@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:foreground="?attr/selectableItemBackgroundBorderless">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/dp_270"
+        android:layout_height="480dp"
+        android:layout_gravity="center"
+        app:placeholderImage="@mipmap/ic_placeholder"
+        app:placeholderImageScaleType="fitXY"
+        app:roundedCornerRadius="@dimen/dp_10"
+        app:actualImageScaleType="focusCrop"
+        tools:ignore="ContentDescription" />
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="10dp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        tools:text="我是标题" />
+
+</FrameLayout>

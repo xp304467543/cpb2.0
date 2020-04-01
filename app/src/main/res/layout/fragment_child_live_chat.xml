@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/liveRoomPaten"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F7FA">
+
+
+    <!-- ==========================Marquee========================================= -->
+    <LinearLayout
+        android:id="@+id/liveTopNotice"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_34"
+        android:background="@color/color_EBF0F6"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_15"
+            android:background="@mipmap/ic_live_chat_system"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/mtvLiveRoom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_5"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sp_12" />
+
+    </LinearLayout>
+    <!-- ==========================聊天室========================================= -->
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/chatSmartRefresh"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liveTopNotice">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLiveRoomChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp10"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp10"
+            android:overScrollMode="never" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <!-- ==========================菜单弹框========================================= -->
+    <com.fenghuang.caipiaobao.widget.AttachButton
+        android:id="@+id/floatButton"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_35"
+        android:padding="@dimen/dp_5"
+        android:src="@mipmap/ic_live_more_select"
+        app:customIsAttach="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+    <!-- ==========================购彩  / 红包========================================= -->
+
+    <ImageView
+        android:id="@+id/liveRedTips"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_58"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_live_chat_red_envelope_tips"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/imgBuyLottery"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgBuyLottery"
+        android:layout_width="@dimen/dp_35"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginEnd="@dimen/dp10"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_live_room_buy"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom"
+        app:layout_constraintEnd_toEndOf="parent" />
+    <!-- ==========================BOTTOM========================================= -->
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvMoreInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:padding="@dimen/dp_8"
+        android:text="@string/live_news"
+        android:textColor="@color/colorOrange"
+        android:textSize="@dimen/sp_12"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rv_backgroundColor="#FFFFFF"
+        app:rv_cornerRadius="@dimen/dp_6" />
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:id="@+id/linEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingEnd="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_5"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rv_backgroundColor="#2CF1F1F1"
+        app:rv_cornerRadius="@dimen/dp_15"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imgEnterImg"
+            android:layout_width="@dimen/dp_34"
+            android:layout_height="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_2"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:id="@+id/tvEnterContent"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_5"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12" />
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/linBottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/bottomChat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="@dimen/dp10"
+            tools:ignore="RtlSymmetry">
+
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:id="@+id/tvBottomChat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_7"
+                android:layout_marginEnd="@dimen/dp_18"
+                android:layout_marginBottom="@dimen/dp_7"
+                android:layout_weight="1"
+                app:rv_backgroundColor="@color/color_F5F7FA"
+                app:rv_backgroundPressColor="@color/color_F5F7FA"
+                app:rv_cornerRadius="@dimen/dp_28">
+
+                <TextView
+                    android:id="@+id/tvRoomBottomShowKeyBord"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:paddingStart="@dimen/dp15"
+                    android:text="@string/live_room_say"
+                    android:textColor="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_12" />
+
+                <ImageView
+                    android:id="@+id/imgRoomBottomShowEmoji"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/app_name"
+                    android:padding="@dimen/dp_7"
+                    android:src="@mipmap/ic_live_emoji" />
+
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imgShake"
+                android:layout_width="@dimen/dp_31"
+                android:layout_height="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_shark"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imgRecharge"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:contentDescription="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/imgRed"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_25"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_live_chat_red_envelope" />
+
+            <ImageView
+                android:id="@+id/imgGift"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="@dimen/dp_25"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_live_chat_gift" />
+        </LinearLayout>
+        <!-- 未开播禁止发言 -->
+        <TextView
+            android:id="@+id/tvNoLive"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="未开播禁止发言"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </RelativeLayout>
+
+
+    <!-- 礼物界面 -->
+    <com.fenghuang.caipiaobao.widget.gift.RewardLayout
+        android:id="@+id/rewardLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        app:gift_item_layout="@layout/gift_animation_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liveTopNotice"
+        app:max_gift="3" />
+
+
+    <!-- vip进场-->
+    <TextView
+        android:id="@+id/tvVipEnter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_50"
+        android:background="@mipmap/ic_vip_enter"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_10"
+        android:paddingEnd="@dimen/dp_15"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!--  开奖通知 1-->
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvAnchorOpenPrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_140"
+        android:drawableStart="@mipmap/ic_live_star"
+        android:drawablePadding="@dimen/dp_8"
+        android:padding="@dimen/dp_8"
+        android:paddingStart="@dimen/dp_10"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_13"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius_BL="@dimen/dp_5"
+        app:rv_cornerRadius_TL="@dimen/dp_5"
+        app:rv_strokeColor="@color/grey_dd"
+        app:rv_strokeWidth="0.1dp"
+        tools:ignore="RtlSymmetry" />
+    <!--  开奖通知 2-->
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvAnchorOpenPrise2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_180"
+        android:drawableStart="@mipmap/ic_live_star"
+        android:drawablePadding="@dimen/dp_8"
+        android:padding="@dimen/dp_8"
+        android:paddingStart="@dimen/dp_10"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/sp_13"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius_BL="@dimen/dp_5"
+        app:rv_cornerRadius_TL="@dimen/dp_5"
+        app:rv_strokeColor="@color/grey_dd"
+        app:rv_strokeWidth="0.1dp"
+        tools:ignore="RtlSymmetry" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

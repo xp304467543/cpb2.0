@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_80"
+    android:paddingStart="@dimen/dp_20"
+    android:paddingEnd="@dimen/dp_20">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imgBank"
+        android:layout_width="@dimen/dp_36"
+        android:layout_height="@dimen/dp_36"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_name" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_toEndOf="@+id/imgBank"
+        android:orientation="vertical"
+        tools:ignore="RelativeOverlap">
+
+        <TextView
+            android:id="@+id/tvBankName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/tvBankCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_4"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/cbCard"
+        android:layout_width="@dimen/dp_16"
+        android:layout_height="@dimen/dp_16"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/ic_mine_check"
+        android:checked="false" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_f5f5f5" />
+</RelativeLayout>

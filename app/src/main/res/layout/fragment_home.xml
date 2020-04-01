@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homeSmartRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F7FA"
+    tools:ignore="MissingDefaultResource">
+
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/dp_20">
+
+            <ImageView
+                android:id="@+id/imgSkin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_206"
+                android:background="@mipmap/ic_mine_top"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/stateView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <include
+                layout="@layout/my_top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/stateView" />
+
+
+            <!-- Banner -->
+            <com.pingerx.banner.BannerView
+                android:id="@+id/mHomeBannerViews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_150"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@color/transparent"
+                app:bannerAutoLoop="true"
+                app:bannerPageMode="normal"
+                app:bannerSlideAnim="true"
+                app:indicatorSelectRes="@drawable/banner_select_shap"
+                app:indicatorUnSelectRes="@drawable/banner_unselect_shap"
+                app:indicatorVisible="true"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                tools:ignore="MissingDefaultResource" />
+
+
+            <!--.Marquee -->
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:id="@+id/Marquee"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_14"
+                app:layout_constraintTop_toBottomOf="@+id/mHomeBannerViews"
+                app:rv_backgroundColor="@color/color_FFFFFF"
+                app:rv_backgroundPressColor="@color/color_FFFFFF"
+                app:rv_cornerRadius="@dimen/dp_15">
+
+                <ImageView
+                    android:id="@id/ivNotice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:src="@mipmap/ic_home_notice"
+                    tools:ignore="ContentDescription" />
+
+                <com.fenghuang.caipiaobao.widget.MarqueeTextView
+                    android:id="@+id/tvNoticeMassages"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_toEndOf="@+id/ivNotice"
+                    android:ellipsize="marquee"
+                    android:gravity="center"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:padding="@dimen/dp_6"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textColor="@color/color_notice_message"
+                    android:textSize="@dimen/sp_12"
+                    tools:text="我是推送消息!我是推送消息!我是推送消息!我是推送消息!我是推送消息!" />
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+
+            <!--.游戏种类 -->
+
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:id="@+id/linRoundType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/Marquee"
+                app:rv_backgroundColor="@color/white"
+                app:rv_cornerRadius="@dimen/dp_5">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLottery"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    app:tabBackground="@color/transparent"
+                    app:tabIndicatorColor="@color/text_red"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabRippleColor="@color/transparent"
+                    app:tabSelectedTextColor="@color/black"
+                    app:tabTextColor="@color/color_999999" />
+
+                <com.fenghuang.caipiaobao.widget.pagegridview.RollViewPager
+                    android:id="@+id/vpLottery"
+                    android:layout_width="match_parent"
+                    android:overScrollMode="never"
+                    android:layout_height="@dimen/dp_240" />
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+
+            <!--.热门直播 -->
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtv1"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_6"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tvHot"
+                app:layout_constraintStart_toStartOf="@+id/tvHot"
+                app:rv_backgroundColor="@color/color_FFD4AF"
+                app:rv_backgroundPressColor="@color/color_FFD4AF"
+                app:rv_cornerRadius="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/tvHot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/home_live_hot"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linRoundType" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHotLive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvHot" />
+
+            <!--.直播预告 -->
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtv2"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_6"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tvPre"
+                app:layout_constraintStart_toStartOf="@+id/tvPre"
+                app:rv_backgroundColor="@color/color_FFD4AF"
+                app:rv_backgroundPressColor="@color/color_FFD4AF"
+                app:rv_cornerRadius="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/tvPre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/home_live_pre"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvHotLive" />
+
+            <TextView
+                android:id="@+id/tvPreMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:drawableEnd="@mipmap/ic_forward"
+                android:drawablePadding="@dimen/dp_5"
+                android:gravity="center"
+                android:text="@string/home_look_more"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvHotLive" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLivePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@+id/tvPreMore" />
+
+            <!-- 最新资讯-->
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtv3"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_6"
+                app:layout_constraintBottom_toBottomOf="@+id/tvNews"
+                app:layout_constraintStart_toStartOf="@+id/tvNews"
+                app:rv_backgroundColor="@color/color_FFD4AF"
+                app:rv_backgroundPressColor="@color/color_FFD4AF"
+                app:rv_cornerRadius="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/tvNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/home_news"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvLivePreview" />
+
+
+            <TextView
+                android:id="@+id/tvNewsMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:drawableEnd="@mipmap/ic_forward"
+                android:drawablePadding="@dimen/dp_5"
+                android:gravity="center"
+                android:text="@string/home_look_more"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvLivePreview" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvNews"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@+id/tvNewsMore" />
+
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgAd"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:contentDescription="@string/app_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvNews"
+                app:placeholderImage="@color/grey_dd"
+                app:placeholderImageScaleType="fitXY"
+                app:roundedCornerRadius="@dimen/dp_5" />
+
+            <!-- 主播推荐-->
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtv4"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_6"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="@+id/tuiJi"
+                app:layout_constraintStart_toStartOf="@+id/tuiJi"
+                app:rv_backgroundColor="@color/color_FFD4AF"
+                app:rv_backgroundPressColor="@color/color_FFD4AF"
+                app:rv_cornerRadius="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/tuiJi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/home_live_recommend"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgAd" />
+
+            <TextView
+                android:id="@+id/tvAnchorMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:drawableEnd="@mipmap/ic_forward"
+                android:drawablePadding="@dimen/dp_5"
+                android:gravity="center"
+                android:text="@string/home_look_more"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgAd" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAnchorRecommend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_2"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tuiJi" />
+
+
+            <!-- 专家红单-->
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtv5"
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_6"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="@+id/expertHot"
+                app:layout_constraintStart_toStartOf="@+id/expertHot"
+                app:rv_backgroundColor="@color/color_FFD4AF"
+                app:rv_backgroundPressColor="@color/color_FFD4AF"
+                app:rv_cornerRadius="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/expertHot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center"
+                android:text="@string/home_live_expert"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rvAnchorRecommend" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvExpertHot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_2"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/expertHot" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_horizontal"
+                android:paddingTop="@dimen/sp_20"
+                android:paddingBottom="@dimen/dp_30"
+                android:text="@string/list_more"
+                android:textColor="@color/color_CCCCCC"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintTop_toBottomOf="@+id/rvExpertHot" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

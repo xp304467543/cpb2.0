@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="@dimen/dp_14"
+    tools:ignore="ContentDescription">
+
+    <TextView
+        android:id="@+id/tvAnchorRecordGameName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_14"
+        tools:text="图图图图df" />
+
+    <TextView
+        android:id="@+id/tvAnchorRecordStatus"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_weight="1"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        tools:text="防守打法是" />
+
+
+    <TextView
+        android:id="@+id/tvAnchorRecordDate"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/sp_10"
+        android:gravity="end"
+        android:layout_weight="1"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        tools:text="发发多少" />
+
+    <TextView
+        android:id="@+id/tvAnchorRecordTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        tools:text="41454" />
+</LinearLayout>

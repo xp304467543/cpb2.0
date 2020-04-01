@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_126"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_34"
+        app:rv_backgroundColor="@color/color_f6f6f6"
+        app:rv_cornerRadius="@dimen/dp_5">
+
+        <EditText
+            android:id="@+id/publish_ed_desc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:focusable="true"
+            android:gravity="start"
+            android:hint="@string/mine_user_feed_descript"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/publish_text_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:hint="@string/mine_feed_num"
+            android:textColor="@color/grey_4a"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_10" />
+
+    </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+
+    <TextView
+        android:id="@+id/btSubMit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginEnd="@dimen/dp_34"
+        android:background="@drawable/button_background"
+        android:elevation="@dimen/dp_2"
+        android:gravity="center"
+        android:text="@string/mine_save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_16" />
+
+
+</LinearLayout>

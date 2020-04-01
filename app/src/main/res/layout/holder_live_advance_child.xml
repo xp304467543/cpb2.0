@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/advanceRootView"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_75"
+    android:layout_marginTop="@dimen/dp_6"
+    android:orientation="vertical"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius="@dimen/dp_6">
+
+
+    <RelativeLayout
+        android:id="@+id/rlOne"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="match_parent">
+
+        <com.fenghuang.caipiaobao.widget.WaveView
+            android:id="@+id/circleWave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/imgLiveRoomAdvanceUserPhoto"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            app:placeholderImage="@mipmap/ic_base_user"
+            app:placeholderImageScaleType="centerCrop"
+            app:roundAsCircle="true" />
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/imgTop"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_12" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_toEndOf="@+id/rlOne"
+        android:gravity="start"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvLiveRoomAdvanceUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxEms="5"
+            android:maxLines="1"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_13"
+            tools:text="叶问叶问叶问叶问" />
+
+        <TextView
+            android:id="@+id/tvLiveRoomAdvanceUserType"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            tools:text="叶问" />
+
+        <TextView
+            android:id="@+id/tvLiveRoomAdvanceUserTime"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12"
+            tools:text="叶问" />
+    </LinearLayout>
+
+
+    <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+        android:id="@+id/rlAdvanceAttention"
+        android:layout_width="@dimen/dp_25"
+        android:layout_height="@dimen/dp_17"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:padding="@dimen/dp_2"
+        app:rv_backgroundColor="@color/color_FF513E"
+        app:rv_cornerRadius="@dimen/dp_9">
+
+        <ImageView
+            android:id="@+id/imgAdvanceAttention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_add" />
+    </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+</com.fenghuang.baselib.widget.round.RoundRelativeLayout>

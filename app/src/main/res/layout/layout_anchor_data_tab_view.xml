@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_10"
+    app:rv_backgroundColor="@color/white"
+    android:layout_gravity="center"
+    app:rv_cornerRadius_TL="@dimen/dp_7"
+    app:rv_cornerRadius_TR="@dimen/dp_7"
+    android:id="@+id/tabBack"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/rlAnchorTabLeft"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/dp_1"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/tvTabLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="东西"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16" />
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/roundLeftLine"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_4"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            app:rv_backgroundColor="@color/text_red_tab"
+            app:rv_backgroundPressColor="@color/text_red_tab"
+            app:rv_cornerRadius="@dimen/dp_2"
+            app:rv_strokeColor="@color/text_red_tab" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="@dimen/dp_1"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginBottom="@dimen/dp_18"
+        android:background="@color/color_EEEEEE" />
+
+    <RelativeLayout
+        android:id="@+id/rlAnchorTabRight"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_1"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTabRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="东西"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/tipTabView"
+            android:layout_width="0.01dp"
+            android:layout_height="0.01dp"
+            android:layout_centerInParent="true" />
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/roundRightLine"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_4"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            app:rv_backgroundColor="@color/text_red_tab"
+            app:rv_backgroundPressColor="@color/text_red_tab"
+            app:rv_cornerRadius="@dimen/dp_2"
+            app:rv_strokeColor="@color/text_red_tab" />
+    </RelativeLayout>
+
+</com.fenghuang.baselib.widget.round.RoundLinearLayout>

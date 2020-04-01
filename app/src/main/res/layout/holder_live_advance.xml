@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_10"
+    android:layout_marginTop="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvAdvanceTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12"
+        tools:text="今天 12月29号" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLiveRoomAdvanceChildren"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"
+        android:layout_marginTop="@dimen/dp_7" />
+</LinearLayout>

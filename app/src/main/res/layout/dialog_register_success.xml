@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="315dp"
+    android:layout_height="380dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:rv_cornerRadius="@dimen/dp_10">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_register_success" />
+
+    <TextView
+        android:id="@+id/tvRegisterKnow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:layout_marginStart="@dimen/dp_35"
+        android:layout_marginTop="278dp"
+        android:layout_marginEnd="@dimen/dp_35"
+        android:background="@drawable/button_background"
+        android:gravity="center"
+        android:text="我知道啦"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_15" />
+
+
+    <TextView
+        android:id="@+id/tvRegisterSetInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvRegisterKnow"
+        android:layout_marginTop="@dimen/dp_15"
+        android:gravity="center"
+        android:padding="@dimen/dp_5"
+        android:text="完善资料"
+        android:textSize="@dimen/sp_14" />
+
+</com.fenghuang.baselib.widget.round.RoundRelativeLayout>

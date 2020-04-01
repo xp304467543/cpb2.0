@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--状态栏-->
+    <View
+        android:id="@+id/statusView"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:background="@color/colorBlackAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/videoContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorBlackAccent"
+        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusView" />
+
+    <master.flame.danmaku.ui.widget.DanmakuView
+        android:id="@+id/viewDanMu"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/videoContainer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLiveRoom"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/linAttention"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoContainer"
+        app:tabBackground="@color/transparent"
+        app:tabIndicatorColor="@color/text_red"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/color_999999" />
+
+    <LinearLayout
+        android:id="@+id/linAttention"
+        android:layout_width="@dimen/dp_75"
+        android:layout_height="@dimen/dp_40"
+        android:background="@drawable/background_gradient"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoContainer">
+
+        <ImageView
+            android:id="@+id/imgAttention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_add" />
+
+        <TextView
+            android:id="@+id/tvAttention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/home_attention"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+    <com.google.android.material.widget.XViewPager
+        android:id="@+id/xViewPageRoomLive"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tabLiveRoom" />
+
+
+    <!-- Svga动画 -->
+    <com.opensource.svgaplayer.SVGAImageView
+        android:id="@+id/svgaImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:autoPlay="true"
+        app:loopCount="1" />
+</androidx.constraintlayout.widget.ConstraintLayout>

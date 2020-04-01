@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mode_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/linPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/tvNewPassOld"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请输入旧密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_88"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+
+            <EditText
+                android:id="@+id/tvNewPass1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请输入新密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_88"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+
+            <EditText
+                android:id="@+id/tvNewPass2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请确认新密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_88"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btModify"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12" />
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/modifyByPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:gravity="center"
+            android:text="手机验证修改"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_12"
+            app:rv_cornerRadius="@dimen/dp_24" />
+
+    </LinearLayout>
+    <!-- ============ 2 ===================== -->
+    <LinearLayout
+        android:id="@+id/mode_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+
+        <LinearLayout
+            android:id="@+id/linPassPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etPhonePass"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请输入手机号"
+                android:inputType="number"
+                android:maxLength="11"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry,TextFields" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/etPhoneSignNum"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp_55"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="请输入验证码"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:paddingStart="@dimen/dp_20"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_16"
+                    tools:ignore="RtlSymmetry,TextFields" />
+
+                <TextView
+                    android:id="@+id/tvGetIdentifyCodePass"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    android:text="发送验证码"
+                    android:textColor="@color/color_FF513E"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btNext"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:background="@drawable/button_background"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/modifyByPass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:gravity="center"
+            android:text="密码修改"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+    <!-- ============ 3 ===================== -->
+    <LinearLayout
+        android:id="@+id/mode_3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/linPassSure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/etPhoneNewPass11"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请输入新密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/etNewPass11Sure"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_55"
+                android:background="@null"
+                android:hint="请确认新密码"
+                android:inputType="textPassword"
+                android:maxLength="18"
+                android:paddingStart="@dimen/dp_20"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_16"
+                tools:ignore="RtlSymmetry" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_f5f5f5" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/btSetPassWord"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            android:background="@drawable/button_background"/>
+
+    </LinearLayout>
+
+</LinearLayout>

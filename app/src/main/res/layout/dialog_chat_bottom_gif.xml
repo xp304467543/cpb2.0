@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius_TL="@dimen/dp_10"
+    app:rv_cornerRadius_TR="@dimen/dp_10">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/chatGifTabView"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginEnd="@dimen/dp_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/transparent"
+        app:tabIndicatorColor="@color/text_red"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/color_999999" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_190"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_10">
+
+        <com.fenghuang.caipiaobao.widget.pagegridview.RollViewPager
+            android:id="@+id/giftViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/loadingView"
+            style="@android:style/Widget.ProgressBar"
+            android:layout_width="@dimen/dp_28"
+            android:layout_height="@dimen/dp_28"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp_25"
+            android:indeterminateDrawable="@drawable/loading_rotate_grey" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/color_EEEEEE" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <ImageView
+            android:id="@+id/imgDiamond"
+            android:layout_width="@dimen/dp_16"
+            android:layout_height="@dimen/dp_12"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_4"
+            android:background="@mipmap/ic_diamond_big"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tvDiamondTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_toEndOf="@+id/imgDiamond"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            tools:ignore="RelativeOverlap"
+            tools:text="3663" />
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tvSvgaGiftSend"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/live_room_send"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            app:rv_backgroundColor="@color/color_FF513E"
+            app:rv_cornerRadius="@dimen/dp_18" />
+
+        <com.fenghuang.baselib.widget.round.RoundLinearLayout
+            android:id="@+id/countLin"
+            android:layout_width="@dimen/dp_140"
+            android:layout_height="@dimen/dp_30"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:rv_cornerRadius="@dimen/dp_15"
+            app:rv_strokeColor="@color/color_FF513E"
+            app:rv_strokeWidth="@dimen/dp_1">
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvGiftMount"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableEnd="@mipmap/ic_top"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="1" />
+
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvGiftSend"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/live_room_send"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="#ff3131"
+                app:rv_cornerRadius_BR="@dimen/dp_15"
+                app:rv_cornerRadius_TR="@dimen/dp_15" />
+
+
+        </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+
+    </RelativeLayout>
+
+</com.fenghuang.baselib.widget.round.RoundLinearLayout>

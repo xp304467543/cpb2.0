@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp_8"
+    tools:ignore="RtlSymmetry">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imgChatUserPhoto"
+        android:layout_width="@dimen/dp_35"
+        android:layout_height="@dimen/dp_35"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="@mipmap/ic_base_user"
+        app:placeholderImageScaleType="centerCrop"
+        app:roundAsCircle="true" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatCons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@drawable/ic_live_chat_background"
+        android:minWidth="@dimen/dp_170"
+        android:minHeight="@dimen/dp_60"
+        android:paddingStart="@dimen/dp_18"
+        android:paddingTop="@dimen/dp_8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgChatUserPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@+id/imgVipLevel"
+            android:layout_width="@dimen/dp_34"
+            android:layout_height="@dimen/dp13"
+            android:layout_marginTop="2dp"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvChatUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:ellipsize="end"
+            android:maxEms="10"
+            android:singleLine="true"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toEndOf="@+id/imgVipLevel"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="委曲求全群群群无啥啥啥" />
+
+        <TextView
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvChatTime"
+            app:layout_constraintStart_toEndOf="@+id/tvChatUserName"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvChatTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="16:38" />
+
+
+        <com.fenghuang.caipiaobao.widget.chat.bean.EmojiconTextView
+            android:id="@+id/tvChatContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:maxWidth="@dimen/dp_280"
+            android:paddingEnd="@dimen/dp_8"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChatUserName"
+            tools:text="好" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

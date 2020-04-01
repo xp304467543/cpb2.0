@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prl_gift_animation_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/bggggg"
+        android:layout_width="240dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@mipmap/gift_bg"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/riv_gift_my_avatar"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:src="@mipmap/ic_launcher"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10"
+        app:roundingBorderWidth="3dp"
+        app:roundingBorderColor="#FE3A4C"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="@mipmap/ic_base_user"
+        app:roundAsCircle="true" />
+
+    <com.fenghuang.caipiaobao.widget.MarqueTextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:text="不懂文诗书dfs"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="#ffffff"
+        android:textSize="13sp"
+        android:layout_marginTop="@dimen/dp_25"
+        app:layout_constraintLeft_toRightOf="@id/riv_gift_my_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_gift_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="送出 弱鸡"
+        android:textColor="#fad262"
+        android:textSize="10sp"
+        android:layout_marginTop="@dimen/dp_12"
+        app:layout_constraintLeft_toRightOf="@id/riv_gift_my_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        tools:ignore="RtlSymmetry,SmallSp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/br"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="tv_user_name,tv_gift_name" />
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_gift_img"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginStart="@dimen/dp_10"
+        app:actualImageScaleType="centerInside"
+        app:layout_constraintStart_toEndOf="@id/br"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tv_gift_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="x1"
+        android:textStyle="italic"
+        android:textColor="#ff9900"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_gift_img"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

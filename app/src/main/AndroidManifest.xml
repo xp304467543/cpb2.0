@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fenghuang.caipiaobao">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <application
+        android:name="com.fenghuang.caipiaobao.app.CaiPiaoBaoApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_logo"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_login_logo"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:targetApi="n">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <!--渠道-->
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_VALUE}" />
+
+
+        <service
+            android:name="com.fenghuang.caipiaobao.services.service.InitDataService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <receiver
+            android:name="com.fenghuang.caipiaobao.ui.receiver.PushTagReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.fenghuang.caipiaobao" />
+            </intent-filter>
+        </receiver>
+
+        <!--极光推送-->
+        <receiver
+            android:name="com.fenghuang.caipiaobao.ui.receiver.PushMessageReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.fenghuang.caipiaobao" />
+            </intent-filter>
+        </receiver>
+
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.fenghuang.caipiaobao.widget.webview.UploadFileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <!-- -================================== Activity =================================================- -->
+
+        <activity
+            android:name="com.fenghuang.caipiaobao.ui.splash.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashAppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.fenghuang.caipiaobao.ui.main.MainActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
+
+        </activity>
+
+        <activity
+            android:name="com.fenghuang.caipiaobao.ui.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.fenghuang.caipiaobao.ui.home.live.LiveRoomActivity"
+            android:configChanges="keyboard|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+            android:name=".ui.personal.UserPersonalPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+
+        <activity
+            android:name=".ui.personal.AnchorPersonalPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity
+            android:name=".ui.personal.ExpertPersonalPage"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity
+            android:name=".ui.mine.children.MineSetPayPassWord"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity
+            android:name=".ui.mine.children.recharge.MineRechargeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity
+            android:name=".ui.mine.children.recharge.MineAddBankCardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity
+            android:name=".ui.mine.children.recharge.MineUserBankCardListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+      <activity android:name=".ui.login.WebActivity"
+          android:screenOrientation="portrait"
+          android:theme="@style/SwipeBackStyle"
+          />
+        <activity android:name=".ui.mine.children.MineInvestFragment"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle" />
+        <activity android:name=".ui.moments.childern.HotCommentOnActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"/>
+    </application>
+
+</manifest>

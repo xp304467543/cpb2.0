@@ -1,0 +1,4 @@
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorRed">
+    <item android:drawable="@drawable/shape_bottom_list_button" />
+</ripple>

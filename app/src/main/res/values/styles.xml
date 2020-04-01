@@ -1,0 +1,174 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="BaseAppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+
+    <style name="SplashAppTheme" parent="AppTheme">
+        <!--<item name="android:windowBackground">@drawable/layer_splash</item>-->
+        <item name="android:windowContentOverlay">@null</item><!--可选-->
+        <item name="android:windowTranslucentStatus">false</item><!--沉浸透明状态栏  可选-->
+        <item name="android:windowBackground">@drawable/splash_bg</item>  <!--闪屏页图片-->//
+    </style>
+
+    <declare-styleable name="CircleProgressView">
+        <attr name="cpv_progressNormalColor" format="color" />
+        <attr name="cpv_progressReachColor" format="color" />
+        <attr name="cpv_progressTextColor" format="color" />
+        <attr name="cpv_progressTextSize" format="dimension" />
+        <attr name="cpv_progressTextOffset" format="dimension" />
+        <attr name="cpv_progressNormalSize" format="dimension" />
+        <attr name="cpv_progressReachSize" format="dimension" />
+        <attr name="cpv_radius" format="dimension" />
+        <attr name="cpv_progressTextVisible" format="boolean" />
+        <attr name="cpv_progressStartArc" format="integer" />
+        <attr name="cpv_progressTextSkewX" format="dimension" />
+        <attr name="cpv_progressTextPrefix" format="string" />
+        <attr name="cpv_progressTextSuffix" format="string" />
+        <attr name="cpv_innerBackgroundColor" format="color" />
+        <attr name="cpv_progressStyle" format="enum">
+            <enum name="Normal" value="0" />
+            <enum name="FillInner" value="1" />
+            <enum name="FillInnerArc" value="2" />
+        </attr>
+        <attr name="cpv_innerProgressColor" format="color" />
+        <attr name="cpv_innerPadding" format="dimension" />
+        <attr name="cpv_outerColor" format="color" />
+        <attr name="cpv_outerSize" format="dimension" />
+        <attr name="cpv_reachCapRound" format="boolean" />
+    </declare-styleable>
+
+    <style name="common_spinner">
+        <!--设置弹窗背景为 系统设置的 应用主色调 在application 的colorPrimay 中配置的颜色, actionBar toolbar 默认使用这个为背景颜色-->
+        <item name="android:popupBackground">@color/white</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <!--设置 spinner 显示位置往下偏移 actionBarSize 的高度, 默认显示是直接显示在 Spinner 的选中项的上方-->
+        <item name="android:dropDownVerticalOffset">?attr/actionBarSize</item>
+        <!--设置选中之后Item 的背景变换 设置背景为 灰色背景色-->
+        <item name="android:dropDownSelector">@color/grey_light</item>
+        <!--设置下拉框的 list 的样式, 主要是设置 分割线, 当然也可以设置下拉的 list 的背景颜色-->
+        <item name="android:dropDownListViewStyle">@style/spinnerListStyle</item>
+        <!--设置显示在 popup 中 item(TextView) 的样式-->
+        <item name="android:dropDownItemStyle">@style/itemSpinnerStyle</item>
+    </style>
+
+    <!--设置分割线-->
+    <style name="spinnerListStyle" parent="@android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#DFDFDF</item>
+        <item name="android:dividerHeight">1dp</item>
+    </style>
+
+    <!--设置文本颜色 和大小-->
+    <style name="itemSpinnerStyle" parent="@android:style/Widget.TextView.SpinnerItem">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!--带输入框 无背景-->
+    <style name="inputDialog" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowFrame">@color/transparent</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item><!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowBackground">@color/transparent</item><!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 模糊 -->
+        <item name="android:windowSoftInputMode">adjustPan|stateVisible</item><!--显示软件盘-->
+    </style>
+
+    <!--带输入框 有背景-->
+    <style name="inputDialogBackGround" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowFrame">@color/transparent</item><!-- 边框 -->
+        <item name="android:windowIsFloating">true</item><!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowBackground">@color/transparent</item><!-- 自己想要的背景 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 模糊 -->
+        <item name="android:windowSoftInputMode">adjustPan|stateVisible</item><!--显示软件盘-->
+    </style>
+
+    <declare-styleable name="OptionView">
+        <attr name="title" format="string" />
+        <attr name="substance" format="string" />
+        <attr name="showDivider" format="boolean" />
+    </declare-styleable>
+
+    <style name="TabText" parent="TextAppearance.AppCompat">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/sp_16</item>
+    </style>
+
+    <declare-styleable name="SpreadView">
+        <!--中心圆颜色-->
+        <attr name="spread_center_color" format="color" />
+        <!--中心圆半径-->
+        <attr name="spread_radius" format="integer" />
+        <!--扩散圆颜色-->
+        <attr name="spread_spread_color" format="color" />
+        <!--扩散间距-->
+        <attr name="spread_distance" format="integer" />
+        <!--扩散最大半径-->
+        <attr name="spread_max_radius" format="integer" />
+        <!--扩散延迟间隔-->
+        <attr name="spread_delay_milliseconds" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="ShadowLayout">
+        <!--阴影的圆角大小-->
+        <attr name="hl_cornerRadius" format="dimension" />
+        <!--阴影的扩散范围(也可以理解为扩散程度)-->
+        <attr name="hl_shadowLimit" format="dimension" />
+        <attr name="hl_shadowColor" format="color" />
+        <attr name="hl_shadowBackColor" format="color" />
+        <attr name="hl_shadowBackColorClicked" format="color" />
+        <!--x轴的偏移量-->
+        <attr name="hl_dx" format="dimension" />
+        <!--y轴的偏移量-->
+        <attr name="hl_dy" format="dimension" />
+        <!--左边是否显示阴影-->
+        <attr name="hl_leftShow" format="boolean" />
+        <!--右边是否显示阴影-->
+        <attr name="hl_rightShow" format="boolean" />
+        <!--上边是否显示阴影-->
+        <attr name="hl_topShow" format="boolean" />
+        <!--下面是否显示阴影-->
+        <attr name="hl_bottomShow" format="boolean" />
+
+    </declare-styleable>
+
+
+    <!-- 拖拽view-->
+    <declare-styleable name="AttachButton">
+        <!--是否需要自动吸边-->
+        <attr name="customIsAttach" format="boolean" />
+        <!--是否可拖曳-->
+        <attr name="customIsDrag" format="boolean" />
+    </declare-styleable>
+
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="AppThemeTransitions">
+        <item name="colorControlHighlight">@color/black</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="BaseDialogAnim" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowEnterAnimation">@anim/dialog_anim_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_anim_out</item>
+    </style>
+</resources>

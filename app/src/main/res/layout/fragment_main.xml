@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        tools:ignore="UselessParent">
+
+        <FrameLayout
+            android:id="@+id/mainContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/viewLine">
+
+        </FrameLayout>
+
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/rg_oder"
+            android:layout_marginBottom="5dp"
+            android:background="#CDF5F5F5" />
+
+
+        <RadioGroup
+            android:id="@+id/rg_oder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_42"
+            android:layout_alignParentBottom="true"
+            android:background="#00000000"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/tabHome"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/button_tab_home"
+                android:gravity="center"
+                android:text="@string/tab_home"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10" />
+
+            <RadioButton
+                android:id="@+id/tabLotteryOpen"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:button="@null"
+                android:checked="false"
+                android:drawableTop="@drawable/button_tab_lottery"
+                android:gravity="center"
+                android:text="@string/tab_lottery"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10" />
+
+
+            <RadioButton
+                android:id="@+id/tabBetting"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:button="@null"
+                android:clipChildren="false"
+                android:gravity="center|bottom"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10" />
+
+            <RadioButton
+                android:id="@+id/tabFriends"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_quiz"
+                android:gravity="center"
+                android:text="@string/tab_quiz"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10" />
+
+            <RadioButton
+                android:id="@+id/tabMine"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="1"
+                android:background="#fff"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_mine"
+                android:gravity="center"
+                android:text="@string/tab_mine"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/imgLotteryBuyTips"
+            android:layout_width="@dimen/dp_148"
+            android:layout_height="@dimen/dp_30"
+            android:layout_above="@+id/rlCenter"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ic_home_lottery_tips"
+            android:visibility="gone"
+            tools:ignore="contentDescription" />
+
+        <RelativeLayout
+            android:id="@+id/rlCenter"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/special_tab_round_bg">
+
+            <ImageView
+                android:id="@+id/img_protruding"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ic_tab"
+                android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

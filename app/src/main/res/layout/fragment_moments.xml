@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:elevation="@dimen/dp_0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
+
+            <View
+                android:id="@+id/stateViewMoment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_scrollFlags="enterAlwaysCollapsed" />
+
+            <ImageView
+                android:id="@+id/skinMoment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_180"
+                android:background="@color/white" />
+
+            <include
+                android:id="@+id/topMoment"
+                layout="@layout/my_top_bar"
+                android:layout_below="@+id/stateViewMoment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <!-- Banner -->
+            <com.pingerx.banner.BannerView
+                android:id="@+id/mMomentsBannerViews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_150"
+                android:layout_below="@+id/topMoment"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@color/transparent"
+                app:bannerAutoLoop="true"
+                app:bannerPageMode="normal"
+                app:bannerSlideAnim="true"
+                app:indicatorSelectRes="@drawable/banner_select_shap"
+                app:indicatorUnSelectRes="@drawable/banner_unselect_shap"
+                app:indicatorVisible="true"
+                tools:ignore="MissingDefaultResource" />
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_30"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/momentsTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:tabBackground="@color/transparent"
+            app:tabIndicatorColor="@color/text_red"
+            app:tabIndicatorFullWidth="false"
+            app:tabRippleColor="@color/transparent"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/color_999999" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_EEEEEE" />
+
+        <com.google.android.material.widget.XViewPager
+            android:id="@+id/xViewPageMoments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:overScrollMode="never" />
+
+
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

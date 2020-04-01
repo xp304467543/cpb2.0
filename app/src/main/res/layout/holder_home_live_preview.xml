@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.caipiaobao.widget.cardview.LCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_140"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_6"
+    android:layout_marginTop="@dimen/dp_2"
+    android:layout_marginBottom="@dimen/dp_2"
+    app:bottomShadowHeight="@dimen/dp_10"
+    app:cornerRadius="@dimen/dp_6"
+    app:elevationAffectShadowSize="true"
+    app:shadowColor="@color/color_f7f7f7"
+    app:shadowStartAlpha="200">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dp_10">
+
+
+        <ImageView
+            android:id="@+id/imgChampion"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_16"
+            android:contentDescription="@string/app_name" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlBorder"
+            android:layout_width="@dimen/dp_90"
+            android:layout_height="@dimen/dp_80"
+            android:layout_centerHorizontal="true"
+            >
+
+           <com.fenghuang.caipiaobao.widget.WaveView
+               android:id="@+id/circleWave"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_centerInParent="true"/>
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivLiveNoticeLogo"
+                android:layout_width="@dimen/dp_50"
+                android:layout_height="@dimen/dp_50"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                app:placeholderImageScaleType="centerCrop"
+                app:placeholderImage="@mipmap/ic_base_user"
+                app:roundAsCircle="true"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@id/tvLiveNoticeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlBorder"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            tools:text="******" />
+
+        <TextView
+            android:id="@id/tvLiveNoticeGameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLiveNoticeName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            tools:text="幸运飞艇" />
+
+        <LinearLayout
+            android:id="@+id/rlDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLiveNoticeGameName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/imgVideo"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_gravity="center_vertical"
+                android:src="@mipmap/ic_home_live_notice"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvLiveNoticeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_4"
+                android:gravity="center"
+                android:textColor="@color/grey_d8"
+                tools:ignore="RtlSymmetry"
+                tools:text="10:10-11:00" />
+        </LinearLayout>
+
+
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tvLiveNoticeAttention"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_26"
+            android:layout_below="@+id/rlDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:elevation="@dimen/dp_3"
+            android:gravity="center"
+            android:text="@string/home_attention"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            app:rv_backgroundColor="@color/color_FF513E"
+            app:rv_cornerRadius="@dimen/dp_13"
+            tools:text="关注" />
+
+    </RelativeLayout>
+</com.fenghuang.caipiaobao.widget.cardview.LCardView>

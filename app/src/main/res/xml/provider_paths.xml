@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <root-path
+        name="images"
+        path="" />
+    <files-path
+        name="images"
+        path="Android/data/" />
+    <external-path
+        name="images"
+        path="Android/data/" />
+    <external-files-path
+        name="images"
+        path="files/Pictures/OriPicture" />
+    <external-path
+        name="external_files"
+        path="." />
+    <!--千万不能删除-->
+    <!--Bugly安装应用查找URI必须-->
+    <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->
+    <external-path
+        name="beta_external_path"
+        path="Download/" />
+    <!--/storage/emulated/0/Android/data/${applicationId}/files/apk/-->
+    <external-path
+        name="beta_external_files_path"
+        path="Android/data/" />
+</paths>

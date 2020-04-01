@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:text="1991-11-11"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/sp_12"
+        android:textColor="@color/color_999999"
+        android:background="@color/color_F5F7FA"
+        android:paddingStart="@dimen/dp_20"
+        tools:ignore="RtlSymmetry" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvBill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never"/>
+</LinearLayout>

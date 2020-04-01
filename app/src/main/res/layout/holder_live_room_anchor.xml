@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_15"
+    android:paddingTop="@dimen/dp_15"
+    android:paddingEnd="@dimen/dp_15">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imgLiveRoomAnchorHolderPhoto"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_base_user"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="@mipmap/ic_base_user"
+        app:placeholderImageScaleType="centerCrop"
+        app:roundAsCircle="true" />
+
+    <TextView
+        android:id="@+id/tvLiveRoomAnchorHolderName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10"
+        android:layout_marginTop="@dimen/dp_2"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toEndOf="@+id/imgLiveRoomAnchorHolderPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="主播昵称" />
+
+    <TextView
+        android:id="@+id/tvLiveRoomAnchorHolderTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp10"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintStart_toEndOf="@+id/imgLiveRoomAnchorHolderPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/tvLiveRoomAnchorHolderName"
+        tools:text="2019 -10 -10 123213" />
+
+    <TextView
+        android:id="@+id/tvLiveRoomAnchorHolderTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLiveRoomAnchorHolderPhoto"
+        tools:text="妈的妈的妈的妈的妈的妈的妈的妈的妈的妈的妈的" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLiveRoomAnchorHolderListImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvLiveRoomAnchorHolderTitle"
+        tools:layout_editor_absoluteX="15dp" />
+
+    <LinearLayout
+        android:id="@+id/linDianZan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rvLiveRoomAnchorHolderListImg"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imgLiveRoomAnchorHolderDianZan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:background="@mipmap/ic_dianzan" />
+
+        <TextView
+            android:id="@+id/tvLiveRoomAnchorHolderDianZan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_11"
+            tools:text="445" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linReply"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_15"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toStartOf="@+id/linDianZan"
+        app:layout_constraintTop_toBottomOf="@id/rvLiveRoomAnchorHolderListImg"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/imgLiveRoomAnchorHolderReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:src="@mipmap/ic_live_reply" />
+
+        <TextView
+            android:id="@+id/tvLiveRoomAnchorHolderReply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_11"
+            tools:text="445" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@color/color_EEEEEE"
+        app:layout_constraintTop_toBottomOf="@+id/linDianZan" />
+</androidx.constraintlayout.widget.ConstraintLayout>

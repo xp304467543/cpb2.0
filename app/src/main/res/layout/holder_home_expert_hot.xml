@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_108"
+    android:layout_marginTop="@dimen/dp_10"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/dp_15"
+    android:paddingEnd="@dimen/dp_0"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius="@dimen/dp_5">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/expertAvatar"
+            android:layout_width="@dimen/dp_48"
+            android:layout_height="@dimen/dp_48"
+            android:layout_marginTop="@dimen/dp_15"
+            android:contentDescription="@string/app_name"
+            app:actualImageScaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderImage="@mipmap/ic_base_user"
+            app:placeholderImageScaleType="centerCrop"
+            app:roundAsCircle="true" />
+
+        <TextView
+            android:id="@+id/tvExpertName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/expertAvatar"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="不懂温世书" />
+
+        <TextView
+            android:id="@+id/tvLotteryTpe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toEndOf="@+id/expertAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpertName"
+            tools:text="重庆时时彩" />
+
+        <TextView
+            android:id="@+id/rtvExpertWinPresent"
+            android:layout_width="@dimen/dp_53"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_11"
+            android:background="@drawable/color_blue"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_9"
+            app:layout_constraintStart_toEndOf="@+id/tvLotteryTpe"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpertName"
+            tools:text="胜率 70%" />
+
+        <TextView
+            android:id="@+id/rtvExpertWinAdd"
+            android:layout_width="@dimen/dp_39"
+            android:layout_height="@dimen/dp_15"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_11"
+            android:background="@drawable/color_orange"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_9"
+            app:layout_constraintStart_toEndOf="@+id/rtvExpertWinPresent"
+            app:layout_constraintTop_toBottomOf="@+id/tvExpertName"
+            tools:text="3 连红" />
+
+
+        <TextView
+            android:id="@+id/tvPercentage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_2"
+            android:text="@string/home_expert_percent"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_25"
+            app:layout_constraintEnd_toStartOf="@+id/tvEnd"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:text="@string/home_expert_percent_1"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:text="@string/home_expert_percent_2"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPercentage" />
+
+
+        <TextView
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_13"
+            android:gravity="center"
+            android:text="@string/home_recommend_ten"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expertAvatar" />
+
+        <LinearLayout
+            android:id="@+id/linTenList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_13"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toEndOf="@+id/expertAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/expertAvatar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.fenghuang.baselib.widget.round.RoundRelativeLayout>

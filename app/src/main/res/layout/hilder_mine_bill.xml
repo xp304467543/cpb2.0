@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="@color/white">
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/imgPhoto"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/dp_15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:placeholderImage="@mipmap/ic_base_user"
+        app:placeholderImageScaleType="fitXY"
+        app:roundAsCircle="true" />
+
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_12"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_14"
+        app:layout_constraintStart_toEndOf="@+id/imgPhoto"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="沙发沙发上" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_9"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintEnd_toStartOf="@+id/tvEnd"
+        app:layout_constraintStart_toEndOf="@+id/imgPhoto"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:ignore="RtlSymmetry"
+        tools:text="沙发沙发上" />
+
+
+    <TextView
+        android:id="@+id/tvEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_16"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGiftName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:textColor="@color/color_999999"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="沙发沙发上" />
+
+
+    <TextView
+        android:id="@+id/tvGiftPrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGiftName"
+        tools:text="沙发沙发上" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:background="@color/color_f5f5f5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/imgPhoto" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

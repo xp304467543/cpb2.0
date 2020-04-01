@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.caipiaobao.widget.VerticalTextView xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/linLuZhuDataItemText"
+android:layout_width="@dimen/dp_24"
+android:orientation="vertical"
+android:minHeight="@dimen/dp_120"
+android:layout_height="wrap_content"
+android:gravity="center_horizontal"/>

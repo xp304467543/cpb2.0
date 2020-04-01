@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_15"
+            android:layout_marginTop="@dimen/dp_8"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_weight="1"
+            android:background="@drawable/button_grey_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/etLiveRoomChat"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingStart="@dimen/dp_12"
+                android:singleLine="true"
+                android:imeOptions="flagNoExtractUi"
+                android:textSize="@dimen/sp_13"
+                tools:ignore="NestedWeights,RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/imgLiveChatEmoji"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/dp_4"
+                android:src="@mipmap/ic_live_emoji" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvSendMessage"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_15"
+            android:background="@drawable/button_grey_background"
+            android:gravity="center"
+            android:text="@string/live_room_send"
+            android:textColor="@color/grey_95" />
+
+    </LinearLayout>
+
+    <com.fenghuang.caipiaobao.widget.chat.MutilEmoticonKeyboard
+        android:id="@+id/dialogEmoticonKeyboards"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</LinearLayout>

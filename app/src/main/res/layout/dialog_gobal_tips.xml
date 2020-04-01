@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:toos="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    toos:ignore="MissingDefaultResource">
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:layout_width="@dimen/dp_316"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="@dimen/dp_12">
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center_horizontal"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold"
+            toos:text="若要进行兑换等消费操作,请联系客服" />
+
+
+        <TextView
+            android:id="@+id/tvContentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone"
+            toos:text="若要进行兑换等消费操作,请联系客服" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:orientation="horizontal">
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:rv_backgroundColor="@color/color_f5f5f5"
+                app:rv_cornerRadius="@dimen/dp_20" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvConfirm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_22"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:rv_backgroundColor="#ff3f30"
+                app:rv_cornerRadius="@dimen/dp_40" />
+        </LinearLayout>
+
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+</RelativeLayout>

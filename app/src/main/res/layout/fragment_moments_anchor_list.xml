@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/smartRefreshLayoutAnchorList"
+    android:background="@color/color_F5F7FA"
+    android:orientation="vertical">
+
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:id="@+id/headerAnchorList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvAnchorList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/PlaceHolder"
+            style="@style/SpinKitView.Circle"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_centerInParent="true"
+            app:SpinKit_Color="@color/color_333333" />
+
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/white"
+            android:visibility="gone"
+            android:textColor="@color/color_999999"
+            android:text="主播暂未发表动态!"/>
+    </RelativeLayout>
+
+
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

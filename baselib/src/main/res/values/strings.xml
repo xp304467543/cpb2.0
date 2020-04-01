@@ -1,0 +1,35 @@
+<resources>
+    <string name="appbar_spring_behavior">com.google.android.material.behavior.AppBarLayoutSpringBehavior</string>
+    <string name="bottom_view_scroll_hide_behavior">com.google.android.material.behavior.BottomViewOnScrollHideBehavior</string>
+
+    <string name="app_loading">加载中..</string>
+    <string name="app_download">下载</string>
+    <string name="app_downloading">正在下载中…</string>
+    <string name="app_waiting">稍等</string>
+    <string name="app_open_market">应用市场</string>
+    <string name="app_no_market_clients">应用市场未安装</string>
+    <string name="app_share_to">分享到</string>
+    <string name="app_share">分享</string>
+    <string name="app_no_share_clients">分享客户端未安装</string>
+    <string name="app_update_least">您已经安装了最新版本</string>
+    <string name="app_update_checking">正在检查升级…</string>
+    <string name="app_update_error">检查新版本失败，请稍后重试</string>
+    <string name="app_recycler_empty">暂无数据</string>
+    <string name="app_recycler_error">网络出了小差，连接失败~</string>
+    <string name="app_click_retry">重新加载</string>
+    <string name="app_desperately_loading">加载中…</string>
+    <string name="app_web_empty">您访问的链接为空，请稍候重试。</string>
+    <string name="app_loading_error">加载发生异常</string>
+    <string name="app_refresh">刷新</string>
+    <string name="app_copy_link">复制链接</string>
+    <string name="app_open_in_browser">在浏览器打开</string>
+    <string name="app_copy_success">复制成功</string>
+    <string name="app_copy_failed">复制失败</string>
+    <string name="app_network_disconnection">当前网络已断开，请检查您的网络。</string>
+
+    <string name="app_tips">温馨提示</string>
+    <string name="app_confirm">确认</string>
+    <string name="app_cancel">取消</string>
+
+
+</resources>

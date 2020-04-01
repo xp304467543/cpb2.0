@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvLotteryType"
+    android:layout_width="@dimen/dp_85"
+    android:layout_height="@dimen/dp_32"
+    android:layout_marginStart="@dimen/dp_10"
+    android:background="@drawable/button_grey_background"
+    android:gravity="center"
+    android:textColor="@color/color_333333"
+    android:textSize="@dimen/sp_14" />

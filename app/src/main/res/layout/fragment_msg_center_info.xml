@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/msgSmartRefreshLayout"
+    android:background="@color/color_F5F7FA">
+
+
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:id="@+id/attentionHead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMsg"
+            android:overScrollMode="never"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/tvHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textSize="@dimen/sp_13"
+            android:visibility="gone"
+            android:textColor="@color/color_333333"
+            android:drawablePadding="@dimen/dp_15"
+            android:drawableTop="@mipmap/ic_zanwuiguanzhu"
+            android:text="当前暂无任何互动消息哦~"/>
+
+    </RelativeLayout>
+
+
+
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

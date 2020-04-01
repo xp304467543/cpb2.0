@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvTitlePass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_100"
+        android:text="请输入支付密码"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_18" />
+
+
+<!--        // 实心输入框-->
+        <com.fenghuang.caipiaobao.widget.SeparatedEditText
+            android:id="@+id/edit_pay_solid"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:inputType="number"
+            app:blockColor="@color/color_f5f5f5"
+            app:blockSpacing="15dp"
+            android:focusable="true"
+            app:corner="5dp"
+            android:background="@color/white"
+            app:cursorColor="@android:color/white"
+            app:cursorDuration="500"
+            app:cursorWidth="3dp"
+            app:maxLength="6"
+            app:password="true"
+            app:separateType="@integer/type_solid"
+            app:textColor="#666666" />
+
+
+    <TextView
+        android:id="@+id/tvSetError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="@dimen/dp_30"
+        android:textColor="@color/text_red"
+        android:textStyle="bold" />
+</LinearLayout>

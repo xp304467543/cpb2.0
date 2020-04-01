@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mp_emoji_panel_viewpager"
+        android:layout_width="fill_parent"
+        android:background="@color/grey_tab"
+        android:paddingTop="@dimen/dp_7"
+        android:layout_height="135dip"
+        android:layout_gravity="center" />
+
+
+    <RadioGroup
+        android:id="@+id/mp_emoji_panel_index"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:gravity="center_horizontal"
+        android:background="@color/grey_tab"
+        android:orientation="horizontal" />
+
+</LinearLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/attentionTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/transparent"
+        app:tabIndicatorColor="@color/text_red"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/color_999999" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_EEEEEE"
+        app:layout_constraintTop_toBottomOf="@+id/attentionTab"/>
+
+    <com.fenghuang.caipiaobao.widget.viewpager.ResolveConflictViewPager
+        android:id="@+id/xViewPageAttention"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/white"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

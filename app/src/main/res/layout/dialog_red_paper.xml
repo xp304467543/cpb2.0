@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="230dp"
+    android:layout_height="@dimen/dp_300">
+
+
+
+
+    <TextView
+        android:id="@+id/imgRedPaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/ic_live_chat_open_red_envelope"
+        android:contentDescription="@string/app_name"
+        android:text="恭喜发财,大吉大利"
+        android:gravity="center_horizontal"
+        android:paddingTop="@dimen/dp_50"
+        android:textColor="#FFE1BB"
+        android:textSize="@dimen/sp_15"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/openRedContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@mipmap/ic_live_chat_open_result">
+
+        <TextView
+            android:id="@+id/tvOpenTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="——— 恭喜获得 ———"
+            android:textColor="#C38063"
+            android:textSize="@dimen/sp_13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout
+            android:id="@+id/linNoGetRed"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="哎呀~"
+                android:textColor="#C38063" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="手速慢了哦,下次要加油呀！"
+                android:textColor="#C38063" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvRedMoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="8.80"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_39"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvOpenTop" />
+
+        <TextView
+            android:id="@+id/endText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_2"
+            android:layout_marginTop="@dimen/dp_46"
+            android:gravity="bottom"
+            android:text="元"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toEndOf="@+id/tvRedMoney"
+            app:layout_constraintTop_toBottomOf="@+id/tvOpenTop" />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/imgRedAvatar"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:layout_marginTop="@dimen/dp_110"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:placeholderImage="@mipmap/ic_base_user"
+            app:roundAsCircle="true"
+            app:roundingBorderColor="#F3BC88"
+            app:roundingBorderWidth="@dimen/dp_2" />
+
+        <TextView
+            android:id="@+id/tvRedPaperOpenName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_36"
+            android:ellipsize="end"
+            android:maxLength="10"
+            android:text="师傅三法师法师傅师傅三法师法三法师法"
+            android:textColor="#FFE1BB"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgRedAvatar" />
+
+        <TextView
+            android:id="@+id/tvRedPaperOpenContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="恭喜发财"
+            android:textColor="#FFE1BB"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRedPaperOpenName" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

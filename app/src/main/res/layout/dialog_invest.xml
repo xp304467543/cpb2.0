@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:layout_width="@dimen/dp_316"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="@dimen/dp_12">
+
+        <TextView
+            android:id="@+id/tvInvestType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16" />
+
+        <com.fenghuang.baselib.widget.round.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginStart="@dimen/dp_36"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_36"
+            app:rv_backgroundColor="@color/color_f7f7f7"
+            app:rv_cornerRadius="@dimen/dp_5">
+
+            <EditText
+                android:id="@+id/etInvestMoney"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:hint="请输入充值金额"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_0"
+                android:textColor="@color/black"
+                android:textColorHint="@color/grey_e6"
+                android:textSize="@dimen/sp_13" />
+        </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_32"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:orientation="horizontal">
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvCancel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:rv_backgroundColor="@color/color_f5f5f5"
+                app:rv_cornerRadius="@dimen/dp_20" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvConfirm"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_marginStart="@dimen/dp_22"
+                android:layout_marginEnd="@dimen/dp_30"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                app:rv_backgroundColor="#ff3f30"
+                app:rv_cornerRadius="@dimen/dp_40" />
+        </LinearLayout>
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+</RelativeLayout>

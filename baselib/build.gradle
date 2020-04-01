@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    // 官方api
+    implementation appcompat
+    implementation material
+    implementation recyclerview
+    implementation constraintlayout
+
+    // kotlin支持
+    implementation kotlin
+
+    // fragment封装处理
+    implementation fragmentation_core
+    implementation fragmentation_swipeback
+
+    // 消息传递
+    implementation rxbus
+    // 屏幕适配
+    implementation autoSize
+
+    // multidex
+    implementation multidex
+
+    // toast
+    implementation toast
+
+    implementation sonic
+    implementation smartrefresh
+
+    implementation 'com.tencent.tbs.tbssdk:sdk:43697'
+
+    api 'com.facebook.fresco:fresco:2.0.0'
+    api 'com.facebook.fresco:animated-base:2.0.0'
+    api 'com.facebook.fresco:animated-gif:2.0.0'
+    api 'com.facebook.fresco:webpsupport:2.0.0'
+    api 'com.facebook.fresco:animated-webp:2.0.0'
+    api 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
+}

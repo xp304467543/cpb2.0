@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/gitView"
+    android:layout_marginTop="@dimen/dp_10"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:text="的是非得失"
+    android:textSize="@dimen/sp_12"
+    android:paddingStart="@dimen/dp_12"
+    android:paddingEnd="@dimen/dp_12"
+    android:paddingTop="@dimen/dp_6"
+    android:paddingBottom="@dimen/dp_6"
+    app:rv_cornerRadius="@dimen/dp_16"
+    app:rv_backgroundColor="#E9F8FF"/>
+

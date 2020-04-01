@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pagerGridContainer"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:background="@drawable/selector_item_view_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/im_item_icon"
+        android:layout_width="70dp"
+        android:layout_height="@dimen/dp_70"
+        app:actualImageScaleType="centerInside"
+        android:gravity="center"
+        app:placeholderImage="@mipmap/ic_placeholder"
+        app:placeholderImageScaleType="fitXY" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/color_333333"
+            android:textSize="12sp" />
+
+        <com.fenghuang.caipiaobao.widget.gif.GifImageView
+            android:id="@+id/ivLiveStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/dp_4"
+            android:visibility="gone"
+            app:end_last_frame="true"
+            app:play_count="1"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

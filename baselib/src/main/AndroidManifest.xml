@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fenghuang.baselib">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application>
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="360" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
+
+        <activity
+            android:name="com.fenghuang.baselib.web.WebActivity"
+            android:theme="@style/SwipeBackStyle" />
+
+        <activity
+            android:name="com.facebook.fresco.helper.photoview.PictureBrowseActivity"
+            android:theme="@style/picture_browse_activity_style"/>
+    </application>
+</manifest>

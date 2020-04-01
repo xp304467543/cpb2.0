@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tvLiveRoomRank"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvLiveRankList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:background="@color/white" />
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spLiveRankLoading"
+        style="@style/SpinKitView.Circle"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        app:SpinKit_Color="@color/grey_e6" />
+
+
+
+        <TextView
+            android:id="@+id/tvRankHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            tools:text="暂无赞赏"
+            android:gravity="center"
+            android:visibility="gone"
+            android:drawablePadding="@dimen/dp10"
+            android:textColor="@color/color_999999"
+            android:drawableTop="@mipmap/ic_zanwudashang"/>
+
+</RelativeLayout>

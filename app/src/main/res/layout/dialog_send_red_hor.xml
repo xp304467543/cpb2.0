@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:rv_backgroundColor="@color/white"
+    android:layout_marginLeft="@dimen/dp_30"
+    android:layout_marginRight="@dimen/dp_30"
+    app:rv_strokeWidth="@dimen/dp_1"
+    app:rv_strokeColor="@color/grey_dd"
+    app:rv_cornerRadius="@dimen/dp_10">
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:rv_cornerRadius="@dimen/dp_10">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ivRedTitle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_56"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_live_chat_red_envelope_title"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/dp_24"
+                android:text="直播间红包"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </RelativeLayout>
+
+
+        <com.fenghuang.baselib.widget.round.RoundLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/ivRedTitle"
+            app:rv_backgroundColor="@color/white"
+            app:rv_backgroundPressColor="@color/white"
+            app:rv_cornerRadius_BL="@dimen/dp_8"
+            app:rv_cornerRadius_BR="@dimen/dp_8">
+
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginStart="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_35"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_5">
+
+                <TextView
+                    android:id="@+id/tvRedTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:text="金额"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <EditText
+                    android:id="@+id/etRedEnvelopeTotal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/tvYuan"
+                    android:layout_toEndOf="@+id/tvRedTotal"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="请填写金额"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:paddingEnd="@dimen/dp_18"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextFields" />
+
+                <TextView
+                    android:id="@+id/tvYuan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:text="元"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginStart="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_35"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_5">
+
+                <TextView
+                    android:id="@+id/tvRedNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:text="个数"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <EditText
+                    android:id="@+id/etRedEnvelopeRedNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@+id/tvGe"
+                    android:layout_toEndOf="@id/tvRedNumber"
+                    android:background="@null"
+                    android:gravity="center_vertical|end"
+                    android:hint="请填写数量"
+                    android:imeOptions="flagNoExtractUi"
+                    android:inputType="number"
+                    android:paddingEnd="@dimen/dp_18"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextFields" />
+
+                <TextView
+                    android:id="@+id/tvGe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:text="个"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:layout_marginStart="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_35"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_5">
+
+                <TextView
+                    android:id="@id/tvRedNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:text="祝福"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <EditText
+                    android:id="@+id/etRedEnvelopeContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/tvRedNumber"
+                    android:background="@null"
+                    android:gravity="center_vertical|right"
+                    android:imeOptions="flagNoExtractUi"
+                    android:maxLength="10"
+                    android:paddingEnd="@dimen/dp_18"
+                    android:singleLine="true"
+                    android:hint="恭喜发财"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_14"
+                    tools:ignore="Autofill,HardcodedText,RtlHardcoded,RtlSymmetry,TextFields" />
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+
+            <Button
+                android:id="@+id/tvRedSend"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_40"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_35"
+                android:layout_marginTop="@dimen/dp_28"
+                android:layout_marginEnd="@dimen/dp_35"
+                android:layout_marginBottom="@dimen/dp_24"
+                android:gravity="center"
+                android:text="发送红包"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14"
+                android:background="@drawable/button_background"/>
+
+        </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+</com.fenghuang.baselib.widget.round.RoundLinearLayout>

@@ -1,0 +1,204 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def properties = rootProject.getPublishProperty()
+def enableTinker = properties["TINKER_ENABLE"].toBoolean()
+if (enableTinker) {
+    apply from: 'tinker-support.gradle'
+}
+
+// versionCode 采用自增处理，详情查看version_code.properties文件，getVersionCode（）方法
+// 在工程主gradle文件上进行定义。该方法只对alpha和beta的release包进行versionCode加一。如果需
+// 要打正式包，需要进行手动更新
+def publishVersionCode = rootProject.getVersionCode()
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+
+    defaultConfig {
+        applicationId "com.fenghuang.caipiaobao"
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+        versionCode Integer.valueOf(publishVersionCode)
+        versionName properties['VERSION_NAME']
+        multiDexEnabled true
+
+        buildConfigField "Boolean", "ENV_SWITCH", properties['ENV_SWITCH']
+        buildConfigField "Boolean", "ENV_LOG", properties['ENV_LOG']
+        buildConfigField "Integer", "ENV_DEVELOP", properties['ENV_DEVELOP']
+        buildConfigField "Boolean", "TINKER_DEVICE", properties['TINKER_DEVICE']
+        dexOptions {
+            javaMaxHeapSize "8g"
+            dexInProcess true // the magic line
+            preDexLibraries false
+        }
+        flavorDimensions("caipiaobao")
+        manifestPlaceholders = [
+                CHANNEL_VALUE: "release",
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "dcb39a1b0d189247d40141db",
+                JPUSH_CHANNEL: "release",
+                MTA_APPKEY   : "AYQRQIG3783J",
+                MTA_CHANNEL  : "release",
+                QQ_ID        : "101548416"
+        ]
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86','armeabi'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        flatDir { dirs 'libs' }
+    }
+    signingConfigs {
+        config {
+            storeFile file(SIGN_FILE)
+            keyAlias SIGN_ALIAS
+            keyPassword SIGN_PASSWORD
+            storePassword SIGN_PASSWORD
+        }
+    }
+
+    // 差异化打包
+    productFlavors {
+        // dimension：Flavors维度，扩展debug和release
+        alpha {
+            dimension "caipiaobao"
+        }
+        beta {
+            dimension "caipiaobao"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            zipAlignEnabled true
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.config
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
+
+    // 打包输出名字
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName = "android_V${variant.versionName}.${variant.versionCode}.apk"
+            }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":baselib")
+    implementation project(":rxnetgo")
+    implementation project(":utakephoto")
+    // 官方api
+    compileOnly appcompat
+    compileOnly material
+    compileOnly constraintlayout
+    compileOnly smartrefresh
+
+
+    compileOnly gson
+    compileOnly okhttp3
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
+    compileOnly autoSize
+    compileOnly rxbus
+    compileOnly rxandroid2
+
+    implementation kotlin
+    implementation ktx
+    implementation coroutines
+    implementation kotlinx
+    // 一个Activity多Fragment
+    implementation fragmentation_core
+    implementation fragmentation_swipeback
+
+    // Rx权限
+    implementation rxpermissions
+    implementation permission
+
+    // 悬浮头
+    implementation stickyheader
+    // webSocket
+    implementation webSocket
+
+    // 播放器
+    implementation DanmakuFlameMaster
+    implementation ndkbitmap_armv7a
+//    implementation ijkplayer
+//    implementation easy_player_armv7a
+
+    // banner
+    implementation bannerview
+
+    // bugly
+    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9
+    implementation 'com.tencent.bugly:nativecrashreport:3.7.1' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
+    // 推送
+    implementation jiguang_jpush
+    implementation jiguang_jcore
+//    // 图片加载
+//    implementation imagego_glide
+    // 阿里巴巴UI
+    implementation YCBaseAdapter
+    implementation('com.alibaba.android:vlayout:1.2.8@aar') {
+        transitive = true
+    }
+
+    api x5WebView
+
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+
+    //条件选择器
+    implementation 'com.github.zyyoona7:pickerview:1.0.9'
+
+    implementation 'com.github.yyued:SVGAPlayer-Android:2.5.2'
+
+
+    implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.4'
+    //阿里云播放器
+    api project(':playerlibrary')
+    implementation(name: 'AlivcPlayer-3.4.6', ext: 'aar')
+    implementation(name: 'AliyunVodPlayer-3.4.6', ext: 'aar')
+    implementation(name: 'AlivcReporter-1.2', ext: 'aar')
+    implementation(name: 'hipraiseanimationlib', ext: 'aar')
+}
+
+afterEvaluate {
+    // 如果开启Tinker，就把这个关掉
+    if (!enableTinker) {
+        delete 'build/bakApk'
+    }
+}
+
+androidExtensions {
+    experimental = true
+}

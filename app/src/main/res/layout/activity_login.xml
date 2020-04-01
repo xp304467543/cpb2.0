@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imgLoginClose"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:padding="@dimen/dp_17"
+        android:src="@mipmap/ic_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tvRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_50"
+        android:gravity="center"
+        android:paddingStart="@dimen/dp_17"
+        android:paddingEnd="@dimen/dp_17"
+        android:text="@string/register_now"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_46"
+        android:background="@mipmap/ic_login_logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgLoginClose"
+        tools:ignore="ContentDescription" />
+
+
+    <!-- 登录 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+        <EditText
+            android:id="@+id/etLoginPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="@string/login_phone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPhone" />
+        <!-- 密码登录 -->
+        <EditText
+            android:id="@+id/etLoginPassWord"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:digits="@string/password_rule"
+            android:hint="@string/login_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPhone"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/tvForgetPassWord"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:gravity="center"
+            android:text="@string/login_forget_password"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPhone" />
+
+        <View
+            android:id="@+id/linTwo"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etLoginPassWord" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvLoginIn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@drawable/button_background"
+            android:elevation="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/login_in"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/linTwo" />
+
+        <TextView
+            android:id="@+id/tvLoginWithMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/login_with_identify"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLoginIn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!-- 注册 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerLoginRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+        <EditText
+            android:id="@+id/etRegisterPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="@string/login_phone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etRegisterPhone" />
+
+
+        <EditText
+            android:id="@+id/etRegisterIdentify"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="@string/login_profile"
+            android:inputType="number"
+            android:maxLength="4"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/etRegisterPhone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterIdentify" />
+
+        <EditText
+            android:id="@+id/etRegisterPassWord"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="@string/login_password"
+            android:importantForAutofill="no"
+            android:digits="@string/password_rule"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/etRegisterIdentify"
+            tools:ignore="TextFields" />
+
+        <View
+            android:id="@+id/linLast"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etRegisterPassWord" />
+
+        <TextView
+            android:id="@+id/tvRegisterIdentify"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:gravity="center"
+            android:text="@string/login_get_profile"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etRegisterPhone" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvRegisterIn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@drawable/button_background"
+            android:elevation="@dimen/dp_5"
+            android:gravity="center"
+            android:text="@string/login_register_finish"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/linLast" />
+
+        <TextView
+            android:id="@+id/tvLContactCustomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="@string/login_contact_customer"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvRegisterIn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- 忘记密码 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerForget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+        <EditText
+            android:id="@+id/etForgetPhone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="@string/login_phone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etForgetPhone" />
+        <!-- 联系客服 -->
+        <EditText
+            android:id="@+id/etForgetPassWord"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="输入验证码"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="8"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/etForgetPhone"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:id="@+id/tvForget"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etForgetPhone" />
+
+        <View
+            android:id="@+id/linTwoForget"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etForgetPassWord" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvForgetIn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@drawable/button_background"
+            android:elevation="@dimen/dp_5"
+            android:gravity="center"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/linTwoForget" />
+
+        <TextView
+            android:id="@+id/tvForgetWithMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="客服帮助"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvForgetIn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- 修改密码 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/containerChange"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_80"
+        app:layout_constraintTop_toBottomOf="@+id/imgLogo">
+
+        <EditText
+            android:id="@+id/etChange1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="请输入密码"
+            android:importantForAutofill="no"
+            android:digits="@string/password_rule"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="TextFields" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etChange1" />
+        <!-- 联系客服 -->
+        <EditText
+            android:id="@+id/etChange2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@null"
+            android:hint="请确认密码"
+            android:importantForAutofill="no"
+            android:digits="@string/password_rule"
+            android:inputType="textPassword"
+            android:maxLength="15"
+            android:textColor="@color/black"
+            android:textColorHint="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/etChange1"
+            tools:ignore="TextFields" />
+
+        <View
+            android:id="@+id/linTwoChange"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@color/color_EEEEEE"
+            app:layout_constraintTop_toBottomOf="@+id/etChange2" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tvChangeIn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginStart="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_30"
+            android:background="@drawable/button_background"
+            android:elevation="@dimen/dp_5"
+            android:gravity="center"
+            android:text="修改"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintTop_toBottomOf="@+id/linTwoChange" />
+
+        <TextView
+            android:id="@+id/tvChangeInWithMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="客服帮助"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvChangeIn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tvLoginDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginBottom="@dimen/dp_15"
+        android:gravity="bottom"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

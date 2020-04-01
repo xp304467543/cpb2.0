@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:elevation="@dimen/dp_5"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/webDialogClose"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp_15"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:textColor="@color/grey_95"
+            android:text="@string/close"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16"
+            android:text="@string/letter"/>
+    </RelativeLayout>
+
+    <com.fenghuang.baselib.web.utils.ZpWebView
+        android:id="@+id/dialogWeb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"/>
+
+
+
+</LinearLayout>

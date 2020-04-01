@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/rlAddBankItem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_70"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:drawableStart="@mipmap/ic_ming_add"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center"
+                android:text="添加银行卡"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/arrow_right"
+                android:contentDescription="@string/app_name" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_f5f5f5" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlBankItem"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_80"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            android:visibility="gone">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgBankItem"
+                android:layout_width="@dimen/dp_36"
+                android:layout_height="@dimen/dp_36"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_toEndOf="@+id/imgBankItem"
+                android:orientation="vertical"
+                tools:ignore="RelativeOverlap">
+
+                <TextView
+                    android:id="@+id/tvBankNameItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/tvBankCodeItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_4"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/arrow_right"
+                android:contentDescription="@string/app_name" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_f5f5f5" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="提现金额"
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/sp_12" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20">
+
+            <TextView
+                android:id="@+id/tvFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingTop="@dimen/dp_8"
+                android:text="￥"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_18" />
+
+            <EditText
+                android:id="@+id/etGetMoneyToBank"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_9"
+                android:layout_toEndOf="@+id/tvFirst"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:maxLength="6"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_30" />
+
+            <TextView
+                android:id="@+id/tvGetMoneyAll"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="全部提现"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="RelativeOverlap" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_alignParentBottom="true"
+                android:background="@color/color_f5f5f5" />
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btUserGetCash"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_46"
+            android:layout_marginStart="@dimen/dp_34"
+            android:layout_marginTop="@dimen/dp_86"
+            android:layout_marginEnd="@dimen/dp_34"
+            android:gravity="center"
+            android:text="提现"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            android:background="@drawable/button_background" />
+    </LinearLayout>
+
+</RelativeLayout>

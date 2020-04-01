@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/lotteryTab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/transparent"
+        app:tabIndicatorColor="@color/text_red"
+        app:tabIndicatorFullWidth="false"
+        app:tabRippleColor="@color/transparent"
+        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/color_999999" />
+
+
+    <com.google.android.material.widget.XViewPager
+        android:id="@+id/xViewPage"
+        android:layout_width="@dimen/dp_0"
+        android:layout_height="@dimen/dp_0"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lotteryTab" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

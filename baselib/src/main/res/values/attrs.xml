@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--自定义主题属性-->
+    <attr name="colorWhite" format="color" />
+    <attr name="colorBlack" format="color" />
+    <attr name="toolbarBackground" format="color" />
+    <attr name="toolbarForeground" format="color" />
+
+    <!--谷歌下拉头属性-->
+    <declare-styleable name="MaterialHeader">
+        <attr name="mhPrimaryColor" format="color" />
+        <attr name="mhShadowColor" format="color" />
+        <attr name="mhShadowRadius" format="dimension" />
+        <attr name="mhShowBezierWave" format="boolean" />
+    </declare-styleable>
+
+
+    <!--圆角布局属性-->
+    <!-- 圆角矩形背景色 -->
+    <attr name="rv_backgroundColor" format="color" />
+    <!-- 圆角矩形背景色press -->
+    <attr name="rv_backgroundPressColor" format="color" />
+    <!-- 圆角弧度,单位dp-->
+    <attr name="rv_cornerRadius" format="dimension" />
+    <!-- 圆角弧度,单位dp-->
+    <attr name="rv_strokeWidth" format="dimension" />
+    <!-- 圆角边框颜色-->
+    <attr name="rv_strokeColor" format="color" />
+    <!-- 圆角边框颜色press -->
+    <attr name="rv_strokePressColor" format="color" />
+    <!-- 文字颜色press-->
+    <attr name="rv_textPressColor" format="color" />
+    <!-- 圆角弧度是高度一半-->
+    <attr name="rv_isRadiusHalfHeight" format="boolean" />
+    <!-- 圆角矩形宽高相等,取较宽高中大值-->
+    <attr name="rv_isWidthHeightEqual" format="boolean" />
+    <!-- 圆角弧度,单位dp,TopLeft-->
+    <attr name="rv_cornerRadius_TL" format="dimension" />
+    <!-- 圆角弧度,单位dp,TopRight-->
+    <attr name="rv_cornerRadius_TR" format="dimension" />
+    <!-- 圆角弧度,单位dp,BottomLeft-->
+    <attr name="rv_cornerRadius_BL" format="dimension" />
+    <!-- 圆角弧度,单位dp,BottomRight-->
+    <attr name="rv_cornerRadius_BR" format="dimension" />
+    <!-- 是否有Ripple效果,api21+有效-->
+    <attr name="rv_isRippleEnable" format="boolean" />
+
+    <declare-styleable name="RoundTextView">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_textPressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundLinearLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundRelativeLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <declare-styleable name="RoundFrameLayout">
+        <attr name="rv_backgroundColor" />
+        <attr name="rv_backgroundPressColor" />
+        <attr name="rv_cornerRadius" />
+        <attr name="rv_strokeWidth" />
+        <attr name="rv_strokeColor" />
+        <attr name="rv_strokePressColor" />
+        <attr name="rv_isRadiusHalfHeight" />
+        <attr name="rv_isWidthHeightEqual" />
+        <attr name="rv_cornerRadius_TL" />
+        <attr name="rv_cornerRadius_TR" />
+        <attr name="rv_cornerRadius_BL" />
+        <attr name="rv_cornerRadius_BR" />
+        <attr name="rv_isRippleEnable" />
+    </declare-styleable>
+
+    <!--圆形图像-->
+    <declare-styleable name="CircleImageView">
+        <attr name="civ_border_width" format="dimension" />
+        <attr name="civ_border_color" format="color" />
+        <attr name="civ_border_overlay" format="boolean" />
+        <attr name="civ_circle_background_color" format="color" />
+    </declare-styleable>
+
+    <!--圆角图像-->
+    <declare-styleable name="RoundImageView">
+        <attr name="riv_borderWidth" format="dimension|reference" />
+        <attr name="riv_borderColor" format="color|reference" />
+        <attr name="riv_radius" format="dimension|reference" />
+        <attr name="riv_leftTopRadius" format="dimension|reference" />
+        <attr name="riv_rightTopRadius" format="dimension|reference" />
+        <attr name="riv_rightBottomRadius" format="dimension|reference" />
+        <attr name="riv_leftBottomRadius" format="dimension|reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="leftViewId" format="reference|integer" />
+        <attr name="rightViewId" format="reference|integer" />
+        <attr name="contentViewId" format="reference|integer" />
+    </declare-styleable>
+</resources>

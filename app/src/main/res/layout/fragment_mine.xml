@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:overScrollMode="never">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgChangeDiamon"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_206"
+            android:background="@mipmap/ic_mine_top"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--状态栏-->
+        <View
+            android:id="@+id/statusViewMine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:background="@color/transparent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!-- 未登录-->
+        <RelativeLayout
+            android:id="@+id/containerNoLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/statusViewMine">
+
+            <TextView
+                android:id="@+id/tvWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mine_welcome"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_20"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvWelcome"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="@string/mine_login_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_14" />
+
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvLogin"
+                android:layout_width="@dimen/dp_68"
+                android:layout_height="@dimen/dp_32"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/login_in"
+                android:textColor="@color/color_FF513E"
+                app:rv_backgroundColor="@color/white"
+                app:rv_cornerRadius="@dimen/dp_16" />
+
+        </RelativeLayout>
+
+        <!-- 已登录 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintTop_toBottomOf="@+id/statusViewMine">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/imgMineUserAvatar"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
+                android:layout_marginTop="@dimen/dp_15"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:placeholderImage="@mipmap/ic_base_user"
+                app:roundAsCircle="true"
+                app:actualImageScaleType="focusCrop"
+                app:roundingBorderColor="@color/white"
+                app:roundingBorderWidth="@dimen/dp_3" />
+
+            <TextView
+                android:id="@+id/tvMineUserNickName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:textColor="@color/ffffff"
+                android:textSize="@dimen/sp_18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgMineUserAvatar"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="用户名" />
+
+            <ImageView
+                android:id="@+id/imgMineLevel"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/tvMineUserNickName"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvMineUserId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:paddingStart="@dimen/dp_5"
+                android:paddingEnd="@dimen/dp_5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintStart_toEndOf="@+id/imgMineUserAvatar"
+                app:layout_constraintTop_toBottomOf="@+id/tvMineUserNickName"
+                app:rv_backgroundColor="#4DFFE1AC"
+                app:rv_cornerRadius="@dimen/dp_9"
+                tools:text="ID: 45555555" />
+
+            <TextView
+                android:id="@+id/tvMineUserOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:textColor="@color/ffffff"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintStart_toEndOf="@+id/imgMineUserAvatar"
+                app:layout_constraintTop_toBottomOf="@+id/tvMineUserId"
+                tools:text="6关注  |  80粉丝  |  46获赞" />
+
+            <TextView
+                android:id="@+id/tvMineProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_5"
+                android:maxLines="1"
+                android:maxEms="18"
+                android:ellipsize="end"
+                android:text="@string/mine_say_some"
+                android:textColor="@color/ffffff"
+                android:textSize="@dimen/sp_12"
+                app:layout_constraintStart_toStartOf="@+id/tvMineUserOther"
+                app:layout_constraintTop_toBottomOf="@+id/tvMineUserOther" />
+
+
+            <ImageView
+                android:id="@+id/imgPersonal"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
+                android:src="@mipmap/arraw_right_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.fenghuang.caipiaobao.widget.cardview.LCardView
+            android:id="@+id/lContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_88"
+            android:layout_marginStart="@dimen/dp12"
+            android:layout_marginTop="@dimen/dp_150"
+            android:layout_marginEnd="@dimen/dp12"
+            app:cornerRadius="@dimen/dp_6"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/dp_15"
+                android:paddingEnd="@dimen/dp_15">
+
+                <TextView
+                    android:id="@+id/tvFirst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/mine_balance"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/mine_base_balance"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/sp_22"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFirst" />
+
+                <TextView
+                    android:id="@+id/tvRefreshMooney"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:background="@drawable/color_yellow_round"
+                    android:gravity="center"
+                    android:text="@string/mine_refresh"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_11"
+                    app:layout_constraintEnd_toEndOf="@+id/mineViewLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/mineViewLine"
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    android:background="@color/color_F5F7FA"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="@string/mine_diamond"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_12"
+                    app:layout_constraintStart_toStartOf="@+id/mineViewLine"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvDiamondBalance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:text="@string/mine_diamond_balance"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/sp_22"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/mineViewLine"
+                    app:layout_constraintTop_toBottomOf="@+id/tvFirst" />
+
+                <TextView
+                    android:id="@+id/tvChangeDiamond"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:background="@drawable/color_orange_round"
+                    android:gravity="center"
+                    android:text="@string/mine_exchange"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_11"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.fenghuang.caipiaobao.widget.cardview.LCardView>
+
+
+        <TextView
+            android:id="@+id/tvDepositMoney"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:drawableTop="@mipmap/ic_mine_deposit"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/mine_deposit"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lContainer" />
+
+
+        <TextView
+            android:id="@+id/tvDrawMoney"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:drawableTop="@mipmap/ic_mine_wallet"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/mine_draw_money"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lContainer" />
+
+
+        <TextView
+            android:id="@+id/tvAttention"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_40"
+            android:drawableTop="@mipmap/ic_mine_attention"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/mine_attention"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lContainer" />
+        <!-- 消息中心 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerMessageCenter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginTop="@dimen/dp_20"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/tvDepositMoney">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20">
+
+                    <ImageView
+                        android:id="@+id/imgMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@mipmap/ic_mine_massage"
+                        android:contentDescription="@string/app_name" />
+
+                    <com.fenghuang.baselib.widget.round.RoundTextView
+                        android:id="@+id/tvDian"
+                        android:layout_width="@dimen/dp_5"
+                        android:layout_height="@dimen/dp_5"
+                        android:layout_alignParentEnd="true"
+                        app:rv_cornerRadius="@dimen/dp_30"
+                        android:visibility="gone"
+                        app:rv_backgroundColor="@color/text_red"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_msg_center"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/tvNewMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:textColor="@color/color_FF513E"
+                    android:visibility="gone"
+                    android:textSize="@dimen/sp_13"
+                    android:text="有新消息"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 我的账单 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerMineCheck"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerMessageCenter">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgCheck"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_check_menu"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/app_name"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_my_check"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 主题皮肤 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerMainSkin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerMineCheck">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgSkin"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_skin"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_skin"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 主播招募 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerAnchorGet"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerMainSkin">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgAnchor"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_anchor_get"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_anchor_get"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- 意见反馈 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerFeedBack"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerAnchorGet">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgFeedBack"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_suggest"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_feed_back"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 联系客服 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerContactCustomer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerFeedBack">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgCustomer"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_customer"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/mine_contact_customer"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- 设置 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/containerSetting"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:paddingStart="@dimen/dp_20"
+            android:paddingEnd="@dimen/dp_20"
+            app:layout_constraintTop_toBottomOf="@+id/containerContactCustomer">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/imgSetting"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"
+                    android:background="@mipmap/ic_mine_setting"
+                    android:contentDescription="@string/app_name" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/ic_mine_setting"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_13" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/arrow_right"
+                    android:contentDescription="@string/app_name" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginStart="@dimen/dp_30"
+                android:background="@color/color_f5f5f5"
+                app:layout_constraintBottom_toBottomOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
