@@ -23,7 +23,7 @@ object IntentConstant {
 
     const val LIVE_ROOM_ONLINE = "LIVE_ROOM_ONLINE" //在线人数
 
-
+    const val LIVE_ROOM_LOTTERY_TYPE = "LIVE_ROOM_LOTTERY_TYPE" //彩种
 
 
     //充值

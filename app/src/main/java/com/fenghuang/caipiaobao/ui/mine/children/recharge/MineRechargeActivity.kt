@@ -58,7 +58,7 @@ class MineRechargeActivity : BaseNavActivity() {
     private fun setFragmentViewPager() {
         val fragments = arrayListOf<BaseFragment>(
                 MineRechargeItemFragment(),
-                MineRechargeCashOutFragment(tvCountBalance.text.toString())
+                MineRechargeCashOutFragment.newInstance(tvCountBalance.text.toString())
         )
         val adapter = BaseFragmentPageAdapter(supportFragmentManager, fragments)
         viewPager.adapter = adapter

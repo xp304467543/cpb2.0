@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine.children
 
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineMessageCenter
 import com.fenghuang.caipiaobao.ui.moments.childern.CommentOnFragment
+import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
@@ -26,7 +28,8 @@ import kotlinx.android.synthetic.main.fragment_msg_center_info.*
  *
  */
 
-class MineMessageCenterInfoFragment(var type: Int, var data: List<MineMessageCenter>?) : BaseNavFragment() {
+@Suppress("UNCHECKED_CAST")
+class MineMessageCenterInfoFragment : BaseNavFragment() {
 
     private lateinit var adapter1: Adapter1
 
@@ -47,8 +50,11 @@ class MineMessageCenterInfoFragment(var type: Int, var data: List<MineMessageCen
         msgSmartRefreshLayout.setEnableLoadMore(false)//是否启用上拉加载功能
         msgSmartRefreshLayout.setEnableOverScrollBounce(true)//是否启用越界回弹
         msgSmartRefreshLayout.setEnableOverScrollDrag(true)//是否启用越界拖动（仿苹果效果）
-
-        when (type) {
+        var data:Array<MineMessageCenter>?=null
+        if (arguments?.getSerializable("msgData") != null) {
+            data = arguments?.getSerializable("msgData") as Array<MineMessageCenter>
+        }
+        when (arguments?.getInt("msgType", 0)) {
             0 -> {
                 setPageTitle("互动消息")
                 adapter1 = Adapter1()
@@ -98,23 +104,27 @@ class MineMessageCenterInfoFragment(var type: Int, var data: List<MineMessageCen
 
             override fun onItemClick(data: MineMessageCenter) {
                 showPageLoadingDialog()
-                if (data.apiType == "1"){
-                    MineApi.getAnchorMoments(data.dynamic_id){
+                if (data.apiType == "1") {
+                    MineApi.getAnchorMoments(data.dynamic_id) {
                         onSuccess {
                             LaunchUtils.jumpAnchor(context, it[0])
                             hidePageLoadingDialog()
                         }
-                        onFailed { ToastUtils.show("获取数据失败")
-                            hidePageLoadingDialog()}
-                    }
-                }else if (data.apiType == "2"){
-                    MineApi.getHotDiscussSingle(data.dynamic_id){
-                        onSuccess {
-                            LaunchUtils.startFragment(context,CommentOnFragment(it))
+                        onFailed {
+                            ToastUtils.show("获取数据失败")
                             hidePageLoadingDialog()
                         }
-                        onFailed { ToastUtils.show("获取数据失败")
-                            hidePageLoadingDialog()}
+                    }
+                } else if (data.apiType == "2") {
+                    MineApi.getHotDiscussSingle(data.dynamic_id) {
+                        onSuccess {
+                            LaunchUtils.startFragment(context, CommentOnFragment.newInstance(it))
+                            hidePageLoadingDialog()
+                        }
+                        onFailed {
+                            ToastUtils.show("获取数据失败")
+                            hidePageLoadingDialog()
+                        }
                     }
 
                 }
@@ -140,7 +150,7 @@ class MineMessageCenterInfoFragment(var type: Int, var data: List<MineMessageCen
                 webView.settings.textZoom = 80
                 webView.setBackgroundColor(0)
                 setText(R.id.tvTime, data.createtime_txt)
-                when (type) {
+                when (arguments?.getInt("msgType", 0)) {
                     2 -> setImageResource(findView(R.id.imgType), R.mipmap.ic_message_xt)
                     1 -> setImageResource(findView(R.id.imgType), R.mipmap.ic_message_gf)
                 }
@@ -149,4 +159,14 @@ class MineMessageCenterInfoFragment(var type: Int, var data: List<MineMessageCen
         }
     }
 
+    companion object {
+        fun newInstance(type: Int, data: List<MineMessageCenter>?): MineMessageCenterInfoFragment {
+            val fragment = MineMessageCenterInfoFragment()
+            val bundle = Bundle()
+            bundle.putInt("msgType", type)
+            bundle.putSerializable("msgData", data?.toTypedArray())
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }

@@ -40,9 +40,9 @@ class NewsFragment : BaseMvpFragment<NewsFragmentPresenter>() {
         newsTab.addTab(newsTab.newTab().setText("活动"))
         newsTab.addTab(newsTab.newTab().setText("公告"))
         newsTab.addTab(newsTab.newTab().setText("咨询"))
-        val list = arrayListOf<BaseFragment>(ChildNewsPublicFragment(""),
-                ChildNewsPublicFragment("1"), ChildNewsPublicFragment("2"),
-                ChildNewsPublicFragment("3"), ChildNewsPublicFragment("4"))
+        val list = arrayListOf<BaseFragment>(ChildNewsPublicFragment.newInstance(""),
+                ChildNewsPublicFragment.newInstance("1"), ChildNewsPublicFragment.newInstance("2"),
+                ChildNewsPublicFragment.newInstance("3"), ChildNewsPublicFragment.newInstance("4"))
         xViewPage.adapter = BaseFragmentPageAdapter(childFragmentManager, list)
         xViewPage.offscreenPageLimit = 5
 

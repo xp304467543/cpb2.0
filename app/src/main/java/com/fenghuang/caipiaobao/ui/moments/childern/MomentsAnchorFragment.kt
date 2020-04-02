@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.moments.childern
 
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_moments_anchor_list.*
  *
  */
 
-class MomentsAnchorFragment(var anchor_id: String, var isChild: Boolean = false) : BaseMvpFragment<MomentsAnchorPresenter>() {
+class MomentsAnchorFragment : BaseMvpFragment<MomentsAnchorPresenter>() {
 
     var page = 1
 
@@ -36,9 +37,9 @@ class MomentsAnchorFragment(var anchor_id: String, var isChild: Boolean = false)
     }
 
     override fun initData() {
-        if (!isChild) {
-            mPresenter.getAnchorList(anchor_id, true)
-        } else mPresenter.getAnchorDynamic(anchor_id, true)
+        if (!arguments?.getBoolean("isChild")!!) {
+            mPresenter.getAnchorList(arguments?.getString("anchor_id")?:"0", true)
+        } else mPresenter.getAnchorDynamic(arguments?.getString("anchor_id")?:"0", true)
 
     }
 
@@ -46,17 +47,26 @@ class MomentsAnchorFragment(var anchor_id: String, var isChild: Boolean = false)
         smartRefreshLayoutAnchorList.setOnRefreshListener {
             this.page = 1
             if (anchorListAdapter != null) anchorListAdapter?.clear()
-            if (!isChild) {
-                mPresenter.getAnchorList(anchor_id, false)
-            } else mPresenter.getAnchorDynamic(anchor_id, false)
+            if (!arguments?.getBoolean("isChild")!!) {
+                mPresenter.getAnchorList(arguments?.getString("anchor_id")?:"0", false)
+            } else mPresenter.getAnchorDynamic(arguments?.getString("anchor_id")?:"0", false)
             anchorListAdapter?.isShowFooter = false
         }
         smartRefreshLayoutAnchorList.setOnLoadMoreListener {
             this.page++
-            if (!isChild) {
-                mPresenter.getAnchorList(anchor_id, false)
-            } else mPresenter.getAnchorDynamic(anchor_id, false)
+            if (!arguments?.getBoolean("isChild")!!) {
+                mPresenter.getAnchorList(arguments?.getString("anchor_id")?:"0", false)
+            } else mPresenter.getAnchorDynamic(arguments?.getString("anchor_id")?:"0", false)
         }
     }
-
+    companion object{
+        fun newInstance(anchor_id: String,isChild:Boolean=false): MomentsAnchorFragment {
+            val fragment = MomentsAnchorFragment()
+            val bundle = Bundle()
+            bundle.putString("anchor_id", anchor_id)
+            bundle.putBoolean("isChild", isChild)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }

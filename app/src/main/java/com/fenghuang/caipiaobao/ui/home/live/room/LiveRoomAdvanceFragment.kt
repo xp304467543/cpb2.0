@@ -1,9 +1,11 @@
 package com.fenghuang.caipiaobao.ui.home.live.room
 
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAdvanceList
 import com.fenghuang.caipiaobao.ui.home.data.UpDateAttention
 import com.fenghuang.caipiaobao.ui.home.data.UpDatePreView
@@ -19,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_child_live_advance.*
  *
  */
 
-class LiveRoomAdvanceFragment(private val anchorId: String, private val type: String) : BaseMvpFragment<LiveRoomAdvancePresenter>() {
+class LiveRoomAdvanceFragment : BaseMvpFragment<LiveRoomAdvancePresenter>() {
 
     var adapter: LiveRoomAdvanceAdapter? = null
 
@@ -32,7 +34,7 @@ class LiveRoomAdvanceFragment(private val anchorId: String, private val type: St
     override fun isRegisterRxBus() = true
 
     override fun initData() {
-        mPresenter.getAllData(type)
+        mPresenter.getAllData(arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, "") ?: "")
     }
 
     fun initAdvanceRecycle(data: ArrayList<HomeLiveAdvanceList>) {
@@ -70,10 +72,20 @@ class LiveRoomAdvanceFragment(private val anchorId: String, private val type: St
         if (isVisible) {
             adapter?.clear()
             tvLiveRoomAdvance.removeAllViews()
-            mPresenter.getAllData(type)
+            mPresenter.getAllData(arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, "") ?: "")
         }
 
     }
 
+    companion object {
+        fun newInstance(anchorId: String, type: String): LiveRoomAdvanceFragment {
+            val fragment = LiveRoomAdvanceFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_ID, anchorId)
+            bundle.putString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, type)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
 }

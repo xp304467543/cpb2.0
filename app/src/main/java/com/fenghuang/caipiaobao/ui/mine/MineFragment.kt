@@ -220,7 +220,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             if (FastClickUtils.isFastClick()) {
                 setGone(tvNewMsg)
                imgMessage.background = ViewUtils.getDrawable(R.mipmap.ic_mine_massage)
-                LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment(msg1, msg2, msg3))
+                LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment.newInstance(msg1, msg2, msg3))
             }
         }
 

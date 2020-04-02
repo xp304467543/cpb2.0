@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.mine.children.recharge
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.lottery.children.LotteryBaseFragment
 import com.fenghuang.caipiaobao.ui.mine.data.MineSaveBank
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateBank
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateMoney
@@ -30,10 +32,10 @@ import java.math.BigDecimal
  *
  */
 
-class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRechargeCashOutPresenter>() {
+class MineRechargeCashOutFragment : BaseMvpFragment<MineRechargeCashOutPresenter>() {
 
 
-    var balanceNow = balance
+    var balanceNow = "0"
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -45,11 +47,14 @@ class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRec
 
     override fun isRegisterRxBus() = true
 
+    override fun initContentView() {
+        balanceNow = arguments?.getString("balance") ?: "0"
+    }
 
     override fun initEvent() {
         rlAddBankItem.setOnClickListener {
             if (UserInfoSp.getIsSetPayPassWord()) {
-               startActivity(Intent(getPageActivity(),MineAddBankCardActivity::class.java))
+                startActivity(Intent(getPageActivity(), MineAddBankCardActivity::class.java))
             } else GlobalDialog.noSetPassWord(getPageActivity())
         }
         tvGetMoneyAll.setOnClickListener {
@@ -100,9 +105,21 @@ class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRec
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDateUserMoney(event: MineUpDateMoney) {
-        if (event.isUpdate){
+        if (event.isUpdate) {
             balanceNow = event.money
             hidePageLoadingDialog()
         }
     }
+
+
+    companion object {
+        fun newInstance(balance: String): MineRechargeCashOutFragment {
+            val fragment = MineRechargeCashOutFragment()
+            val bundle = Bundle()
+            bundle.putString("balance", balance)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
+
 }

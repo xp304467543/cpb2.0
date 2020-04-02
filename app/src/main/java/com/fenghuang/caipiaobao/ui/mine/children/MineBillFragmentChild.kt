@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine.children
 
 import android.content.Context
+import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +13,14 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineBillBean
 import com.fenghuang.caipiaobao.ui.mine.data.MineBillResponse
+import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
+import com.fenghuang.caipiaobao.ui.moments.data.MomentsHotDiscussResponse
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import kotlinx.android.synthetic.main.fragment_child_attention.*
@@ -29,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_child_attention.*
  *
  */
 
-class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
+class MineBillFragmentChild : BaseContentFragment() {
 
     var page = 1
 
@@ -53,7 +57,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
         attentionSmartRefreshLayout.setEnableOverScrollBounce(true)//是否启用越界回弹
         attentionSmartRefreshLayout.setEnableOverScrollDrag(true)//是否启用越界拖动（仿苹果效果）
         rvAttention.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.VERTICAL, false)
-        when (type) {
+        when (arguments?.getInt(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, 1)) {
             1 -> {
                 balanceAdapter = BalanceAdapter()
                 rvAttention.adapter = balanceAdapter
@@ -75,9 +79,9 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
         initDataAdpter(true)
     }
 
-     private fun initDataAdpter(isFirst:Boolean) {
+    private fun initDataAdpter(isFirst: Boolean) {
         showPageLoadingDialog()
-        when (type) {
+        when (arguments?.getInt(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, 1)) {
             1 ->
                 MineApi.getBalance(page) {
                     onSuccess {
@@ -91,7 +95,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
                             rvAttention.removeAllViews()
                             balanceAdapter.addAll(data)
                         } else {
-                            if (isFirst){
+                            if (isFirst) {
                                 tvHolder.text = "暂无余额记录~ ~"
                                 setVisible(tvHolder)
                             }
@@ -125,7 +129,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
                             rvAttention.removeAllViews()
                             rewardAdapter.addAll(data)
                         } else {
-                            if (isFirst){
+                            if (isFirst) {
                                 tvHolder.text = "暂无兑换记录~ ~"
                                 setVisible(tvHolder)
                             }
@@ -136,7 +140,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
                     }
                     onFailed {
                         if (rewardAdapter.getAllData().isNullOrEmpty()) {
-                            if (isFirst){
+                            if (isFirst) {
                                 tvHolder.text = "暂无兑换记录~ ~"
                                 setVisible(tvHolder)
                             }
@@ -161,7 +165,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
                             rvAttention.removeAllViews()
                             exchangeAdapter.addAll(data)
                         } else {
-                            if (isFirst){
+                            if (isFirst) {
                                 tvHolder.text = "暂无打赏记录~ ~"
                                 setVisible(tvHolder)
                             }
@@ -188,7 +192,7 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
     private fun openRefresh() {
         attentionSmartRefreshLayout.setEnableRefresh(true)
         attentionSmartRefreshLayout.setOnRefreshListener {
-            page = 0
+            page = 1
             initDataAdpter(false)
         }
     }
@@ -353,6 +357,17 @@ class MineBillFragmentChild(var type: Int) : BaseContentFragment() {
                     Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_change)
                 }
             }
+        }
+    }
+
+
+    companion object {
+        fun newInstance(type: Int?): MineBillFragmentChild {
+            val fragment = MineBillFragmentChild()
+            val bundle = Bundle()
+            bundle.putInt(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, type ?: 0)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 }

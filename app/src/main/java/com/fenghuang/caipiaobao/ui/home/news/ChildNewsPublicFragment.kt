@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.news
 
 import android.graphics.Color
+import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,9 +13,11 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeNewsResponse
+import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import kotlinx.android.synthetic.main.fragment_news_child.*
@@ -27,7 +30,7 @@ import kotlinx.android.synthetic.main.fragment_news_child.*
  *
  */
 
-class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
+class ChildNewsPublicFragment : BaseContentFragment() {
 
     lateinit var adapter: NewsAdapter
 
@@ -51,7 +54,7 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
     }
 
     private fun getNewsList() {
-        HomeApi.getNewsList(type = type) {
+        HomeApi.getNewsList(type = arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE,"1")?:"1") {
             onSuccess {
                 if (it.isNullOrEmpty()) setVisible(noData) else adapter.addAll(it)
                 setGone(pageLoading)
@@ -93,7 +96,7 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
 
             override fun onItemClick(data: HomeNewsResponse) {
                 if (FastClickUtils.isFastClick()){
-                    LaunchUtils.startFragment(getContext(), NewsInfoFragment(data.info_id))
+                    LaunchUtils.startFragment(getContext(), NewsInfoFragment.newInstance(data.info_id))
                 }
 
             }
@@ -113,7 +116,7 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
             }
 
             override fun onItemClick(data: HomeNewsResponse) {
-                LaunchUtils.startFragment(getContext(), NewsInfoFragment(data.info_id))
+                LaunchUtils.startFragment(getContext(), NewsInfoFragment.newInstance(data.info_id))
             }
         }
 
@@ -125,7 +128,7 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
             }
 
             override fun onItemClick(data: HomeNewsResponse) {
-                LaunchUtils.startFragment(getContext(), NewsInfoFragment(data.info_id))
+                LaunchUtils.startFragment(getContext(), NewsInfoFragment.newInstance(data.info_id))
             }
         }
 
@@ -137,7 +140,7 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
             }
 
             override fun onItemClick(data: HomeNewsResponse) {
-                LaunchUtils.startFragment(getContext(), NewsInfoFragment(data.info_id))
+                LaunchUtils.startFragment(getContext(), NewsInfoFragment.newInstance(data.info_id))
             }
         }
 
@@ -174,4 +177,14 @@ class ChildNewsPublicFragment(var type: String) : BaseContentFragment() {
 
     }
 
+
+    companion object {
+        fun newInstance(type: String): ChildNewsPublicFragment {
+            val fragment = ChildNewsPublicFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, type)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }

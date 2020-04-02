@@ -1,9 +1,12 @@
 package com.fenghuang.caipiaobao.ui.home.news
 
+import android.os.Bundle
 import android.widget.ImageView
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.fragment_home_banner_jump.*
 
@@ -14,12 +17,12 @@ import kotlinx.android.synthetic.main.fragment_home_banner_jump.*
  * @ Describe
  *
  */
-class HomeBannerJump(val url: String, val title: String) : BaseNavFragment() {
+class HomeBannerJump : BaseNavFragment() {
 
 
     override fun getContentResID() = R.layout.fragment_home_banner_jump
 
-    override fun getPageTitle() = title
+    override fun getPageTitle() = arguments?.getString("title","")
 
     override fun isRegisterRxBus() = true
 
@@ -40,7 +43,7 @@ class HomeBannerJump(val url: String, val title: String) : BaseNavFragment() {
 
     override fun initData() {
         BannerWebView.webViewClient = WebViewClient()
-        BannerWebView.loadUrl(url)
+        BannerWebView.loadUrl(arguments?.getString("url",""))
     }
 
 
@@ -53,4 +56,14 @@ class HomeBannerJump(val url: String, val title: String) : BaseNavFragment() {
     }
 
 
+    companion object {
+        fun newInstance(url: String, title: String): HomeBannerJump {
+            val fragment = HomeBannerJump()
+            val bundle = Bundle()
+            bundle.putString("url", url)
+            bundle.putString("title", title)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }

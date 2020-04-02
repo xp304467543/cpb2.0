@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine.data
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 import java.math.BigDecimal
 
 /**
@@ -79,7 +80,7 @@ data class MineBillBean(var id: String = "",var date: String = "",var time: Stri
 
 data class MineMessageCenter(var msg_id: String,var msg_type: String,var content: String,var create_time: String,var createtime_txt: String
                              ,var media: String,var dynamic_id: String,var apiType: String,var comment_id: String,var userType: String
-                             ,var nickname: String ,var avatar: String)
+                             ,var nickname: String ,var avatar: String):Serializable
 
 //新消息提醒
 data class MineNewMsg(var msgCount: Int,var countList: MineNewBean)

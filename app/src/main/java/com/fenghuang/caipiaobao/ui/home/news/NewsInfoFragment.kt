@@ -1,14 +1,17 @@
 package com.fenghuang.caipiaobao.ui.home.news
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import androidx.core.text.HtmlCompat
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
+import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.tencent.smtt.sdk.WebSettings
 import kotlinx.android.synthetic.main.fragment_news_info.*
 
@@ -20,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_news_info.*
  *
  */
 
-class NewsInfoFragment(var infoId: String) : BaseNavFragment() {
+class NewsInfoFragment : BaseNavFragment() {
 
 
     override fun getContentResID() = R.layout.fragment_news_info
@@ -45,13 +48,13 @@ class NewsInfoFragment(var infoId: String) : BaseNavFragment() {
 
     @SuppressLint("SetTextI18n", "SetJavaScriptEnabled")
     private fun getNewsInfo() {
-        HomeApi.getNewsInfo(infoId) {
+        HomeApi.getNewsInfo(arguments?.getString("infoId", "") ?: "") {
             onSuccess {
                 if (!it.isNullOrEmpty()) {
-                    if (isSupportVisible){
+                    if (isSupportVisible) {
                         tvNewsTitle.text = it[0].title
                         tvNewsInfo.text = it[0].source + "   " + it[0].timegap + "    " + TimeUtils.longToDateStringTime(it[0].createtime.toLong())
-                        web_copy.loadDataWithBaseURL(null, it[0].detail,"text/html","utf-8", null)
+                        web_copy.loadDataWithBaseURL(null, it[0].detail, "text/html", "utf-8", null)
                         web_copy.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
                         web_copy.settings.javaScriptEnabled = true
                         web_copy.setBackgroundColor(0)
@@ -61,6 +64,17 @@ class NewsInfoFragment(var infoId: String) : BaseNavFragment() {
             onFailed {
                 ToastUtils.show(it.getMsg().toString())
             }
+        }
+    }
+
+
+    companion object {
+        fun newInstance(infoId: String): NewsInfoFragment {
+            val fragment = NewsInfoFragment()
+            val bundle = Bundle()
+            bundle.putString("infoId", infoId)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 }

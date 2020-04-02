@@ -134,7 +134,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         ivTitleRight.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
                 ivTitleRight.setBackgroundResource(R.mipmap.ic_home_top_notice)
-                LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment(msg1, msg2, msg3))
+                LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment.newInstance(msg1, msg2, msg3))
             }
         }
 

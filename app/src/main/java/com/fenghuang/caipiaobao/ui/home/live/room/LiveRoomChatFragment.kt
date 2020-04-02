@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Configuration
 import android.net.ConnectivityManager
+import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -24,6 +25,7 @@ import com.fenghuang.baselib.utils.NetWorkUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.mine.MinePresenter
@@ -57,7 +59,7 @@ import java.util.*
  *
  */
 
-class LiveRoomChatFragment(private val anchorId: String, val liveState: String = "", val name: String = "") : BaseMvpFragment<LiveRoomChatPresenter>() {
+class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
 
     //socket
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
@@ -76,7 +78,8 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
 
     override fun attachView() = mPresenter.attachView(this)
 
-    override fun attachPresenter() = LiveRoomChatPresenter(anchorId)
+    override fun attachPresenter() = LiveRoomChatPresenter(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+            ?: "0")
 
     override fun isRegisterRxBus() = true
 
@@ -87,7 +90,7 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
         chatSmartRefresh.setEnableLoadMore(false)//是否启用上拉加载功能
         if (UserInfoSp.getOpenWindow()) setVisible(floatButton) else setGone(floatButton)
         upDateSystemNotice()
-        if (liveState != "1") {
+        if (arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_STATUE) ?: "0" != "1") {
             setGone(bottomChat)
             setVisible(tvNoLive)
         } else {
@@ -102,15 +105,14 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
 //        rewardLayout.setCallBack(this)
 
         //引导层
-        NewbieGuide.with(this).setLabel("guide1").
-                addGuidePage(GuidePage().
-                        addHighLight(imgBuyLottery,HighLight.Shape.CIRCLE).setLayoutRes(R.layout.guide_live)).show()
+        NewbieGuide.with(this).setLabel("guide1").addGuidePage(GuidePage().addHighLight(imgBuyLottery, HighLight.Shape.CIRCLE).setLayoutRes(R.layout.guide_live)).show()
     }
 
     override fun initData() {
-        mPresenter.getAllData(anchorId)
+        mPresenter.getAllData(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID) ?: "0")
         initSocket()
-        mPresenter.homeLiveRedList(anchorId, false)
+        mPresenter.homeLiveRedList(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                ?: "0", false)
     }
 
     override fun initEvent() {
@@ -213,7 +215,8 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
                     MineApi.verifyPayPass(s.toString()) {
                         onSuccess {
                             //发红包
-                            mPresenter.homeLiveSendRedEnvelope(anchorId, total, redNumber, redContent, s.toString(), passWordDialog)
+                            mPresenter.homeLiveSendRedEnvelope(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                                    ?: "0", total, redNumber, redContent, s.toString(), passWordDialog)
                         }
                         onFailed {
                             passWordDialog.showOrHideLoading()
@@ -257,7 +260,8 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
         }
         mOpenRedPopup?.setOnDismissListener {
             if (showIt) {
-                mPresenter.homeLiveRedList(anchorId, true)
+                mPresenter.homeLiveRedList(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                        ?: "0", true)
                 showIt = false
             }
             if (isFullScreen()) {
@@ -325,6 +329,7 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
     // ========= 公告 =========
     @SuppressLint("SetTextI18n")
     private fun upDateSystemNotice() {
+        val name = arguments?.getString(IntentConstant.LIVE_ROOM_NICK_NAME) ?: "0"
         if (TextUtils.isEmpty(name)) mtvLiveRoom.text = "暂无公告" else mtvLiveRoom.text = "欢迎来到 $name 的直播间,喜欢就点关注吧。"
         mtvLiveRoom.setTextColor(getColor(R.color.color_333333))
     }
@@ -349,7 +354,8 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
             }
             //管理清屏
             popMenuManager?.setManagerClearClickListener {
-                mPresenter.managerClear(anchorId)
+                mPresenter.managerClear(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                        ?: "0")
             }
 
         }
@@ -452,7 +458,8 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDataMineUserDiamond(eventBean: HomeLiveAnimatorBean) {
-        mPresenter.homeLiveSendGift(anchorId, eventBean.gift_id, eventBean.giftCount, eventBean)
+        mPresenter.homeLiveSendGift(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                ?: "0", eventBean.gift_id, eventBean.giftCount, eventBean)
     }
 
 
@@ -624,5 +631,18 @@ class LiveRoomChatFragment(private val anchorId: String, val liveState: String =
 
     fun getScreenFull(): Boolean {
         return isFullScreen()
+    }
+
+
+    companion object {
+        fun newInstance(anchorId: String, liveState: String, name: String): LiveRoomChatFragment {
+            val fragment = LiveRoomChatFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_ID, anchorId)
+            bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_STATUE, liveState)
+            bundle.putString(IntentConstant.LIVE_ROOM_NICK_NAME, name)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }

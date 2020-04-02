@@ -48,7 +48,7 @@ class HomeNewsAdapter(context: Context) : BaseRecyclerAdapter<HomeNewsResponse>(
         override fun onItemClick(data: HomeNewsResponse) {
             if (FastClickUtils.isFastClick()){
                 if (data.title!="加载中..."){
-                    LaunchUtils.startFragment(getContext(), NewsInfoFragment(data.info_id))
+                    LaunchUtils.startFragment(getContext(), NewsInfoFragment.newInstance(data.info_id))
                 }
 
             }

@@ -68,7 +68,7 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
         momentsTab.addTab(momentsTab.newTab().setText("精品推荐"))
         xViewPageMoments.adapter = BaseFragmentPageAdapter(childFragmentManager, arrayListOf<BaseFragment>(
                 MomentsHotDiscussFragment(),
-                MomentsAnchorFragment(""),
+                MomentsAnchorFragment.newInstance(""),
                 MomentsRecommendFragment()
         ))
         xViewPageMoments.currentItem = 0

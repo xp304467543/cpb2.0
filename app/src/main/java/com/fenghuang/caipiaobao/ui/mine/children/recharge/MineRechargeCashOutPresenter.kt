@@ -80,7 +80,7 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
     fun getCashOutMoney() {
         if (!TextUtils.isEmpty(mView.etGetMoneyToBank.text)) {
             val money = BigDecimal(mView.etGetMoneyToBank.text.toString())
-            val balance = BigDecimal(mView.balance)
+            val balance = BigDecimal(mView.arguments?.getString("balance") ?: "0")
             if (balance.compareTo(money) != -1) {
                 if (money.compareTo(BigDecimal(50)) != -1) {
                     initDialog()

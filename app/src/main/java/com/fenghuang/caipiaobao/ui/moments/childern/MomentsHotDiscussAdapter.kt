@@ -146,7 +146,7 @@ class   MomentsHotDiscussAdapter(context: Context) : BaseRecyclerAdapter<Moments
 //                        GlobalDialog.notLogged(getContext() as Activity)
 //                        return
 //                    }
-                    LaunchUtils.startFragment(getContext(),CommentOnFragment(getData()!!))
+                    LaunchUtils.startFragment(getContext(),CommentOnFragment.newInstance(getData()!!))
                 }
 
                 R.id.imgMomentsDiscussHolderPhoto -> {

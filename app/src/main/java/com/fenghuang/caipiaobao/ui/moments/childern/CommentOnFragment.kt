@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.moments.childern
 
 import android.graphics.Color
+import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
@@ -30,9 +31,11 @@ import java.util.*
  *
  */
 
-class CommentOnFragment(val data: MomentsHotDiscussResponse?) : BaseMvpFragment<CommentOnFragmentPresenter>() {
+class CommentOnFragment : BaseMvpFragment<CommentOnFragmentPresenter>() {
 
     var page = 1
+
+    var data: MomentsHotDiscussResponse? = null
 
     var commentListAdapter: CommentOnListAdapter? = null
 
@@ -55,6 +58,8 @@ class CommentOnFragment(val data: MomentsHotDiscussResponse?) : BaseMvpFragment<
     }
 
     override fun initContentView() {
+        data = arguments?.getSerializable("MomentsHotDiscussResponse") as MomentsHotDiscussResponse
+        if (data == null) return
         smartRefreshCommentOn.setEnableLoadMore(false)
         initSmartRefresh()
         initTitleView()
@@ -67,19 +72,19 @@ class CommentOnFragment(val data: MomentsHotDiscussResponse?) : BaseMvpFragment<
 
     private fun initTitleView() {
         if (data == null) return
-        val spannableString = SpannableString("评论 (" + data.comment_nums + ")")
+        val spannableString = SpannableString("评论 (" + data?.comment_nums + ")")
         spannableString.setSpan(ForegroundColorSpan(Color.parseColor("#999999")), 2, spannableString.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         tvPl.text = spannableString
-        ImageManager.loadImg(data.avatar, findView(R.id.commentAnchorPhoto))
-        commentAnchorContent.text = data.title
-        commentAnchorTime.text = TimeUtils.longToDateString(data.created).toString()
-        commentAnchorName.text = data.nickname
+        ImageManager.loadImg(data?.avatar, findView(R.id.commentAnchorPhoto))
+        commentAnchorContent.text = data?.title
+        commentAnchorTime.text = TimeUtils.longToDateString(data?.created ?: 0).toString()
+        commentAnchorName.text = data?.nickname
         val layoutManager = GridLayoutManager(requireActivity(), 3)
         val adapter = CommentOnAdapter(requireActivity(), layoutManager)
         commentAnchorImg.layoutManager = layoutManager
         commentAnchorImg.adapter = adapter
-        if (!data.images.isNullOrEmpty()) {
-            adapter.addAll(data.images)
+        if (!data?.images.isNullOrEmpty()) {
+            adapter.addAll(data?.images)
         }
     }
 
@@ -158,11 +163,19 @@ class CommentOnFragment(val data: MomentsHotDiscussResponse?) : BaseMvpFragment<
             }
         }
 
-
-
         commentAnchorPhoto.setOnClickListener {
-            LaunchUtils.startPersonalPage(getPageActivity(), data?.user_id!!,1)
+            LaunchUtils.startPersonalPage(getPageActivity(), data?.user_id!!, 1)
         }
     }
 
+
+    companion object {
+        fun newInstance(data: MomentsHotDiscussResponse?): CommentOnFragment {
+            val fragment = CommentOnFragment()
+            val bundle = Bundle()
+            bundle.putSerializable("MomentsHotDiscussResponse", data)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 }

@@ -1,13 +1,11 @@
 package com.fenghuang.caipiaobao.ui.lottery.children
 
 import android.os.Bundle
-import androidx.core.view.get
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryExpertPlay
@@ -117,17 +115,19 @@ class LotteryBaseFragment : BaseContentFragment() {
             }
         })
         //TabLayout监听
-        lotteryTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-            }
+        if (lotteryTab != null) {
+            lotteryTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(p0: TabLayout.Tab?) {
+                }
 
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-            }
+                override fun onTabUnselected(p0: TabLayout.Tab?) {
+                }
 
-            override fun onTabSelected(p0: TabLayout.Tab?) {
-                xViewPage?.currentItem = p0?.position!!
-            }
-        })
+                override fun onTabSelected(p0: TabLayout.Tab?) {
+                    xViewPage?.currentItem = p0?.position!!
+                }
+            })
+        }
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD)

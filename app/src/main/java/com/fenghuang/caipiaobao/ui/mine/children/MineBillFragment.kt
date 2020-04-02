@@ -40,8 +40,8 @@ class MineBillFragment : BaseNavFragment() {
         attentionTab.addTab(attentionTab.newTab().setText("余额记录"))
         attentionTab.addTab(attentionTab.newTab().setText("兑换记录"))
         attentionTab.addTab(attentionTab.newTab().setText("打赏记录"))
-        val fragmentList = arrayListOf<BaseFragment>(MineBillFragmentChild(1),MineBillFragmentChild(2),
-                MineBillFragmentChild(3))
+        val fragmentList = arrayListOf<BaseFragment>(MineBillFragmentChild.newInstance(1),MineBillFragmentChild.newInstance(2),
+                MineBillFragmentChild.newInstance(3))
         xViewPageAttention.offscreenPageLimit = 3
         xViewPageAttention.adapter = BaseFragmentPageAdapter(childFragmentManager,fragmentList)
     }

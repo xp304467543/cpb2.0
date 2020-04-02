@@ -101,13 +101,13 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         //初始化viewPager
         val anchorID = intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_ID) ?: "0"
         val fragments = ArrayList<BaseFragment>()
-        fragments.add(LiveRoomChatFragment(anchorID,
+        fragments.add(LiveRoomChatFragment.newInstance(anchorID,
                 intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE) ?: "",
                 intent?.getStringExtra(IntentConstant.LIVE_ROOM_NICK_NAME) ?: ""))
-        fragments.add(LiveRoomAnchorFragment(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE)
+        fragments.add(LiveRoomAnchorFragment.newInstance(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE)
                 ?: "0"))
-        fragments.add(LiveRoomRankFragment(anchorID))
-        fragments.add(LiveRoomAdvanceFragment(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_NAME)
+        fragments.add(LiveRoomRankFragment.newInstance(anchorID))
+        fragments.add(LiveRoomAdvanceFragment.newInstance(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_NAME)
                 ?: ""))
         val adapter = BaseFragmentPageAdapter(supportFragmentManager, fragments)
         xViewPageRoomLive.adapter = adapter

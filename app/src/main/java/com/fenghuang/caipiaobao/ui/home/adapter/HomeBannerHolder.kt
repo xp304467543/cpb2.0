@@ -37,7 +37,7 @@ class HomeBannerHolder(private var isNormalBanner: Boolean, val context: Context
 
     override fun onPageClick(itemView: View, position: Int, data: HomeBannerResponse) {
         if (data.url != "") {
-            LaunchUtils.startFragment(context, HomeBannerJump(data.url, data.title))
+            LaunchUtils.startFragment(context, HomeBannerJump.newInstance(data.url, data.title))
         }
     }
 }

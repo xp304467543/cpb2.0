@@ -78,7 +78,7 @@ class AnchorPersonalPage : BaseMvpActivity<AnchorPersonalPagePresenter>() {
     }
 
     private fun initViewPager(data: AnchorPageInfoBean) {
-        val list = arrayListOf<BaseFragment>(AnchorPersonalPageData(data), MomentsAnchorFragment(data.anchor_id, isChild = true))
+        val list = arrayListOf<BaseFragment>(AnchorPersonalPageData(data), MomentsAnchorFragment.newInstance(data.anchor_id, isChild = true))
         xViewPage.adapter = BaseFragmentPageAdapter(supportFragmentManager, list)
 
         anchorPageTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

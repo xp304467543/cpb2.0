@@ -362,7 +362,7 @@ object MineApi : BaseApi {
     fun getHotDiscussSingle(article_id: String, function: ApiSubscriber<MomentsHotDiscussResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MomentsHotDiscussResponse>() {}
         subscriber.function()
-        getApiOther()
+        getApiLottery()
                 .get<MomentsHotDiscussResponse>(HomeApi.getApiOtherTest() + HOT_DISCUSS)
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())

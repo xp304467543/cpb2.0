@@ -1,8 +1,10 @@
 package com.fenghuang.caipiaobao.ui.home.live.room
 
+import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRankList
 import kotlinx.android.synthetic.main.fragment_child_live_rank.*
 
@@ -14,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_child_live_rank.*
  *
  */
 
-class LiveRoomRankFragment(private val anchorId: String) : BaseMvpFragment<LiveRoomRankPresenter>() {
+class LiveRoomRankFragment : BaseMvpFragment<LiveRoomRankPresenter>() {
 
 
     override fun attachPresenter() = LiveRoomRankPresenter()
@@ -28,7 +30,8 @@ class LiveRoomRankFragment(private val anchorId: String) : BaseMvpFragment<LiveR
     }
 
     override fun initData() {
-        mPresenter.getAllData(anchorId)
+        mPresenter.getAllData(arguments?.getString(IntentConstant.LIVE_ROOM_ANCHOR_ID)
+                ?: "0")
     }
 
     fun initRankRewardList(data: List<HomeLiveRankList>) {
@@ -37,5 +40,16 @@ class LiveRoomRankFragment(private val anchorId: String) : BaseMvpFragment<LiveR
         rvLiveRankList.adapter = adapter
         adapter.addAll(data)
 
+    }
+
+
+    companion object {
+        fun newInstance(anchorId: String): LiveRoomRankFragment {
+            val fragment = LiveRoomRankFragment()
+            val bundle = Bundle()
+            bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_ID, anchorId)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 }
