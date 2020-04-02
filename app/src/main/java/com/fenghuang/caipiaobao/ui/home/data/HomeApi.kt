@@ -347,7 +347,7 @@ object HomeApi : BaseApi {
     /**
      * 禁言  禁言时间 单位分钟-不传使用后台配置时间 0-永久禁言
      */
-    fun forBiddenWords(opertate_user: String, ban_user: String, room_id: String, ban_time: String, function: EmptySubscriber.() -> Unit) {
+    fun forBiddenWords(opertate_user: Int, ban_user: String, room_id: String, ban_time: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
         val request = getApi().post<String>(FORBIDDEN_WORDS)
@@ -384,7 +384,7 @@ object HomeApi : BaseApi {
         subscriber.function()
         val request = getApi().get<List<HomeLiveRedRoom>>(HOME_LIVE_RED_RECEIVE_ROOM)
                 .headers("token", UserInfoSp.getToken())
-        if (UserInfoSp.getUserId() != "0") request.params("user_id", UserInfoSp.getUserId())
+        if (UserInfoSp.getUserId() != 0) request.params("user_id", UserInfoSp.getUserId())
         request.params("anchor_id", anchorId)
         request.subscribe(subscriber)
     }
@@ -443,7 +443,7 @@ object HomeApi : BaseApi {
     /**
      * 送礼物
      */
-    fun setGift(userId: String, anchorId: String, gift_id: String, gift_num: String, function: EmptySubscriber.() -> Unit) {
+    fun setGift(userId: Int, anchorId: String, gift_id: String, gift_num: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApi().post<String>(HOME_LIVE_SEND_GIFT)

@@ -19,7 +19,7 @@ data class LoginSuccess(var code: String)
 
 data class RegisterSuccess(var isShowDialog:Boolean)
 
-data class LoginInfoResponse(var user_id: String?,
+data class LoginInfoResponse(var user_id: Int? = 0,
                              var id: String = "",
                              var username: String = "",
                              var email: String = "",

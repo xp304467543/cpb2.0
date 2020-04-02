@@ -66,7 +66,7 @@ class BottomHorGiftWindow(context: Context) : BottomSheetDialog(context) {
             }
             hideLoading()
             RxBus.get().post(HomeLiveAnimatorBean(homeLiveGiftListBean?.id!!, homeLiveGiftListBean?.name!!, homeLiveGiftListBean?.icon!!,
-                    UserInfoSp.getUserId(), UserInfoSp.getUserPhoto().toString(), UserInfoSp.getUserNickName().toString(), tvGiftMount.text.toString()))
+                    ""+UserInfoSp.getUserId(), UserInfoSp.getUserPhoto().toString(), UserInfoSp.getUserNickName().toString(), tvGiftMount.text.toString()))
         }
         tvGiftSend.setOnClickListener {
             if (homeLiveGiftListBean == null) {
@@ -75,7 +75,7 @@ class BottomHorGiftWindow(context: Context) : BottomSheetDialog(context) {
             }
             hideLoading()
             RxBus.get().post(HomeLiveAnimatorBean(homeLiveGiftListBean?.id!!, homeLiveGiftListBean?.name!!, homeLiveGiftListBean?.icon!!,
-                    UserInfoSp.getUserId(), UserInfoSp.getUserPhoto().toString(), UserInfoSp.getUserNickName().toString(), tvGiftMount.text.toString()))
+                   "" +UserInfoSp.getUserId(), UserInfoSp.getUserPhoto().toString(), UserInfoSp.getUserNickName().toString(), tvGiftMount.text.toString()))
         }
     }
 

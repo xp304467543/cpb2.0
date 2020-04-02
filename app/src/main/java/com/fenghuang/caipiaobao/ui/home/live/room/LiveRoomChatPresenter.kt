@@ -180,7 +180,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
 
     // 送礼物
     fun homeLiveSendGift(anchorId: String, gift_id: String, gift_num: String, bean: HomeLiveAnimatorBean) {
-        HomeApi.setGift(UserInfoSp.getUserId(), anchorId, gift_id, gift_num) {
+        HomeApi.setGift(   UserInfoSp.getUserId(), anchorId, gift_id, gift_num) {
             if (mView.isActive()) {
                 onSuccess {
                     //通知scoket

@@ -71,7 +71,7 @@ object LoginApi : BaseApi {
     /**
      * 登录后获取是否首冲
      */
-    fun getIsFirstRecharge(userID: String, function: ApiSubscriber<LoginFirstRecharge>.() -> Unit) {
+    fun getIsFirstRecharge(userID: Int, function: ApiSubscriber<LoginFirstRecharge>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginFirstRecharge>() {}
         subscriber.function()
         getApi().post<LoginFirstRecharge>(FIRST_RECHARGE)

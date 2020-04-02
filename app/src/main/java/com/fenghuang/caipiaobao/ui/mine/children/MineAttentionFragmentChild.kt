@@ -110,7 +110,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
 
         inner class AnchorHolder(parent: ViewGroup) : BaseViewHolder<MineUserAttentionBean>(getContext(), parent, R.layout.holder_mine_attention) {
             override fun onBindData(data: MineUserAttentionBean) {
-                setVisible(findView<TextView>(R.id.tvEnd))
+                setVisible(findView<TextView>(R.id.tvEndAttention))
                 if (data.live_status == "1") {
                     findView<WaveView>(R.id.circleWave).setInitialRadius(60f)
                     findView<WaveView>(R.id.circleWave).start()
@@ -121,7 +121,11 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
 
                 setOnClick(R.id.btnDelete)
                 setOnClick(R.id.imgPhoto)
-                setOnClick(R.id.tvEnd)
+                findView<TextView>(R.id.tvEndAttention).setOnClickListener {
+                    if (FastClickUtils.isFastClick()) {
+                        LaunchUtils.startLive(getPageActivity(),getData()?.anchor_id!!,getData()?.live_status!!,getData()?.lottery_id?:"",getData()?.avatar!!,getData()?.nickname!!,0)
+                    }
+                }
             }
 
             override fun onClick(id: Int) {
@@ -141,12 +145,6 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
                     R.id.imgPhoto -> {
                         if (FastClickUtils.isFastClick()) {
                             LaunchUtils.startPersonalPage(getContext(),getData()?.anchor_id!!,2)
-                        }
-                    }
-
-                    R.id.tvEnd -> {
-                        if (FastClickUtils.isFastClick()) {
-                            LaunchUtils.startLive(getPageActivity(),getData()?.anchor_id!!,getData()?.live_status!!,getData()?.lottery_id!!,getData()?.avatar!!,getData()?.nickname!!,0)
                         }
                     }
                 }

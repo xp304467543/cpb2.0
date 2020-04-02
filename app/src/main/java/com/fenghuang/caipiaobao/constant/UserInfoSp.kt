@@ -47,12 +47,12 @@ object UserInfoSp {
      * 用户ID
      */
 
-    fun putUserId(id: String) {
-        SpUtils.putString(UserConstant.USER_ID, id)
+    fun putUserId(id: Int) {
+        SpUtils.putInt(UserConstant.USER_ID, id)
     }
 
-    fun getUserId(): String {
-        return SpUtils.getString(UserConstant.USER_ID, "0").toString()
+    fun getUserId(): Int {
+        return SpUtils.getInt(UserConstant.USER_ID, 0)
     }
 
     /**

@@ -294,7 +294,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>() {
 
     fun setUserInfo(result: LoginInfoResponse) {
         RxBus.get().post(result)
-        UserInfoSp.putUserId(result.user_id.toString())
+        result.user_id?.let { UserInfoSp.putUserId(it) }
         UserInfoSp.putUserUniqueId(result.unique_id)
         UserInfoSp.putUserPhone(result.phone)
         UserInfoSp.putUserSex(result.gender)

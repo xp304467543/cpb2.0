@@ -64,7 +64,7 @@ data class MinePayUrl(var url: String)
 
 //关注 用户、主播 bean
 data class MineUserAttentionBean(var id: String = "", var type: String = "", var nickname: String = "", var anchor_id: String = ""
-                                 , var user_id: String = "",var live_status: String = "",var lottery_id: String = "",
+                                 , var user_id: String = "",var live_status: String = "",var lottery_id: String? = "",
                         var avatar: String = "", var sign: String = "")
 
 //关注 专家 bean

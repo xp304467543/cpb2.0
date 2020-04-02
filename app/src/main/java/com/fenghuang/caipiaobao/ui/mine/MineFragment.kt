@@ -143,7 +143,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
                 return@setOnClickListener
             }
             if (FastClickUtils.isFastClick()) {
-                LaunchUtils.startPersonalPage(requireActivity(), UserInfoSp.getUserId(),1)
+                LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),1)
             }
         }
         imgMineUserAvatar.setOnClickListener {
