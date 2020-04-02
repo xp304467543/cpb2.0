@@ -231,7 +231,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
 
                     R.id.imgPhoto -> {
                         if (FastClickUtils.isFastClick()) {
-                            LaunchUtils.startPersonalPage(getContext(),getData()?.expert_id!!,3)
+                            LaunchUtils.startPersonalPage(getContext(),getData()?.expert_id?:"0",3)
                         }
                     }
                 }

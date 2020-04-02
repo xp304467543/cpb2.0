@@ -10,6 +10,7 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -48,6 +49,7 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
 
 
     override fun initContentView() {
+
         adapter = ExpertHistoryAdapter()
         expertHistory.adapter = adapter
         expertHistory.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -56,17 +58,16 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
 
     override fun initData() {
         if (intent != null) {
-            if (intent != null) {
-                showPageLoadingDialog()
-                mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!)
-            }
+            showPageLoadingDialog()
+            mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!)
+            lottery_id = intent.getStringExtra(UserConstant.FOLLOW_lottery_ID)?:"-1"
         }
     }
 
     @SuppressLint("SetTextI18n")
     fun initExpert(data: ExpertPageInfo?) {
         if (data != null) {
-            lottery_id = data.lottery_id
+            if (lottery_id == "-1") lottery_id = data.lottery_id
             mPresenter.getExpertHistory(intent.getStringExtra(UserConstant.FOLLOW_ID)!!, lottery_id, limit)
             mPresenter.getNextTime(lottery_id)
             ImageManager.loadImg(data.avatar, imgUserPhoto)
@@ -79,7 +80,7 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
             tvExpertWinPre.text = BigDecimal(data.profit_rate).setScale(4, BigDecimal.ROUND_HALF_UP).multiply(BigDecimal(100)).stripTrailingZeros().toPlainString() + " %"
             tvExpertWinAdd.text = data.winning
             tvLotteryName.text = data.lottery_name
-            if (data.is_followed=="1") {
+            if (data.is_followed == "1") {
                 btAttentionExpert.background = ViewUtils.getDrawable(R.drawable.button_grey_background)
                 btAttentionExpert.setTextColor(ViewUtils.getColor(R.color.grey_e6))
                 btAttentionExpert.text = "已关注"
@@ -103,8 +104,8 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
 
         btAttentionExpert.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-                if (!UserInfoSp.getIsLogin()){
-                    GlobalDialog.notLogged(this,false)
+                if (!UserInfoSp.getIsLogin()) {
+                    GlobalDialog.notLogged(this, false)
                     return@setOnClickListener
                 }
                 val presenter = HomePresenter()
@@ -122,7 +123,7 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
                     mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!)
                 }
                 presenter.setFailExpertClickListener {
-                    GlobalDialog.ShowError(this,it)
+                    GlobalDialog.ShowError(this, it)
                 }
             }
         }

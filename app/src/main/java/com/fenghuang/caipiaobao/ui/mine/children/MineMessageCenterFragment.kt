@@ -105,15 +105,15 @@ class MineMessageCenterFragment : BaseNavFragment() {
     override fun initEvent() {
         lin1.setOnClickListener {
             setGone(tvMessageNum)
-            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(0, list1))
+            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(0))
         }
         lin2.setOnClickListener {
             setGone(tvMessageNum2)
-            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(1, list2))
+            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(1))
         }
         lin3.setOnClickListener {
             setGone(tvMessageNum3)
-            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(2, list3))
+            LaunchUtils.startFragment(context, MineMessageCenterInfoFragment.newInstance(2))
         }
     }
 

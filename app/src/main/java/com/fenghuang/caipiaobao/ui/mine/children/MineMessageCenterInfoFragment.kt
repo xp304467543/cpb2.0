@@ -15,9 +15,11 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineMessageCenter
 import com.fenghuang.caipiaobao.ui.moments.childern.CommentOnFragment
 import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
+import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
+import kotlinx.android.synthetic.main.fragment_message_center.*
 import kotlinx.android.synthetic.main.fragment_msg_center_info.*
 
 /**
@@ -28,7 +30,6 @@ import kotlinx.android.synthetic.main.fragment_msg_center_info.*
  *
  */
 
-@Suppress("UNCHECKED_CAST")
 class MineMessageCenterInfoFragment : BaseNavFragment() {
 
     private lateinit var adapter1: Adapter1
@@ -50,39 +51,66 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
         msgSmartRefreshLayout.setEnableLoadMore(false)//是否启用上拉加载功能
         msgSmartRefreshLayout.setEnableOverScrollBounce(true)//是否启用越界回弹
         msgSmartRefreshLayout.setEnableOverScrollDrag(true)//是否启用越界拖动（仿苹果效果）
-        var data:Array<MineMessageCenter>?=null
-        if (arguments?.getSerializable("msgData") != null) {
-            data = arguments?.getSerializable("msgData") as Array<MineMessageCenter>
-        }
-        when (arguments?.getInt("msgType", 0)) {
-            0 -> {
-                setPageTitle("互动消息")
-                adapter1 = Adapter1()
-                rvMsg.adapter = adapter1
-                rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                if (!data.isNullOrEmpty()) adapter1.addAll(data) else setVisible(tvHolder)
-            }
-            1 -> {
-                setPageTitle("官方消息")
-                adapter2 = Adapter2()
-                rvMsg.adapter = adapter2
-                rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                if (!data.isNullOrEmpty()) adapter2.addAll(data) else {
-                    tvHolder.text = "当前暂无任何官方消息哦~"
-                    setVisible(tvHolder)
+            when (arguments?.getInt("msgType", 0)?:0) {
+                0 -> {
+                    setPageTitle("互动消息")
+                    adapter1 = Adapter1()
+                    rvMsg.adapter = adapter1
+                    rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    MineApi.getMessageTips("2") {
+                        onSuccess {
+                            if (!it.isNullOrEmpty() && isSupportVisible) {
+                                adapter1.addAll(it)
+                            }else {
+                                tvHolder.text = "当前暂无任何系统消息哦~"
+                                setVisible(tvHolder)
+                            }
+                        }
+                        onFailed {
+                            GlobalDialog.ShowError(requireActivity(), it)
+                        }
+                    }
+                }
+                1 -> {
+                    setPageTitle("官方消息")
+                    adapter2 = Adapter2()
+                    rvMsg.adapter = adapter2
+                    rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    MineApi.getMessageTips("3") {
+                        onSuccess {
+                            if (!it.isNullOrEmpty() && isSupportVisible) {
+                                adapter2.addAll(it)
+                            }else {
+                                tvHolder.text = "当前暂无任何系统消息哦~"
+                                setVisible(tvHolder)
+                            }
+                        }
+                        onFailed {
+                            GlobalDialog.ShowError(requireActivity(), it)
+                        }
+                    }
+                }
+                else -> {
+                    setPageTitle("系统消息")
+                    adapter2 = Adapter2()
+                    rvMsg.adapter = adapter2
+                    rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                    MineApi.getMessageTips("0") {
+                        onSuccess {
+                            if (!it.isNullOrEmpty() && isSupportVisible) {
+                                adapter2.addAll(it)
+                            }else {
+                                tvHolder.text = "当前暂无任何系统消息哦~"
+                                setVisible(tvHolder)
+                            }
+                        }
+                        onFailed {
+                            GlobalDialog.ShowError(requireActivity(), it)
+                        }
+                    }
                 }
             }
-            else -> {
-                setPageTitle("系统消息")
-                adapter2 = Adapter2()
-                rvMsg.adapter = adapter2
-                rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                if (!data.isNullOrEmpty()) adapter2.addAll(data) else {
-                    tvHolder.text = "当前暂无任何系统消息哦~"
-                    setVisible(tvHolder)
-                }
-            }
-        }
+
     }
 
     /**
@@ -160,11 +188,10 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
     }
 
     companion object {
-        fun newInstance(type: Int, data: List<MineMessageCenter>?): MineMessageCenterInfoFragment {
+        fun newInstance(type: Int): MineMessageCenterInfoFragment {
             val fragment = MineMessageCenterInfoFragment()
             val bundle = Bundle()
             bundle.putInt("msgType", type)
-            bundle.putSerializable("msgData", data?.toTypedArray())
             fragment.arguments = bundle
             return fragment
         }

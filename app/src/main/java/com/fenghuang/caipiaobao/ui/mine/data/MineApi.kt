@@ -405,6 +405,7 @@ object MineApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<MineMessageCenter>>() {}
         subscriber.function()
         getApi().get<List<MineMessageCenter>>(USER_MESSAGE_CENTER)
+                .headers("token", UserInfoSp.getToken())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("msg_type", msg_type)
                 .subscribe(subscriber)

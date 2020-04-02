@@ -46,7 +46,7 @@ class ExpertHotAdapter(context: Context) : BaseRecyclerAdapter<HomeExpertList>(c
         }
 
         override fun onItemClick(data: HomeExpertList) {
-            LaunchUtils.startPersonalPage(getContext(),data.id,3)
+            LaunchUtils.startPersonalPage(getContext(),data.id,3,lotteryId = data.lottery_id)
         }
     }
 

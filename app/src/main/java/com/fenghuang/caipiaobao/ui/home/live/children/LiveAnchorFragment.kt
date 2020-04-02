@@ -78,7 +78,7 @@ class LiveAnchorFragment : BaseMvpFragment<LiveAnchorFragmentPresenter>() {
 
     fun initAdvanceRecycle(data: Array<HomeHotLiveResponse>) {
         if (data.isEmpty()) {
-            setVisible(emptyHolder)
+           if (page == 1) setVisible(emptyHolder)
             smartContent.setEnableRefresh(false)//是否启用下拉刷新功能
             smartContent.setEnableLoadMore(false)//是否启用上拉加载功能
         } else {

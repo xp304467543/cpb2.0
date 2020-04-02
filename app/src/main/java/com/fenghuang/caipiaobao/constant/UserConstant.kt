@@ -32,4 +32,6 @@ object UserConstant {
 
     //跳转用户、主播、专家 主页ID
     const val FOLLOW_ID="follow_id"
+
+    const val FOLLOW_lottery_ID="FOLLOW_lottery_ID"
 }

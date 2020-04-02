@@ -103,7 +103,7 @@ object MomentsApi : BaseApi {
     fun getRecommend(function: ApiSubscriber<List<MomentsRecommend>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MomentsRecommend>>() {}
         subscriber.function()
-        getApiOther()
+        getApiLottery()
                 .get<List<MomentsRecommend>>(HomeApi.getApiOtherTest() + RECOMMEND_GOOD)
                 .cacheMode(CacheMode.NONE)
                 .subscribe(subscriber)

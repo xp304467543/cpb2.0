@@ -46,7 +46,7 @@ class UserPersonalPage : BaseMvpActivity<UserPersonalPagePresenter>() {
 
     override fun initContentView() {
         if (intent != null) {
-            if (UserInfoSp.getUserId() == intent.getStringExtra(UserConstant.FOLLOW_ID) ?: "0") {
+            if (UserInfoSp.getUserId().toString() == intent.getStringExtra(UserConstant.FOLLOW_ID) ?: "0") {
                 setGone(btUserAttention)
             }
         }

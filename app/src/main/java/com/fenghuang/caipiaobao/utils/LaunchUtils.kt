@@ -88,7 +88,7 @@ object LaunchUtils {
     /**
      * 打开个人界面 用户、主播、专家
      */
-    fun startPersonalPage(context: Context?, followId: String, type: Int) {
+    fun startPersonalPage(context: Context?, followId: String, type: Int,lotteryId:String ="-1") {
         val intent = when (type) {
             1 -> {
                 Intent(context, UserPersonalPage::class.java)
@@ -101,9 +101,11 @@ object LaunchUtils {
             3 -> {
                 Intent(context, ExpertPersonalPage::class.java)
                         .putExtra(UserConstant.FOLLOW_ID, followId)
+                        .putExtra(UserConstant.FOLLOW_lottery_ID, lotteryId)
             }
             else -> Intent(context, UserPersonalPage::class.java)
                     .putExtra(UserConstant.FOLLOW_ID, followId)
+
         }
 
         startActivity(context, intent)

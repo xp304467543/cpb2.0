@@ -108,8 +108,9 @@ class LotteryExpertPlanFragmentAdapter(context: Context) : BaseRecyclerAdapter<L
         }
 
         override fun onClick(id: Int) {
-            when(id){
-                R.id.expertPlanAvatar -> LaunchUtils.startPersonalPage(getContext(), getData()?.expert_id!!,3)
+            when (id) {
+                R.id.expertPlanAvatar -> LaunchUtils.startPersonalPage(getContext(), getData()?.expert_id!!, 3, getData()?.lottery_id
+                        ?: "-1")
             }
         }
     }
