@@ -4,7 +4,6 @@ import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
-import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 
 /**
  *
@@ -106,6 +105,7 @@ object LoginApi : BaseApi {
                 .params("password", password)
                 .params("captcha", code)
                 .params("mode", 3)
+                .params("client_type", 3)
                 .params("is_auto_login", is_auto_login)
                 .subscribe(subscriber)
     }

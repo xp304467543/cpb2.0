@@ -16,8 +16,8 @@ import kotlinx.android.synthetic.main.fragment_presonal_expert.*
 class ExpertPersonalPagePresenter : BaseMvpPresenter<ExpertPersonalPage>() {
 
 
-    fun getExpertInfo(expert_id: String) {
-        PersonalApi.getExpertPage(expert_id) {
+    fun getExpertInfo(expert_id: String,lottery_id: String) {
+        PersonalApi.getExpertPage(expert_id,lottery_id) {
             if (mView.isActive()) {
                 onSuccess {
                     mView.initExpert(it)

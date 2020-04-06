@@ -28,7 +28,7 @@ class LiveRoomChatTask(var context: Context, var data: HomeLiveChatChildBean, va
         view?.let { AnimUtils.getLotteryInAnimation(context, it) }
         Timer().schedule(object : TimerTask() {
             override fun run() {
-                if (view != null) {
+                view?.post {
                     AnimUtils.getLotteryOutAnimation(context, view!!)
                     unLockBlock()
                     cancel()

@@ -11,7 +11,7 @@ object SpUtils {
             if (sharedPreferences == null) {
                 synchronized(SpUtils::class.java) {
                     if (sharedPreferences == null) {
-                        sharedPreferences = AppUtils.getContext().getSharedPreferences(AppUtils.getAppInfo()?.packageName, Context.MODE_PRIVATE)
+                        sharedPreferences = AppUtils.getContext().getSharedPreferences(AppUtils.getAppInfo()?.packageName+"2.0", Context.MODE_PRIVATE)
                     }
                 }
             }

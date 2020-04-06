@@ -86,7 +86,7 @@ class MineRechargeItemFragment : BaseContentFragment() {
 
             override fun onItemClick(data: MinePayTypeList) {
                 if (data.pay_type == "rgcz") {
-                    LaunchUtils.startInvest(getPageActivity(),0.0, data.id, data.apiroute, true)
+                    LaunchUtils.startInvest(getPageActivity(),0F, data.id, data.apiroute, true)
                 }else {
                     val dialog = getContext()?.let { InvestDialog(it, data.channels_type, "确定", "取消") }
                     dialog?.setConfirmClickListener {
@@ -100,7 +100,7 @@ class MineRechargeItemFragment : BaseContentFragment() {
                 if (!TextUtils.isEmpty(dialog.getText())) {
                     val money = dialog.getText().toDouble()
                     if (it.high_money.toDouble() >= money && it.low_money.toDouble() <= money) {
-                        LaunchUtils.startInvest(getPageActivity(),money, it.id, it.apiroute, false)
+                        LaunchUtils.startInvest(getPageActivity(),money.toFloat(), it.id, it.apiroute, false)
                         dialog.dismiss()
                     } else ToastUtils.show("充值金额为:" + it.low_money + "~" + it.high_money)
 

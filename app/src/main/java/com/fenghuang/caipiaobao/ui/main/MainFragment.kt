@@ -97,13 +97,13 @@ class MainFragment : BaseContentFragment() {
                 if (it.version_data != null) {
                     val dialog = VersionDialog(getPageActivity())
                     dialog.setContent(it.version_data?.upgradetext!!)
-//                    if (it.version_data?.enforce == 1) {
-//                        dialog.setCanceledOnTouchOutside(false)
-//                        dialog.setCancelable(false)
-//                    } else {
-//                        dialog.setCanceledOnTouchOutside(true)
-//                        dialog.setCancelable(true)
-//                    }
+                    if (it.version_data?.enforce == 1) {
+                        dialog.setCanceledOnTouchOutside(false)
+                        dialog.setCancelable(false)
+                    } else {
+                        dialog.setCanceledOnTouchOutside(true)
+                        dialog.setCancelable(true)
+                    }
                     dialog.setJum(it.version_data?.downloadurl!!)
                     dialog.show()
                 }

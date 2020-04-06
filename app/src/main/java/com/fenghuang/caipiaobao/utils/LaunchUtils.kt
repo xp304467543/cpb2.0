@@ -155,7 +155,7 @@ object LaunchUtils {
     /**
      * 跳转充值
      */
-    fun startInvest(context: Context?,amount: Double, id: Int, url: String,isRen:Boolean){
+    fun startInvest(context: Context?,amount: Float, id: Int, url: String,isRen:Boolean){
         val intent = Intent(context, MineInvestFragment::class.java)
         intent.putExtra(IntentConstant.MINE_INVEST_AMOUNT, amount)
         intent.putExtra(IntentConstant.MINE_RECHARGE_ID, id)

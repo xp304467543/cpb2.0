@@ -31,7 +31,7 @@ class LiveRoomRankPresenter : BaseMvpPresenter<LiveRoomRankFragment>() {
                 }
                 onFailed {
                     mView.setGone(mView.spLiveRankLoading)
-                    mView.tvRankHolder.visibility = View.VISIBLE
+                   if (mView.spLiveRankLoading!=null) mView.tvRankHolder.visibility = View.VISIBLE
                     mView.tvRankHolder.text = "出错了~"
                 }
             }

@@ -96,16 +96,18 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                     rvMsg.adapter = adapter2
                     rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     MineApi.getMessageTips("0") {
-                        onSuccess {
-                            if (!it.isNullOrEmpty() && isSupportVisible) {
-                                adapter2.addAll(it)
-                            }else {
-                                tvHolder.text = "当前暂无任何系统消息哦~"
-                                setVisible(tvHolder)
+                        if (isAdded){
+                            onSuccess {
+                                if (!it.isNullOrEmpty() && isSupportVisible) {
+                                    adapter2.addAll(it)
+                                }else {
+                                    tvHolder.text = "当前暂无任何系统消息哦~"
+                                    setVisible(tvHolder)
+                                }
                             }
-                        }
-                        onFailed {
-                            GlobalDialog.ShowError(requireActivity(), it)
+                            onFailed {
+                                GlobalDialog.ShowError(requireActivity(), it)
+                            }
                         }
                     }
                 }

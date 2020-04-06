@@ -59,8 +59,9 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
     override fun initData() {
         if (intent != null) {
             showPageLoadingDialog()
-            mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!)
             lottery_id = intent.getStringExtra(UserConstant.FOLLOW_lottery_ID)?:"-1"
+            if (lottery_id == "-1") mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!,"") else mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!,lottery_id)
+
         }
     }
 
@@ -120,7 +121,7 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
                         btAttentionExpert.setTextColor(ViewUtils.getColor(R.color.grey_e6))
                         btAttentionExpert.text = "已关注"
                     }
-                    mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!)
+                    mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!,lottery_id)
                 }
                 presenter.setFailExpertClickListener {
                     GlobalDialog.ShowError(this, it)

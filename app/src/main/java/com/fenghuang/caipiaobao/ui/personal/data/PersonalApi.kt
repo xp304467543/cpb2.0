@@ -59,7 +59,7 @@ object PersonalApi : BaseApi {
     /**
      * 专家详情主页
      */
-    fun getExpertPage(expert_id:String,function: ApiSubscriber<ExpertPageInfo>.() -> Unit){
+    fun getExpertPage(expert_id:String,lotteryID:String,function: ApiSubscriber<ExpertPageInfo>.() -> Unit){
         val subscriber = object : ApiSubscriber<ExpertPageInfo>() {}
         subscriber.function()
         getApiLottery()
@@ -67,6 +67,7 @@ object PersonalApi : BaseApi {
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())
                 .params("expert_id", expert_id)
+                .params("lottery_id", lotteryID)
                 .subscribe(subscriber)
 
     }

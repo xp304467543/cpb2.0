@@ -343,7 +343,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                 Timer().schedule(object : TimerTask() {
                                     override fun run() {
                                         if (mView.isSupportVisible && mView.linEnter != null) {
-                                            ObjectAnimatorViw.setHideAnimation(mView.linEnter, 1000)
+                                            mView.linEnter.post {  ObjectAnimatorViw.setHideAnimation(mView.linEnter, 1000) }
                                         }
                                         this.cancel()
                                     }

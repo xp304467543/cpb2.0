@@ -60,10 +60,13 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
         recyclerViewTitle.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
     }
 
-    override fun initData() {
-        mPresenter.getTitle()
-        mPresenter.getContent("")
+    override fun onSupportVisible() {
+        if (isActive()){
+            mPresenter.getContent(contentAid)
+        }
+
     }
+
 
     fun initTitle(data: MutableList<HomeLiveAdvance>) {
         data.add(0, HomeLiveAdvance("", "全部"))
@@ -73,9 +76,9 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
 
     fun initAdvanceRecycle(data: ArrayList<HomeLiveAdvanceList>, type: String) {
         contentAdapter = if (type == "") {
-            LiveRoomAdvanceAdapter(getPageActivity(), true)
+            LiveRoomAdvanceAdapter(getPageActivity(), true,isJumpLive = true)
         } else {
-            LiveRoomAdvanceAdapter(getPageActivity())
+            LiveRoomAdvanceAdapter(getPageActivity(),isJumpLive = true)
         }
         if (!data.isNullOrEmpty()) {
             recyclerViewContent.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.VERTICAL, false)
