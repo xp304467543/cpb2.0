@@ -5,26 +5,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
-        android:background="@mipmap/ic_live_top"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvLiveBetClose"
-            android:layout_width="@dimen/dp_80"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/tab_betting"
-            android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_16"
-            android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:id="@+id/imgBetCLose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@mipmap/ic_live_top" />
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <TextView
+                android:id="@+id/tvLiveBetClose"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:text="@string/tab_betting"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_16" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
