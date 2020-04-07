@@ -94,6 +94,7 @@ class CommentOnFragment : BaseMvpFragment<CommentOnFragmentPresenter>() {
             mPresenter.getCommentOnList(data?.id!!, page)
         }
         smartRefreshCommentOn.setOnLoadMoreListener {
+            page++
             mPresenter.getCommentOnList(data?.id!!, page)
         }
     }

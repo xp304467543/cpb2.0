@@ -77,7 +77,7 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                     override fun takeSuccess(uriList: MutableList<Uri>?) {
                         val uri = uriList?.get(0)!!
                         mView.setImgAvatar(uriList[0])
-                        val bitmap = BitmapFactory.decodeStream( mView.requireActivity().contentResolver.openInputStream(uri))
+                        val bitmap = BitmapFactory.decodeStream(mView.requireActivity().contentResolver.openInputStream(uri))
                         upLoadPersonalAvatar(bitmap)
                     }
 
@@ -90,15 +90,16 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                 })
             }
 
-            2 ->{
-                UTakePhoto.with(mView).openAlbum().setCrop(cropOptions).build(object :ITakePhotoResult{
+            2 -> {
+                UTakePhoto.with(mView).openAlbum().setCrop(cropOptions).build(object : ITakePhotoResult {
                     override fun takeSuccess(uriList: MutableList<Uri>?) {
                         val uri = uriList?.get(0)!!
                         mView.setImgAvatar(uriList[0])
-                        val bitmap = BitmapFactory.decodeStream( mView.requireActivity().contentResolver.openInputStream(uri))
+                        val bitmap = BitmapFactory.decodeStream(mView.requireActivity().contentResolver.openInputStream(uri))
                         upLoadPersonalAvatar(bitmap)
 
                     }
+
                     override fun takeFailure(ex: TakeException?) {
                     }
 
@@ -109,7 +110,6 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
             }
         }
     }
-
 
 
     //输入限制
@@ -173,7 +173,7 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                 .addFormDataPart("avatar", "data:image/png;base64," + bitMapToBase64(bitmap))
         val requestBody = builder.build()
         val request = Request.Builder()
-                .url(MineApi.getBaseUrlMe() + MineApi.getApiOtherUserTestIs() + MineApi.USER_UPLOAD_AVATAR)
+                .url(MineApi.getBaseUrlMe() + "/" + MineApi.getApiOtherUserTest() + MineApi.USER_UPLOAD_AVATAR)
                 .addHeader("Authorization", UserInfoSp.getTokenWithBearer())
                 .post(requestBody)
                 .build()

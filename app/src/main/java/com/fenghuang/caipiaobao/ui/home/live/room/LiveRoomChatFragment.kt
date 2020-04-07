@@ -64,6 +64,8 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
     //socket
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
 
+    private var liveRoomBottomBetFragment: LiveRoomBottomBetFragment? = null
+
     var isBottom = true
     lateinit var runnable: Runnable
 
@@ -186,6 +188,13 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
 
         imgBuyLottery.setOnClickListener {
             RxBus.get().post(JumpToBuyLottery(true))
+        }
+
+        imgShake.setOnClickListener {
+            if (liveRoomBottomBetFragment == null) {
+                liveRoomBottomBetFragment = LiveRoomBottomBetFragment()
+                liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
+            } else liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }
 

@@ -33,7 +33,7 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
 
     var page = 1
 
-   lateinit var data: MomentsAnchorListResponse
+    lateinit var data: MomentsAnchorListResponse
 
     var commentListAdapter: HotCommentOnListAdapter? = null
 
@@ -78,7 +78,7 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
         if (!data.media.isNullOrEmpty()) {
             adapter.addAll(data.media)
         }
-        if (data.live_status == "1"){
+        if (data.live_status == "1") {
             circleWave.setInitialRadius(50f)
             circleWave.start()
         }
@@ -87,15 +87,16 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
     private fun initSmartRefresh() {
         smartRefreshCommentOn.setOnRefreshListener {
             page = 1
-            mPresenter.getCommentOnList(data?.dynamic_id!!, page)
+            mPresenter.getCommentOnList(data.dynamic_id, page)
         }
         smartRefreshCommentOn.setOnLoadMoreListener {
-            mPresenter.getCommentOnList(data?.dynamic_id!!, page)
+            page++
+            mPresenter.getCommentOnList(data.dynamic_id, page)
         }
     }
 
     private fun initCommentList() {
-        commentListAdapter = HotCommentOnListAdapter(this, data?.dynamic_id!!)
+        commentListAdapter = HotCommentOnListAdapter(this, data.dynamic_id)
         commentOnList.adapter = commentListAdapter
         commentOnList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
@@ -141,7 +142,7 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
                     chatPop.showEmojiOrKeyBord(true)
                     chatPop.setSendClickListener { result ->
                         val dialogCommentSuccess = CommentsSuccessDialog(this)
-                        mPresenter.davisReply(data.dynamic_id.toString(), "", result)
+                        mPresenter.davisReply(data.dynamic_id, "", result)
                         mPresenter.setCommentSuccessListener {
                             chatPop.dismiss()
                             dialogCommentSuccess.show()
@@ -160,10 +161,10 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
         }
 
         commentAnchorPhoto.setOnClickListener {
-            if (data.live_status == "1" && data.isToLive){
+            if (data.live_status == "1" && data.isToLive) {
                 LaunchUtils.startLive(this, data.anchor_id, data.live_status,
                         "", data.avatar, data.nickname, 0)
-            }else LaunchUtils.startPersonalPage(this, data.anchor_id,2)
+            } else LaunchUtils.startPersonalPage(this, data.anchor_id, 2)
         }
     }
 

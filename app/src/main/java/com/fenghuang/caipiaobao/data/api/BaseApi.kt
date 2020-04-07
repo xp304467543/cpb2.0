@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.data.api
 
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_MAIN
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_Main
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
@@ -14,17 +16,28 @@ interface BaseApi {
 
 
     /**
-     * 获取URL  admin
+     * 获取URL  davis
      */
     fun getBaseUrl(): String {
-        return API_URL_DEV_Main
+        return if (isTest) {
+            API_URL_DEV
+        } else API_URL_DEV_Main
     }
 
     /**
-     * 获取URL  Me
+     * 获取URL  bill
      */
     fun getBaseUrlMe(): String {
-        return API_URL_DEV_OTHER
+        return if (isTest) {
+            API_URL_DEV_OTHER_TEST
+        } else API_URL_DEV_OTHER
+
+    }
+
+    fun getBaseUrlMoments(): String {
+        return if (isTest) {
+            API_MOMENTS_TEST
+        } else API_MOMENTS_MAIN
     }
 
 
@@ -48,7 +61,7 @@ interface BaseApi {
      * 圈子Api
      */
     fun getApiLottery(): RxNetGo {
-        return RxNetGo.getInstance().getRetrofitService("http://47.75.130.69:18308")
+        return RxNetGo.getInstance().getRetrofitService(getBaseUrlMoments())
     }
 
     /**
@@ -77,13 +90,5 @@ interface BaseApi {
         } else ""
     }
 
-    /**
-     *  其他的User 是否是测试库
-     */
-    fun getApiOtherUserTestIs(): String {
-        return if (isTest) {
-            "/userinfo"
-        } else ""
-    }
 
 }

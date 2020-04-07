@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorBlackAccent"
-        app:layout_constraintDimensionRatio="16:9"
+        app:layout_constraintDimensionRatio="h,16:9"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusView" />

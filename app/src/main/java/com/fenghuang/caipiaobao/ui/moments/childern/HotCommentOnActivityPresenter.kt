@@ -24,11 +24,10 @@ class HotCommentOnActivityPresenter : BaseMvpPresenter<HotCommentOnActivity>() {
                             mView.commentListAdapter?.replyAdapter?.clear()
                             mView.commentListAdapter?.addAll(it)
                         }else{
-                            mView.page++
                             mView.commentListAdapter?.addAll(it)
                             mView.commentListAdapter?.notifyDataSetChanged()
                         }
-                    }
+                    }else mView.page--
                     if (mView.smartRefreshCommentOn != null) {
                         mView.smartRefreshCommentOn.setEnableLoadMore(true)
                         mView.smartRefreshCommentOn.finishLoadMore()

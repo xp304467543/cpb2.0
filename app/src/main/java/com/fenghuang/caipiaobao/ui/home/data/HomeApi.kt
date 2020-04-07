@@ -39,7 +39,7 @@ object HomeApi : BaseApi {
     //主播推荐
     private const val HOME_ANCHOR_RECOMMEND = "/api/v1_1/live/get_expert_list/"
     //专家红单
-    private const val HOME_EXPERT_RED = "/plan/expert-list"
+    private const val HOME_EXPERT_RED = "/plan/expert-list/"
     //初始化直播间
     private const val HOME_INIT_LIVE_ROOM = "/api/v1_1/live/get_live_room/"
     //初始20条消息
@@ -53,7 +53,7 @@ object HomeApi : BaseApi {
     //礼物列表
     private const val HOME_LIVE_GIFT_LIST = "/api/v1_1/live/get_gift_list/"
     //资讯
-    private const val NEWS_LIST = "/api/v1_1/info/getInfoList"
+    private const val NEWS_LIST = "/api/v1_1/info/getInfoList/"
     //资讯详情
     private const val NEWS_INFO = "/api/v1_1/info/getInfoDetail/"
     //搜索 主播推荐
@@ -83,9 +83,9 @@ object HomeApi : BaseApi {
     //关注专家
     private const val FOLLOW_EXPERT = "/plan/follow/"
     //版本更新
-    private const val VERSION_UPDATE = "/api/common/init"
+    private const val VERSION_UPDATE = "/api/common/init/"
     //系统公告
-    private const val SYSTEM_NOTICE = "/api/v1_1/live/get_notice"
+    private const val SYSTEM_NOTICE = "/api/v1_1/live/get_notice/"
 
     /**
      * 获取首页轮播图列表

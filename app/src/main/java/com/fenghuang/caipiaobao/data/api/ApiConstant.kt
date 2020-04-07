@@ -13,11 +13,11 @@ object ApiConstant {
     /**
      * 正式
      */
-    const val API_URL_DEV_Main = "https://www.cpbadmin.com"
+    const val API_URL_DEV_Main = "https://www.cpbadmin.com" //davis
 
-    const val API_URL_DEV_OTHER = "http://47.75.130.69:18306"
+    const val API_URL_DEV_OTHER = "http://47.75.130.69:18306" //bill
 
-
+    const val API_MOMENTS_MAIN = "http://47.75.130.69:18308"  //圈子
     /**
      * 测试
      */
@@ -25,8 +25,8 @@ object ApiConstant {
 
     const val API_URL_DEV_OTHER_TEST = "http://121.127.228.235:18000"
 
-    const val isTest = false
+    const val API_MOMENTS_TEST = "http:121.127.228.235:18000"
 
-    // 开奖
-    const val API_URL_OPEN = "http://47.75.167.133:18306"
+    const val isTest = true
+
 }
