@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.widget.dialog.bottom
 
 import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     protected var mContext: Context? = null
-    private var rootView: View? = null
+    var rootView: View? = null
     protected var dialog: BottomSheetDialog? = null
 
     protected var mBehavior: BottomSheetBehavior<*>? = null
@@ -70,6 +71,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
             //缓存下来的View 当为空时才需要初始化 并缓存
             rootView = View.inflate(mContext, layoutResId, null)
             initView()
+            initData()
         }
         resetView()
         //设置View重新关联
@@ -80,11 +82,11 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         mBehavior!!.isHideable = true
         mBehavior!!.setBottomSheetCallback(mBottomSheetBehaviorCallback)
         //圆角边的关键(设置背景透明)
-        //((View) rootView.getParent()).setBackgroundColor(Color.TRANSPARENT);
+        ((rootView?.parent) as View).setBackgroundColor(Color.TRANSPARENT)
         //重置高度
         if (dialog != null) {
             val bottomSheet = dialog!!.findViewById<View>(R.id.design_bottom_sheet)
-            bottomSheet!!.layoutParams.height = ViewUtils.getScreenHeight()* 2 / 3 - ViewUtils.dp2px(12)
+            bottomSheet!!.layoutParams.height = ViewUtils.getScreenHeight() * 2 / 3 - ViewUtils.dp2px(8)
         }
         rootView!!.post { mBehavior!!.peekHeight = rootView!!.height }
         return dialog as BottomSheetDialog
@@ -94,6 +96,8 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
      * 初始化View和设置数据等操作的方法
      */
     abstract fun initView()
+
+    abstract fun initData()
 
     /**
      * 重置的View和数据的空方法 子类可以选择实现
@@ -115,6 +119,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         if (isAnimation) {
             if (mBehavior != null)
                 mBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
+            dismiss()
         } else {
             dismiss()
         }

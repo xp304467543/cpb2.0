@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home.live.room
 
+import android.widget.TextView
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BaseBottomSheetFragment
 
@@ -16,7 +17,15 @@ class LiveRoomBottomBetFragment(override val layoutResId: Int = R.layout.dialog_
 
 
     override fun initView() {
+        rootView?.findViewById<TextView>(R.id.tvLiveBetClose)?.setOnClickListener {
+            close(true)
+        }
+    }
+
+
+    override fun initData() {
 
     }
+
 
 }
