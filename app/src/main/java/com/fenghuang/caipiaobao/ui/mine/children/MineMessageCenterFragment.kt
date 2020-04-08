@@ -62,44 +62,52 @@ class MineMessageCenterFragment : BaseNavFragment() {
 
     private fun getSystemMsg() {
         MineApi.getMessageTips("0") {
-            onSuccess {
-                if (!it.isNullOrEmpty() && isSupportVisible) {
-                    tv3_time.text = it[0].createtime_txt
-                    tv3_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    list3 = it
+            if (isAdded) {
+                onSuccess {
+                    if (!it.isNullOrEmpty() && isSupportVisible) {
+                        tv3_time.text = it[0].createtime_txt
+                        tv3_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                        list3 = it
+                    }
+                }
+                onFailed {
+                    GlobalDialog.ShowError(requireActivity(), it)
                 }
             }
-            onFailed {
-                GlobalDialog.ShowError(requireActivity(), it)
-            }
+
         }
 
         MineApi.getMessageTips("2") {
-            onSuccess {
-                if (!it.isNullOrEmpty() && isSupportVisible) {
-                    tv1_time.text = it[0].createtime_txt
-                    tv1_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    list1 = it
+            if (isAdded) {
+                onSuccess {
+                    if (!it.isNullOrEmpty() && isSupportVisible) {
+                        tv1_time.text = it[0].createtime_txt
+                        tv1_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                        list1 = it
+                    }
+                }
+                onFailed {
+                    GlobalDialog.ShowError(requireActivity(), it)
                 }
             }
-            onFailed {
-                GlobalDialog.ShowError(requireActivity(), it)
-            }
+
         }
 
         MineApi.getMessageTips("3") {
-            onSuccess {
-                if (!it.isNullOrEmpty() && isSupportVisible) {
-                    tv2_time.text = it[0].createtime_txt
-                    tv2_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
-                    list2 = it
+            if (isAdded) {
+                onSuccess {
+                    if (!it.isNullOrEmpty() && isSupportVisible) {
+                        tv2_time.text = it[0].createtime_txt
+                        tv2_content.text = HtmlCompat.fromHtml(it[0].content, HtmlCompat.FROM_HTML_MODE_COMPACT)
+                        list2 = it
+                    }
+                }
+                onFailed {
+                    GlobalDialog.ShowError(requireActivity(), it)
                 }
             }
-            onFailed {
-                GlobalDialog.ShowError(requireActivity(), it)
-            }
+            hidePageLoadingDialog()
         }
-        hidePageLoadingDialog()
     }
 
     override fun initEvent() {

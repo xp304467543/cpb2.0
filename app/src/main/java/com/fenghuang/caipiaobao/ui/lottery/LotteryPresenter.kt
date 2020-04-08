@@ -84,9 +84,11 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
                         mView.setGone(mView.tvOpenCodePlaceHolder)
                     } else {
                         if (mView.timer != null) mView.timer?.cancel()
-                        mView.tvOpenTime.text = "开奖中..."
-                        mView.tvAtNext.text = mView.getString(R.string.lottery_next)
-                        mView.tvOpenCount.text = it.issue + " 期开奖结果"
+                        if (mView.isSupportVisible){
+                            mView.tvOpenTime.text = "开奖中..."
+                            mView.tvAtNext.text = mView.getString(R.string.lottery_next)
+                            mView.tvOpenCount.text = it.issue + " 期开奖结果"
+                        }
                         handler = Handler()
                         runnable = Runnable {
                             isPost = true

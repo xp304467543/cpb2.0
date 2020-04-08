@@ -527,7 +527,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     if (isSupportVisible && linEnter != null) {
-                        ObjectAnimatorViw.setHideAnimation(linEnter, 1000)
+                        linEnter.post { ObjectAnimatorViw.setHideAnimation(linEnter, 1000) }
                     }
                     this.cancel()
                 }
@@ -541,7 +541,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
             Timer().schedule(object : TimerTask() {
                 override fun run() {
                     if (view != null) {
-                        AnimUtils.getOutAnimation(context!!, tvVipEnter)
+                        tvVipEnter.post { AnimUtils.getOutAnimation(context!!, tvVipEnter) }
                         this.cancel()
                     }
                 }
