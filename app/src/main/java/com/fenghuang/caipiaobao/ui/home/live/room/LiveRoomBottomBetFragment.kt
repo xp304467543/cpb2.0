@@ -19,7 +19,7 @@ class LiveRoomBottomBetFragment(override val layoutResId: Int = R.layout.dialog_
 
     override fun initView() {
         rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
-            close(true)
+            dismiss()
         }
     }
 

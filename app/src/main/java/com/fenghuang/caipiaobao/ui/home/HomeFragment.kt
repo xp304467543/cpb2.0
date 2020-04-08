@@ -355,7 +355,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun LoginOut(eventBean: LoginOut) {
-        ImageManager.loadBitmap(ivTitleLeft, R.mipmap.ic_base_user)
+       if (isActive() && ivTitleLeft!=null) ImageManager.loadBitmap(ivTitleLeft, R.mipmap.ic_base_user)
         mPresenter.upDatePreView()
     }
 

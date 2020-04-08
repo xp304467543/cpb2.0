@@ -34,9 +34,11 @@ class LiveRoomVipEnterTask(var context: Context, var data: String, var view: Tex
         Timer().schedule(object : TimerTask() {
             override fun run() {
                 if (view != null) {
-                    AnimUtils.getOutAnimation(context, view!!)
-                    unLockBlock()
-                    cancel()
+                    view?.post {
+                        AnimUtils.getOutAnimation(context, view!!)
+                        unLockBlock()
+                        cancel()
+                    }
                 }
             }
         }, 5000)

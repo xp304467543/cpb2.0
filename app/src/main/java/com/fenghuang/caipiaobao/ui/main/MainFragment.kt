@@ -40,6 +40,7 @@ class MainFragment : BaseContentFragment() {
         mFragments.add(BetFragment())
         mFragments.add(MomentsFragment())
         mFragments.add(MineFragment())
+
         loadMultipleRootFragment(R.id.mainContainer, 0,
                 mFragments[0], mFragments[1], mFragments[2], mFragments[3], mFragments[4])
         //皮肤
