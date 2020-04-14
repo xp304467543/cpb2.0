@@ -88,6 +88,56 @@
         app:layout_constraintTop_toBottomOf="@+id/topView">
 
 
+        <LinearLayout
+            android:layout_marginTop="1dp"
+            android:id="@+id/linOpen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_15"
+            android:paddingTop="@dimen/dp_16"
+            android:paddingEnd="@dimen/dp_15"
+            app:layout_constraintTop_toBottomOf="@+id/view3">
+
+            <TextView
+                android:id="@+id/tvOpenCount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="50623672期开奖结果" />
+
+            <TextView
+                android:id="@+id/tvAtNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="距下期"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tvOpenTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="封盘" />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginEnd="@dimen/dp_8"
+                   android:textColor="@color/color_333333"
+                   android:textSize="@dimen/sp_14"
+                   android:textStyle="bold"
+                   tools:text="开奖" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
