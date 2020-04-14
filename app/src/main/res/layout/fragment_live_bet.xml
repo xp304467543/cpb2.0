@@ -37,11 +37,12 @@
                 android:gravity="center"
                 android:textSize="16sp"
                 android:drawablePadding="10dp"
-                android:drawableRight="@mipmap/select_bottom"
+                android:drawableEnd="@mipmap/select_bottom"
                 android:textColor="@color/color_333333"
                 android:text="重庆时时彩" />
 
             <TextView
+                android:id="@+id/tvBetTools"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/dp_10"

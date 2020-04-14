@@ -72,8 +72,10 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
 
     var isShowPop: Boolean = false
     var popMenuManager: LiveManageRoomPop? = null
+
     //聊天适配器
     var chatAdapter: LiveRoomChatAdapter? = null
+
     //红包弹窗
     private var mOpenRedPopup: RedPaperDialog? = null
 
@@ -192,10 +194,8 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
 
         imgShake.setOnClickListener {
-            if (liveRoomBottomBetFragment == null) {
-                liveRoomBottomBetFragment = LiveRoomBottomBetContainerFragment()
-                liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
-            } else liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
+            liveRoomBottomBetFragment = LiveRoomBottomBetContainerFragment()
+            liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }
 

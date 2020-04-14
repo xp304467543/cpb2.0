@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.widget.dialog.bottom
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 
@@ -46,6 +47,7 @@ abstract class BottomDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        LogUtils.e("----????")
         initFragment()
     }
 

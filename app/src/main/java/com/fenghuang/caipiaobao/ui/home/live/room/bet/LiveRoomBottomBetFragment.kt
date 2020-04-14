@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.live.room.bet
 
 import android.view.View
+import android.widget.TextView
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
 import com.fenghuang.caipiaobao.widget.BaseNormalFragment
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_live_bet.*
  *
  * @ Author  QinTian
  * @ Date  2020-04-13
- * @ Describe
+ * @ Describe 投主页(直播间)
  *
  */
 
@@ -23,8 +24,20 @@ class LiveRoomBottomBetFragment : BaseNormalFragment(){
 
     override fun getLayoutRes()= R.layout.fragment_live_bet
 
-    override fun initView(rootView: View?) {
 
+    private var betToolsListen: ((int: Int) -> Unit)? = null
+
+    fun setBetToolsListen(listener: (int: Int) -> Unit) {
+        betToolsListen = listener
+    }
+
+    override fun initView(rootView: View?) {
+        rootView?.findViewById<TextView>(R.id.tvBetTools)?.setOnClickListener {
+            betToolsListen?.invoke(2)
+        }
+        rootView?.findViewById<TextView>(R.id.tvBetRecord)?.setOnClickListener {
+            betToolsListen?.invoke(3)
+        }
     }
 
     override fun initData() {

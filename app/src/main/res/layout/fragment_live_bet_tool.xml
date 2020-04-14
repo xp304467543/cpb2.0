@@ -1,7 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/colorGreen"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imgBetToolsBack"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_15"
+            android:src="@mipmap/ic_arrow_back_black"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/livBetTab"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_40"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_20"
+            app:tabBackground="@color/transparent"
+            app:tabIndicatorColor="@color/text_red"
+            app:tabIndicatorFullWidth="false"
+            app:tabRippleColor="@color/transparent"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/color_999999" />
+    </LinearLayout>
+
+
 
 </LinearLayout>
