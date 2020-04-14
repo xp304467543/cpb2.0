@@ -14,24 +14,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imgBetCLose"
-            android:layout_width="112dp"
-            android:layout_height="10dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ic_live_top"
-            android:scaleType="centerCrop" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
-
-            <TextView
-                android:id="@+id/tvLiveBetClose"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="10dp"
-                android:layout_centerHorizontal="true" />
 
             <com.fenghuang.baselib.widget.round.RoundTextView
                 android:id="@+id/tvRedBall"
@@ -119,19 +105,19 @@
         <TextView
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
-            android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/dp_10"
-            android:background="@drawable/button_grey_background"
+            android:layout_gravity="center_vertical"
             android:gravity="center"
+            android:background="@drawable/button_grey_background"
             android:text="重置"
             android:textSize="@dimen/sp_13" />
 
         <TextView
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
-            android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/dp_10"
             android:background="@drawable/button_background"
+            android:layout_gravity="center_vertical"
             android:gravity="center"
             android:text="提交"
             android:textColor="@color/white"

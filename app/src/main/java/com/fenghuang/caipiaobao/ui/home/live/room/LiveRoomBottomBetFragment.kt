@@ -17,52 +17,52 @@ import kotlinx.android.synthetic.main.dialog_wheel_view.tvWheelSure
  * @ Describe 直播间投注
  *
  */
-
-class LiveRoomBottomBetFragment(override val layoutResId: Int = R.layout.dialog_live_bet) : BaseBottomSheetFragment() {
-
-    private var opt1SelectedPosition: Int = 0
-    private var tvLotterySelectType: TextView? = null
-
-    override fun initView() {
-        rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
-            dismiss()
-        }
-        rootView?.findViewById<View>(R.id.tvLiveBetClose)?.setOnClickListener {
-            dismiss()
-        }
-        tvLotterySelectType = rootView?.findViewById(R.id.tvLotterySelectType)
-    }
-
-
-    override fun initData() {
-        val type = LotteryApi.getLotteryType()
-        type.onSuccess {
-            val title = arrayListOf<String>()
-            for (data in it) {
-                title.add(data.cname)
-            }
-            if (!title.isNullOrEmpty()) initDialog(title)
-        }
-    }
-
-    private fun initDialog(title: ArrayList<String>) {
-        tvLotterySelectType?.setOnClickListener {
-            mContext?.let {
-                val lortterySelectDialog = BottomLottertSeletDialog(it, title)
-                tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_top, 0)
-                lortterySelectDialog.setOnDismissListener {
-                    tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_bottom, 0)
-                }
-                lortterySelectDialog.tvWheelSure.setOnClickListener {
-                    tvLotterySelectType?.text = lortterySelectDialog.lotteryPickerView.opt1SelectedData as String
-                    opt1SelectedPosition = lortterySelectDialog.lotteryPickerView.opt1SelectedPosition
-                    lortterySelectDialog.dismiss()
-                }
-                lortterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
-                lortterySelectDialog.show()
-            }
-        }
-    }
-
-
-}
+//
+//class LiveRoomBottomBetFragment(override val layoutResId: Int = R.layout.dialog_live_bet) : BaseBottomSheetFragment() {
+//
+//    private var opt1SelectedPosition: Int = 0
+//    private var tvLotterySelectType: TextView? = null
+//
+//    override fun initView() {
+//        rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
+//            dismiss()
+//        }
+//        rootView?.findViewById<View>(R.id.tvLiveBetClose)?.setOnClickListener {
+//            dismiss()
+//        }
+//        tvLotterySelectType = rootView?.findViewById(R.id.tvLotterySelectType)
+//    }
+//
+//
+//    override fun initData() {
+//        val type = LotteryApi.getLotteryType()
+//        type.onSuccess {
+//            val title = arrayListOf<String>()
+//            for (data in it) {
+//                title.add(data.cname)
+//            }
+//            if (!title.isNullOrEmpty()) initDialog(title)
+//        }
+//    }
+//
+//    private fun initDialog(title: ArrayList<String>) {
+//        tvLotterySelectType?.setOnClickListener {
+//            mContext?.let {
+//                val lortterySelectDialog = BottomLottertSeletDialog(it, title)
+//                tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_top, 0)
+//                lortterySelectDialog.setOnDismissListener {
+//                    tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_bottom, 0)
+//                }
+//                lortterySelectDialog.tvWheelSure.setOnClickListener {
+//                    tvLotterySelectType?.text = lortterySelectDialog.lotteryPickerView.opt1SelectedData as String
+//                    opt1SelectedPosition = lortterySelectDialog.lotteryPickerView.opt1SelectedPosition
+//                    lortterySelectDialog.dismiss()
+//                }
+//                lortterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
+//                lortterySelectDialog.show()
+//            }
+//        }
+//    }
+//
+//
+//}

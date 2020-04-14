@@ -8,6 +8,7 @@ import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomLottertSeletDialog
 import kotlinx.android.synthetic.main.dialog_lottery_select.*
 import kotlinx.android.synthetic.main.fragment_live_bet.*
 
+
 /**
  *
  * @ Author  QinTian
