@@ -106,7 +106,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initFragment()
+
     }
 
     /**
@@ -116,7 +116,6 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
 
     abstract fun initData()
 
-    abstract fun initFragment()
 
     /**
      * 重置的View和数据的空方法 子类可以选择实现
