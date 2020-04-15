@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.widget.dialog.bottom
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 
@@ -35,6 +36,7 @@ abstract class BottomDialogFragment : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCanceledOnTouchOutside(false)
         rootView = super.onCreateView(inflater, container, savedInstanceState);
         if (rootView == null) {
             rootView = inflater.inflate(layoutResId, container, false)

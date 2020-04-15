@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imgBetCLose"
-        android:layout_width="112dp"
-        android:layout_height="10dp"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_12"
         android:layout_gravity="center_horizontal"
-        android:background="@mipmap/ic_live_top"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@mipmap/ic_live_top" />
 
     <FrameLayout
         android:id="@+id/containerBet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/text_red">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="111111" />
+        android:background="@color/white">
 
     </FrameLayout>
 
