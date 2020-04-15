@@ -14,24 +14,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imgBetCLose"
-            android:layout_width="112dp"
-            android:layout_height="10dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@mipmap/ic_live_top"
-            android:scaleType="centerCrop" />
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white">
-
-            <TextView
-                android:id="@+id/tvLiveBetClose"
-                android:layout_width="@dimen/dp_100"
-                android:layout_height="10dp"
-                android:layout_centerHorizontal="true" />
 
             <com.fenghuang.baselib.widget.round.RoundTextView
                 android:id="@+id/tvRedBall"
@@ -48,12 +34,12 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_toEndOf="@+id/tvRedBall"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:drawablePadding="10dp"
                 android:drawableRight="@mipmap/select_bottom"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="重庆时时彩"
                 android:textColor="@color/color_333333"
-                android:text="重庆时时彩" />
+                android:textSize="16sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,10 +75,10 @@
 
 
         <LinearLayout
-            android:layout_marginTop="1dp"
             android:id="@+id/linOpen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingStart="@dimen/dp_15"
@@ -108,15 +94,25 @@
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
-                tools:text="50623672期开奖结果" />
+                tools:text="50623672期" />
 
             <TextView
-                android:id="@+id/tvAtNext"
+                android:id="@+id/tvNext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="距下期"
+                android:text="@string/lottery_next_time"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14" />
+
+            <TextView
+                android:id="@+id/tvCloseTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="bold"
+                tools:text="封盘" />
 
             <TextView
                 android:id="@+id/tvOpenTime"
@@ -126,17 +122,30 @@
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14"
                 android:textStyle="bold"
-                tools:text="封盘" />
-
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_marginEnd="@dimen/dp_8"
-                   android:textColor="@color/color_333333"
-                   android:textSize="@dimen/sp_14"
-                   android:textStyle="bold"
-                   tools:text="开奖" />
+                tools:text="开奖" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linLotteryOpenCode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linOpen" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/tvOpenCodePlaceHolder"
+            style="@style/SpinKitView.Small.ThreeBounce"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_62"
+            android:background="@color/white"
+            android:gravity="center"
+            app:SpinKit_Color="@color/grey_e6"
+            app:layout_constraintTop_toBottomOf="@+id/linOpen" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -46,6 +46,7 @@ object TimeUtils {
     fun getToday(): String {
         return getYearMonthDay(System.currentTimeMillis())
     }
+
     /**
      * 获取昨天的日期，格式为 2019-01-10
      */
@@ -55,6 +56,7 @@ object TimeUtils {
         timeTemp -= TimeUnit.DAYS.toMillis(1)
         return getYearMonthDay(timeTemp)
     }
+
     /**
      * 获取前天的日期，格式为 2019-01-10
      */
@@ -63,6 +65,7 @@ object TimeUtils {
         timeTemp -= TimeUnit.DAYS.toMillis(2)
         return getYearMonthDay(timeTemp)
     }
+
     /**
      * 获取小时和分钟，格式为23:02
      */
@@ -399,6 +402,7 @@ object TimeUtils {
      * long 类型转换成日期  只有月日 时分
      */
     private val formatMDSF = SimpleDateFormat("mm-dd HH:mm", Locale.getDefault())
+
     fun longToDateStringMDTime(long: Long): String? {
         val date = Date(long * 1000)
         return formatMDSF.format(date)
@@ -408,6 +412,7 @@ object TimeUtils {
      * long 类型转换成日期  只有时分
      */
     private val format = SimpleDateFormat("HH:mm", Locale.getDefault())
+
     fun longToDateStringTime(long: Long): String? {
         val date = Date(long * 1000)
         return format.format(date)
@@ -448,5 +453,12 @@ object TimeUtils {
             else -> return "刚刚"
         }
 
+    }
+
+    /*时间戳转换成月日时分秒*/
+    fun getDateToHMSString(time: Long): String {
+        val d = Date(time)
+        val sf = SimpleDateFormat("HH:mm:ss")
+        return sf.format(d)
     }
 }

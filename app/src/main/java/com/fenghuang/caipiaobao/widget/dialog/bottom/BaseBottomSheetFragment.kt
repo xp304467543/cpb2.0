@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
@@ -12,6 +13,7 @@ import com.fenghuang.caipiaobao.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -77,7 +79,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         //设置View重新关联
         dialog!!.setContentView(rootView!!)
         dialog?.setCanceledOnTouchOutside(false)
-        mBehavior = BottomSheetBehavior.from<View>(rootView!!.parent as View)
+        mBehavior = BottomSheetBehavior.from(rootView!!.parent as View)
         mBehavior!!.skipCollapsed = true
         mBehavior!!.isHideable = true
         mBehavior!!.setBottomSheetCallback(mBottomSheetBehaviorCallback)
@@ -86,10 +88,25 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
         //重置高度
         if (dialog != null) {
             val bottomSheet = dialog!!.findViewById<View>(R.id.design_bottom_sheet)
-            bottomSheet!!.layoutParams.height = ViewUtils.getScreenHeight() * 2 / 3 - ViewUtils.dp2px(8)
+            bottomSheet!!.layoutParams.height = ViewUtils.getScreenHeight() * 2 / 3
+
         }
         rootView!!.post { mBehavior!!.peekHeight = rootView!!.height }
         return dialog as BottomSheetDialog
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        rootView = super.onCreateView(inflater, container, savedInstanceState)
+        if (rootView == null) {
+            rootView = inflater.inflate(layoutResId, container, false)
+        }
+        return rootView
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     /**
@@ -98,6 +115,7 @@ abstract class BaseBottomSheetFragment : BottomSheetDialogFragment() {
     abstract fun initView()
 
     abstract fun initData()
+
 
     /**
      * 重置的View和数据的空方法 子类可以选择实现

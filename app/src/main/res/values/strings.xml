@@ -44,6 +44,7 @@
     <!-- ================================================================== Lottery ================================================================== -->
     <string name="lottery">开奖</string>
     <string name="lottery_next">距下次&#160;&#160;</string>
+    <string name="lottery_next_time">距下期&#160;</string>
     <string name="lottery_history">历史开奖</string>
     <string name="lottery_zhu">路珠</string>
     <string name="lottery_trend">走势</string>
