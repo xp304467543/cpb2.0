@@ -3,6 +3,8 @@ package com.fenghuang.caipiaobao.ui.home.live.room.betting
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryTypeSelectUtil
@@ -25,30 +27,51 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     private var opt1SelectedPosition: Int = 0
 
+    private var currentLotteryId = "1"
+
+    private var resultList: ArrayList<LotteryTypeResponse>? = null
+
+    private var liveRoomBetToolsFragment: LiveRoomBetToolsFragment? = null
+
+    private var liveRoomBetRecordFragment: LiveRoomBetRecordFragment? = null
+
     override val layoutResId: Int = R.layout.fragment_live_bet
 
-    override fun isShowTop(): Boolean  = true
+    override fun isShowTop(): Boolean = true
 
     override fun canceledOnTouchOutside(): Boolean = false
 
     override fun initView() {
     }
+
     override fun initData() {
         val type = LotteryApi.getLotteryType()
         type.onSuccess {
             val title = arrayListOf<String>()
-            val list = arrayListOf<LotteryTypeResponse>()
+            resultList = arrayListOf()
             for (data in it) {
                 if (data.cname != "香港彩") {
-                    list.add(data)
+                    resultList?.add(data)
                     title.add(data.cname)
                 }
             }
-            if (!title.isNullOrEmpty()) initDialog(title, list)
+            if (!title.isNullOrEmpty()) initDialog(title, resultList!!)
         }
         getLotteryNewCode("1")//默认加载重庆时时彩
     }
+
     override fun initFragment() {
+        rootView?.findViewById<TextView>(R.id.tvBetTools)?.setOnClickListener {
+            liveRoomBetToolsFragment = LiveRoomBetToolsFragment.newInstance(lotteryID = currentLotteryId)
+            liveRoomBetToolsFragment?.show(fragmentManager, "LiveRoomBetToolsFragment")
+        }
+        rootView?.findViewById<TextView>(R.id.tvBetRecord)?.setOnClickListener {
+            liveRoomBetRecordFragment = LiveRoomBetRecordFragment()
+            liveRoomBetRecordFragment?.show(fragmentManager, "liveRoomBetRecordFragment")
+        }
+        rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
+            dismiss()
+        }
     }
 
 
@@ -63,7 +86,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             lotterySelectDialog.tvLotteryWheelSure.setOnClickListener {
                 tvLotterySelectType?.text = lotterySelectDialog.lotteryPickerView.opt1SelectedData as String
                 opt1SelectedPosition = lotterySelectDialog.lotteryPickerView.opt1SelectedPosition
-                getLotteryNewCode(list[opt1SelectedPosition].lottery_id)
+                currentLotteryId = list[opt1SelectedPosition].lottery_id
+                getLotteryNewCode(currentLotteryId)
                 lotterySelectDialog.dismiss()
             }
             lotterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
@@ -100,7 +124,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     // ===== 倒计时 =====
     var timer: CountDownTimer? = null
 
-    fun countDownTime(millisUntilFinished: String, lotteryId: String) {
+    private fun countDownTime(millisUntilFinished: String, lotteryId: String) {
         tvNext.text = getString(R.string.lottery_next_time)
         if (timer != null) timer?.cancel()
         val timeCountDown = millisUntilFinished.toLong() * 1000
