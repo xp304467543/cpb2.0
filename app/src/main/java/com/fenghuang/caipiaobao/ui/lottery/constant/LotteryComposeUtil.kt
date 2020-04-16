@@ -4,8 +4,6 @@ import android.annotation.SuppressLint
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import com.fenghuang.baselib.utils.LogUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeTrendResponse
@@ -275,7 +273,7 @@ object LotteryComposeUtil {
 
     //----------------------------走势------------------------------------------------------------------
     //号码走势
-    fun getNumTrendMap(type: String, data: List<LotteryCodeTrendResponse>?, dataFrom: List<LotteryCodeTrendResponse>?, trendViewHead: TrendViewHeadType, trendViewContent: TrendViewType, trendContainer: LinearLayout, loadingContainer: LinearLayout) {
+    fun getNumTrendMap(type: String, data: List<LotteryCodeTrendResponse>?, dataFrom: List<LotteryCodeTrendResponse>?, trendViewHead: TrendViewHeadType?, trendViewContent: TrendViewType?, trendContainer: LinearLayout?, loadingContainer: LinearLayout?) {
 
         if (data != null && !data.isNullOrEmpty()) {
 
@@ -387,15 +385,15 @@ object LotteryComposeUtil {
                     }
                 }
             }
-            if (trendContainer.isVisible) ViewUtils.setGone(trendContainer)
+            if (trendContainer?.isVisible == true) ViewUtils.setGone(trendContainer)
             if (list.size > 0) {
-                trendViewContent.upDateData(list, type)
-                trendViewHead.setType(type)
-                trendViewHead.requestLayout()
-                trendViewContent.requestLayout()
+                trendViewContent?.upDateData(list, type)
+                trendViewHead?.setType(type)
+                trendViewHead?.requestLayout()
+                trendViewContent?.requestLayout()
             }
             //全部绘制完成再显示
-            trendViewContent.viewTreeObserver.addOnGlobalLayoutListener {
+            trendViewContent?.viewTreeObserver?.addOnGlobalLayoutListener {
                 ViewUtils.setVisible(trendContainer)
                 ViewUtils.setGone(loadingContainer)
             }

@@ -90,7 +90,7 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
                     countDownTime(it.next_lottery_time, lottery_id)
                     tvCloseTime.text = ("封盘" + TimeUtils.getDateToHMSString(it.next_lottery_end_time * 1000))
                     //更新最新开奖数据
-                    LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code.split(","), it.lottery_id)
+                    LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code?.split(","), it.lottery_id)
                     tvOpenCodePlaceHolder.visibility = View.GONE
                 } else {
                     if (timer != null) timer?.cancel()

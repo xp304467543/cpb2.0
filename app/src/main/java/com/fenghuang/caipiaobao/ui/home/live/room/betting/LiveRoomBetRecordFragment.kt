@@ -16,9 +16,9 @@ class LiveRoomBetRecordFragment : BottomDialogFragment() {
     override val layoutResId: Int = R.layout.fragment_live_bet_record
 
 
-    override fun isShowTop(): Boolean = true
+    override fun isShowTop(): Boolean = false
 
-    override fun canceledOnTouchOutside(): Boolean = false
+    override fun canceledOnTouchOutside(): Boolean = true
 
     override fun initView() {
     }

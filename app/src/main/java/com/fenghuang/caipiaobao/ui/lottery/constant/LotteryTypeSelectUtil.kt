@@ -19,12 +19,13 @@ import com.fenghuang.caipiaobao.R
 object LotteryTypeSelectUtil {
 
     // ===== 添加 号码 开奖数据 =====
-    fun addOpenCode(context: Context, codeContainer: LinearLayout, result: List<String>, lotteryId: String) {
+    fun addOpenCode(context: Context, codeContainer: LinearLayout, result: List<String>?, lotteryId: String) {
         codeContainer.removeAllViews()
         codeContainer.gravity = Gravity.CENTER_VERTICAL
         val size = (ViewUtils.getScreenWidth(context) - ViewUtils.dp2px(75)) / 10
         when (lotteryId) {
             "8" -> {
+                if (result==null)return
                 for ((index, it) in result.withIndex()) {
                     val openText = TextView(context)
                     openText.gravity = Gravity.CENTER
@@ -47,6 +48,7 @@ object LotteryTypeSelectUtil {
                 }
             }
             else -> {
+                if (result==null)return
                 for (it in result) {
                     val openText = TextView(context)
                     openText.gravity = Gravity.CENTER

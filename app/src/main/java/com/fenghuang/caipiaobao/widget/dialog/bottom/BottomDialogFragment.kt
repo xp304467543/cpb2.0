@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.DialogFragment
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import me.yokeyword.fragmentation.ISupportFragment
 
 
 /**
@@ -15,7 +16,7 @@ import com.fenghuang.caipiaobao.R
  *
  */
 
-abstract class BottomDialogFragment : DialogFragment() {
+abstract class BottomDialogFragment : DialogFragment(){
 
 
     var rootView: View? = null

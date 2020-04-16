@@ -141,9 +141,9 @@ class LotteryBaseFragment : BaseContentFragment() {
     fun onLotteryTypeSelect(eventBean: LotteryNewCode) {
         if (lotteryHistoryOpenFragment != null) {
             lotteryHistoryOpenFragment!!.addItem(LotteryCodeHistoryResponse(
-                    issue = eventBean.lotteryCodeNewResponse!!.issue,
-                    code = eventBean.lotteryCodeNewResponse!!.code,
-                    input_time = eventBean.lotteryCodeNewResponse!!.input_time))
+                    issue = eventBean.lotteryCodeNewResponse!!.issue?:"0",
+                    code = eventBean.lotteryCodeNewResponse!!.code?:"0",
+                    input_time = eventBean.lotteryCodeNewResponse!!.input_time ?:"0"))
         }
         if (lotteryLuZhuFragment != null) lotteryLuZhuFragment!!.upDateLuZhu()
         if (lotteryTrendFragment != null) lotteryTrendFragment!!.getTypeTrendData()

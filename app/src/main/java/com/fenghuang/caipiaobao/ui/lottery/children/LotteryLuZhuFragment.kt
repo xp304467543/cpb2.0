@@ -33,7 +33,6 @@ class LotteryLuZhuFragment : BaseMvpFragment<LotteryLuZhuFragmentPresenter>() {
 
     var rankList: List<BottomDialogBean>? = null
 
-    var luZhuRecycle: RecyclerView? = null
 
     var luZhuRecycleAdapter: LotteryChildLuZhuAdapter? = null
 
@@ -67,11 +66,11 @@ class LotteryLuZhuFragment : BaseMvpFragment<LotteryLuZhuFragmentPresenter>() {
 
     override fun initData() {
         mPresenter.getLuZhuData(arguments?.getString("lotteryId")!!, selectType)
-        luZhuRecycle = rvLotteryLuZhu
+        rvLotteryLuZhu
         luZhuRecycleAdapter = LotteryChildLuZhuAdapter(context!!, arguments?.getString("lotteryId")!!)
-        luZhuRecycle!!.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        luZhuRecycle!!.adapter = luZhuRecycleAdapter
-        luZhuRecycle!!.setItemViewCacheSize(10)
+        rvLotteryLuZhu.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvLotteryLuZhu.adapter = luZhuRecycleAdapter
+        rvLotteryLuZhu.setItemViewCacheSize(10)
     }
 
 

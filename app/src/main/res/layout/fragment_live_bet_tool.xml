@@ -24,13 +24,20 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_20"
-            app:tabBackground="@color/transparent"
-            app:tabIndicatorColor="@color/text_red"
-            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorHeight="@dimen/dp_0"
             app:tabRippleColor="@color/transparent"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/color_999999" />
+            app:tabSelectedTextColor="@color/color_FF513E"
+            app:tabTextColor="@color/color_333333" />
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/color_F5F7FA"/>
+
+    <com.google.android.material.widget.XViewPager
+        android:id="@+id/liveBetViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 

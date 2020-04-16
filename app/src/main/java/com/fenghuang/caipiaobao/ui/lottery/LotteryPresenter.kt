@@ -73,12 +73,12 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
                         } else RxBus.get().post(LotteryExpertPlay(it))
                         when (lotteryId) {
                             "8" -> {
-                                val tbList = it.code.split(",") as ArrayList<String>
+                                val tbList = it.code?.split(",") as ArrayList<String>
                                 tbList.add(6, "+")
                                 LotteryTypeSelectUtil.addOpenCode(mView.requireActivity(), mView.linLotteryOpenCode, tbList, it.lottery_id)
                             }
                             else -> {
-                                LotteryTypeSelectUtil.addOpenCode(mView.requireActivity(), mView.linLotteryOpenCode, it.code.split(","), it.lottery_id)
+                                LotteryTypeSelectUtil.addOpenCode(mView.requireActivity(), mView.linLotteryOpenCode, it.code?.split(","), it.lottery_id)
                             }
                         }
                         mView.setGone(mView.tvOpenCodePlaceHolder)
