@@ -28,7 +28,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
-import com.fenghuang.caipiaobao.ui.home.live.room.bet.LiveRoomBottomBetContainerFragment
+import com.fenghuang.caipiaobao.ui.home.live.room.betting.LiveRoomBetFragment
 import com.fenghuang.caipiaobao.ui.mine.MinePresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
@@ -65,7 +65,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
     //socket
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
 
-    private var liveRoomBottomBetFragment: LiveRoomBottomBetContainerFragment? = null
+    private var liveRoomBetFragment: LiveRoomBetFragment? = null
 
     var isBottom = true
     lateinit var runnable: Runnable
@@ -194,8 +194,8 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
 
         imgShake.setOnClickListener {
-            liveRoomBottomBetFragment = LiveRoomBottomBetContainerFragment()
-            liveRoomBottomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
+            if (liveRoomBetFragment == null) liveRoomBetFragment = LiveRoomBetFragment()
+            liveRoomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }
 

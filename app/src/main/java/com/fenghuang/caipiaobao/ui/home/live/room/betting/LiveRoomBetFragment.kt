@@ -1,50 +1,38 @@
-package com.fenghuang.caipiaobao.ui.home.live.room.bet
+package com.fenghuang.caipiaobao.ui.home.live.room.betting
 
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
 import android.view.View
-import android.widget.TextView
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryTypeSelectUtil
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
-import com.fenghuang.caipiaobao.widget.BaseNormalFragment
+import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomDialogFragment
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomLotterySelectDialog
 import kotlinx.android.synthetic.main.dialog_lottery_select.*
 import kotlinx.android.synthetic.main.fragment_live_bet.*
 
-
 /**
  *
  * @ Author  QinTian
- * @ Date  2020-04-13
- * @ Describe 投主页(直播间)
+ * @ Date  2020-04-16
+ * @ Describe 投注
  *
  */
 
-class LiveRoomBottomBetFragment : BaseNormalFragment() {
+class LiveRoomBetFragment : BottomDialogFragment() {
 
     private var opt1SelectedPosition: Int = 0
 
-    override fun getLayoutRes() = R.layout.fragment_live_bet
+    override val layoutResId: Int = R.layout.fragment_live_bet
 
+    override fun isShowTop(): Boolean  = true
 
-    private var betToolsListen: ((int: Int) -> Unit)? = null
+    override fun canceledOnTouchOutside(): Boolean = false
 
-    fun setBetToolsListen(listener: (int: Int) -> Unit) {
-        betToolsListen = listener
+    override fun initView() {
     }
-
-    override fun initView(rootView: View?) {
-        rootView?.findViewById<TextView>(R.id.tvBetTools)?.setOnClickListener {
-            betToolsListen?.invoke(2)
-        }
-        rootView?.findViewById<TextView>(R.id.tvBetRecord)?.setOnClickListener {
-            betToolsListen?.invoke(3)
-        }
-    }
-
     override fun initData() {
         val type = LotteryApi.getLotteryType()
         type.onSuccess {
@@ -59,6 +47,8 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
             if (!title.isNullOrEmpty()) initDialog(title, list)
         }
         getLotteryNewCode("1")//默认加载重庆时时彩
+    }
+    override fun initFragment() {
     }
 
 
@@ -147,6 +137,4 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
             c.toString()
         else "0$c"
     }
-
-
 }

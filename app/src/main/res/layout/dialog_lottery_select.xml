@@ -33,7 +33,7 @@
             android:textSize="@dimen/sp_16" />
 
         <TextView
-            android:id="@+id/tvWheelSure"
+            android:id="@+id/tvLotteryWheelSure"
             android:layout_width="@dimen/dp_60"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"

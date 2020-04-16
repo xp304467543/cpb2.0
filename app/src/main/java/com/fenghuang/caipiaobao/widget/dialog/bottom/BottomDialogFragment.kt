@@ -3,7 +3,6 @@ package com.fenghuang.caipiaobao.widget.dialog.bottom
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 
@@ -20,8 +19,8 @@ abstract class BottomDialogFragment : DialogFragment() {
 
 
     var rootView: View? = null
-    var window: Window? = null
 
+    var window: Window? = null
 
     abstract val layoutResId: Int
 
@@ -32,12 +31,17 @@ abstract class BottomDialogFragment : DialogFragment() {
 
     abstract fun initData()
 
+    abstract fun isShowTop(): Boolean
+
+    abstract fun canceledOnTouchOutside(): Boolean
+
     abstract fun initFragment()
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        dialog.setCanceledOnTouchOutside(false)
-        rootView = super.onCreateView(inflater, container, savedInstanceState);
+        dialog.setCanceledOnTouchOutside(canceledOnTouchOutside())
+        rootView = super.onCreateView(inflater, container, savedInstanceState)
         if (rootView == null) {
             rootView = inflater.inflate(layoutResId, container, false)
             initView()
@@ -61,7 +65,8 @@ abstract class BottomDialogFragment : DialogFragment() {
         val params = window!!.attributes
         params.gravity = Gravity.BOTTOM
         params.width = resources.displayMetrics.widthPixels
-        params.height = ViewUtils.getScreenHeight() * 2 / 3
+        params.height = if (isShowTop()) ViewUtils.getScreenHeight() * 2 / 3 else
+            ViewUtils.getScreenHeight() * 2 / 3 - ViewUtils.dp2px(12)
         window?.attributes = params
     }
 

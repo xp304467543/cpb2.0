@@ -8,7 +8,6 @@ import android.view.Gravity
 import android.view.ViewGroup
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 import com.zyyoona7.picker.OptionsPickerView
 import kotlinx.android.synthetic.main.dialog_lottery_select.*
 
@@ -19,7 +18,7 @@ import kotlinx.android.synthetic.main.dialog_lottery_select.*
  *
  */
 
-class BottomLotterySeletDialog(context: Context, val title: ArrayList<String>) : Dialog(context) {
+class BottomLotterySelectDialog(context: Context, val title: ArrayList<String>) : Dialog(context) {
 
     init {
         setContentView(R.layout.dialog_lottery_select)

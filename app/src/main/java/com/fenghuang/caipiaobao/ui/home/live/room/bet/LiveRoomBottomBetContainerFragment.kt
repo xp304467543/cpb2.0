@@ -36,6 +36,14 @@ class LiveRoomBottomBetContainerFragment(override val layoutResId: Int = R.layou
 
     }
 
+    override fun isShowTop(): Boolean {
+      return  false
+    }
+
+    override fun canceledOnTouchOutside(): Boolean {
+        return  false
+    }
+
     override fun initFragment() {
         changeFragment(currentFragment)
     }
