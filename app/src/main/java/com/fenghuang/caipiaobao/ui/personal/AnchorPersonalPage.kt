@@ -133,7 +133,7 @@ class AnchorPersonalPage : BaseMvpActivity<AnchorPersonalPagePresenter>() {
                     }
                 }
                 presenter.setFailClickListener {
-                    GlobalDialog.ShowError(this, it)
+                    GlobalDialog.showError(this, it)
                 }
             }
         }

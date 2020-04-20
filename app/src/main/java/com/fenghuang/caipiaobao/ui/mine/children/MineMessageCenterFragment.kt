@@ -7,8 +7,6 @@ import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineMessageCenter
-import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
-import com.fenghuang.caipiaobao.ui.moments.data.MomentsHotDiscussResponse
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import kotlinx.android.synthetic.main.fragment_message_center.*
@@ -71,7 +69,7 @@ class MineMessageCenterFragment : BaseNavFragment() {
                     }
                 }
                 onFailed {
-                    GlobalDialog.ShowError(requireActivity(), it)
+                    GlobalDialog.showError(requireActivity(), it)
                 }
             }
 
@@ -87,7 +85,7 @@ class MineMessageCenterFragment : BaseNavFragment() {
                     }
                 }
                 onFailed {
-                    GlobalDialog.ShowError(requireActivity(), it)
+                    GlobalDialog.showError(requireActivity(), it)
                 }
             }
 
@@ -103,7 +101,7 @@ class MineMessageCenterFragment : BaseNavFragment() {
                     }
                 }
                 onFailed {
-                    GlobalDialog.ShowError(requireActivity(), it)
+                    GlobalDialog.showError(requireActivity(), it)
                 }
             }
             hidePageLoadingDialog()

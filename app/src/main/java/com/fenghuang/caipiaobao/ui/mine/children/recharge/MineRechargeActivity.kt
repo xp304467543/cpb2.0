@@ -82,7 +82,7 @@ class MineRechargeActivity : BaseNavActivity() {
                 if (isUpdate) setFragmentViewPager()
             }
             onFailed {
-                GlobalDialog.ShowError(this@MineRechargeActivity, it)
+                GlobalDialog.showError(this@MineRechargeActivity, it)
             }
         }
     }

@@ -45,15 +45,13 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     }
 
     override fun initData() {
-        val type = LotteryApi.getLotteryType()
+        val type = LotteryApi.getLotteryBetType()
         type.onSuccess {
             val title = arrayListOf<String>()
             resultList = arrayListOf()
             for (data in it) {
-                if (data.cname != "香港彩") {
-                    resultList?.add(data)
-                    title.add(data.cname)
-                }
+                resultList?.add(data)
+                title.add(data.cname)
             }
             if (!title.isNullOrEmpty()) initDialog(title, resultList!!)
         }

@@ -29,11 +29,9 @@ class LotteryChildTypeAdapter(context: Context) : BaseRecyclerAdapter<String>(co
             if (clickPosition == getDataPosition()) {
                 findView<RoundTextView>(R.id.tvLotteryType).setTextColor(getColor(R.color.color_FF513E))
                 findView<RoundTextView>(R.id.tvLotteryType).delegate.backgroundColor = getColor(R.color.color_FFECE8)
-                findView<RoundTextView>(R.id.tvLotteryType).typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             } else {
                 findView<RoundTextView>(R.id.tvLotteryType).setTextColor(getColor(R.color.color_333333))
                 findView<RoundTextView>(R.id.tvLotteryType).delegate.backgroundColor = getColor(R.color.color_F5F7FA)
-                findView<RoundTextView>(R.id.tvLotteryType).typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
             }
             setText(R.id.tvLotteryType, data)
         }

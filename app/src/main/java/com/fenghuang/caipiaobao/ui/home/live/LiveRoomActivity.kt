@@ -11,7 +11,6 @@ import com.example.playerlibrary.utils.WindowPermissionCheck
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpActivity
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils.setStatusBarHeight
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -138,7 +137,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
                 attention(it)
             }
             presenter.setFailClickListener {
-                GlobalDialog.ShowError(this, it)
+                GlobalDialog.showError(this, it)
             }
         }
         val cover = liveRoomActivityHelper.mReceiverGroup?.getReceiver<ControllerLiveCover>(DataInter.ReceiverKey.KEY_CONTROLLER_live_COVER)
@@ -178,7 +177,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
             attention(it)
         }
         presenter.setFailClickListener {
-            GlobalDialog.ShowError(this, it, true)
+            GlobalDialog.showError(this, it, true)
         }
     }
 
@@ -306,7 +305,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
             bottomHorGiftWindow?.tvDiamondTotal?.text = it
         }
         presenter.getUserDiamondFailedListener {
-            GlobalDialog.ShowError(this, it, true)
+            GlobalDialog.showError(this, it, true)
         }
     }
 
@@ -473,7 +472,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
                 bottomHorGiftWindow?.tvDiamondTotal?.text = it
             }
             presenter.getUserDiamondFailedListener {
-                GlobalDialog.ShowError(this, it, true)
+                GlobalDialog.showError(this, it, true)
             }
         }
     }

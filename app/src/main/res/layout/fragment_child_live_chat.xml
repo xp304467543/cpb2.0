@@ -204,11 +204,11 @@
 
             <ImageView
                 android:id="@+id/imgShake"
-                android:layout_width="@dimen/dp_31"
+                android:layout_width="@dimen/dp_25"
                 android:layout_height="@dimen/dp_25"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:contentDescription="@string/app_name"
-                android:src="@mipmap/ic_shark"
+                android:src="@mipmap/jingcai"
                />
 
             <ImageView

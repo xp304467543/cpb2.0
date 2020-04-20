@@ -50,7 +50,7 @@ object GlobalDialog {
         dialog.show()
     }
     //余额不足
-    fun noMoney(activity: Activity,isHor:Boolean){
+    private fun noMoney(activity: Activity,isHor:Boolean){
         val dialog = ReChargeDialog(activity,isHor)
         dialog.setOnSendClickListener {
             activity.finish()
@@ -78,7 +78,7 @@ object GlobalDialog {
     }
 
     //对所有未登录处理
-    fun ShowError(context: Activity, error: ApiException, horizontal: Boolean = false) {
+    fun showError(context: Activity, error: ApiException, horizontal: Boolean = false) {
         if (error.getCode() == 2001 || error.getCode() == 401 || error.getCode() == 2000 || error.getMsg().toString().contains("请登录")) {
             notLogged(context, horizontal)
         } else if (error.getCode() == 9) {

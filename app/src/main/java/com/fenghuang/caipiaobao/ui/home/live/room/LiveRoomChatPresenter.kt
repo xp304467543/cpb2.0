@@ -82,7 +82,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
             }
             onFailed {
                 mView.hidePageLoadingDialog()
-                GlobalDialog.ShowError(mView.requireActivity(), it)
+                GlobalDialog.showError(mView.requireActivity(), it)
             }
         }
     }
@@ -101,7 +101,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
             onFailed {
                 passWordDialog.showOrHideLoading()
                 passWordDialog.dismiss()
-                GlobalDialog.ShowError(mView.requireActivity(), it)
+                GlobalDialog.showError(mView.requireActivity(), it)
             }
         }
     }
@@ -141,7 +141,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                         val bean = JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java)
                         redPaperDialog.noGetRed(bean.send_user_name, bean.send_text, bean.send_user_avatar)
                         mView.hidePageLoadingDialog()
-                    } else GlobalDialog.ShowError(mView.requireActivity(), it, mView.getScreenFull())
+                    } else GlobalDialog.showError(mView.requireActivity(), it, mView.getScreenFull())
                 }
             }
         }
@@ -190,7 +190,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                     if (mView.getScreenFull()) RxBus.get().post(UpDataHorDiamon(true))
                 }
                 onFailed {
-                    GlobalDialog.ShowError(mView.requireActivity(), it, mView.getScreenFull())
+                    GlobalDialog.showError(mView.requireActivity(), it, mView.getScreenFull())
                     mView.hidePageLoadingDialog()
                     if (mView.bottomGiftWindow != null) {
                         mView.bottomGiftWindow?.hideLoading()

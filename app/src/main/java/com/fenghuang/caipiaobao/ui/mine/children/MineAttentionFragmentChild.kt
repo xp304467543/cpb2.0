@@ -138,7 +138,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
                                 anchorAdapter.remove(getDataPosition())
                             }
                             presenter.setFailClickListener {
-                                GlobalDialog.ShowError(getPageActivity(), it)
+                                GlobalDialog.showError(getPageActivity(), it)
                             }
                         }
                     }
@@ -179,7 +179,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
                                 userAdapter.remove(getDataPosition())
                             }
                             presenter.setFailClickListener {
-                                GlobalDialog.ShowError(getPageActivity(), it)
+                                GlobalDialog.showError(getPageActivity(), it)
                             }
                         }
                     }
@@ -224,7 +224,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
                                 expertAdapter.remove(getDataPosition())
                             }
                             presenter.setFailExpertClickListener {
-                                GlobalDialog.ShowError(getPageActivity(),it)
+                                GlobalDialog.showError(getPageActivity(),it)
                             }
                         }
                     }

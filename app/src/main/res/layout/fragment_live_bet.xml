@@ -25,8 +25,8 @@
 
         <com.fenghuang.baselib.widget.round.RoundTextView
             android:id="@+id/tvRedBall"
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20"
+            android:layout_width="@dimen/dp_15"
+            android:layout_height="@dimen/dp_15"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_10"
             app:rv_backgroundColor="#ff807f"

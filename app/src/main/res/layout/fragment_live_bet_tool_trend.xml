@@ -20,6 +20,7 @@
 
     <com.google.android.material.widget.XViewPager
         android:id="@+id/vp_live_bet"
+        android:overScrollMode="never"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -57,7 +57,7 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
 //                    mView.setBalance(it.balance.toString())
                 }
                 onFailed {
-                    GlobalDialog.ShowError(mView.requireActivity(), it)
+                    GlobalDialog.showError(mView.requireActivity(), it)
                 }
             }
         }

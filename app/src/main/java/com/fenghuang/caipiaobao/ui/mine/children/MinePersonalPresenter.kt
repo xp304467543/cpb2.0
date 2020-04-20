@@ -14,7 +14,6 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils.getColor
 import com.fenghuang.caipiaobao.R
@@ -160,7 +159,7 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
             }
             onFailed {
                 mView.hidePageLoadingDialog()
-                GlobalDialog.ShowError(mView.requireActivity(), it)
+                GlobalDialog.showError(mView.requireActivity(), it)
             }
         }
     }
@@ -249,7 +248,7 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
             }
             onFailed {
                 mView.hidePageLoadingDialog()
-                GlobalDialog.ShowError(mView.requireActivity(), it)
+                GlobalDialog.showError(mView.requireActivity(), it)
             }
         }
 

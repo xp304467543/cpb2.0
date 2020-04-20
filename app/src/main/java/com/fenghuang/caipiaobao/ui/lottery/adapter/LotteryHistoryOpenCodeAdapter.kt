@@ -42,7 +42,7 @@ class LotteryHistoryOpenCodeAdapter(context: Context, val lotteryId: String, typ
     inner class HomeMoreLiveHolder(parent: ViewGroup) : BaseViewHolder<LotteryCodeHistoryResponse>(getContext(), parent, R.layout.holder_lottery_history) {
         override fun onBindData(data: LotteryCodeHistoryResponse) {
             if (data.issue != "") setText(R.id.tvOpenCount, data.issue + "期")
-            if (data.input_time != "") setText(R.id.tvOpenTime, TimeUtils.initData(data.input_time))
+            if (data.input_time != "" && data.input_time != "0") setText(R.id.tvOpenTime, TimeUtils.initData(data.input_time))
             when (lotteryId) {
                 "8" -> {
                     val tbList = data.code.split(",") as ArrayList<String>
@@ -56,7 +56,7 @@ class LotteryHistoryOpenCodeAdapter(context: Context, val lotteryId: String, typ
                 else -> {
                     when (typeSelect) {
                         LotteryConstant.TYPE_1 -> LotteryTypeSelectUtil.addOpenCode(getContext()!!, findView(R.id.codeContainer), data.code.split(","), lotteryId)
-                        LotteryConstant.TYPE_2 -> LotteryTypeSelectUtil.addOpenCodeBigger(getContext()!!, findView(R.id.codeContainer), data.code.split(","),lotteryId)
+                        LotteryConstant.TYPE_2 -> LotteryTypeSelectUtil.addOpenCodeBigger(getContext()!!, findView(R.id.codeContainer), data.code.split(","), lotteryId)
                         LotteryConstant.TYPE_3 -> LotteryTypeSelectUtil.addOpenCodeSingle(getContext()!!, findView(R.id.codeContainer), data.code.split(","))
                         LotteryConstant.TYPE_4 -> LotteryTypeSelectUtil.addSumAndDragonAndTiger(getContext()!!, findView(R.id.codeContainer), data.code.split(","))
                         LotteryConstant.TYPE_7 -> LotteryTypeSelectUtil.addOpenCodeTypeAndSum(getContext()!!, findView(R.id.codeContainer), data.code.split(","))

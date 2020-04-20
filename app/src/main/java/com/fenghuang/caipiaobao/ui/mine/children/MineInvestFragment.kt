@@ -91,7 +91,7 @@ class MineInvestFragment : BaseNavActivity(), BaseApi {
                     hidePageLoadingDialog()
             }
             onFailed {
-                GlobalDialog.ShowError(this@MineInvestFragment, it)
+                GlobalDialog.showError(this@MineInvestFragment, it)
                 hidePageLoadingDialog()
             }
         }

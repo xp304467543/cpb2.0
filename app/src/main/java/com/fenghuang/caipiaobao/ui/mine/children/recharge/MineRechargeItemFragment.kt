@@ -50,7 +50,7 @@ class MineRechargeItemFragment : BaseContentFragment() {
                 }
             }
             onFailed {
-                GlobalDialog.ShowError(getPageActivity(),it)
+                GlobalDialog.showError(getPageActivity(),it)
             }
         }
     }

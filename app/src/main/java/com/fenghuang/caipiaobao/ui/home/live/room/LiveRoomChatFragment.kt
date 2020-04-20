@@ -329,7 +329,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
             bottomGiftWindow?.tvDiamondTotal?.text = it
         }
         presenter.getUserDiamondFailedListener {
-            GlobalDialog.ShowError(getPageActivity(), it)
+            GlobalDialog.showError(getPageActivity(), it)
         }
 
 

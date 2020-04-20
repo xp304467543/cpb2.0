@@ -1,7 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home.live
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
@@ -13,10 +12,6 @@ import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.widget.dialog.PassWordDialog
 import com.google.gson.JsonParser
 import com.hwangjr.rxbus.RxBus
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 /**
  *
@@ -60,7 +55,7 @@ class LiveRoomPresenter : BaseMvpPresenter<LiveRoomActivity>() {
                 }
             }
             onFailed {
-                GlobalDialog.ShowError(mView, it)
+                GlobalDialog.showError(mView, it)
                 RxBus.get().post(IsFirstRecharge(true))
             }
         }
@@ -107,7 +102,7 @@ class LiveRoomPresenter : BaseMvpPresenter<LiveRoomActivity>() {
                     }
                 }
                 onFailed {
-                    GlobalDialog.ShowError(mView, it)
+                    GlobalDialog.showError(mView, it)
                 }
             }
         }
@@ -127,7 +122,7 @@ class LiveRoomPresenter : BaseMvpPresenter<LiveRoomActivity>() {
             onFailed {
                 passWordDialog.showOrHideLoading()
                 passWordDialog.dismiss()
-                GlobalDialog.ShowError(mView, it,true)
+                GlobalDialog.showError(mView, it,true)
             }
         }
     }

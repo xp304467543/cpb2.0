@@ -10,7 +10,6 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -124,7 +123,7 @@ class ExpertPersonalPage : BaseMvpActivity<ExpertPersonalPagePresenter>() {
                     mPresenter.getExpertInfo(intent.getStringExtra(UserConstant.FOLLOW_ID)!!,lottery_id)
                 }
                 presenter.setFailExpertClickListener {
-                    GlobalDialog.ShowError(this, it)
+                    GlobalDialog.showError(this, it)
                 }
             }
         }

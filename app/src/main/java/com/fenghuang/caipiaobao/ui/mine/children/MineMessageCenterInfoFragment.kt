@@ -14,12 +14,10 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineMessageCenter
 import com.fenghuang.caipiaobao.ui.moments.childern.CommentOnFragment
-import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
-import kotlinx.android.synthetic.main.fragment_message_center.*
 import kotlinx.android.synthetic.main.fragment_msg_center_info.*
 
 /**
@@ -67,7 +65,7 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                             }
                         }
                         onFailed {
-                            GlobalDialog.ShowError(requireActivity(), it)
+                            GlobalDialog.showError(requireActivity(), it)
                         }
                     }
                 }
@@ -86,7 +84,7 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                             }
                         }
                         onFailed {
-                            GlobalDialog.ShowError(requireActivity(), it)
+                            GlobalDialog.showError(requireActivity(), it)
                         }
                     }
                 }
@@ -106,7 +104,7 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                                 }
                             }
                             onFailed {
-                                GlobalDialog.ShowError(requireActivity(), it)
+                                GlobalDialog.showError(requireActivity(), it)
                             }
                         }
                     }

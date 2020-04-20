@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
-import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.round.RoundRelativeLayout
@@ -23,7 +22,6 @@ import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.WaveView
 import com.hwangjr.rxbus.RxBus
-import kotlinx.android.synthetic.main.fragment_presonal_anchor.*
 
 
 /**
@@ -122,7 +120,7 @@ class LiveRoomAdvanceAdapter(context: Context, val isShowTop: Boolean = false, v
                             }
                         }
                         presenter.setFailClickListener {
-                            getContext()?.let { it1 -> GlobalDialog.ShowError(it1 as Activity, it) }
+                            getContext()?.let { it1 -> GlobalDialog.showError(it1 as Activity, it) }
                         }
                     } else ToastUtils.show("请勿重复点击")
                 } else if (id == R.id.imgLiveRoomAdvanceUserPhoto) {

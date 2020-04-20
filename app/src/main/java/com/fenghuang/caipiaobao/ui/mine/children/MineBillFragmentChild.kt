@@ -11,7 +11,6 @@ import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.StatusBarUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
@@ -19,8 +18,6 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineBillBean
 import com.fenghuang.caipiaobao.ui.mine.data.MineBillResponse
-import com.fenghuang.caipiaobao.ui.moments.childern.MomentsAnchorFragment
-import com.fenghuang.caipiaobao.ui.moments.data.MomentsHotDiscussResponse
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import kotlinx.android.synthetic.main.fragment_child_attention.*
@@ -110,7 +107,7 @@ class MineBillFragmentChild : BaseContentFragment() {
                             tvHolder.text = "暂无兑换记录~ ~"
                             setVisible(tvHolder)
                         }
-                        GlobalDialog.ShowError(requireActivity(), it)
+                        GlobalDialog.showError(requireActivity(), it)
                         hidePageLoadingDialog()
                         closeRefresh()
                         openRefresh()
@@ -146,7 +143,7 @@ class MineBillFragmentChild : BaseContentFragment() {
                             }
                         }
 
-                        GlobalDialog.ShowError(requireActivity(), it)
+                        GlobalDialog.showError(requireActivity(), it)
                         hidePageLoadingDialog()
                         closeRefresh()
                         openRefresh()
@@ -179,7 +176,7 @@ class MineBillFragmentChild : BaseContentFragment() {
                             tvHolder.text = "暂无打赏记录"
                             setVisible(tvHolder)
                         }
-                        GlobalDialog.ShowError(requireActivity(), it)
+                        GlobalDialog.showError(requireActivity(), it)
                         hidePageLoadingDialog()
                         closeRefresh()
                         openRefresh()

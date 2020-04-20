@@ -122,7 +122,7 @@ class UserPersonalPage : BaseMvpActivity<UserPersonalPagePresenter>() {
                     }
                 }
                 presenter.setFailClickListener {
-                    GlobalDialog.ShowError(this, it)
+                    GlobalDialog.showError(this, it)
                 }
             }
         }

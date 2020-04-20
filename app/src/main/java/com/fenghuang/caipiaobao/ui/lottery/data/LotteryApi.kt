@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.lottery.data
 
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
@@ -18,16 +19,30 @@ object LotteryApi : BaseApi {
 
     //彩种
     private const val LOTTERY_TYPE = "/idx/sort"
+
     //最新开奖号
     private const val LOTTERY_NEW_CODE = "/idx/indexNewOne"
+
     //历史开奖号
     private const val LOTTERY_HISTORY_CODE = "/idx/history"
+
     //露珠
     private const val LOTTERY_LU_ZHU = "/lottery/dewdrop"
+
     //走势
     private const val LOTTERY_TREND = "/lottery/trending"
+
     //专家计划
     private const val LOTTERY_EXPERT_PLAN = "/plan/index"
+
+    //竞彩彩种
+    private const val LOTTERY_BET_TYPE = "/ch/bet_sort"
+
+    //竞彩彩种玩法
+    private const val LOTTERY_BET_RULE_TYPE = "/guess/play_rule"
+
+    //投注记录
+    private const val LOTTERY_BET_HISTORY = "/guess/play_bet_history"
 
     /**
      * 获取彩种
@@ -101,10 +116,11 @@ object LotteryApi : BaseApi {
                 .params("limit", limit)
                 .subscribe(subscriber)
     }
+
     /**
      * 获取 专家计划
      */
-    fun getExpertPlan(lotteryId: String,issue: String,limit: String,page: Int,function: ApiSubscriber<List<LotteryExpertPaleyResponse>>.() -> Unit){
+    fun getExpertPlan(lotteryId: String, issue: String, limit: String, page: Int, function: ApiSubscriber<List<LotteryExpertPaleyResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPaleyResponse>>() {}
         subscriber.function()
         getApiLottery()
@@ -116,4 +132,44 @@ object LotteryApi : BaseApi {
                 .params("page", page)
                 .subscribe(subscriber)
     }
+
+
+    /**
+     * 获取竞彩彩种
+     */
+    fun getLotteryBetType(): ApiSubscriber<List<LotteryTypeResponse>> {
+        val subscriber = object : ApiSubscriber<List<LotteryTypeResponse>>() {}
+        getApiOpenLottery()
+                .post<List<LotteryTypeResponse>>(LOTTERY_BET_TYPE)
+                .subscribe(subscriber)
+        return subscriber
+    }
+
+
+    /**
+     * 获取竞彩彩种玩法
+     */
+    fun getLotteryBetRule(): ApiSubscriber<ArrayList<LotteryBetRuleResponse>> {
+        val subscriber = object : ApiSubscriber<ArrayList<LotteryBetRuleResponse>>() {}
+        getApiLottery()
+                .get<ArrayList<LotteryBetRuleResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_RULE_TYPE)
+                .subscribe(subscriber)
+        return subscriber
+    }
+
+    /**
+     * 获取竞彩彩种玩法
+     */
+    fun getLotteryBetHistory(play_bet_state:Int,page:Int): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
+        val subscriber = object : ApiSubscriber<ArrayList<LotteryBetHistoryResponse>>() {}
+        getApiLottery()
+                .get<ArrayList<LotteryBetHistoryResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_HISTORY)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("play_bet_state",play_bet_state)
+                .params("limit", 20)
+                .params("page", page)
+                .subscribe(subscriber)
+        return subscriber
+    }
+
 }

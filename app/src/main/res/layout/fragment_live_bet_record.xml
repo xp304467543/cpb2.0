@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -39,65 +39,19 @@
         android:layout_height="@dimen/dp_30"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_5"
         android:layout_marginEnd="@dimen/dp_20"
         app:tabBackground="@color/transparent"
         app:tabIndicatorColor="@color/text_red"
         app:tabIndicatorFullWidth="false"
-        android:layout_marginTop="@dimen/dp_5"
         app:tabRippleColor="@color/transparent"
         app:tabSelectedTextColor="@color/black"
         app:tabTextColor="@color/color_999999" />
 
-    <com.fenghuang.baselib.widget.round.RoundLinearLayout
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
+
+    <com.google.android.material.widget.XViewPager
+        android:id="@+id/vpRecord"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_30"
-        app:rv_cornerRadius="@dimen/dp_2"
-        app:rv_backgroundColor="@color/color_F5F7FA">
-
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color_999999"
-            android:text="时间"/>
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color_999999"
-            android:text="期号"/>
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color_999999"
-            android:text="号码"/>
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color_999999"
-            android:text="赔率"/>
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textSize="@dimen/sp_12"
-            android:textColor="@color/color_999999"
-            android:text="金额"/>
-
-    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
-
+        android:layout_height="match_parent"
+        android:overScrollMode="never" />
 </LinearLayout>
