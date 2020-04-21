@@ -55,7 +55,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             }
             if (!title.isNullOrEmpty()) initDialog(title, resultList!!)
         }
-        getLotteryNewCode("1")//默认加载重庆时时彩
+        getLotteryNewCode("1")//默认加载重庆时时彩  1
     }
 
     override fun initFragment() {
