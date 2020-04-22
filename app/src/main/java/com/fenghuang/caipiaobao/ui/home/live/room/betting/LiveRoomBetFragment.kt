@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.home.live.room.betting
 
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
+import android.os.Handler
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -97,22 +98,23 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     private fun getLotteryNewCode(lottery_id: String) {
         LotteryApi.getLotteryNewCode(lottery_id) {
             onSuccess {
-                if (it.next_lottery_time.toInt() > 1) {
-                    tvOpenCount?.text = (it.issue + "期")
-                    countDownTime(it.next_lottery_time, lottery_id)
-                    tvCloseTime.text = ("封盘" + TimeUtils.getDateToHMSString(it.next_lottery_end_time * 1000))
-                    //更新最新开奖数据
-                    LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code?.split(","), it.lottery_id)
-                    tvOpenCodePlaceHolder.visibility = View.GONE
-                } else {
-                    if (timer != null) timer?.cancel()
-                    if (isVisible) {
+                if (isVisible) {
+                    if (it.next_lottery_time.toInt() > 1) {
+                        tvOpenCount?.text = (it.issue + " 期开奖结果   ")
+                        countDownTime(it.next_lottery_time, lottery_id)
+                        tvCloseTime.text = (TimeUtils.longToDateStringTimeHMS(it.next_lottery_end_time))
+                        //更新最新开奖数据
+                        LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code?.split(","), it.lottery_id)
+                        tvOpenCodePlaceHolder.visibility = View.GONE
+                    } else {
+                        if (timer != null) timer?.cancel()
+
                         tvOpenCodePlaceHolder.visibility = View.VISIBLE
                         tvOpenTime.text = "开奖中..."
-                        tvNext.text = getString(R.string.lottery_next_time)
-                        tvOpenCount.text = (it.issue + "期")
-                    }
+                        tvOpenCount.text = (it.issue + "期开奖结果   ")
 
+                        getNewResult(it.lottery_id)
+                    }
                 }
             }
         }
@@ -123,8 +125,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     var timer: CountDownTimer? = null
 
     private fun countDownTime(millisUntilFinished: String, lotteryId: String) {
-        tvNext.text = getString(R.string.lottery_next_time)
         if (timer != null) timer?.cancel()
+        handler?.removeCallbacks(runnable)
         val timeCountDown = millisUntilFinished.toLong() * 1000
         timer = object : CountDownTimer(timeCountDown, 1000) {
             @SuppressLint("SetTextI18n")
@@ -135,9 +137,9 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 val second: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60) - minute * (1000 * 60)) / 1000 /*单位 秒*/
                 if (tvCloseTime != null) {
                     when {
-                        day > 0 -> tvOpenTime.text = "开奖" + dataLong(day) + "天" + dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
-                        hour > 0 -> tvOpenTime.text = "开奖" + dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
-                        else -> tvOpenTime.text = "开奖" + dataLong(minute) + ":" + dataLong(second)
+                        day > 0 -> tvOpenTime.text = dataLong(day) + "天" + dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
+                        hour > 0 -> tvOpenTime.text = dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
+                        else -> tvOpenTime.text = dataLong(minute) + ":" + dataLong(second)
                     }
                 }
             }
@@ -147,11 +149,23 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                     tvOpenTime!!.text = "开奖中..."
                     tvOpenCodePlaceHolder.visibility = View.VISIBLE
                 }
-                //getLotteryNewCode(lotteryId)
+                getNewResult(lotteryId)
             }
         }
         if (timer != null) timer?.start()
     }
+
+    var handler: Handler? = null
+    var runnable: Runnable? = null
+
+    fun getNewResult(lotteryId: String) {
+        handler = Handler()
+        runnable = Runnable {
+            getLotteryNewCode(lotteryId)
+        }
+        handler?.postDelayed(runnable, 5000)
+    }
+
 
     // 这个方法是保证时间两位数据显示，如果为1点时，就为01
     fun dataLong(c: Long): String {
@@ -159,4 +173,11 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             c.toString()
         else "0$c"
     }
+
+
+    override fun dismiss() {
+        super.dismiss()
+        handler?.removeCallbacks(runnable)
+    }
+
 }
