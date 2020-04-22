@@ -1,6 +1,8 @@
 package com.fenghuang.caipiaobao.ui.lottery.data
 
+import android.os.Parcelable
 import com.google.gson.JsonArray
+import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 /**
@@ -44,6 +46,35 @@ data class PlayRuleTypeDataBean(
         var play_rule_content_id: Int? = 0,
         var play_rule_content: String? = null
 ) : Serializable
+
+
+/**
+ * 玩法列表
+ */
+@Parcelize
+data class LotteryPlayListResponse(
+        val play_unit_data: List<PlayUnitData>,
+        val play_unit_id: Int,
+        val play_unit_name: String
+) : Parcelable
+
+@Parcelize
+data class PlayUnitData(
+        val play_sec_cname: String,
+        val play_sec_combo: Int,
+        val play_sec_data: List<PlaySecData>,
+        val play_sec_id: Int,
+        val play_sec_name: String
+) : Parcelable
+
+@Parcelize
+data class PlaySecData(
+        val play_class_cname: String,
+        val play_class_id: Int,
+        val play_class_name: String,
+        val play_odds: Double,
+        var isSelected: Boolean = false
+) : Parcelable
 
 
 data class LotteryBetHistoryResponse(var play_bet_time: Long?, var play_bet_lottery_id: String?, var play_bet_lottery_name: String?,

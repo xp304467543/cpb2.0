@@ -21,7 +21,7 @@ object LotteryApi : BaseApi {
     private const val LOTTERY_TYPE = "/idx/sort"
 
     //最新开奖号
-    private const val LOTTERY_NEW_CODE = "/idx/indexNewOne"
+    private const val LOTTERY_NEW_CODE = "/ch/indexNewOne"
 
     //历史开奖号
     private const val LOTTERY_HISTORY_CODE = "/idx/history"
@@ -43,6 +43,9 @@ object LotteryApi : BaseApi {
 
     //投注记录
     private const val LOTTERY_BET_HISTORY = "/guess/play_bet_history"
+
+    //玩法列表
+    private const val GUESS_PLAY_LIST = "/guess/play_list"
 
     /**
      * 获取彩种
@@ -132,7 +135,18 @@ object LotteryApi : BaseApi {
                 .params("page", page)
                 .subscribe(subscriber)
     }
-
+    /**
+     * 获取 玩法列表
+     */
+    fun getGuessPlayList(lotteryId: String, function: ApiSubscriber<List<LotteryPlayListResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<LotteryPlayListResponse>>() {}
+        subscriber.function()
+        getApiLottery()
+                .get<List<LotteryPlayListResponse>>(HomeApi.getApiOtherTest() + GUESS_PLAY_LIST)
+                .cacheMode(CacheMode.NONE)
+                .params("lottery_id", lotteryId)
+                .subscribe(subscriber)
+    }
 
     /**
      * 获取竞彩彩种

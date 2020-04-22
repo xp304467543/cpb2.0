@@ -66,6 +66,14 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         //加载底部
         loadRootFragment(R.id.childContainer, LotteryBaseFragment.newInstance("-999", "-999"))
         mPresenter.getLotteryType()
+        lotteryId = "1"
+        mPresenter.getLotteryOpenCode(lotteryId)
+
+
+    }
+    override fun initData() {
+        //加载底部
+        RxBus.get().post(LotteryTypeSelect("1"))
     }
 
     override fun initEvent() {

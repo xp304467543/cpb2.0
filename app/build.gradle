@@ -182,6 +182,7 @@ dependencies {
 
     implementation 'com.github.yyued:SVGAPlayer-Android:2.5.2'
 
+    implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'//这个tabLayout可以设置指示器宽度以及圆弧度
 
     implementation 'com.github.huburt-Hu:NewbieGuide:v2.4.4'
     //阿里云播放器

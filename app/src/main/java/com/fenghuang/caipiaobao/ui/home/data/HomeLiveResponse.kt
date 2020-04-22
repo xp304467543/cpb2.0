@@ -49,11 +49,11 @@ data class HomeLiveRedRoom(var id: String = "",
                            var avatar: String
                            )
 // 抢红包
-data class HomeLiveRedReceiveBean(var amount: String,
-                                  var send_text: String,
-                                  var send_user_name: String,
-                                  var count: Int,
-                                  var send_user_avatar: String)
+data class HomeLiveRedReceiveBean(var amount: String?,
+                                  var send_text: String?,
+                                  var send_user_name: String?,
+                                  var count: Int?,
+                                  var send_user_avatar: String?)
 
 data class HomeLiveTwentyNewsResponse(val type: String = "",
                                       val room_id: String = "",

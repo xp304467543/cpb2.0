@@ -87,7 +87,7 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
             onSuccess {
                 if (it.next_lottery_time.toInt() > 1) {
                     tvOpenCount?.text = (it.issue + "期")
-                    countDownTime(it.next_lottery_time, lottery_id)
+                    countDownTime(it.next_lottery_time)
                     tvCloseTime.text = ("封盘" + TimeUtils.getDateToHMSString(it.next_lottery_end_time * 1000))
                     //更新最新开奖数据
                     LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code?.split(","), it.lottery_id)
@@ -97,7 +97,6 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
                     if (isVisible) {
                         tvOpenCodePlaceHolder.visibility = View.VISIBLE
                         tvOpenTime.text = "开奖中..."
-                        tvNext.text = getString(R.string.lottery_next_time)
                         tvOpenCount.text = (it.issue + "期")
                     }
 
@@ -110,8 +109,7 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
     // ===== 倒计时 =====
     var timer: CountDownTimer? = null
 
-    fun countDownTime(millisUntilFinished: String, lotteryId: String) {
-        tvNext.text = getString(R.string.lottery_next_time)
+    private fun countDownTime(millisUntilFinished: String) {
         if (timer != null) timer?.cancel()
         val timeCountDown = millisUntilFinished.toLong() * 1000
         timer = object : CountDownTimer(timeCountDown, 1000) {

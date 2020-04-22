@@ -418,6 +418,15 @@ object TimeUtils {
         return format.format(date)
     }
 
+    /**
+     * long 类型转换成日期  只有时分
+     */
+    private val formatHMS = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+
+    fun longToDateStringTimeHMS(long: Long): String? {
+        val date = Date(long * 1000)
+        return formatHMS.format(date)
+    }
 
     /**
      * 将日期格式化成友好的字符串：几分钟前、几小时前、几天前、几月前、几年前、刚刚

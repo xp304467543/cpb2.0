@@ -47,7 +47,7 @@ abstract class BottomDialogFragment : DialogFragment(){
             rootView = inflater.inflate(layoutResId, container, false)
             initView()
             initData()
-        }
+        }else initData()
         return rootView
     }
 

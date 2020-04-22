@@ -6,13 +6,17 @@ import android.os.Handler
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveBetStateAdapter
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryTypeSelectUtil
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryPlayListResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomDialogFragment
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomLotterySelectDialog
+import com.flyco.tablayout.SlidingTabLayout
 import kotlinx.android.synthetic.main.dialog_lottery_select.*
 import kotlinx.android.synthetic.main.fragment_live_bet.*
 
@@ -28,6 +32,10 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     private var opt1SelectedPosition: Int = 0
 
+    private var vpGuss: ViewPager? = null
+
+    private var tabGuss: SlidingTabLayout? = null
+
     private var currentLotteryId = "1"
 
     private var resultList: ArrayList<LotteryTypeResponse>? = null
@@ -35,6 +43,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     private var liveRoomBetToolsFragment: LiveRoomBetToolsFragment? = null
 
     private var liveRoomBetRecordFragment: LiveRoomBetRecordFragment? = null
+
+    private var playList = ArrayList<LotteryPlayListResponse>()
 
     override val layoutResId: Int = R.layout.fragment_live_bet
 
@@ -57,6 +67,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             if (!title.isNullOrEmpty()) initDialog(title, resultList!!)
         }
         getLotteryNewCode("1")//默认加载重庆时时彩  1
+        setTabLayout("1")
     }
 
     override fun initFragment() {
@@ -71,9 +82,26 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
             dismiss()
         }
+
     }
 
 
+    //彩种选择
+    private fun setTabLayout(lottery_id: String) {
+        LotteryApi.getGuessPlayList(lottery_id) {
+            onSuccess {
+                playList.clear()
+                playList.addAll(it)
+                vpGuss = rootView?.findViewById(R.id.vpGuss)
+                tabGuss = rootView?.findViewById(R.id.tabGuss)
+                vpGuss?.adapter = LiveBetStateAdapter(childFragmentManager, playList)
+                tabGuss?.setViewPager(vpGuss)
+
+            }
+        }
+    }
+
+    //底部弹框
     private fun initDialog(title: ArrayList<String>, list: ArrayList<LotteryTypeResponse>) {
         tvLotterySelectType?.text = title[0]
         tvLotterySelectType?.setOnClickListener {
@@ -87,6 +115,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 opt1SelectedPosition = lotterySelectDialog.lotteryPickerView.opt1SelectedPosition
                 currentLotteryId = list[opt1SelectedPosition].lottery_id
                 getLotteryNewCode(currentLotteryId)
+                setTabLayout(list[opt1SelectedPosition].lottery_id)
                 lotterySelectDialog.dismiss()
             }
             lotterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition

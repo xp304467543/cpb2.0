@@ -43,10 +43,7 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
                     if (it.isNotEmpty()) {
                         mView.lotteryTypeAdapter!!.clear()
                         mView.lotteryTypeAdapter!!.addAll(it)
-                        getLotteryOpenCode(it[0].lottery_id)
-                        mView.lotteryId = it[0].lottery_id
-                        //加载底部
-                        RxBus.get().post(LotteryTypeSelect(it[0].lottery_id))
+
                     }
                 }
             }

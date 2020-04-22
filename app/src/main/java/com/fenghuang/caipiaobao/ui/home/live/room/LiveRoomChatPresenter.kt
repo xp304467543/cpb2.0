@@ -131,7 +131,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                 onSuccess {
                     //开红包
                     mView.stopRedAnimation()
-                    redPaperDialog.showGetRed(it.send_user_name, it.send_text, it.amount, it.send_user_avatar)
+                    redPaperDialog.showGetRed(it.send_user_name?:"", it.send_text?:"恭喜发财", it.amount?:"", it.send_user_avatar?:"")
                     mView.hidePageLoadingDialog()
                 }
                 onFailed {
@@ -139,7 +139,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                         // 红包被抢完了
                         mView.stopRedAnimation()
                         val bean = JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java)
-                        redPaperDialog.noGetRed(bean.send_user_name, bean.send_text, bean.send_user_avatar)
+                        redPaperDialog.noGetRed(bean.send_user_name ?:"", bean.send_text?:"恭喜发财", bean.send_user_avatar?:"")
                         mView.hidePageLoadingDialog()
                     } else GlobalDialog.showError(mView.requireActivity(), it, mView.getScreenFull())
                 }
