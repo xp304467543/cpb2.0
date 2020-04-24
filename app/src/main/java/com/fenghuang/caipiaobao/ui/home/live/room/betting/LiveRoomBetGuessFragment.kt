@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_guess_play.*
  *
  * @ Author  QinTian
  * @ Date  2020/4/22
- * @ Describe
+ * @ Describe 投注列表
  *
  */
 

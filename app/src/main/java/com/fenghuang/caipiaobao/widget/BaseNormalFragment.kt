@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.fragment.app.Fragment
 import com.fenghuang.baselib.utils.LogUtils
+import com.hwangjr.rxbus.RxBus
 
 
 /**
@@ -64,7 +65,7 @@ abstract class BaseNormalFragment : Fragment() {
      * 设置当前 Fragment 可见状态 负责在对应的状态调用第一次可见和可见状态，不可见状态函数
      * @param visible
      */
-     open fun dispatchUserVisibleHint(visible: Boolean) {
+    open fun dispatchUserVisibleHint(visible: Boolean) {
         currentVisibleState = visible
         if (visible) {
             if (mIsFirstVisible) {
@@ -153,6 +154,7 @@ abstract class BaseNormalFragment : Fragment() {
             rootView = inflater.inflate(getLayoutRes(), container, false)
         }
         initView(rootView)
+        RxBus.get().register(this)
         return rootView
     }
 
@@ -172,4 +174,8 @@ abstract class BaseNormalFragment : Fragment() {
     protected abstract fun initView(rootView: View?)
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        RxBus.get().unregister(this)
+    }
 }

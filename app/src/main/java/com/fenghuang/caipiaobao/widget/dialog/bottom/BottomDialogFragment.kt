@@ -16,7 +16,7 @@ import me.yokeyword.fragmentation.ISupportFragment
  *
  */
 
-abstract class BottomDialogFragment : DialogFragment(){
+abstract class BottomDialogFragment : DialogFragment() {
 
 
     var rootView: View? = null
@@ -38,6 +38,8 @@ abstract class BottomDialogFragment : DialogFragment(){
 
     abstract fun initFragment()
 
+    abstract val resetHeight: Int
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -47,7 +49,7 @@ abstract class BottomDialogFragment : DialogFragment(){
             rootView = inflater.inflate(layoutResId, container, false)
             initView()
             initData()
-        }else initData()
+        } else initData()
         return rootView
     }
 
@@ -66,10 +68,11 @@ abstract class BottomDialogFragment : DialogFragment(){
         val params = window!!.attributes
         params.gravity = Gravity.BOTTOM
         params.width = resources.displayMetrics.widthPixels
-        params.height = if (isShowTop()) ViewUtils.getScreenHeight() * 2 / 3 else
-            ViewUtils.getScreenHeight() * 2 / 3 - ViewUtils.dp2px(12)
+        if (resetHeight == 0) {
+            params.height = if (isShowTop()) ViewUtils.getScreenHeight() * 2 / 3 else
+                ViewUtils.getScreenHeight() * 2 / 3 - ViewUtils.dp2px(12)
+        } else params.height = resetHeight
         window?.attributes = params
     }
-
 
 }

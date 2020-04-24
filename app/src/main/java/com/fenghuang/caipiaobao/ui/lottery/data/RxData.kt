@@ -16,4 +16,7 @@ data class LotteryExpertPlay(var lotteryCodeNewResponse: LotteryCodeNewResponse?
 
 data class LotteryJumpToLive(var lotteryId:String)
 
+//投注
+data class LotteryBet(var result:PlaySecData)
+
 

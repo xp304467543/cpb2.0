@@ -80,7 +80,7 @@
         <LinearLayout
             android:id="@+id/linOpen"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_marginTop="1dp"
             android:background="@color/white"
             android:orientation="horizontal"
@@ -230,6 +230,7 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/tvBetSubmit"
             android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
             android:layout_gravity="center_vertical"
@@ -241,5 +242,107 @@
             android:textSize="@dimen/sp_13" />
     </LinearLayout>
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomBetLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_90"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/linBottom">
+
+        <HorizontalScrollView
+            android:id="@+id/radioHor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:overScrollMode="never"
+            android:scrollbars="none"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioGroup
+                android:id="@+id/radioGroupLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+
+        </HorizontalScrollView>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioHor">
+
+            <TextView
+                android:id="@+id/tvF1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="其他金额"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_12" />
+
+            <EditText
+                android:id="@+id/etBetPlayMoney"
+                android:layout_width="@dimen/dp_120"
+                android:layout_height="@dimen/dp_25"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_toEndOf="@+id/tvF1"
+                android:background="@drawable/button_grey_background"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingEnd="@dimen/dp_2"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tvBetCount"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_toStartOf="@+id/tvDiamond"
+                android:gravity="center"
+                android:text="共1注"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tvDiamond"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_toStartOf="@+id/tvEnd"
+                android:gravity="center"
+                android:text="20"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_12" />
+
+            <TextView
+                android:id="@+id/tvEnd"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:gravity="center"
+                android:text="钻石"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_12" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/dp_1"
+            android:background="@color/color_F5F7FA"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

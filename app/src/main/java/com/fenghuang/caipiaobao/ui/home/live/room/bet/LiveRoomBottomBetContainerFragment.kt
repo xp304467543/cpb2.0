@@ -15,7 +15,7 @@ import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomDialogFragment
  *
  */
 
-class LiveRoomBottomBetContainerFragment(override val layoutResId: Int = R.layout.dialog_live_bet_container) : BottomDialogFragment() {
+class LiveRoomBottomBetContainerFragment(override val layoutResId: Int = R.layout.dialog_live_bet_container, override val resetHeight: Int = 0) : BottomDialogFragment() {
 
     var currentFragment = 1
     private var liveRoomBottomBetFragment: LiveRoomBottomBetFragment? = null  //投主页

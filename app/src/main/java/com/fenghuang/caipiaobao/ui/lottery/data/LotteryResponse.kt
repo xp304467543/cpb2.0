@@ -71,11 +71,18 @@ data class PlayUnitData(
 data class PlaySecData(
         val play_class_cname: String,
         val play_class_id: Int,
+        val play_sec_name:String,
         val play_class_name: String,
         val play_odds: Double,
         var isSelected: Boolean = false
 ) : Parcelable
 
+data class PlayMoneyData(
+        val play_sum_id:Int,
+        val play_sum_num:Int,
+        val play_sum_name:String
+
+)
 
 data class LotteryBetHistoryResponse(var play_bet_time: Long?, var play_bet_lottery_id: String?, var play_bet_lottery_name: String?,
                                      var play_bet_issue: String?, var play_sec_id: String?, var play_sec_name: String?,

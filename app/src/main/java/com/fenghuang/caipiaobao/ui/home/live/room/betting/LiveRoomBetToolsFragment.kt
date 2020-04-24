@@ -35,6 +35,8 @@ class LiveRoomBetToolsFragment : BottomDialogFragment() {
 
     override val layoutResId: Int = R.layout.fragment_live_bet_tool
 
+    override val resetHeight: Int = 0
+
     override fun isShowTop(): Boolean = false
 
     override fun canceledOnTouchOutside(): Boolean = true

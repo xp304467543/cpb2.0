@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter
 
 import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
@@ -24,16 +25,17 @@ class GuessPlayChild2Adapter(context: Context) : BaseRecyclerAdapter<PlaySecData
     inner class GuessPlayChild2Holder(parent: ViewGroup) : BaseViewHolder<PlaySecData>(getContext(), parent, R.layout.item_guess_child2) {
         override fun onBindData(data: PlaySecData) {
             if (data.isSelected) {
-                findView<LinearLayout>(R.id.gc_layout).setBackgroundResource( R.drawable.item_5corners_selected)
+                findView<LinearLayout>(R.id.gc_layout).setBackgroundResource(R.drawable.item_5corners_selected)
                 setTextColor(R.id.tv_gc_name, ViewUtils.getColor(R.color.color_FF513E))
                 setTextColor(R.id.tv_gc_odds, ViewUtils.getColor(R.color.color_FF513E))
             } else {
-                findView<LinearLayout>(R.id.gc_layout).setBackgroundResource( R.drawable.item_5corners)
+                findView<LinearLayout>(R.id.gc_layout).setBackgroundResource(R.drawable.item_5corners)
                 setTextColor(R.id.tv_gc_name, ViewUtils.getColor(R.color.color_333333))
                 setTextColor(R.id.tv_gc_odds, ViewUtils.getColor(R.color.color_999999))
             }
             setText(R.id.tv_gc_name, data.play_class_cname)
             setText(R.id.tv_gc_odds, data.play_odds.toString())
+
         }
     }
 }

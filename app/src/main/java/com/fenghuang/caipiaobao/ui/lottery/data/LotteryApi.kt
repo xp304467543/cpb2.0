@@ -4,6 +4,7 @@ import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.pingerx.rxnetgo.rxcache.CacheMode
 
@@ -46,6 +47,12 @@ object LotteryApi : BaseApi {
 
     //玩法列表
     private const val GUESS_PLAY_LIST = "/guess/play_list"
+
+    //投注可选金额
+    private const val LOTTERY_BET_COUNT_MONEY = "/guess/play_sum_list"
+
+    //投注
+    private const val LOTTERY_BET = "play_bet_follow_user"
 
     /**
      * 获取彩种
@@ -135,6 +142,7 @@ object LotteryApi : BaseApi {
                 .params("page", page)
                 .subscribe(subscriber)
     }
+
     /**
      * 获取 玩法列表
      */
@@ -174,16 +182,45 @@ object LotteryApi : BaseApi {
     /**
      * 获取竞彩彩种玩法
      */
-    fun getLotteryBetHistory(play_bet_state:Int,page:Int): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
+    fun getLotteryBetHistory(play_bet_state: Int, page: Int): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
         val subscriber = object : ApiSubscriber<ArrayList<LotteryBetHistoryResponse>>() {}
         getApiLottery()
                 .get<ArrayList<LotteryBetHistoryResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_HISTORY)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
-                .params("play_bet_state",play_bet_state)
+                .params("play_bet_state", play_bet_state)
                 .params("limit", 20)
                 .params("page", page)
                 .subscribe(subscriber)
         return subscriber
     }
 
+    /**
+     * 投注金额
+     */
+
+    fun lotteryBetMoney( function: ApiSubscriber<List<PlayMoneyData>>.() -> Unit){
+        val subscriber = object : ApiSubscriber<List<PlayMoneyData>>() {}
+        subscriber.function()
+        getApiLottery()
+                .get<List<PlayMoneyData>>(HomeApi.getApiOtherTest() + LOTTERY_BET_COUNT_MONEY)
+                .cacheMode(CacheMode.NONE)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 投注 跟投
+     * play_bet_follow_user	跟投用户id，默认0为正常投注
+     */
+    fun lotteryBet(play_bet_lottery_id: Int, play_bet_issue: String, order_detail: String, play_bet_follow_user: String, function: AllEmptySubscriber.() -> Unit) {
+        val subscriber = AllEmptySubscriber()
+        subscriber.function()
+        getApiLottery()
+                .post<String>(HomeApi.getApiOtherTest() + LOTTERY_BET)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("play_bet_lottery_id", play_bet_lottery_id)
+                .params("play_bet_issue", play_bet_issue)
+                .params("order_detail", order_detail)
+                .params("play_bet_follow_user", play_bet_follow_user)
+                .subscribe(subscriber)
+    }
 }
