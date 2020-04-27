@@ -29,4 +29,11 @@ object ApiConstant {
 
     const val isTest = true
 
+    /**
+     *  key
+     */
+    const val TEST_KEY = "6dd5eea85c2c5fac"
+
+    const val MAIN_KEY = "21d29648eae80e73"
+
 }

@@ -5,12 +5,14 @@ import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
-import com.fenghuang.caipiaobao.ui.login.data.LoginApi
-import com.fenghuang.caipiaobao.ui.login.data.LoginInfoResponse
-import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
-import com.fenghuang.caipiaobao.ui.login.data.RegisterSuccess
+import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.ui.login.data.*
+import com.fenghuang.caipiaobao.utils.AESUtils
 import com.fenghuang.caipiaobao.utils.CountDownTimerUtils
+import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -22,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  *
  */
 
-class LoginPresenter : BaseMvpPresenter<LoginActivity>() {
+class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
 
 
     /**
@@ -62,9 +64,14 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>() {
         LoginApi.userLoginWithPassWord(phone, passWord, loadMode) {
             if (mView.isActive()) {
                 onSuccess {
-                    UserInfoSp.putToken(it.token)
-                    UserInfoSp.setUserType(it.user_type)
-                    getLoginInfo("Bearer ${it.token}")
+                    it.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
+                    val str = AESUtils.decrypt(getBase64Key(), it.encryption)
+                    val res = str?.let { it1 -> JsonUtils.fromJson(it1, LoginResponse::class.java) }
+                    res?.let { result ->
+                        UserInfoSp.putToken(result.token)
+                        getLoginInfo("Bearer ${result.token}")
+                        UserInfoSp.putRandomStr(result.random_str)
+                    }
                 }
                 onFailed {
                     mView.hidePageLoadingDialog()
@@ -83,9 +90,14 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>() {
         LoginApi.userLoginWithIdentify(phone, code, isAutoLogin) {
             if (mView.isActive()) {
                 onSuccess {
-                    UserInfoSp.putToken(it.token)
-                    UserInfoSp.setUserType(it.user_type)
-                    getLoginInfo("Bearer ${it.token}")
+                    it.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
+                    val str = AESUtils.decrypt(getBase64Key(), it.encryption)
+                    val res = str?.let { it1 -> JsonUtils.fromJson(it1, LoginResponse::class.java) }
+                    res?.let { result ->
+                        UserInfoSp.putToken(result.token)
+                        getLoginInfo("Bearer ${result.token}")
+                        UserInfoSp.putRandomStr(result.random_str)
+                    }
                 }
 
                 onFailed {

@@ -6,6 +6,8 @@ import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_Main
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER_TEST
+import com.fenghuang.caipiaobao.data.api.ApiConstant.MAIN_KEY
+import com.fenghuang.caipiaobao.data.api.ApiConstant.TEST_KEY
 import com.fenghuang.caipiaobao.data.api.ApiConstant.isTest
 import com.pingerx.rxnetgo.RxNetGo
 
@@ -38,6 +40,12 @@ interface BaseApi {
         return if (isTest) {
             API_MOMENTS_TEST
         } else API_MOMENTS_MAIN
+    }
+
+    fun getBase64Key():String{
+        return if (isTest) {
+            TEST_KEY
+        } else MAIN_KEY
     }
 
 

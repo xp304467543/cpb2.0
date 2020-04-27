@@ -253,7 +253,7 @@ object HttpUtils {
             //表单提交，有文件
             val multipartBodybuilder = MultipartBody.Builder().setType(MultipartBody.FORM)
             //拼接键值对
-            if (!params.getUrlParams().isEmpty()) {
+            if (params.getUrlParams().isNotEmpty()) {
                 for ((key, value) in params.getUrlParams()) {
                     multipartBodybuilder.addFormDataPart(key, value.toString())
                 }

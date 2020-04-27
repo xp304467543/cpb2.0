@@ -4,12 +4,11 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.CountDownTimer
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
-import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
@@ -17,6 +16,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveBetStateAdapter
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryTypeSelectUtil
 import com.fenghuang.caipiaobao.ui.lottery.data.*
+import com.fenghuang.caipiaobao.ui.mine.MinePresenter
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomDialogFragment
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomLotterySelectDialog
 import com.flyco.tablayout.SlidingTabLayout
@@ -36,13 +36,21 @@ import kotlinx.android.synthetic.main.fragment_live_bet.*
 
 class LiveRoomBetFragment : BottomDialogFragment() {
 
-    private var opt1SelectedPosition: Int = 0
+    private var opt1SelectedPosition = 0
+
+    private var firstDiamond = 0
+
+    private var userDiamond = "-1"
 
     private var vpGuss: ViewPager? = null
 
     private var tabGuss: SlidingTabLayout? = null
 
     private var currentLotteryId = "1"
+
+    private var currentLotteryIssue = ""
+
+    private var isOpenCode = false
 
     private var selectMoneyList: List<PlayMoneyData>? = null
 
@@ -81,6 +89,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         }
         getLotteryNewCode("1")//默认加载重庆时时彩  1
         setTabLayout("1")
+        getUserDiamond()
         getPlayMoney()
     }
 
@@ -96,13 +105,36 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         rootView?.findViewById<ImageView>(R.id.imgBetCLose)?.setOnClickListener {
             dismiss()
         }
+        rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.addTextChangedListener(object : TextWatcher {
+            @SuppressLint("SetTextI18n")
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.isEmpty()) return
+                if (s.toString().toInt() < 10) {
+                    ToastUtils.show("请输入≥10的整数")
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         rootView?.findViewById<TextView>(R.id.tvBetSubmit)?.setOnClickListener {
-            if (betList.isNullOrEmpty()) {
-                ToastUtils.show("请选择投注选项")
+            if (!isOpenCode) {
+                ToastUtils.show("当前期已封盘或已开奖，请购买下一期")
                 return@setOnClickListener
             }
-            liveRoomBetAccessFragment = LiveRoomBetAccessFragment()
-            liveRoomBetAccessFragment?.show(fragmentManager, "liveRoomBetAccessFragment")
+            if (userDiamond != "-1") {
+                if (!betList.isNullOrEmpty() && rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text != null) {
+                    if (rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString().toInt() >= 10) {
+                        if (currentLotteryIssue != "") {
+                            val nextIssue = currentLotteryIssue.toLong() + 1
+                            if (tvUserDiamond.text.toString().isNotEmpty()){
+                                liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(betList, betCount, betMoney, currentLotteryId, nextIssue.toString(),tvUserDiamond.text.toString()))
+                                liveRoomBetAccessFragment?.show(fragmentManager, "liveRoomBetAccessFragment")
+                            }else ToastUtils.show("钻石信息获取失败,请重试")
+                        } else ToastUtils.show("当前期已封盘或已开奖，请购买下一期")
+                    } else ToastUtils.show("投注金额最小为 10")
+                } else ToastUtils.show("未选择任何玩法或投注金额,请选择后再提交")
+            } else getUserDiamond()
         }
     }
 
@@ -117,7 +149,26 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 tabGuss = rootView?.findViewById(R.id.tabGuss)
                 vpGuss?.adapter = LiveBetStateAdapter(childFragmentManager, playList)
                 tabGuss?.setViewPager(vpGuss)
+                //可用于切换 整合 单码之类的tab时清空
+                vpGuss?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+                    override fun onPageScrollStateChanged(state: Int) {}
+                    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+                    override fun onPageSelected(position: Int) {
+                        reSetData()
+                    }
+                })
+                rootView?.findViewById<TextView>(R.id.tvReset)?.setOnClickListener {
+                    ViewUtils.setGone(bottomBetLayout)
+                    betCount = 1 //注数
+                    betDiamond = firstDiamond //钻石数
+                    betMoney = firstDiamond //投注金额
+                    setTotal()
+                    if (radioGroupLayout.getChildAt(0) != null)
+                        (radioGroupLayout.getChildAt(0) as RadioButton).isChecked = true
+                    betList.clear()
+                    RxBus.get().post(LotteryReset(true))
 
+                }
             }
         }
     }
@@ -132,6 +183,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_bottom, 0)
             }
             lotterySelectDialog.tvLotteryWheelSure.setOnClickListener {
+                handler?.removeCallbacks(runnable)
                 tvLotterySelectType?.text = lotterySelectDialog.lotteryPickerView.opt1SelectedData as String
                 opt1SelectedPosition = lotterySelectDialog.lotteryPickerView.opt1SelectedPosition
                 currentLotteryId = list[opt1SelectedPosition].lottery_id
@@ -141,6 +193,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 timerClose?.cancel()
                 if (tvCloseTime != null) tvCloseTime.text = "--:--"
                 if (tvOpenTime != null) tvOpenTime!!.text = "--:--"
+                reSetData()
                 lotterySelectDialog.dismiss()
             }
             lotterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
@@ -153,23 +206,24 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         LotteryApi.getLotteryNewCode(lottery_id) {
             onSuccess {
                 if (isVisible) {
-                    if (it.next_lottery_time.toInt() > 0) {
+                    if (it.next_lottery_time.toInt() > 0 && it.next_lottery_end_time > 0) {
+                        currentLotteryIssue = it.issue.toString()
                         tvOpenCount?.text = (it.issue + " 期开奖结果   ")
                         countDownTime(it.next_lottery_time, lottery_id)
                         //更新最新开奖数据
                         LotteryTypeSelectUtil.addOpenCode(context!!, linLotteryOpenCode, it.code?.split(","), it.lottery_id)
                         tvOpenCodePlaceHolder.visibility = View.GONE
+                        countDownTimerClose(it.next_lottery_end_time)
+                        isOpenCode = true
                     } else {
                         if (timer != null) timer?.cancel()
                         tvOpenCodePlaceHolder.visibility = View.VISIBLE
-                        tvOpenTime.text = "开奖中..."
-                        tvOpenCount.text = (it.issue + "期开奖结果   ")
+                        tvOpenTime.text = "--:--"
+                        tvOpenCount.text = ("- - - -" + "期开奖结果   ")
+                        tvCloseTime.text = "--:--"
                         getNewResult(it.lottery_id)
+                        currentLotteryIssue = ""
                     }
-
-                    if (it.next_lottery_end_time > 0) {
-                        countDownTimerClose(it.next_lottery_end_time)
-                    } else tvCloseTime.text = "--:--"
                 }
             }
 
@@ -202,6 +256,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             }
 
             override fun onFinish() {
+                isOpenCode = false
                 if (tvCloseTime != null) tvCloseTime.text = "--:--"
             }
         }
@@ -251,7 +306,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         runnable = Runnable {
             getLotteryNewCode(lotteryId)
         }
-        handler?.postDelayed(runnable, 5000)
+        handler?.postDelayed(runnable, 3000)
     }
 
 
@@ -262,6 +317,19 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         else "0$c"
     }
 
+    /**
+     * 获取钻石
+     */
+    private fun getUserDiamond() {
+        val presenter = MinePresenter()
+        presenter.getUserDiamond()
+        presenter.getUserDiamondSuccessListener {
+            if (isAdded) {
+                userDiamond = it
+                tvUserDiamond.text = userDiamond
+            }
+        }
+    }
 
     /**
      * 快选金额
@@ -296,14 +364,26 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                         params.setMargins(ViewUtils.dp2px(5), 0, ViewUtils.dp2px(5), 0)
                         radio.layoutParams = params
                         betMoney = it[0].play_sum_num
-                        betDiamond = betMoney * 2
+                        betDiamond = betMoney * betCount
+                        firstDiamond = it[0].play_sum_num
                         tvBetCount.text = "共" + betCount + "注"
                         etBetPlayMoney.setText(betMoney.toString())
-                        tvDiamond.text = (betMoney * betCount * 2).toString()
+                        tvDiamond.text = (betMoney * betCount).toString()
                     }
                 }
             }
         }
+    }
+
+    //重置页面
+    fun reSetData() {
+        ViewUtils.setGone(bottomBetLayout)
+        betCount = 1 //注数
+        betDiamond = firstDiamond //钻石数
+        betMoney = firstDiamond //投注金额
+        setTotal()
+        betList.clear()
+        RxBus.get().post(LotteryReset(true))
     }
 
 
@@ -322,28 +402,39 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     private var betCount = 1 //注数
 
-    private var betDiamond = -1 //钻石数
+    private var betDiamond = 10 //钻石数
 
-    private var betMoney = -1 //投注金额
+    private var betMoney = 10 //投注金额
 
     @SuppressLint("SetTextI18n")
     private fun setTotal() {
         betCount = if (betList.isEmpty()) 1 else betList.size
         tvBetCount.text = "共" + betCount + "注"
         etBetPlayMoney.setText(betMoney.toString())
-        tvDiamond.text = (betMoney * betCount * 2).toString()
+        tvDiamond.text = (betMoney * betCount).toString()
     }
 
-    //跳转购彩
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun lotteryBet(eventBean: LotteryBet) {
         if (eventBean.result.isSelected) {
             betList.add(eventBean)
             ViewUtils.setVisible(bottomBetLayout)
             betCount = betList.size
-        } else betList.remove(eventBean)
+        } else {
+            try {
+                betList.remove(eventBean)
+            } catch (e: Exception) {
+            }
+        }
         betCount = betList.size
         setTotal()
         if (betList.isEmpty()) ViewUtils.setGone(bottomBetLayout)
     }
+
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun lotteryBet(eventBean: LotteryResetDiamond) {
+        getUserDiamond()
+    }
+
 }

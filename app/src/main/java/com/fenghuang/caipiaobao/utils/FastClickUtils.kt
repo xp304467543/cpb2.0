@@ -10,7 +10,7 @@ package com.fenghuang.caipiaobao.utils
 
 object FastClickUtils {
     // 两次点击按钮之间的点击间隔不能少于1000毫秒
-    private const val MIN_CLICK_DELAY_TIME = 600
+    private const val MIN_CLICK_DELAY_TIME = 500
     private var lastClickTime: Long = 0
 
     fun isFastClick(): Boolean {

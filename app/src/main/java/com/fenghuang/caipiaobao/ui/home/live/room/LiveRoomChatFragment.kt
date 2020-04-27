@@ -194,7 +194,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
 
         imgShake.setOnClickListener {
-            if (liveRoomBetFragment == null) liveRoomBetFragment = LiveRoomBetFragment()
+            liveRoomBetFragment = LiveRoomBetFragment()
             liveRoomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }

@@ -75,7 +75,7 @@ class HttpHeaders : Serializable {
     }
 
     override fun toString(): String {
-        return "HttpHeaders{" + "headersMap=" + headersMap + '}'.toString()
+        return "HttpHeaders{headersMap=$headersMap}"
     }
 
     @SuppressLint("PrivateApi")

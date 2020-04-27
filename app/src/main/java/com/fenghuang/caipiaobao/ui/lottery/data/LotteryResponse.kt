@@ -68,19 +68,28 @@ data class PlayUnitData(
 ) : Parcelable
 
 @Parcelize
-data class PlaySecData(
+data class  PlaySecData(
         val play_class_cname: String,
         val play_class_id: Int,
         val play_sec_name:String,
         val play_class_name: String,
         val play_odds: Double,
-        var isSelected: Boolean = false
+        var playName:String = "",
+        var isSelected: Boolean = false,
+        var money:String = "0"
 ) : Parcelable
 
 data class PlayMoneyData(
         val play_sum_id:Int,
         val play_sum_num:Int,
         val play_sum_name:String
+
+)
+
+data class BetBean(
+        val play_sec_name:String,
+        val play_class_name:String,
+        val play_bet_sum:String
 
 )
 

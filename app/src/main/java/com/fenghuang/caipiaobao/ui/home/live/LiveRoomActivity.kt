@@ -22,6 +22,7 @@ import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomAdvanceFragment
 import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomRankFragment
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryDiamondNotEnough
 import com.fenghuang.caipiaobao.ui.mine.MinePresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
@@ -500,6 +501,16 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         }
     }
 
+
+    //投注 钻石不足 退出
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun lotteryDiamondNotEnough(eventBean: LotteryDiamondNotEnough) {
+        if (eventBean.reset) {
+            finish()
+            RxBus.get().post(HomeJumpToMine(true))
+        }
+    }
+
     //发弹幕
     fun sendDanMu() {
         if (!UserInfoSp.getIsLogin()) {
@@ -534,4 +545,5 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         liveRoomActivityHelper.quitFullScreen()
         LaunchUtils.startRechargePage(this, 0)
     }
+
 }

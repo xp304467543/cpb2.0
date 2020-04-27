@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.dialog_tips_confirm.*
 class GlobalTipsDialog(context: Context, title: String, confirm: String, cancel: String, contentDes: String) : Dialog(context) {
     init {
         setContentView(R.layout.dialog_tips_confirm)
+        window!!.setWindowAnimations(R.style.BaseDialogAnim)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
         val lp = window!!.attributes

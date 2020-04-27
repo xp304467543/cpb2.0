@@ -10,7 +10,8 @@ data class LoginResponse(var token: String,
                          var nickname: String = "",
                          var user_type: String = "",
                          var username: String = "",
-                         var profile: String = ""
+                         var profile: String = "",
+                         var random_str:String
 )
 
 data class RegisterCode(var code: String)

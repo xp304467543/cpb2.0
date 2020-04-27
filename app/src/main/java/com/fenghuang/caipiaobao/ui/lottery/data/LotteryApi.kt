@@ -1,12 +1,19 @@
 package com.fenghuang.caipiaobao.ui.lottery.data
 
+import android.os.Looper
+import com.fenghuang.baselib.utils.LogUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
-import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
+import com.fenghuang.caipiaobao.utils.AESUtils
+import com.google.gson.GsonBuilder
 import com.pingerx.rxnetgo.rxcache.CacheMode
+import okhttp3.*
+import java.io.IOException
+
 
 /**
  *
@@ -52,7 +59,7 @@ object LotteryApi : BaseApi {
     private const val LOTTERY_BET_COUNT_MONEY = "/guess/play_sum_list"
 
     //投注
-    private const val LOTTERY_BET = "play_bet_follow_user"
+     const val LOTTERY_BET = "/guess/play_bet"
 
     /**
      * 获取彩种
@@ -198,7 +205,7 @@ object LotteryApi : BaseApi {
      * 投注金额
      */
 
-    fun lotteryBetMoney( function: ApiSubscriber<List<PlayMoneyData>>.() -> Unit){
+    fun lotteryBetMoney(function: ApiSubscriber<List<PlayMoneyData>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<PlayMoneyData>>() {}
         subscriber.function()
         getApiLottery()
@@ -207,20 +214,5 @@ object LotteryApi : BaseApi {
                 .subscribe(subscriber)
     }
 
-    /**
-     * 投注 跟投
-     * play_bet_follow_user	跟投用户id，默认0为正常投注
-     */
-    fun lotteryBet(play_bet_lottery_id: Int, play_bet_issue: String, order_detail: String, play_bet_follow_user: String, function: AllEmptySubscriber.() -> Unit) {
-        val subscriber = AllEmptySubscriber()
-        subscriber.function()
-        getApiLottery()
-                .post<String>(HomeApi.getApiOtherTest() + LOTTERY_BET)
-                .headers("Authorization", UserInfoSp.getTokenWithBearer())
-                .params("play_bet_lottery_id", play_bet_lottery_id)
-                .params("play_bet_issue", play_bet_issue)
-                .params("order_detail", order_detail)
-                .params("play_bet_follow_user", play_bet_follow_user)
-                .subscribe(subscriber)
-    }
+
 }

@@ -1,9 +1,15 @@
 package com.fenghuang.caipiaobao.ui.login.data
 
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
+import com.fenghuang.caipiaobao.data.api.AllSubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.bean.BaseApiBean
+import com.fenghuang.caipiaobao.utils.AESUtils
+import com.fenghuang.caipiaobao.utils.IpUtils
+import com.google.gson.Gson
 
 /**
  *
@@ -16,44 +22,62 @@ import com.fenghuang.caipiaobao.data.api.BaseApi
 object LoginApi : BaseApi {
 
     //登录
-    private const val LOGIN = "/login/index"
+    private const val LOGIN = "/v2/login"
+
     //登录信息，登录成功后获取
     private const val LOGIN_INFO = "/index/index"
+
     //获取验证码
     private const val GET_CODE = "/reg/send-sms"
+
     //注册
     private const val REGISTER = "/reg/index"
+
     //首冲
     private const val FIRST_RECHARGE = "/api/v1/Recharge/IsFirst"
+
     //找回登录密码
     private const val GET_LOGIN_PASS = "/home/retrieve-password"
 
     /**
      * 密码登录
      */
-    fun userLoginWithPassWord(userName: String, passWord: String, loadMode: String, function: ApiSubscriber<LoginResponse>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<LoginResponse>() {}
+    fun userLoginWithPassWord(userName: String, passWord: String, loadMode: String, function: AllSubscriber.() -> Unit) {
+        val subscriber = AllSubscriber()
         subscriber.function()
-        getApiOther().post<LoginResponse>(getApiOtherUserTest() + LOGIN)
-                .params("username", userName)
-                .params("password", passWord)
-                .params("mode", loadMode)
-                .subscribe(subscriber)
+        val map = hashMapOf<String, Any>()
+        map["username"] = userName
+        map["password"] = passWord
+        map["mode"] = loadMode
+        map["client_type"] = 3
+        map["ip"] = IpUtils.getIPAddress(ViewUtils.getContext())
+        AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
+            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
+                    .params("datas", it)
+                    .subscribe(subscriber)
+        }
     }
 
     /**
      * 验证码登录
      */
 
-    fun userLoginWithIdentify(phoneNum: String, captcha: String, isAutoLogin: Int, function: ApiSubscriber<LoginResponse>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<LoginResponse>() {}
+    fun userLoginWithIdentify(phoneNum: String, captcha: String, isAutoLogin: Int, function: AllSubscriber.() -> Unit) {
+        val subscriber = AllSubscriber()
         subscriber.function()
-        getApiOther().post<LoginResponse>(getApiOtherUserTest() + LOGIN)
-                .params("phone", phoneNum)
-                .params("captcha", captcha)
-                .params("mode", 3)
-                .params("is_auto_login", isAutoLogin)
-                .subscribe(subscriber)
+        val map = hashMapOf<String, Any>()
+        map["phone"] = phoneNum
+        map["captcha"] = captcha
+        map["mode"] = 3
+        map["client_type"] = 3
+        map["ip"] = IpUtils.getIPAddress(ViewUtils.getContext())
+        map["is_auto_login"] = isAutoLogin
+        AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
+            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
+                    .params("datas", it)
+                    .subscribe(subscriber)
+        }
+
     }
 
     /**

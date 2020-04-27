@@ -1,5 +1,8 @@
 package com.fenghuang.caipiaobao.ui.lottery.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 /**
  *
  * @ Author  QinTian
@@ -14,9 +17,22 @@ data class LotteryNewCode(var lotteryCodeNewResponse: LotteryCodeNewResponse?)
 
 data class LotteryExpertPlay(var lotteryCodeNewResponse: LotteryCodeNewResponse?)
 
-data class LotteryJumpToLive(var lotteryId:String)
+data class LotteryJumpToLive(var lotteryId: String)
 
-//投注
-data class LotteryBet(var result:PlaySecData)
 
+@Parcelize
+data class LotteryBet(var result: PlaySecData,var playName:String) : Parcelable
+
+//投注确认
+data class LotteryBetAccess(var result: ArrayList<LotteryBet>, var totalCount: Int, var totalMoney: Int,var lotteryID:String,var issue:String,var diamond:String)
+
+//重置
+data class LotteryReset(var reset: Boolean)
+
+
+//重置
+data class LotteryResetDiamond(var reset: Boolean)
+
+//钻石不足
+data class LotteryDiamondNotEnough(var reset: Boolean)
 

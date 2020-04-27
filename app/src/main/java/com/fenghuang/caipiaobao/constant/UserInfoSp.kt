@@ -30,8 +30,8 @@ object UserInfoSp {
     /**
      * token
      */
-    fun putToken(token: String) {
-        SpUtils.putString(UserConstant.TOKEN, token)
+    fun putToken(token: String?) {
+        token?.let { SpUtils.putString(UserConstant.TOKEN, it) }
         SpUtils.putString(UserConstant.TOKEN_WITH_BEARER, "Bearer $token")
     }
 
@@ -233,6 +233,16 @@ object UserInfoSp {
         return SpUtils.getBoolean("AttentionGuide", false)
     }
 
+    /**
+     * random_str
+     */
+    fun putRandomStr(random_str:String?){
+        random_str?.let { SpUtils.putString("random_str", it) }
+    }
+
+    fun getRandomStr(): String?{
+        return SpUtils.getString("random_str", "")
+    }
     /**
      * 打赏引导图
      */
