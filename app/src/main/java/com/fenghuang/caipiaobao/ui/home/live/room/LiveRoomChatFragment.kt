@@ -50,7 +50,6 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.dialog_chat_bottom_gif.*
 import kotlinx.android.synthetic.main.fragment_child_live_chat.*
-import kotlinx.android.synthetic.main.holder_fragment_gift.view.*
 import java.util.*
 
 
@@ -196,6 +195,10 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
 
         imgShake.setOnClickListener {
+            if (!UserInfoSp.getIsLogin()) {
+                GlobalDialog.notLogged(requireActivity())
+                return@setOnClickListener
+            }
             liveRoomBetFragment = LiveRoomBetFragment()
             liveRoomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }

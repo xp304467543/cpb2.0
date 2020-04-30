@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.login.data
 
+import android.content.Context
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
@@ -8,8 +9,11 @@ import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.fenghuang.caipiaobao.utils.AESUtils
+import com.fenghuang.caipiaobao.utils.HttpClient
 import com.fenghuang.caipiaobao.utils.IpUtils
 import com.google.gson.Gson
+import okhttp3.Response
+import java.io.IOException
 
 /**
  *
@@ -22,7 +26,7 @@ import com.google.gson.Gson
 object LoginApi : BaseApi {
 
     //登录
-    private const val LOGIN = "/v2/login"
+     const val LOGIN = "/v2/login"
 
     //登录信息，登录成功后获取
     private const val LOGIN_INFO = "/index/index"
@@ -31,7 +35,7 @@ object LoginApi : BaseApi {
     private const val GET_CODE = "/reg/send-sms"
 
     //注册
-    private const val REGISTER = "/reg/index"
+     const val REGISTER = "/v2/reg"
 
     //首冲
     private const val FIRST_RECHARGE = "/api/v1_1/Recharge/IsFirst"
@@ -42,7 +46,7 @@ object LoginApi : BaseApi {
     /**
      * 密码登录
      */
-    fun userLoginWithPassWord(userName: String, passWord: String, loadMode: String, function: AllSubscriber.() -> Unit) {
+    fun userLoginWithPassWord(userName: String, passWord: String, loadMode: String,context: Context, function: AllSubscriber.() -> Unit) {
         val subscriber = AllSubscriber()
         subscriber.function()
         val map = hashMapOf<String, Any>()
@@ -52,9 +56,20 @@ object LoginApi : BaseApi {
         map["client_type"] = 3
         map["ip"] = IpUtils.getIPAddress(ViewUtils.getContext())
         AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
-            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
-                    .params("datas", it)
-                    .subscribe(subscriber)
+//            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
+//                    .params("datas", it)
+//                    .subscribe(subscriber)
+            val param = HashMap<String,String>()
+            param["datas"] = it
+            HttpClient.getInstance(context).post(LoginApi.getApiOtherUserTest() + LOGIN,param,object :HttpClient.MyCallback{
+                override fun failed(e: IOException?) {
+
+                }
+                override fun success(res: Response?) {
+
+                }
+
+            })
         }
     }
 
