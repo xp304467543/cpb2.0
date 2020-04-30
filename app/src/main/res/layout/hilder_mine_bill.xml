@@ -44,7 +44,7 @@
         android:maxLines="1"
         android:textColor="@color/color_999999"
         android:textSize="@dimen/sp_12"
-        app:layout_constraintEnd_toStartOf="@+id/tvEnd"
+        app:layout_constraintEnd_toStartOf="@+id/tvGiftPrise"
         app:layout_constraintStart_toEndOf="@+id/imgPhoto"
         app:layout_constraintTop_toBottomOf="@+id/tvName"
         tools:ignore="RtlSymmetry"

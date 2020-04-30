@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/orderTitle"
+    android:layout_width="match_parent"
+    android:layout_height="20dp"
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/dp_5"
+    app:layout_constraintTop_toBottomOf="@+id/orderLine"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:ellipsize="end"
+        android:maxEms="2"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12" />
+
+    <TextView
+        android:id="@+id/tv_4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12" />
+
+
+</LinearLayout>

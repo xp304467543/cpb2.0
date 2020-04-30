@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.home.data
 import android.os.Parcelable
 import com.google.gson.JsonElement
 import kotlinx.android.parcel.Parcelize
+import org.json.JSONObject
 import java.io.Serializable
 
 /**
@@ -30,7 +31,7 @@ data class HomeLiveEnterRoomResponse(
         val base_online: String = "",
         val liveInfo: List<HomeLiveRoomListBean>? = null,
         val red_paper: List<HomeLiveRedRoom>? = null,
-        val isFollow: Boolean ,
+        val isFollow: Boolean,
         val lottery_id: String = ""
 )
 
@@ -47,7 +48,8 @@ data class HomeLiveRedRoom(var id: String = "",
                            var text: String,
                            var userName: String,
                            var avatar: String
-                           )
+)
+
 // 抢红包
 data class HomeLiveRedReceiveBean(var amount: String?,
                                   var send_text: String?,
@@ -68,11 +70,17 @@ data class HomeLiveTwentyNewsResponse(val type: String = "",
                                       val gift_name: String = "",
                                       val gift_num: String = "",
                                       val icon: String = "",
-                                      val final_num:Int = 1,
-                                      val showTime:Long = 0,
+                                      val final_num: Int = 1,
+                                      val showTime: Long = 0,
                                       val gift_id: String = "",
                                       val gift_price: String = "",
-                                      val gift_type: String = ""
+                                      val gift_type: String = "",
+                                      val event: String="",
+                                      var orders: JsonElement? = null,
+                                      var childIsShow:Boolean = false,
+                                      var canFollow:Boolean = false
+
+
 )
 
 
@@ -162,14 +170,26 @@ data class HomeLiveChatBeanNormal(var position: String = "",
                                   var gift_name: String = "",
                                   var gift_price: String = "",
                                   var gift_num: String = "",
+                                  var isAnchor: String = "0",
                                   var vip: String = "",
                                   var icon: String = "",
-                                  var r_id: String = "", var avatar: String = "", var code: String = "", var msg: String = "", var data: JsonElement? = null)
+                                  var r_id: String = "",
+                                  var avatar: String = "",
+                                  var code: String = "",
+                                  var msg: String = "",
+                                  var data: JsonElement? = null,
+                                  var event:String = "",
+                                  var orders: JsonElement? = null
+
+)
 
 @Parcelize
 data class HomeLiveChatChildBean(var id: String = "", var lottery_id: String = "", var method_cname: String = "",
                                  var result_c: String = "", var nums: String = "", var updated: String = "") : Parcelable
 
+
+@Parcelize
+data class HomeLiveChatOpenIssue(var end_sale_time: Long?, var issue: String = "") : Parcelable
 @Parcelize
 data class HomeLiveChatChildBeanNormal(var online: String = "") : Parcelable
 
@@ -188,11 +208,11 @@ data class HomeLiveAnimatorBean(var gift_id: String,
 
 //礼物大动画Rx
 data class HomeLiveBigAnimatorBean(var gift_id: String,
-                                var git_name: String,
-                                var gift_icon: String,
-                                var user_id: String,
-                                var user_icon: String,
-                                var user_name: String, var giftCount: String)
+                                   var git_name: String,
+                                   var gift_icon: String,
+                                   var user_id: String,
+                                   var user_icon: String,
+                                   var user_name: String, var giftCount: String)
 
 //新闻
 data class HomeNewsBean(var info_id: String = "", var title: String = "", var type: String = "",
@@ -202,13 +222,13 @@ data class HomeNewsBean(var info_id: String = "", var title: String = "", var ty
 )
 
 //关注取关
-data class Attention(var isFollow:Boolean)
+data class Attention(var isFollow: Boolean)
 
 // 发送红包
 data class HomeLiveRedEnvelopeBean(var rid: String)
 
 //直播预告
-data class HomeLiveAdvance(var room_id: String = "",var name: String = "")
+data class HomeLiveAdvance(var room_id: String = "", var name: String = "")
 
 //全部主播
-data class HomeLiveAnchor(var type: String = "" ,var name: String = "")
+data class HomeLiveAnchor(var type: String = "", var name: String = "")

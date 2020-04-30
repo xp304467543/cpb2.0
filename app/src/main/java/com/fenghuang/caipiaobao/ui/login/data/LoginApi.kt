@@ -34,7 +34,7 @@ object LoginApi : BaseApi {
     private const val REGISTER = "/reg/index"
 
     //首冲
-    private const val FIRST_RECHARGE = "/api/v1/Recharge/IsFirst"
+    private const val FIRST_RECHARGE = "/api/v1_1/Recharge/IsFirst"
 
     //找回登录密码
     private const val GET_LOGIN_PASS = "/home/retrieve-password"

@@ -48,7 +48,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     private var currentLotteryId = "1"
 
-    private var currentLotteryIssue = ""
+    private var nextIssue = ""
 
     private var isOpenCode = false
 
@@ -61,6 +61,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     private var liveRoomBetRecordFragment: LiveRoomBetRecordFragment? = null
 
     private var liveRoomBetAccessFragment: LiveRoomBetAccessFragment? = null
+
+    private var viewPagerAdapter:LiveBetStateAdapter?=null
 
     private var playList = ArrayList<LotteryPlayListResponse>()
 
@@ -125,10 +127,10 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             if (userDiamond != "-1") {
                 if (!betList.isNullOrEmpty() && rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text != null) {
                     if (rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString().toInt() >= 10) {
-                        if (currentLotteryIssue != "") {
-                            val nextIssue = currentLotteryIssue.toLong() + 1
+                        if (nextIssue != "") {
                             if (tvUserDiamond.text.toString().isNotEmpty()){
-                                liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(betList, betCount, betMoney, currentLotteryId, nextIssue.toString(),tvUserDiamond.text.toString()))
+                                liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(betList, betCount, betMoney, currentLotteryId,
+                                        nextIssue,tvUserDiamond.text.toString(), tvLotterySelectType?.text.toString(), vpGuss?.currentItem?.let { it1 -> viewPagerAdapter?.getPageTitle(it1)}.toString()))
                                 liveRoomBetAccessFragment?.show(fragmentManager, "liveRoomBetAccessFragment")
                             }else ToastUtils.show("钻石信息获取失败,请重试")
                         } else ToastUtils.show("当前期已封盘或已开奖，请购买下一期")
@@ -147,7 +149,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 playList.addAll(it)
                 vpGuss = rootView?.findViewById(R.id.vpGuss)
                 tabGuss = rootView?.findViewById(R.id.tabGuss)
-                vpGuss?.adapter = LiveBetStateAdapter(childFragmentManager, playList)
+                viewPagerAdapter = LiveBetStateAdapter(childFragmentManager, playList)
+                vpGuss?.adapter = viewPagerAdapter
                 tabGuss?.setViewPager(vpGuss)
                 //可用于切换 整合 单码之类的tab时清空
                 vpGuss?.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -178,16 +181,17 @@ class LiveRoomBetFragment : BottomDialogFragment() {
         tvLotterySelectType?.text = title[0]
         tvLotterySelectType?.setOnClickListener {
             val lotterySelectDialog = BottomLotterySelectDialog(context!!, title)
+            lotterySelectDialog.setCanceledOnTouchOutside(false)
             tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_top, 0)
             lotterySelectDialog.setOnDismissListener {
                 tvLotterySelectType?.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.select_bottom, 0)
             }
             lotterySelectDialog.tvLotteryWheelSure.setOnClickListener {
-                handler?.removeCallbacks(runnable)
+                if (runnable!=null) handler?.removeCallbacks(runnable!!)
                 tvLotterySelectType?.text = lotterySelectDialog.lotteryPickerView.opt1SelectedData as String
                 opt1SelectedPosition = lotterySelectDialog.lotteryPickerView.opt1SelectedPosition
                 currentLotteryId = list[opt1SelectedPosition].lottery_id
-                getLotteryNewCode(currentLotteryId)
+                getLotteryNewCode(list[opt1SelectedPosition].lottery_id)
                 setTabLayout(list[opt1SelectedPosition].lottery_id)
                 timer?.cancel()
                 timerClose?.cancel()
@@ -207,7 +211,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             onSuccess {
                 if (isVisible) {
                     if (it.next_lottery_time.toInt() > 0 && it.next_lottery_end_time > 0) {
-                        currentLotteryIssue = it.issue.toString()
+                        nextIssue = it.next_issue
                         tvOpenCount?.text = (it.issue + " 期开奖结果   ")
                         countDownTime(it.next_lottery_time, lottery_id)
                         //更新最新开奖数据
@@ -222,7 +226,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                         tvOpenCount.text = ("- - - -" + "期开奖结果   ")
                         tvCloseTime.text = "--:--"
                         getNewResult(it.lottery_id)
-                        currentLotteryIssue = ""
+                        nextIssue = ""
                     }
                 }
             }

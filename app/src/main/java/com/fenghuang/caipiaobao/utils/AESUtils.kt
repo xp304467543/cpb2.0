@@ -1,4 +1,5 @@
 package com.fenghuang.caipiaobao.utils
+
 import android.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
@@ -35,12 +36,11 @@ object AESUtils {
     //解密
     fun decrypt(key: String, encrypted: String?): String? {
         return try {
-            val encrypted1 =Base64.decode(encrypted?.toByteArray(), Base64.DEFAULT)
+            val encrypted1 = Base64.decode(encrypted?.toByteArray(), Base64.DEFAULT)
             val cipher = Cipher.getInstance(CBC_PKCS5_PADDING)
             val keyspace = SecretKeySpec(key.toByteArray(), AES)
             cipher.init(Cipher.DECRYPT_MODE, keyspace)
             val original = cipher.doFinal(encrypted1)
-
             //转换为字符串
             String(original)
         } catch (e: Exception) {
@@ -48,6 +48,4 @@ object AESUtils {
             null
         }
     }
-
-
 }

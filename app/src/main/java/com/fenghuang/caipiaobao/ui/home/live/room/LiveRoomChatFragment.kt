@@ -29,6 +29,7 @@ import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.LiveRoomBetFragment
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryShareBet
 import com.fenghuang.caipiaobao.ui.mine.MinePresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
@@ -49,6 +50,7 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.dialog_chat_bottom_gif.*
 import kotlinx.android.synthetic.main.fragment_child_live_chat.*
+import kotlinx.android.synthetic.main.holder_fragment_gift.view.*
 import java.util.*
 
 
@@ -396,7 +398,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
      * 初始化recycle
      */
     private fun initRecycle() {
-        chatAdapter = LiveRoomChatAdapter(getPageActivity())
+        chatAdapter = fragmentManager?.let { LiveRoomChatAdapter(getPageActivity(), it) }
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         rvLiveRoomChat?.layoutManager = layoutManager
@@ -586,6 +588,15 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
             }
         }
     }
+
+    //分享注单
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun shareBet(eventBean: LotteryShareBet) {
+        if (eventBean.reset) {
+            mPresenter.shareOrder(eventBean.order)
+        }
+    }
+
 //    //礼物连击结束后回调
 //    override fun giftNum(num: GiftIdentify?) {
 //        if (num?.isMeSend!!){

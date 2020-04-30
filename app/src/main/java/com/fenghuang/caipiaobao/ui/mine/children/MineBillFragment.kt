@@ -38,11 +38,12 @@ class MineBillFragment : BaseNavFragment() {
 
     override fun initContentView() {
         attentionTab.addTab(attentionTab.newTab().setText("余额记录"))
-        attentionTab.addTab(attentionTab.newTab().setText("兑换记录"))
+        attentionTab.addTab(attentionTab.newTab().setText("投注记录"))
         attentionTab.addTab(attentionTab.newTab().setText("打赏记录"))
+        attentionTab.addTab(attentionTab.newTab().setText("兑换记录"))
         val fragmentList = arrayListOf<BaseFragment>(MineBillFragmentChild.newInstance(1),MineBillFragmentChild.newInstance(2),
-                MineBillFragmentChild.newInstance(3))
-        xViewPageAttention.offscreenPageLimit = 3
+                MineBillFragmentChild.newInstance(3), MineBillFragmentChild.newInstance(4))
+        xViewPageAttention.offscreenPageLimit = 4
         xViewPageAttention.adapter = BaseFragmentPageAdapter(childFragmentManager,fragmentList)
     }
 

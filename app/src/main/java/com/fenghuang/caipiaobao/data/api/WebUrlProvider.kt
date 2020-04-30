@@ -10,8 +10,10 @@ import java.lang.reflect.Type
  * Web页面的接口管理
  */
 object WebUrlProvider {
-    //   wss://www.cpbadmin.com/wss   ws://www.cpbh5.com/wss
-    const val API_URL_WEB_SOCKET = "wss://www.cpbadmin.com/wss"
+//    生产环境： wss://www.cpbadmin.com/wss
+//
+//    测试环境： ws://www.cpbh5.com/wss
+    const val API_URL_WEB_SOCKET = "ws://www.cpbh5.com/wss"
 
     private fun getBaseUrl(): String {
         return if (DebugUtils.isDebugModel()) {

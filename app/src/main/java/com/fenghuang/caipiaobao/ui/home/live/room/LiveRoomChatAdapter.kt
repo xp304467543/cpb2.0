@@ -2,21 +2,34 @@ package com.fenghuang.caipiaobao.ui.home.live.room
 
 import android.content.Context
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.facebook.drawee.view.SimpleDraweeView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
-import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.LogUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveTwentyNewsResponse
 import com.fenghuang.caipiaobao.ui.home.data.LiveCallPersonal
+import com.fenghuang.caipiaobao.ui.home.live.room.betting.LiveRoomBetAccessFragment
+import com.fenghuang.caipiaobao.ui.lottery.data.BetShareBean
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBet
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBetAccess
+import com.fenghuang.caipiaobao.ui.lottery.data.PlaySecData
+import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.ForbiddenWordsDialog
 import com.hwangjr.rxbus.RxBus
+import org.json.JSONException
+import org.json.JSONObject
 
 
 /**
@@ -27,18 +40,21 @@ import com.hwangjr.rxbus.RxBus
  *
  */
 
-class LiveRoomChatAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveTwentyNewsResponse>(context) {
+class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager) : BaseRecyclerAdapter<HomeLiveTwentyNewsResponse>(context) {
 
 
     val TYPE_NORMAL = 0
     val TYPE_GIFT = 1
     val TYPE_RED = 2
+    val TYPE_SHARE_ORDER = 3
 
+    var mapFollow: HashMap<String, Int> = hashMapOf()
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<HomeLiveTwentyNewsResponse> {
         return when (viewType) {
             TYPE_NORMAL -> NormalHolder(parent)
             TYPE_RED -> RedHolder(parent)
+            TYPE_SHARE_ORDER -> ShareBetOrder(parent)
             else -> GiftHolder(parent)
         }
     }
@@ -50,11 +66,15 @@ class LiveRoomChatAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveTwenty
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            getAllData()[position].type == "publish" -> TYPE_NORMAL
+            getAllData()[position].type == "publish" -> {
+                //分享注单
+                if (getAllData()[position].event == "pushPlan") TYPE_SHARE_ORDER else TYPE_NORMAL
+            }
             //礼物
             getAllData()[position].type == "gift" -> TYPE_GIFT
             //红包
             getAllData()[position].gift_type == "4" -> TYPE_RED
+
             else -> TYPE_GIFT
         }
     }
@@ -67,10 +87,10 @@ class LiveRoomChatAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveTwenty
             setText(R.id.tvChatTime, data.sendTimeTxt)
             setText(R.id.tvChatContent, data.text)
             ImageManager.loadImg(data.avatar, findView(R.id.imgChatUserPhoto))
-            when {
-                data.userType == "2" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.ic_live_chat_manager)
-                data.userType == "3" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.ic_live_anchor)
-                else -> when (data.vip) {
+            when (data.userType) {
+                "2" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.ic_live_chat_manager)
+                "1" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.ic_live_anchor)
+                "0" -> when (data.vip) {
                     "1" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.v1)
                     "2" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.v2)
                     "3" -> findView<ImageView>(R.id.imgVipLevel).setBackgroundResource(R.mipmap.v3)
@@ -89,7 +109,7 @@ class LiveRoomChatAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveTwenty
             //初始化消息--END------------
             setOnClick(R.id.imgChatUserPhoto)
             findView<ConstraintLayout>(R.id.chatCons).setOnLongClickListener {
-               RxBus.get().post(LiveCallPersonal(data.userName))
+                RxBus.get().post(LiveCallPersonal(data.userName))
                 true
             }
             findView<SimpleDraweeView>(R.id.imgChatUserPhoto).setOnLongClickListener {
@@ -155,6 +175,125 @@ class LiveRoomChatAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveTwenty
         }
     }
 
+    inner class ShareBetOrder(parent: ViewGroup) : BaseViewHolder<HomeLiveTwentyNewsResponse>(getContext(), parent, R.layout.holder_share_bet_order) {
+
+        private lateinit var recyclerView: RecyclerView
+
+        private lateinit var childAdapter: ShareAdapter
+
+
+        override fun onBindView(context: Context?) {
+            context?.apply {
+                recyclerView = findView(R.id.betLin)
+                recyclerView.setItemViewCacheSize(50)
+                childAdapter = ShareAdapter(this)
+                recyclerView.layoutManager = object : LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
+                    override fun canScrollVertically(): Boolean {
+                        return false
+                    }
+                }
+                recyclerView.adapter = childAdapter
+            }
+        }
+
+
+        override fun onBindData(data: HomeLiveTwentyNewsResponse) {
+
+            ImageManager.loadImg(data.avatar, findView(R.id.imgOrderUserPhoto))
+            if (data.orders != null) {
+                try {
+                    val tvShowMore = findView<TextView>(R.id.tvShowMore)
+                    val followBt = findView<Button>(R.id.btFollow)
+                    val result = JSONObject(data.orders!!.toString())
+                    setText(R.id.tvOrderName, result.getString("lottery_cid"))
+                    setText(R.id.tvOrderIssIue, result.getString("play_bet_issue") + "期")
+                    mapFollow[result.getString("play_bet_issue")] = getDataPosition()
+                    val arrayList = JsonUtils.fromJson(result.getString("order_detail"), Array<BetShareBean>::class.java)
+                    setText(R.id.tv_t1, arrayList[0].play_sec_cname)
+                    setText(R.id.tv_t2, arrayList[0].play_class_cname)
+                    setText(R.id.tv_t3, arrayList[0].play_odds.toString())
+                    setText(R.id.tv_t4, arrayList[0].play_bet_sum)
+                    if (arrayList.size > 1) {
+                        setVisible(tvShowMore)
+                    } else setGone(tvShowMore)
+
+                    if (getData()?.childIsShow == true) {
+                        tvShowMore.text = "收起"
+                        tvShowMore.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.mipmap.ic_order_up), null)
+                        setVisible(R.id.betLin)
+                        childAdapter.clear()
+                        recyclerView.removeAllViews()
+                        childAdapter.addAll(arrayList)
+                    } else {
+                        tvShowMore.text = "展开"
+                        tvShowMore.setCompoundDrawablesWithIntrinsicBounds(null, null, getDrawable(R.mipmap.ic_order_down), null)
+                        setGone(R.id.betLin)
+                    }
+                    if (data.canFollow) {
+                        followBt.isEnabled = true
+                        followBt.background = ViewUtils.getDrawable(R.drawable.button_background)
+                        followBt.setTextColor(ViewUtils.getColor(R.color.white))
+                    } else {
+                        followBt.isEnabled = false
+                        followBt.background = ViewUtils.getDrawable(R.drawable.button_grey_background)
+                        followBt.setTextColor(ViewUtils.getColor(R.color.color_999999))
+                    }
+                } catch (e: JSONException) {
+                    e.printStackTrace()
+                }
+            }
+            setOnClick(R.id.tvShowMore)
+            setOnClick(R.id.btFollow)
+        }
+
+        override fun onClick(id: Int) {
+            if (id == R.id.tvShowMore) {
+                val view = findView<TextView>(R.id.tvShowMore)
+                getData()?.childIsShow = view.text.toString() == "展开"
+                notifyItemChanged(getDataPosition())
+            } else if (id == R.id.btFollow) {
+                betFollow(getData())
+            }
+        }
+
+        //跟投
+        private fun betFollow(data: HomeLiveTwentyNewsResponse?) {
+            val result = JSONObject(data?.orders!!.toString())
+            val array = JsonUtils.fromJson(result.getString("order_detail"), Array<BetShareBean>::class.java)
+            val arrayList = arrayListOf<LotteryBet>()
+            for (res in array) {
+                arrayList.add(LotteryBet(PlaySecData(play_class_cname = res.play_class_cname, play_class_id = 0, play_sec_name = res.play_sec_name,
+                        play_class_name = res.play_class_name, play_odds = res.play_odds
+                ), res.play_sec_cname))
+            }
+            val liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(arrayList, 1, 10, result.getString("play_bet_lottery_id"),
+                    result.getString("play_bet_issue"), "0x11", result.getString("lottery_cid"), "",true,data.user_id))
+            liveRoomBetAccessFragment.show(fragmentManager, "liveRoomBetAccessFragment")
+        }
+
+        inner class ShareAdapter(context: Context) : BaseRecyclerAdapter<BetShareBean>(context) {
+
+            override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<BetShareBean> {
+                return ShareChildHolder(parent)
+            }
+
+            inner class ShareChildHolder(parent: ViewGroup) : BaseViewHolder<BetShareBean>(getContext(), parent, R.layout.holder_shaer_bet_order_child) {
+                override fun onBindData(data: BetShareBean) {
+                    if (getDataPosition() != 0) {
+                        setText(R.id.tv_1, data.play_sec_cname)
+                        setText(R.id.tv_2, data.play_class_cname)
+                        setText(R.id.tv_3, data.play_odds.toString())
+                        setText(R.id.tv_4, data.play_bet_sum)
+                    } else {
+                        val param = itemView.layoutParams
+                        param.height = 0
+                        param.width = 0
+                        setGone(itemView)
+                    }
+                }
+            }
+        }
+    }
 }
 
 

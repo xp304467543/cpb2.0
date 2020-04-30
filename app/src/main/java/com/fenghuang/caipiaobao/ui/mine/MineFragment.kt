@@ -143,7 +143,19 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
                 return@setOnClickListener
             }
             if (FastClickUtils.isFastClick()) {
-                LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),1)
+                when {
+                    UserInfoSp.getUserType() == "0" -> {
+                        LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),1)
+                    }
+                    UserInfoSp.getUserType() == "1" -> {
+                        LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),2)
+                    }
+                    UserInfoSp.getUserType() == "3" -> {
+                        LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),3)
+                    }
+                    else -> LaunchUtils.startPersonalPage(requireActivity(), ""+UserInfoSp.getUserId(),1)
+                }
+
             }
         }
         imgMineUserAvatar.setOnClickListener {

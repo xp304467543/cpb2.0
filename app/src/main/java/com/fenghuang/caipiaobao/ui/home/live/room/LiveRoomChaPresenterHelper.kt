@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.live.room
 
 import android.annotation.SuppressLint
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import org.json.JSONObject
 
@@ -31,7 +32,7 @@ object LiveRoomChaPresenterHelper {
     //错误提醒
     const val TYPE_ERROE = "error"
 
-    fun getSubscribeParams(isReconnect: Boolean, anchorId: String): String {
+    fun  getSubscribeParams(isReconnect: Boolean, anchorId: String): String {
         val jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
         jsonObject.put("user_id", UserInfoSp.getUserId())
@@ -43,7 +44,7 @@ object LiveRoomChaPresenterHelper {
         return jsonObject.toString()
     }
 
-    fun getPublishParams(anchorId: String, content: String): String {
+    fun getPublishParams(anchorId: String, content: String,isShardOrder:Boolean = false,orders: JSONObject?=null): String {
         val jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
         jsonObject.put("user_id", UserInfoSp.getUserId())
@@ -53,6 +54,10 @@ object LiveRoomChaPresenterHelper {
         jsonObject.put("avatar", UserInfoSp.getUserPhoto())
         jsonObject.put("vip", UserInfoSp.getVipLevel().toString())
         jsonObject.put("text", content)
+        if (isShardOrder){
+            jsonObject.put("event", "pushPlan")
+            jsonObject.put("orders", orders)
+        }
         return jsonObject.toString()
     }
 

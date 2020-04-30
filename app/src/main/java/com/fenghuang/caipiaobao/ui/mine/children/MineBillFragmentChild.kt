@@ -34,12 +34,13 @@ class MineBillFragmentChild : BaseContentFragment() {
 
     var page = 1
 
-
     private lateinit var balanceAdapter: BalanceAdapter
 
     private lateinit var exchangeAdapter: ExchangeAdapter
 
     private lateinit var rewardAdapter: RewardAdapter
+
+    private lateinit var betRecordAdapter: BetRecordAdapter
 
     override fun getContentResID() = R.layout.fragment_child_attention
 
@@ -60,12 +61,16 @@ class MineBillFragmentChild : BaseContentFragment() {
                 rvAttention.adapter = balanceAdapter
             }
             2 -> {
-                rewardAdapter = RewardAdapter()
-                rvAttention.adapter = rewardAdapter
+                betRecordAdapter = BetRecordAdapter()
+                rvAttention.adapter = betRecordAdapter
             }
-            else -> {
+            3 -> {
                 exchangeAdapter = ExchangeAdapter()
                 rvAttention.adapter = exchangeAdapter
+            }
+            else -> {
+                rewardAdapter = RewardAdapter()
+                rvAttention.adapter = rewardAdapter
             }
         }
 
@@ -73,10 +78,10 @@ class MineBillFragmentChild : BaseContentFragment() {
     }
 
     override fun initData() {
-        initDataAdpter(true)
+        initDataAdapter(true)
     }
 
-    private fun initDataAdpter(isFirst: Boolean) {
+    private fun initDataAdapter(isFirst: Boolean) {
         showPageLoadingDialog()
         when (arguments?.getInt(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, 1)) {
             1 ->
@@ -84,12 +89,14 @@ class MineBillFragmentChild : BaseContentFragment() {
                     onSuccess {
                         val data = parseResult(it)
                         if (data != null) {
+                            if (page == 1) {
+                                balanceAdapter.clear()
+                                rvAttention.removeAllViews()
+                            }
                             if (data.isNotEmpty()) {
                                 page++
                                 openLoadMore()
                             }
-                            balanceAdapter.clear()
-                            rvAttention.removeAllViews()
                             balanceAdapter.addAll(data)
                         } else {
                             if (isFirst) {
@@ -113,17 +120,93 @@ class MineBillFragmentChild : BaseContentFragment() {
                         openRefresh()
                     }
                 }
-            2 ->
-                MineApi.getChange(page) {
+            2 -> {
+                MineApi.betRecord(page) {
                     onSuccess {
                         val data = parseResult(it)
                         if (data != null) {
+                            if (page == 1) {
+                                betRecordAdapter.clear()
+                                rvAttention.removeAllViews()
+                            }
                             if (data.isNotEmpty()) {
                                 page++
                                 openLoadMore()
                             }
-                            rewardAdapter.clear()
-                            rvAttention.removeAllViews()
+                            betRecordAdapter.addAll(data)
+                        } else {
+                            if (isFirst) {
+                                tvHolder.text = "暂无投注记录~ ~"
+                                setVisible(tvHolder)
+                            }
+
+                        }
+                        hidePageLoadingDialog()
+                        closeRefresh()
+                        openRefresh()
+                    }
+                    onFailed {
+                        if (betRecordAdapter.getAllData().isNullOrEmpty() && isFirst) {
+                            tvHolder.text = "暂无投注记录~ ~"
+                            setVisible(tvHolder)
+                        }
+                        GlobalDialog.showError(requireActivity(), it)
+                        hidePageLoadingDialog()
+                        closeRefresh()
+                        openRefresh()
+                    }
+
+                }
+
+            }
+            3 ->
+                MineApi.getReward(page) {
+                    onSuccess {
+                        val data = parseResult(it)
+                        if (data != null) {
+                            if (page == 1) {
+                                exchangeAdapter.clear()
+                                rvAttention.removeAllViews()
+                            }
+                            if (data.isNotEmpty()) {
+                                page++
+                                openLoadMore()
+                            }
+                            exchangeAdapter.addAll(data)
+                        } else {
+                            if (isFirst) {
+                                tvHolder.text = "暂无打赏记录~ ~"
+                                setVisible(tvHolder)
+                            }
+                        }
+                        hidePageLoadingDialog()
+                        closeRefresh()
+                        openRefresh()
+                    }
+                    onFailed {
+                        if (exchangeAdapter.getAllData().isNullOrEmpty() && isFirst) {
+                            tvHolder.text = "暂无打赏记录"
+                            setVisible(tvHolder)
+                        }
+                        GlobalDialog.showError(requireActivity(), it)
+                        hidePageLoadingDialog()
+                        closeRefresh()
+                        openRefresh()
+                    }
+                }
+            else ->
+                MineApi.getChange(page) {
+                    onSuccess {
+                        val data = parseResult(it)
+                        if (data != null) {
+                            if (page == 1) {
+                                rewardAdapter.clear()
+                                rvAttention.removeAllViews()
+                            }
+                            if (data.isNotEmpty()) {
+                                page++
+                                openLoadMore()
+                            }
                             rewardAdapter.addAll(data)
                         } else {
                             if (isFirst) {
@@ -149,39 +232,6 @@ class MineBillFragmentChild : BaseContentFragment() {
                         openRefresh()
                     }
                 }
-            else ->
-                MineApi.getReward(page) {
-                    onSuccess {
-                        val data = parseResult(it)
-                        if (data != null) {
-                            if (data.isNotEmpty()) {
-                                page++
-                                openLoadMore()
-                            }
-                            exchangeAdapter.clear()
-                            rvAttention.removeAllViews()
-                            exchangeAdapter.addAll(data)
-                        } else {
-                            if (isFirst) {
-                                tvHolder.text = "暂无打赏记录~ ~"
-                                setVisible(tvHolder)
-                            }
-                        }
-                        hidePageLoadingDialog()
-                        closeRefresh()
-                        openRefresh()
-                    }
-                    onFailed {
-                        if (exchangeAdapter.getAllData().isNullOrEmpty() && isFirst) {
-                            tvHolder.text = "暂无打赏记录"
-                            setVisible(tvHolder)
-                        }
-                        GlobalDialog.showError(requireActivity(), it)
-                        hidePageLoadingDialog()
-                        closeRefresh()
-                        openRefresh()
-                    }
-                }
         }
     }
 
@@ -190,14 +240,14 @@ class MineBillFragmentChild : BaseContentFragment() {
         attentionSmartRefreshLayout.setEnableRefresh(true)
         attentionSmartRefreshLayout.setOnRefreshListener {
             page = 1
-            initDataAdpter(false)
+            initDataAdapter(false)
         }
     }
 
     private fun openLoadMore() {
         attentionSmartRefreshLayout.setEnableLoadMore(true)
         attentionSmartRefreshLayout.setOnLoadMoreListener {
-            initDataAdpter(false)
+            initDataAdapter(false)
         }
     }
 
@@ -246,6 +296,33 @@ class MineBillFragmentChild : BaseContentFragment() {
                 setText(R.id.tvTime, data.title)
                 dataChild.addAll(data.bean)
             }
+        }
+    }
+
+    /**
+     * 投注记录 adapter
+     */
+    inner class BetRecordAdapter : BaseRecyclerAdapter<MineBillResponse>(getPageActivity()) {
+        override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineBillResponse> {
+            return RecordHolder(parent)
+        }
+
+        inner class RecordHolder(parent: ViewGroup) : BaseViewHolder<MineBillResponse>(getContext(), parent, R.layout.holder_bill_title) {
+            private lateinit var dataChild: ChildAdapter
+            override fun onBindView(context: Context?) {
+                context?.apply {
+                    dataChild = ChildAdapter(3)
+                    val recycle = findView<RecyclerView>(R.id.rvBill)
+                    recycle.adapter = dataChild
+                    recycle.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+            }
+
+            override fun onBindData(data: MineBillResponse) {
+                setText(R.id.tvTime, data.title)
+                dataChild.addAll(data.bean)
+            }
+
         }
     }
 
@@ -312,46 +389,59 @@ class MineBillFragmentChild : BaseContentFragment() {
 
         inner class ExpertHolder(parent: ViewGroup) : BaseViewHolder<MineBillBean>(getContext(), parent, R.layout.hilder_mine_bill) {
             override fun onBindData(data: MineBillBean) {
-                if (type == 0) {
-                    setText(R.id.tvTime, data.time)
-                    when (data.type) {
-                        "0" -> {
-                            setText(R.id.tvName, "存款")
-                            setText(R.id.tvEnd, "+ " + data.amount + " 元")
-                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_save)
-                        }
-                        "1" -> {
-                            setText(R.id.tvName, "提现")
-                            setText(R.id.tvEnd, "- " + data.amount + " 元")
-                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_tixian)
-                        }
-                        "2" -> {
-                            setText(R.id.tvName, "兑换")
-                            setText(R.id.tvEnd, "- " + data.amount + " 元")
-                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_change)
-                        }
-                        "3" -> {
-                            setText(R.id.tvName, "抢红包")
-                            setText(R.id.tvEnd, "+ " + data.amount + " 元")
-                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_qianghoongbao)
-                        }
-                        "4" -> {
-                            setText(R.id.tvName, "发红包")
-                            setText(R.id.tvEnd, "- " + data.amount + " 元")
-                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_fahongbao)
+                when (type) {
+                    0 -> {
+                        setText(R.id.tvTime, data.time)
+                        when (data.type) {
+                            "0" -> {
+                                setText(R.id.tvName, "存款")
+                                setText(R.id.tvEnd, "+ " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_save)
+                            }
+                            "1" -> {
+                                setText(R.id.tvName, "提现")
+                                setText(R.id.tvEnd, "- " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_tixian)
+                            }
+                            "2" -> {
+                                setText(R.id.tvName, "兑换")
+                                setText(R.id.tvEnd, "- " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_change)
+                            }
+                            "3" -> {
+                                setText(R.id.tvName, "抢红包")
+                                setText(R.id.tvEnd, "+ " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_qianghoongbao)
+                            }
+                            "4" -> {
+                                setText(R.id.tvName, "发红包")
+                                setText(R.id.tvEnd, "- " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_fahongbao)
+                            }
                         }
                     }
-                } else if (type == 1) {
-                    setText(R.id.tvTime, data.time)
-                    setText(R.id.tvName, data.nickname)
-                    setText(R.id.tvGiftName, data.giftname + " x" + data.gift_num)
-                    setText(R.id.tvGiftPrise, "- " + data.amount + " 钻石")
-                    ImageManager.loadImg(data.avatar, findView(R.id.imgPhoto))
-                } else if (type == 2) {
-                    setText(R.id.tvTime, data.time)
-                    setText(R.id.tvName, "兑换")
-                    setText(R.id.tvEnd, "+ " + data.get_money + " 钻石")
-                    Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_change)
+                    1 -> {
+                        setText(R.id.tvTime, data.time)
+                        setText(R.id.tvName, data.nickname)
+                        setText(R.id.tvGiftName, data.giftname + " x" + data.gift_num)
+                        setText(R.id.tvGiftPrise, "- " + data.amount + " 钻石")
+                        ImageManager.loadImg(data.avatar, findView(R.id.imgPhoto))
+                    }
+                    2 -> {
+                        setText(R.id.tvTime, data.time)
+                        setText(R.id.tvName, "兑换")
+                        setText(R.id.tvEnd, "+ " + data.get_money + " 钻石")
+                        Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_change)
+                    }
+                    3 -> {
+                        setText(R.id.tvTime, data.issue + "   " + data.time)
+                        setText(R.id.tvName, data.lottery_name)
+                        setText(R.id.tvGiftName, data.method_name + "  " + data.code + "  " + data.type)
+                        setText(R.id.tvGiftPrise, data.amount + " 钻石")
+                        if (data.type == "中奖") {
+                            Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.icc_re_bet_get)
+                        } else Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_re_bet)
+                    }
                 }
             }
         }

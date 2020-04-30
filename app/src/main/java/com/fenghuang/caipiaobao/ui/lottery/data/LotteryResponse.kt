@@ -16,7 +16,7 @@ import java.io.Serializable
 
 data class LotteryTypeResponse(var lottery_id: String = "", var cname: String = "", var logo_url: String = "", var video_url: String? = "")
 
-data class LotteryCodeNewResponse(var lottery_id: String = "", var issue: String? = "", var code: String? = "", var next_lottery_time: String = "", var input_time: String? = "", var next_lottery_end_time: Long)
+data class LotteryCodeNewResponse(var lottery_id: String = "", var issue: String? = "", var code: String? = "", var next_lottery_time: String = "", var next_issue: String, var input_time: String? = "", var next_lottery_end_time: Long)
 
 data class LotteryCodeHistoryResponse(var issue: String = "", var code: String = "", var input_time: String = "")
 
@@ -68,32 +68,43 @@ data class PlayUnitData(
 ) : Parcelable
 
 @Parcelize
-data class  PlaySecData(
+data class PlaySecData(
         val play_class_cname: String,
         val play_class_id: Int,
-        val play_sec_name:String,
+        val play_sec_name: String,
         val play_class_name: String,
         val play_odds: Double,
-        var playName:String = "",
+        var playName: String = "",
         var isSelected: Boolean = false,
-        var money:String = "0"
+        var money: String = "0"
 ) : Parcelable
 
 data class PlayMoneyData(
-        val play_sum_id:Int,
-        val play_sum_num:Int,
-        val play_sum_name:String
+        val play_sum_id: Int,
+        val play_sum_num: Int,
+        val play_sum_name: String
 
 )
 
 data class BetBean(
-        val play_sec_name:String,
-        val play_class_name:String,
-        val play_bet_sum:String
+        val play_sec_name: String,
+        val play_class_name: String,
+        val play_bet_sum: String
+
+)
+
+data class BetShareBean(
+        val play_sec_cname: String,
+        val play_bet_sum: String,
+        val play_class_cname: String,
+        val play_class_name: String,
+        val play_odds: Double,
+        val play_sec_name: String,
+        var isShow: Boolean = false
 
 )
 
 data class LotteryBetHistoryResponse(var play_bet_time: Long?, var play_bet_lottery_id: String?, var play_bet_lottery_name: String?,
                                      var play_bet_issue: String?, var play_sec_id: String?, var play_sec_name: String?,
                                      var play_class_name: String?, var play_bet_sum: String?, var play_odds: String?,
-                                     var play_bet_score: String? )
+                                     var play_bet_score: String?)

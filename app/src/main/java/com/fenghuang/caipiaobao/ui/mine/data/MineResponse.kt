@@ -74,9 +74,13 @@ data class MineExpertBean(var id: String = "", var user_id: String = "", var exp
 //余额记录
 data class MineBillResponse(val title: String = "", val bean: Array<MineBillBean>)
 
+//投注记录
+//data class MineBetRecordResponse(val )
+
 data class MineBillBean(var id: String = "",var date: String = "",var time: String = "",var create_time: String = "",
-                        var amount: String = "",var type: String = "",var get_money: String = "",var nickname: String = "",
-                        var giftname: String = "",var gift_num: String = "",var avatar: String = "")
+                        var amount: String = "",var type: String = "",var get_money: String = "",var nickname: String = "",val issue:String?,
+                        var giftname: String = "",var gift_num: String = "",var avatar: String = "",var lottery_name:String?,var method_name:String?
+,var code:String?)
 
 data class MineMessageCenter(var msg_id: String,var msg_type: String,var content: String,var create_time: String,var createtime_txt: String
                              ,var media: String,var dynamic_id: String,var apiType: String,var comment_id: String,var userType: String
@@ -88,4 +92,6 @@ data class MineNewBean(@SerializedName("0") var `_$0`:String,@SerializedName("2"
 
 //换肤
 data class ChangeSkin(var id:Int)
+
+
 

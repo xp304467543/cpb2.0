@@ -30,6 +30,7 @@ import me.jessyan.autosize.utils.LogUtils
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okio.ByteString
+import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -131,7 +132,8 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                 onSuccess {
                     //开红包
                     mView.stopRedAnimation()
-                    redPaperDialog.showGetRed(it.send_user_name?:"", it.send_text?:"恭喜发财", it.amount?:"", it.send_user_avatar?:"")
+                    redPaperDialog.showGetRed(it.send_user_name ?: "", it.send_text
+                            ?: "恭喜发财", it.amount ?: "", it.send_user_avatar ?: "")
                     mView.hidePageLoadingDialog()
                 }
                 onFailed {
@@ -139,7 +141,8 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                         // 红包被抢完了
                         mView.stopRedAnimation()
                         val bean = JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java)
-                        redPaperDialog.noGetRed(bean.send_user_name ?:"", bean.send_text?:"恭喜发财", bean.send_user_avatar?:"")
+                        redPaperDialog.noGetRed(bean.send_user_name ?: "", bean.send_text
+                                ?: "恭喜发财", bean.send_user_avatar ?: "")
                         mView.hidePageLoadingDialog()
                     } else GlobalDialog.showError(mView.requireActivity(), it, mView.getScreenFull())
                 }
@@ -180,7 +183,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
 
     // 送礼物
     fun homeLiveSendGift(anchorId: String, gift_id: String, gift_num: String, bean: HomeLiveAnimatorBean) {
-        HomeApi.setGift(   UserInfoSp.getUserId(), anchorId, gift_id, gift_num) {
+        HomeApi.setGift(UserInfoSp.getUserId(), anchorId, gift_id, gift_num) {
             if (mView.isActive()) {
                 onSuccess {
                     //通知scoket
@@ -251,6 +254,13 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
     }
 
     /**
+     * 分享注单
+     */
+    fun shareOrder(content: JSONObject?) {
+        mWsManager?.sendMessage(LiveRoomChaPresenterHelper.getPublishParams(anchorId, "", true, content))
+    }
+
+    /**
      * 通知socket
      */
     fun notifySocket(content: String) {
@@ -316,19 +326,29 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
     @SuppressLint("SetTextI18n")
     private fun initChatText(text: String) {
         val data = WebUrlProvider.getData<HomeLiveChatBeanNormal>(text, HomeLiveChatBeanNormal::class.java)
-        LogUtils.d("WsManager-----111onMessage${data.toString()}")
+        LogUtils.e("WsManager-----111onMessage${text}")
         if (data != null) {
             if (mView.isActive()) {
                 //接收消息
                 when (data.type) {
                     //聊天内容
                     LiveRoomChaPresenterHelper.TYPE_PUBLISH -> {
-                        val res = HomeLiveTwentyNewsResponse(data.type, data.room_id, data.user_id,
-                                data.userName, data.text, data.vip,
-                                data.userType, data.avatar, data.sendTime,
-                                data.sendTimeTxt)
-                        mView.chatAdapter?.add(res)
-                        RxBus.get().post(DanMu(data.userName, data.userType, data.text, data.vip))
+                        if (data.event == "pushPlan") {
+
+                            val res = HomeLiveTwentyNewsResponse(data.type, data.room_id, data.user_id,
+                                    "", data.text, data.vip,
+                                    data.userType, data.avatar, data.sendTime,
+                                    data.sendTimeTxt, event = data.event, orders = data.orders)
+                            mView.chatAdapter?.add(res)
+                        } else {
+                            val res = HomeLiveTwentyNewsResponse(data.type, data.room_id, data.user_id,
+                                    data.userName, data.text, data.vip,
+                                    data.userType, data.avatar, data.sendTime,
+                                    data.sendTimeTxt)
+                            mView.chatAdapter?.add(res)
+                            RxBus.get().post(DanMu(data.userName, data.userType, data.text, data.vip))
+
+                        }
                         scrollBottom()//滑动到底部
                     }
                     //进场提示
@@ -343,7 +363,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                 Timer().schedule(object : TimerTask() {
                                     override fun run() {
                                         if (mView.isSupportVisible && mView.linEnter != null) {
-                                            mView.linEnter.post {  ObjectAnimatorViw.setHideAnimation(mView.linEnter, 1000) }
+                                            mView.linEnter.post { ObjectAnimatorViw.setHideAnimation(mView.linEnter, 1000) }
                                         }
                                         this.cancel()
                                     }
@@ -358,8 +378,8 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                     //主播长龙 队列
                     LiveRoomChaPresenterHelper.TYPE_SERVER_PUSH -> {
                         if (data.data == null) return
-                        when {
-                            data.dataType == "long_dragon" -> for ((index, res) in data.data?.asJsonArray!!.withIndex()) {
+                        when (data.dataType) {
+                            "long_dragon" -> for ((index, res) in data.data?.asJsonArray!!.withIndex()) {
                                 val bean = Gson().fromJson(res, HomeLiveChatChildBean::class.java)
                                 if (mView.isSupportVisible) {
                                     if (index % 2 == 0) {
@@ -370,8 +390,28 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                     //                                                .enqueue(); //入队
                                 }
                             }
-                            data.dataType == "update_online" -> {
+                            "update_online" -> {
                                 RxBus.get().post(OnLineInfo(data.data!!.asJsonObject.get("online").asInt))
+                            }
+                            "push_open_issue" -> {
+                                val res = data.data!!.asJsonArray
+                                for (result in res) {
+                                    if (result.asJsonObject.get("end_sale_time").asLong > 0) {
+                                        val issue = result.asJsonObject.get("issue").asString
+                                        val index = mView.chatAdapter?.mapFollow?.get(issue) ?: 0
+                                        if (mView.chatAdapter?.mapFollow?.get(issue) != null) {
+                                            mView.chatAdapter?.getItemData(index)?.canFollow = true
+                                            mView.chatAdapter?.notifyItemChanged(index)
+                                        }
+                                    } else {
+                                        val issue = result.asJsonObject.get("issue").asString
+                                        val index = mView.chatAdapter?.mapFollow?.get(issue) ?: 0
+                                        if (mView.chatAdapter?.mapFollow?.get(issue) != null) {
+                                            mView.chatAdapter?.getItemData(index)?.canFollow = false
+                                            mView.chatAdapter?.notifyItemChanged(index)
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -385,9 +425,9 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                     //礼物
                     LiveRoomChaPresenterHelper.TYPE_GIFT -> {
                         if (data.type == "gift") {
-                            when {
-                                //礼物
-                                data.gift_type == "1" -> {
+                            when (//礼物
+                                data.gift_type) {
+                                "1" -> {
                                     showAnim(data)//显示动画
                                     if (data.sendTime - showBean.sendTime <= 10 && data.gift_id == showBean.gift_id && data.user_id == showBean.user_id && data.gift_num == showBean.gift_num) {
                                         for ((index, res) in mView.chatAdapter?.getAllData()!!.withIndex()) {
@@ -408,8 +448,9 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                     }
                                     scrollBottom()
                                 }
+
                                 //红包
-                                data.gift_type == "4" -> {
+                                "4" -> {
                                     val bean = HomeLiveTwentyNewsResponse(gift_type = data.gift_type,
                                             gift_num = data.gift_num, userName = data.userName,
                                             vip = data.vip, gift_price = data.gift_price, userType = data.userType
