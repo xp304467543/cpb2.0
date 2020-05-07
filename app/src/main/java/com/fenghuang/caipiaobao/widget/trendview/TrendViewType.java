@@ -7,8 +7,6 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.fenghuang.baselib.utils.LogUtils;
-import com.fenghuang.baselib.utils.ToastUtils;
 import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.caipiaobao.R;
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryConstant;
@@ -76,7 +74,10 @@ public class TrendViewType extends View {
         mDatePaint.setColor(ViewUtils.INSTANCE.getColor(R.color.color_333333));
         mDatePaint.setAntiAlias(true);
         mDatePaint.setStrokeWidth(ViewUtils.INSTANCE.dp2px(0.5f));
-        mDatePaint.setTextSize(ViewUtils.INSTANCE.sp2px(10));
+        if (type.equals(LotteryConstant.TYPE_18)) {
+            mDatePaint.setTextSize(ViewUtils.INSTANCE.sp2px(8));
+        } else
+            mDatePaint.setTextSize(ViewUtils.INSTANCE.sp2px(10));
         //遗漏画笔
         mYlPaint = new Paint();
         mYlPaint.setColor(ViewUtils.INSTANCE.getColor(R.color.color_333333));
@@ -124,8 +125,8 @@ public class TrendViewType extends View {
                 index = 10;
                 break;
             case LotteryConstant.TYPE_18:
-                mDeltaX = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 20;
-                mDeltaY = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 20;
+                mDeltaX = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 21;
+                mDeltaY = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 21;
                 index = 17;
                 break;
             case LotteryConstant.TYPE_21:
@@ -190,11 +191,12 @@ public class TrendViewType extends View {
             float yDate = mDeltaY / 2 + (Math.abs(fontMetricsDate.ascent) - fontMetricsDate.descent) / 2;
             canvas.drawText(date, (mDeltaY * 3 - textWidth) / 2, yDate + (i * mDeltaY), mDatePaint);
 
+
             //绘制遗漏文字
             Paint.FontMetrics fontMetrics = mYlPaint.getFontMetrics();
             float y = (mDeltaY / 2 + (Math.abs(fontMetrics.ascent) - fontMetrics.descent) / 2) + (i * mDeltaY);
             for (int j = 0; j <= index; j++) {
-                if (j == 0 && (type.equals(LotteryConstant.TYPE_17) || type.equals(LotteryConstant.TYPE_19)))
+                if (j == 0 && (type.equals(LotteryConstant.TYPE_17) || type.equals(LotteryConstant.TYPE_19) || type.equals(LotteryConstant.TYPE_18)))
                     mYlPaint.setColor(ViewUtils.INSTANCE.getColor(R.color.color_FF513E));
                 else mYlPaint.setColor(ViewUtils.INSTANCE.getColor(R.color.color_999999));
                 canvas.drawText(map.get("num" + j) + "",
@@ -209,9 +211,9 @@ public class TrendViewType extends View {
             //绘制红球在网格中的分布图
             switch (type) {
                 case LotteryConstant.TYPE_17:
-                    float textWidthRed_17 = mNumPaint.measureText(red+1 + "");
+                    float textWidthRed_17 = mNumPaint.measureText(red + 1 + "");
                     canvas.drawCircle(mDeltaX * 4 + red * mDeltaX + mDeltaX / 2, mDeltaY / 2 + i * mDeltaY, (mDeltaX / 2 - 8.8f), mBallPaint);
-                    canvas.drawText(red+1 + "", mDeltaX * 4 + mDeltaX * red + (mDeltaX - textWidthRed_17) / 2, yRed + (i * mDeltaY), mNumPaint);
+                    canvas.drawText(red + 1 + "", mDeltaX * 4 + mDeltaX * red + (mDeltaX - textWidthRed_17) / 2, yRed + (i * mDeltaY), mNumPaint);
                     break;
                 case LotteryConstant.TYPE_19:
                     float textWidthRed = mNumPaint.measureText(red + "");
@@ -220,8 +222,8 @@ public class TrendViewType extends View {
                     break;
                 case LotteryConstant.TYPE_18:
                     float textWidthRedRed = mNumPaint.measureText(red + 3 + "");
-                    canvas.drawCircle(mDeltaX * 3 + red * mDeltaX + mDeltaX / 2, mDeltaY / 2 + i * mDeltaY, (mDeltaX / 2 - 6f), mBallPaint);
-                    canvas.drawText(red + 3 + "", mDeltaX * 3 + mDeltaX * red + (mDeltaX - textWidthRedRed) / 2, yRed + (i * mDeltaY), mNumPaint);
+                    canvas.drawCircle(mDeltaX * 4 + red * mDeltaX + mDeltaX / 2, mDeltaY / 2 + i * mDeltaY, (mDeltaX / 2 - 6f), mBallPaint);
+                    canvas.drawText(red + 3 + "", mDeltaX * 4 + mDeltaX * red + (mDeltaX - textWidthRedRed) / 2, yRed + (i * mDeltaY), mNumPaint);
                     break;
                 case "前三形态":
                 case "中三形态":
@@ -258,11 +260,8 @@ public class TrendViewType extends View {
                 case LotteryConstant.TYPE_17:
                 case LotteryConstant.TYPE_19:
                 case LotteryConstant.TYPE_21:
-                    map.put("x", mDeltaX * 4 + red * mDeltaX + mDeltaX / 2);
-                    map.put("y", mDeltaY / 2 + i * mDeltaY);
-                    break;
                 case LotteryConstant.TYPE_18:
-                    map.put("x", mDeltaX * 3 + red * mDeltaX + mDeltaX / 2);
+                    map.put("x", mDeltaX * 4 + red * mDeltaX + mDeltaX / 2);
                     map.put("y", mDeltaY / 2 + i * mDeltaY);
                     break;
                 case "前三形态":
@@ -366,12 +365,17 @@ public class TrendViewType extends View {
             }
 
             //绘制红球文字
-            String[] numText = new String[]{"龙", "虎", "和"};
-            float textWidthRed = mNumPaint.measureText(numText[red]);
-            Paint.FontMetrics fontMetricsRed = mNumPaint.getFontMetrics();
-            float yRed = mDeltaY / 2 + (Math.abs(fontMetricsRed.ascent) - fontMetricsRed.descent) / 2;
-            canvas.drawCircle(mDeltaX * 4 + red * mDeltaX + mDeltaX / 2, mDeltaY / 2 + i * mDeltaY, (mDeltaY / 2 - 8f), mBallPaint);
-            canvas.drawText(numText[red], mDeltaX * 4 + mDeltaX * red + (mDeltaX - textWidthRed) / 2, yRed + (i * mDeltaY), mNumPaint);
+            try {
+                String[] numText = new String[]{"龙", "虎", "和"};
+                float textWidthRed = mNumPaint.measureText(numText[red]);
+                Paint.FontMetrics fontMetricsRed = mNumPaint.getFontMetrics();
+                float yRed = mDeltaY / 2 + (Math.abs(fontMetricsRed.ascent) - fontMetricsRed.descent) / 2;
+                canvas.drawCircle(mDeltaX * 4 + red * mDeltaX + mDeltaX / 2, mDeltaY / 2 + i * mDeltaY, (mDeltaY / 2 - 8f), mBallPaint);
+                canvas.drawText(numText[red], mDeltaX * 4 + mDeltaX * red + (mDeltaX - textWidthRed) / 2, yRed + (i * mDeltaY), mNumPaint);
+            } catch (Exception ignored) {
+
+            }
+
         }
     }
 

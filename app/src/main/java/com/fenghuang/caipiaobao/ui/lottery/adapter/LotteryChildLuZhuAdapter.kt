@@ -13,6 +13,7 @@ import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryConstant
 import com.fenghuang.caipiaobao.widget.VerticalTextView
 import com.google.gson.JsonArray
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -26,7 +27,9 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
 
     var type: String = LotteryConstant.TYPE_LUZHU_2
     var total: JsonArray? = null
-    var hideList: List<Boolean>? = null
+    var hideList: ArrayList<Boolean>? = null
+
+    var isRePlay = true
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<List<List<String>>> {
         return LotteryLuZhuHolder(parent)
@@ -36,8 +39,8 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
         override fun onBindData(data: List<List<String>>) {
             LotteryComposeUtil.initTitle(findView(R.id.tvLuZhuTotal), findView(R.id.tvLuZhuBallIndex), lotteryID, type, total, getDataPosition())
             initLuZhuData(findView(R.id.horizontalRecycle), data)
+            val param = itemView.layoutParams
             if (hideList != null && hideList!!.isNotEmpty()) {
-                val param = itemView.layoutParams
                 if (!hideList!![getDataPosition()]) {
                     param.height = 0
                     param.width = 0
@@ -47,6 +50,10 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
                     param.width = ConstraintLayout.LayoutParams.MATCH_PARENT
                     setVisible(itemView)
                 }
+            }else {
+                param.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                param.width = ConstraintLayout.LayoutParams.MATCH_PARENT
+                setVisible(itemView)
             }
         }
     }
@@ -64,10 +71,12 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
         val adapter = LotteryChildLuZhuTestItem(getContext())
         recyclerView.setItemViewCacheSize(300)
         val layout = LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-        layout.reverseLayout = true//列表翻转
         recyclerView.layoutManager = layout
         recyclerView.adapter = adapter
-        Collections.reverse(data) //反向排序
+        layout.reverseLayout = true//列表翻转
+        if (isRePlay){
+            Collections.reverse(data) //反向排序
+        }
         adapter.addAll(data)
     }
 
@@ -101,9 +110,14 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
 
     }
 
-    fun notifyHideItem(it: List<Boolean>) {
+    fun notifyHideItem(it: ArrayList<Boolean>) {
         hideList = it
+        isRePlay = false
         notifyDataSetChanged()
+    }
+
+    fun  clearList(){
+        hideList?.clear()
     }
 
 }

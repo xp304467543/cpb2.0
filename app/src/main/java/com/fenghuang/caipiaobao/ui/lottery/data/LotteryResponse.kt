@@ -16,7 +16,8 @@ import java.io.Serializable
 
 data class LotteryTypeResponse(var lottery_id: String = "", var cname: String = "", var logo_url: String = "", var video_url: String? = "")
 
-data class LotteryCodeNewResponse(var lottery_id: String = "", var issue: String? = "", var code: String? = "", var next_lottery_time: String = "", var next_issue: String, var input_time: String? = "", var next_lottery_end_time: Long)
+data class LotteryCodeNewResponse(var lottery_id: String = "", var issue: String? = "", var code: String? = "", var next_lottery_time: String = "", var next_issue: String, var input_time: String? = "", var next_lottery_end_time: Long
+)
 
 data class LotteryCodeHistoryResponse(var issue: String = "", var code: String = "", var input_time: String = "")
 

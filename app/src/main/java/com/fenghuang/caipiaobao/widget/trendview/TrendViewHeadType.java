@@ -69,9 +69,9 @@ public class TrendViewHeadType extends View {
                 str = new String[]{"号码", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
                 break;
             case LotteryConstant.TYPE_18:
-                mDeltaY = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 20;
-                lineIndex = 19;
-                str = new String[]{"3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
+                mDeltaY = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 21;
+                lineIndex = 20;
+                str = new String[]{"号码","3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
                 break;
             case LotteryConstant.TYPE_19:
                 mDeltaY = ViewUtils.INSTANCE.getScreenWidth(getContext()) / 14;

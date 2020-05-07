@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.bet
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -13,18 +14,23 @@ import com.app.hubert.guide.NewbieGuide
 import com.app.hubert.guide.model.GuidePage
 import com.app.hubert.guide.model.HighLight
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.web.utils.ZpImageUtils
 import com.fenghuang.baselib.web.utils.ZpWebChromeClient
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
 import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
+import com.fenghuang.caipiaobao.ui.home.data.LineCheck
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
+import com.fenghuang.caipiaobao.widget.pop.LotteryLinePop
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_bet.*
 import kotlinx.android.synthetic.main.fragment_child_live_chat.*
 import java.io.File
@@ -40,6 +46,12 @@ import java.io.File
 open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     var baseUrl: String? = null
+
+    var linePop: LotteryLinePop? = null
+
+    var lineList: List<String>? = null
+
+    var listCheck: ArrayList<LineCheck>? = null
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -84,7 +96,40 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
                 baseBetWebView.goBack()
             }
         }
-        findView<ImageView>(R.id.betRefresh).setOnClickListener { baseBetWebView.reload() }
+        findView<ImageView>(R.id.betRefresh).setOnClickListener { mPresenter.getUrl() }
+
+        tvLineOffset.setOnClickListener {
+            showLinePop()
+        }
+        tvLineDelay.setOnClickListener {
+            showLinePop()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showLinePop() {
+        if (lineList == null) {
+            ToastUtils.show("暂无其他线路")
+            return
+        }
+        if (listCheck.isNullOrEmpty()) {
+          return
+        }
+        if (linePop == null){
+            linePop = LotteryLinePop(getPageActivity(), listCheck!!)
+            linePop?.showAtLocationBottom(tvLineDelay, 0f)
+            linePop?.setSelectListener { it, pos ,ms->
+                tvLineOffset.text = "线路"+(pos+1)
+                tvLineDelay.text = ms +"ms"
+                if (ms.toInt() > 100) {
+                    setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorYellow))
+                } else {
+                    setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorGreen))
+                }
+                baseBetWebView.loadUrl(it)
+            }
+        }else  linePop?.showAtLocationBottom(tvLineDelay, 10f)
+
     }
 
 
@@ -114,12 +159,16 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     val REQUEST_SELECT_FILE_CODE = 100
     private val REQUEST_FILE_CHOOSER_CODE = 101
     private val REQUEST_FILE_CAMERA_CODE = 102
+
     // 相机拍照返回的图片文件
     private var mFileFromCamera: File? = null
+
     // 默认图片压缩大小（单位：K）
     val IMAGE_COMPRESS_SIZE_DEFAULT = 400
+
     // 压缩图片最小高度
     val COMPRESS_MIN_HEIGHT = 900
+
     // 压缩图片最小宽度
     val COMPRESS_MIN_WIDTH = 675
     var dialog: IosBottomListWindow? = null

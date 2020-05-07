@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.NetWorkUtils
@@ -37,6 +38,7 @@ class HomeHotLiveAdapter(context: Context) : BaseRecyclerAdapter<HomeHotLiveResp
             setText(R.id.tvHotLiveIntro, data.live_intro)
             setText(R.id.tvHotLiveName, data.nickname)
             setText(R.id.tvHotLiveNumber, data.online.toString())
+            ImageManager.loadImg(data.background, findView(R.id.tvHotLiveTitleBg))
             if (data.tags.isNotEmpty()) setText(R.id.tvHotLiveTag, data.tags[0].title)
             ImageManager.loadImg(data.avatar, findView(R.id.ivHotLiveLogo))
             if (data.tags.isNotEmpty()) ImageManager.loadImg(data.tags[0].icon, findView(R.id.ivHotLiveTag))
@@ -55,10 +57,10 @@ class HomeHotLiveAdapter(context: Context) : BaseRecyclerAdapter<HomeHotLiveResp
             }
             if (data.red_paper_num > 0) {
                 setVisible(findView<ImageView>(R.id.imgTag))
-            }else setGone(findView<ImageView>(R.id.imgTag))
-            if (data.daxiu!!){
+            } else setGone(findView<ImageView>(R.id.imgTag))
+            if (data.daxiu!!) {
                 setVisible(findView<ImageView>(R.id.tiaodan))
-            }else setGone(findView<ImageView>(R.id.tiaodan))
+            } else setGone(findView<ImageView>(R.id.tiaodan))
         }
     }
 
@@ -74,6 +76,7 @@ class HomeHotLiveAdapter(context: Context) : BaseRecyclerAdapter<HomeHotLiveResp
             intent.putExtra(IntentConstant.LIVE_ROOM_AVATAR, data.avatar)
             intent.putExtra(IntentConstant.LIVE_ROOM_NICK_NAME, data.nickname)
             intent.putExtra(IntentConstant.LIVE_ROOM_ONLINE, data.online)
+            intent.putExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID, data.lottery_id)
             LaunchUtils.startActivity(getContext(), intent)
         } else ToastUtils.showError("网络连接已断开")
     }

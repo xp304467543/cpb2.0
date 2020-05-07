@@ -128,7 +128,7 @@ class LiveRoomAdvanceAdapter(context: Context, val isShowTop: Boolean = false, v
                         if (getData()?.livestatus == "1") {
                             LaunchUtils.startLive(getContext(), getData()?.aid
                                     ?: "0", getData()?.livestatus ?: "0", getData()?.name
-                                    ?: "0", getData()?.avatar ?: "0", getData()?.nickname ?: "0", 0)
+                                    ?: "0", getData()?.avatar ?: "0", getData()?.nickname ?: "0", 0,getData()?.lottery_id ?: "1")
                         } else LaunchUtils.startPersonalPage(getContext(), getData()?.aid!!, 2)
                     } else {
                         LaunchUtils.startPersonalPage(getContext(), getData()?.aid!!, 2)

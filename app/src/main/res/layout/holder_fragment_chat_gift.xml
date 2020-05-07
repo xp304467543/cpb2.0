@@ -18,8 +18,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_5"
-        android:maxLength="4"
+        android:layout_marginEnd="@dimen/dp_3"
         android:ellipsize="end"
+        android:maxEms="5"
+        android:maxLines="1"
         android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_12" />
 
@@ -27,7 +29,6 @@
         android:id="@+id/tvGiftNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_5"
         android:textColor="@color/color_333333"
         android:textSize="@dimen/sp_12" />
 

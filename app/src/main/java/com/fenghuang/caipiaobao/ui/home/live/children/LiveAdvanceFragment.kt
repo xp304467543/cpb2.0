@@ -61,7 +61,7 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
     }
 
     override fun onSupportVisible() {
-        if (isActive()){
+        if (isActive()) {
             mPresenter.getContent(contentAid)
         }
 
@@ -76,9 +76,9 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
 
     fun initAdvanceRecycle(data: ArrayList<HomeLiveAdvanceList>, type: String) {
         contentAdapter = if (type == "") {
-            LiveRoomAdvanceAdapter(getPageActivity(), true,isJumpLive = true)
+            LiveRoomAdvanceAdapter(getPageActivity(), true, isJumpLive = true)
         } else {
-            LiveRoomAdvanceAdapter(getPageActivity(),isJumpLive = true)
+            LiveRoomAdvanceAdapter(getPageActivity(), isJumpLive = true)
         }
         if (!data.isNullOrEmpty()) {
             recyclerViewContent.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.VERTICAL, false)

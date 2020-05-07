@@ -5,8 +5,6 @@ import android.widget.ImageView
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant
-import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.fragment_home_banner_jump.*
 

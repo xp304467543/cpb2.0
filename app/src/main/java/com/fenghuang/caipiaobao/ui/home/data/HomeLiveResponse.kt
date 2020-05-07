@@ -32,7 +32,7 @@ data class HomeLiveEnterRoomResponse(
         val liveInfo: List<HomeLiveRoomListBean>? = null,
         val red_paper: List<HomeLiveRedRoom>? = null,
         val isFollow: Boolean,
-        val lottery_id: String = ""
+        val lottery_id: String? = "1"
 )
 
 data class HomeLiveRoomListBean(var liveUrl: HomeLiveRoomListLiveUrlBean,
@@ -164,7 +164,7 @@ data class HomeLiveChatBeanNormal(var position: String = "",
                                   var isMe: Boolean,
                                   var user_id: String = "",
                                   var userType: String = "",
-                                  var userName: String = "",
+                                  var userName: String? = "",
                                   var gift_id: String = "",
                                   var gift_type: String = "",
                                   var gift_name: String = "",

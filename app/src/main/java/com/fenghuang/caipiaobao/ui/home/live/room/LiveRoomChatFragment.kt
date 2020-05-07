@@ -26,6 +26,7 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.constant.IntentConstant.LIVE_ROOM_LOTTERY_ID
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.LiveRoomBetFragment
@@ -108,7 +109,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         //初始化礼物界面
         rewardLayout.setGiftItemRes(R.layout.gift_animation_item)
         rewardLayout.setGiftAdapter(RewardAdapter(requireActivity()))
-//        rewardLayout.setCallBack(this)
+//      rewardLayout.setCallBack(this)
 
         //引导层
         NewbieGuide.with(this).setLabel("guide1").addGuidePage(GuidePage().addHighLight(imgBuyLottery, HighLight.Shape.CIRCLE).setLayoutRes(R.layout.guide_live)).show()
@@ -199,7 +200,7 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
                 GlobalDialog.notLogged(requireActivity())
                 return@setOnClickListener
             }
-            liveRoomBetFragment = LiveRoomBetFragment()
+            liveRoomBetFragment = LiveRoomBetFragment.newInstance(arguments?.getString(LIVE_ROOM_LOTTERY_ID)?:"1")
             liveRoomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }
@@ -659,12 +660,13 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
 
 
     companion object {
-        fun newInstance(anchorId: String, liveState: String, name: String): LiveRoomChatFragment {
+        fun newInstance(anchorId: String, liveState: String, name: String,id:String): LiveRoomChatFragment {
             val fragment = LiveRoomChatFragment()
             val bundle = Bundle()
             bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_ID, anchorId)
             bundle.putString(IntentConstant.LIVE_ROOM_ANCHOR_STATUE, liveState)
             bundle.putString(IntentConstant.LIVE_ROOM_NICK_NAME, name)
+            bundle.putString(IntentConstant.LIVE_ROOM_LOTTERY_ID, id)
             fragment.arguments = bundle
             return fragment
         }

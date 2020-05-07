@@ -6,8 +6,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
-import android.widget.ImageView;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
@@ -26,10 +24,8 @@ import com.fenghuang.caipiaobao.R;
  *  * @attr customIsAttach  //是否需要自动吸边
  *  * @attr customIsDrag    //是否可拖曳
  * ————————————————
- * 版权声明：本文为CSDN博主「Android师哥」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
- * 原文链接：https://blog.csdn.net/Common_it/article/details/89284887
  */
-public class AttachButton extends ImageView {
+public class AttachButton extends AppCompatImageView {
     private float mLastRawX;
     private float mLastRawY;
     private final String TAG = "AttachButton";

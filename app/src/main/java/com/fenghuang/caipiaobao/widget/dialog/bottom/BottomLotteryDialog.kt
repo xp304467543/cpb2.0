@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -55,7 +56,15 @@ class BottomLotteryDialog(context: Context, val list: List<BottomDialogBean>?) :
             dismiss()
         }
         tvConfirm.setOnClickListener {
-            mSureClickListener?.invoke(bottomAdapter!!.getAllData())
+            for ((index, _) in list!!.withIndex()) {
+               if ( list[index].isSelect){
+                   mSureClickListener?.invoke(bottomAdapter!!.getAllData())
+                   return@setOnClickListener
+               }else if (index == list.size -1){
+                   ToastUtils.show("至少选择一项")
+               }
+            }
+
         }
         tvSelectAll.setOnClickListener {
             for ((index, _) in list!!.withIndex()) {
@@ -70,6 +79,8 @@ class BottomLotteryDialog(context: Context, val list: List<BottomDialogBean>?) :
             bottomAdapter!!.notifyDataSetChanged()
         }
     }
+
+
 
 
     /**

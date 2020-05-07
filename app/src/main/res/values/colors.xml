@@ -66,7 +66,7 @@
     <color name="color_FBFBFB">#FBFBFB</color>
     <color name="color_E2E2E2">#E2E2E2</color>
     <color name="color_fdd638">#fdd638</color>
-    <color name="color_bfc8d9">#bfc8d9</color>
+    <color name="color_bfc8d9">#000000</color>
     <color name="shadow">#cc222222</color>
     <color name="bg_primary">#ffFeFeFe</color>
     <color name="colorDivider">#1f000000</color>

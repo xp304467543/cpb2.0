@@ -2,13 +2,11 @@ package com.fenghuang.caipiaobao.ui.home.news
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
@@ -17,7 +15,6 @@ import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeNewsResponse
-import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import kotlinx.android.synthetic.main.fragment_news_child.*

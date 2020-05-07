@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
+import com.fenghuang.baselib.utils.LogUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeTrendResponse
@@ -180,7 +182,7 @@ object LotteryComposeUtil {
                     val hu = if (total[position].asJsonObject.get("hu") == null) "0" else total[position].asJsonObject.get("hu").asString
                     when (lotteryID) {
                         "8" -> textView.text = "累计：龙 ($long)    虎 ($hu)"
-                        "10","1" -> {
+                        "10", "1" -> {
                             val he = if (total[position].asJsonObject.get("he") == null) "0" else total[position].asJsonObject.get("he").asString
                             textView.text = "今日：龙 ($long)    虎 ($hu)    和 ($he)"
                         }
@@ -305,31 +307,32 @@ object LotteryComposeUtil {
                         val map = mutableMapOf<String, Any>()
                         if (it.trending!!.isEmpty()) return
                         map["red"] = it.trending.indexOf(0)
-                        map["date"] = it.issue.substring(4, it.issue.length)
-                        map["num0"] = it.trending.indexOf(0)
-                        map["num1"] = it.trending[1]
-                        map["num2"] = it.trending[2]
-                        map["num3"] = it.trending[3]
-                        map["num4"] = it.trending[4]
-                        map["num5"] = it.trending[5]
-                        map["num6"] = it.trending[6]
-                        map["num7"] = it.trending[7]
-                        map["num8"] = it.trending[8]
-                        map["num9"] = it.trending[9]
-                        map["num10"] = it.trending[10]
-                        map["num11"] = it.trending[11]
-                        map["num12"] = it.trending[12]
-                        map["num13"] = it.trending[13]
-                        map["num14"] = it.trending[14]
-                        map["num15"] = it.trending[15]
-                        map["num16"] = it.trending[16]
+                        map["date"] = it.issue
+                        map["num0"] = it.trending.indexOf(0)+3
+                        map["num1"] = it.trending[0]
+                        map["num2"] = it.trending[1]
+                        map["num3"] = it.trending[2]
+                        map["num4"] = it.trending[3]
+                        map["num5"] = it.trending[4]
+                        map["num6"] = it.trending[5]
+                        map["num7"] = it.trending[6]
+                        map["num8"] = it.trending[7]
+                        map["num9"] = it.trending[8]
+                        map["num10"] = it.trending[9]
+                        map["num11"] = it.trending[10]
+                        map["num12"] = it.trending[11]
+                        map["num13"] = it.trending[12]
+                        map["num14"] = it.trending[13]
+                        map["num15"] = it.trending[14]
+                        map["num16"] = it.trending[15]
+                        map["num17"] = it.trending[16]
                         list.add(map)
                     }
                 }
                 LotteryConstant.TYPE_19 -> {
                     for (it in data) {
                         val map = mutableMapOf<String, Any>()
-                        if (it.trending!!.isEmpty()) return
+                        if (it.trending!!.isEmpty() || it.trending.size < 10) return
                         map["red"] = it.trending.indexOf(0)
                         map["date"] = it.issue
                         map["num0"] = it.trending.indexOf(0)

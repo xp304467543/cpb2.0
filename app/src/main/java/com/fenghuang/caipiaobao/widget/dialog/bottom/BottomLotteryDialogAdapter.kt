@@ -44,4 +44,4 @@ class BottomDialogAdapter(context: Context) : BaseRecyclerAdapter<BottomDialogBe
 
 }
 
-data  class  BottomDialogBean(var str: String,var isSelect:Boolean = true)
+data  class  BottomDialogBean(var str: String="",var isSelect:Boolean = true)

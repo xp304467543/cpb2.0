@@ -25,6 +25,8 @@ object IntentConstant {
 
     const val LIVE_ROOM_LOTTERY_TYPE = "LIVE_ROOM_LOTTERY_TYPE" //彩种
 
+    const val LIVE_ROOM_LOTTERY_ID = "LIVE_ROOM_LOTTERY_ID" //彩种ID
+
 
     //充值
     const val MINE_RECHARGE_ID = "MINE_INVEST_ID"

@@ -30,7 +30,7 @@ data class LoginOut(var loginOut:Boolean)
 //直播间人数
 data class OnLineInfo(var online:Int?)
 
-
+data class LineCheck(var url:String,var boolean:Boolean = false)
 
 //礼物
 data class Gift(var gift:String?)

@@ -133,7 +133,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
 
         ivTitleRight.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-                ivTitleRight.setBackgroundResource(R.mipmap.ic_home_top_notice)
                 LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment.newInstance(msg1, msg2, msg3))
             }
         }
@@ -229,7 +228,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                     }
                     LaunchUtils.startLive(getPageActivity(), HomeTypeListResponse.anchor_id!!, HomeTypeListResponse.live_status!!,
                             HomeTypeListResponse.name!!, HomeTypeListResponse.image!!, HomeTypeListResponse.live_intro!!,
-                            HomeTypeListResponse.online!!)
+                            HomeTypeListResponse.online!!, HomeTypeListResponse.lottery_id!!)
                 }
                 viewList.add(view)
             }
@@ -315,7 +314,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         val it: List<HomeHotLiveResponse>
         it = ArrayList()
         for (index in 1..6) {
-            it.add(HomeHotLiveResponse(name = "加载中...", nickname = "加载中...", live_intro = "加载中...", online = 0, red_paper_num = 0,daxiu = false))
+            it.add(HomeHotLiveResponse(name = "加载中...", nickname = "加载中...", live_intro = "加载中...", online = 0, red_paper_num = 0, daxiu = false))
         }
         anchorRecommendAdapter = HomeHotLiveAdapter(getPageActivity())
         val gridLayoutManager = object : GridLayoutManager(context, 2) {
@@ -355,7 +354,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun LoginOut(eventBean: LoginOut) {
-       if (isActive() && ivTitleLeft!=null) ImageManager.loadBitmap(ivTitleLeft, R.mipmap.ic_base_user)
+        if (isActive() && ivTitleLeft != null) ImageManager.loadBitmap(ivTitleLeft, R.mipmap.ic_base_user)
         mPresenter.upDatePreView()
     }
 
@@ -372,7 +371,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
     }
 
 
-
     //开奖小视频
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun lotteryTypeSelect(eventBean: LotteryJumpToLive) {
@@ -382,8 +380,10 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                     if (data.anchor_id == null) {
                         ToastUtils.show("此彩种暂无直播间")
                         return
+                    } else {
+                        LaunchUtils.startLive(getPageActivity(), data.anchor_id!!, data.live_status!!, data.name!!, "", "", data.online!!, data.lottery_id!!)
+                        break
                     }
-                    LaunchUtils.startLive(getPageActivity(), data.anchor_id!!, data.live_status!!, data.name!!, "", "", data.online!!)
                 }
             }
         }
@@ -399,7 +399,8 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
             2 -> {
                 skin2()
             }
-            else -> {}
+            else -> {
+            }
         }
 
     }

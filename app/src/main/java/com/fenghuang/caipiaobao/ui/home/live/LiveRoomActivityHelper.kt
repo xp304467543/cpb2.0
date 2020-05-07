@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home.live
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -81,10 +82,11 @@ class LiveRoomActivityHelper {
             FloatWindowSingleton.releaseFloatWindow()
             mFloatWindow = FloatWindowSingleton.getFloatWindow(activity)
             FloatWindowSingleton.anchorId = data?.anchor_id
-            FloatWindowSingleton.type = data!!.nickname
-            FloatWindowSingleton.nickname = data!!.nickname
-            FloatWindowSingleton.liveState = data!!.live_status
-            FloatWindowSingleton.avatar = data!!.avatar
+            FloatWindowSingleton.type = data?.nickname
+            FloatWindowSingleton.nickname = data?.nickname
+            FloatWindowSingleton.liveState = data?.live_status
+            FloatWindowSingleton.avatar = data?.avatar
+            FloatWindowSingleton.lotteryId = data?.lottery_id
             videoContainer.post { mVideoContainerH = videoContainer.height }
             mAssist!!.attachContainer(videoContainer)
             mAssist!!.superContainer.setBackgroundColor(Color.BLACK)
@@ -172,6 +174,7 @@ class LiveRoomActivityHelper {
                     intent.putExtra(IntentConstant.LIVE_ROOM_AVATAR, FloatWindowSingleton.getRoomAvatar())
                     intent.putExtra(IntentConstant.LIVE_ROOM_NICK_NAME, FloatWindowSingleton.getRoomNickName())
                     intent.putExtra(IntentConstant.LIVE_ROOM_ONLINE, FloatWindowSingleton.getRoomLiveOnline())
+                    intent.putExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID, FloatWindowSingleton.getLotteryId())
                     activity.startActivity(intent)
                     if (mFloatWindow != null && mFloatWindow!!.isWindowShow) {
                         normalPlay()
@@ -203,6 +206,7 @@ class LiveRoomActivityHelper {
     }
 
     //进入全屏
+    @SuppressLint("SourceLockedOrientationActivity")
     private fun enterFullScreen() {
         activity.window.setFlags(LayoutParams.FLAG_FULLSCREEN, LayoutParams.FLAG_FULLSCREEN)
         activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -213,6 +217,7 @@ class LiveRoomActivityHelper {
     }
 
     //退出全屏
+    @SuppressLint("SourceLockedOrientationActivity")
     fun quitFullScreen() {
         activity.window.clearFlags(LayoutParams.FLAG_FULLSCREEN)
         activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT

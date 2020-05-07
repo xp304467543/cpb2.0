@@ -123,7 +123,8 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
                 setOnClick(R.id.imgPhoto)
                 findView<TextView>(R.id.tvEndAttention).setOnClickListener {
                     if (FastClickUtils.isFastClick()) {
-                        LaunchUtils.startLive(getPageActivity(),getData()?.anchor_id!!,getData()?.live_status!!,getData()?.lottery_id?:"",getData()?.avatar!!,getData()?.nickname!!,0)
+                        LaunchUtils.startLive(getPageActivity(),getData()?.anchor_id!!,getData()?.live_status!!,getData()?.lottery_id?:"",getData()?.avatar!!,getData()?.nickname!!,0
+                        ,getData()?.lottery_id?:"1")
                     }
                 }
             }

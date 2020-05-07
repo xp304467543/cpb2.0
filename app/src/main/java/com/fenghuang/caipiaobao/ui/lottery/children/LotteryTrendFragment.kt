@@ -246,7 +246,7 @@ class LotteryTrendFragment : BaseMvpFragment<LotteryTrendPresenter>() {
     }
 
     // 获取各种走势数据数据
-     fun getTypeTrendData() {
+    fun getTypeTrendData() {
         when (typeSelect) {
             LotteryConstant.TYPE_20, "前三形态", "中三形态", "后三形态" ->
                 mPresenter.getFormData(arguments?.getString("lotteryId")!!, this.numFiveForm, this.limit, this.date)
@@ -267,6 +267,7 @@ class LotteryTrendFragment : BaseMvpFragment<LotteryTrendPresenter>() {
     fun initLineChart(data: List<LotteryCodeTrendResponse>?, dataFrom: List<LotteryCodeTrendResponse>?) {
         if (typeSelect != null) {
             LotteryComposeUtil.getNumTrendMap(this.typeSelect!!, data, dataFrom, trendViewHead, trendViewContent, trendContainer, linTrendLoading)
+            hidePageLoadingDialog()
         }
     }
 

@@ -29,7 +29,7 @@ class LiveRoomRecordAdapter(context: Context) : BaseRecyclerAdapter<LotteryBetHi
             setText(R.id.tvBetCodeName, data.play_sec_name)
             setText(R.id.tvBetCode, data.play_class_name)
             setText(R.id.tvBetOdds, data.play_odds)
-            setText(R.id.tvBetMoney, data.play_bet_score)
+            setText(R.id.tvBetMoney, data.play_bet_sum)
             if (data.play_bet_score?.contains("+")!!) {
                 setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
             } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))

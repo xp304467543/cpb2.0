@@ -31,6 +31,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Response
 import okio.ByteString
 import org.json.JSONObject
+import java.lang.Exception
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
@@ -334,19 +335,19 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                     //聊天内容
                     LiveRoomChaPresenterHelper.TYPE_PUBLISH -> {
                         if (data.event == "pushPlan") {
-
                             val res = HomeLiveTwentyNewsResponse(data.type, data.room_id, data.user_id,
                                     "", data.text, data.vip,
                                     data.userType, data.avatar, data.sendTime,
-                                    data.sendTimeTxt, event = data.event, orders = data.orders)
+                                    data.sendTimeTxt, event = data.event, orders = data.orders, canFollow = true)
                             mView.chatAdapter?.add(res)
                         } else {
                             val res = HomeLiveTwentyNewsResponse(data.type, data.room_id, data.user_id,
-                                    data.userName, data.text, data.vip,
+                                    data.userName ?: "", data.text, data.vip,
                                     data.userType, data.avatar, data.sendTime,
                                     data.sendTimeTxt)
                             mView.chatAdapter?.add(res)
-                            RxBus.get().post(DanMu(data.userName, data.userType, data.text, data.vip))
+                            RxBus.get().post(DanMu(data.userName
+                                    ?: "", data.userType, data.text, data.vip))
 
                         }
                         scrollBottom()//滑动到底部
@@ -396,19 +397,65 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                             "push_open_issue" -> {
                                 val res = data.data!!.asJsonArray
                                 for (result in res) {
-                                    if (result.asJsonObject.get("end_sale_time").asLong > 0) {
+                                    if (result.asJsonObject.get("end_sale_time").asLong <= 0) {
                                         val issue = result.asJsonObject.get("issue").asString
-                                        val index = mView.chatAdapter?.mapFollow?.get(issue) ?: 0
-                                        if (mView.chatAdapter?.mapFollow?.get(issue) != null) {
-                                            mView.chatAdapter?.getItemData(index)?.canFollow = true
-                                            mView.chatAdapter?.notifyItemChanged(index)
+                                        if ((mView.chatAdapter?.followList != null) && mView.chatAdapter?.followList?.size!! > 10) {
+                                            for (index in mView.chatAdapter?.followList?.size!! - 10.. mView.chatAdapter?.followList?.size!!) {
+                                                try {
+                                                    val pos = mView.chatAdapter?.followList?.get(index)?.split(",")?.get(1)?.toInt()
+                                                    val posStr = mView.chatAdapter?.followList?.get(index)?.split(",")?.get(0)
+                                                    if (issue == posStr) {
+                                                        mView.chatAdapter?.getItemData(pos!!)?.canFollow = false
+                                                        mView.chatAdapter?.notifyItemChanged(pos!!)
+                                                    }
+                                                }catch (e:Exception){
+
+                                                }
+                                            }
+                                        } else {
+                                            try {
+                                                if (mView.chatAdapter?.followList == null) return
+                                                for (op in mView.chatAdapter?.followList!!) {
+                                                    val current = op.split(",")[1].toInt()
+                                                    val currentStr = op.split(",")[0]
+                                                    if (issue == currentStr) {
+                                                        mView.chatAdapter?.getItemData(current)?.canFollow = false
+                                                        mView.chatAdapter?.notifyItemChanged(current)
+                                                    }
+                                                }
+                                            }catch (e:Exception){
+
+                                            }
                                         }
-                                    } else {
+                                    }else{
                                         val issue = result.asJsonObject.get("issue").asString
-                                        val index = mView.chatAdapter?.mapFollow?.get(issue) ?: 0
-                                        if (mView.chatAdapter?.mapFollow?.get(issue) != null) {
-                                            mView.chatAdapter?.getItemData(index)?.canFollow = false
-                                            mView.chatAdapter?.notifyItemChanged(index)
+                                        if ((mView.chatAdapter?.followList != null) && mView.chatAdapter?.followList?.size!! > 10) {
+                                            for (index in mView.chatAdapter?.followList?.size!! - 10.. mView.chatAdapter?.followList?.size!!) {
+                                                try {
+                                                    val pos = mView.chatAdapter?.followList?.get(index)?.split(",")?.get(1)?.toInt()
+                                                    val posStr = mView.chatAdapter?.followList?.get(index)?.split(",")?.get(0)
+                                                    if (issue == posStr) {
+                                                        mView.chatAdapter?.getItemData(pos!!)?.canFollow = true
+                                                        mView.chatAdapter?.notifyItemChanged(pos!!)
+                                                    }
+                                                }catch (e:Exception){
+
+                                                }
+                                            }
+                                        } else {
+                                            try {
+                                                if (mView.chatAdapter?.followList == null) return
+                                                for (op in mView.chatAdapter?.followList!!) {
+                                                    val current = op.split(",")[1].toInt()
+                                                    val currentStr = op.split(",")[0]
+                                                    if (issue == currentStr) {
+                                                        mView.chatAdapter?.getItemData(current)?.canFollow = true
+                                                        mView.chatAdapter?.notifyItemChanged(current)
+                                                    }
+                                                }
+                                            }catch (e:Exception){
+
+                                            }
                                         }
                                     }
                                 }
@@ -441,7 +488,8 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                         }
                                     } else {
                                         showBean = HomeLiveTwentyNewsResponse(data.type, gift_name = data.gift_name, userType = data.userType,
-                                                gift_num = data.gift_num, icon = data.icon, userName = data.userName, gift_id = data.gift_id,
+                                                gift_num = data.gift_num, icon = data.icon, userName = data.userName
+                                                ?: "", gift_id = data.gift_id,
                                                 vip = data.vip, user_id = data.user_id, sendTime = data.sendTime, final_num = 1
                                         )
                                         mView.chatAdapter?.add(showBean)
@@ -452,12 +500,14 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                                 //红包
                                 "4" -> {
                                     val bean = HomeLiveTwentyNewsResponse(gift_type = data.gift_type,
-                                            gift_num = data.gift_num, userName = data.userName,
+                                            gift_num = data.gift_num, userName = data.userName
+                                            ?: "",
                                             vip = data.vip, gift_price = data.gift_price, userType = data.userType
                                     )
                                     mView.chatAdapter?.add(bean)
                                     mView.startRedAnimation()
-                                    val result = HomeLiveRedRoom(id = data.r_id, text = data.gift_text, userName = data.userName, avatar = data.avatar)
+                                    val result = HomeLiveRedRoom(id = data.r_id, text = data.gift_text, userName = data.userName
+                                            ?: "", avatar = data.avatar)
                                     mView.initRedDialog(result, true)
                                 }
                             }
@@ -501,12 +551,14 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
     }
 
     private fun showAnim(data: HomeLiveChatBeanNormal) {
-        val bean = HomeLiveAnimatorBean(data.gift_id, data.gift_name, data.icon, data.user_id, data.avatar, data.userName, data.gift_num)
+        val bean = HomeLiveAnimatorBean(data.gift_id, data.gift_name, data.icon, data.user_id, data.avatar, data.userName
+                ?: "", data.gift_num)
         mView.showAnim(bean)
 //        when (data.gift_id) {
 //            "16", "15", "17", "21", "23", "29", "28", "27", "51", "52", "53", "54", "41", "42", "43", "44", "45", "46"
 //            -> {
-        val ben = HomeLiveBigAnimatorBean(data.gift_id, data.gift_name, data.icon, data.user_id, data.avatar, data.userName, data.gift_num)
+        val ben = HomeLiveBigAnimatorBean(data.gift_id, data.gift_name, data.icon, data.user_id, data.avatar, data.userName
+                ?: "", data.gift_num)
         RxBus.get().post(ben)
 //            }
 //        }

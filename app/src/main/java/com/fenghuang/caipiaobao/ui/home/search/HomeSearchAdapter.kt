@@ -67,6 +67,7 @@ class HomeSearchAdapter(context: Context) : BaseRecyclerAdapter<SearchResult>(co
             intent.putExtra(IntentConstant.LIVE_ROOM_AVATAR, data.avatar)
             intent.putExtra(IntentConstant.LIVE_ROOM_NICK_NAME, data.nickname)
             intent.putExtra(IntentConstant.LIVE_ROOM_ONLINE, data.online)
+            intent.putExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID, data.lottery_id)
             LaunchUtils.startActivity(getContext(), intent)
         } else ToastUtils.showError("网络连接已断开")
     }

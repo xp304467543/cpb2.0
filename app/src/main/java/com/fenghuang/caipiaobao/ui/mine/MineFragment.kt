@@ -231,7 +231,6 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             }
             if (FastClickUtils.isFastClick()) {
                 setGone(tvNewMsg)
-               imgMessage.background = ViewUtils.getDrawable(R.mipmap.ic_mine_massage)
                 LaunchUtils.startFragment(requireActivity(), MineMessageCenterFragment.newInstance(msg1, msg2, msg3))
             }
         }
@@ -248,19 +247,24 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
     //更新钻石 顺便更新余额
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDataMineUserDiamond(eventBean: MineUserDiamond) {
-        tvDiamondBalance.text = eventBean.diamond
-        mPresenter.getUserBalance()
+        if (isSupportVisible){
+            tvDiamondBalance.text = eventBean.diamond
+            mPresenter.getUserBalance()
+        }
+
     }
 
     //退出登录
     @SuppressLint("SetTextI18n")
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun LoginOut(eventBean: LoginOut) {
-        setGone(containerLogin)
-        setGone(containerSetting)
-        setVisible(containerNoLogin)
-        tvBalance.text = "0.00"
-        tvDiamondBalance.text = "0"
+        if (isSupportVisible) {
+            setGone(containerLogin)
+            setGone(containerSetting)
+            setVisible(containerNoLogin)
+            tvBalance.text = "0.00"
+            tvDiamondBalance.text = "0"
+        }
     }
 
 
@@ -268,20 +272,22 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
     @SuppressLint("SetTextI18n")
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDataMineUserDiamond(eventBean: LoginSuccess) {
-        tvMineUserNickName.text = UserInfoSp.getUserNickName()
-        ImageManager.loadImg(UserInfoSp.getUserPhoto(), imgMineUserAvatar)
-        tvMineUserId.text = "ID: " + UserInfoSp.getUserUniqueId()
-        val fans = UserInfoSp.getUserFans()?.split(",")
-        tvMineUserOther.text = fans!![0] + "关注   |   " + fans[1] + "粉丝   |   " + fans[2] + "获赞"
-        if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null") tvMineProfile.text = UserInfoSp.getUserProfile()
-        setVisible(containerLogin)
-        setGone(containerNoLogin)
-        mPresenter.getUserVip()
-        mPresenter.getUserBalance()
-        mPresenter.getUserDiamond()
-        mPresenter.getNewMsg()
-        if (!UserInfoSp.getIsSetPayPassWord()) mPresenter.getIsSetPayPassWord()
-        setVisible(containerSetting)
+        if (isSupportVisible) {
+            tvMineUserNickName.text = UserInfoSp.getUserNickName()
+            ImageManager.loadImg(UserInfoSp.getUserPhoto(), imgMineUserAvatar)
+            tvMineUserId.text = "ID: " + UserInfoSp.getUserUniqueId()
+            val fans = UserInfoSp.getUserFans()?.split(",")
+            tvMineUserOther.text = fans!![0] + "关注   |   " + fans[1] + "粉丝   |   " + fans[2] + "获赞"
+            if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null") tvMineProfile.text = UserInfoSp.getUserProfile()
+            setVisible(containerLogin)
+            setGone(containerNoLogin)
+            mPresenter.getUserVip()
+            mPresenter.getUserBalance()
+            mPresenter.getUserDiamond()
+            mPresenter.getNewMsg()
+            if (!UserInfoSp.getIsSetPayPassWord()) mPresenter.getIsSetPayPassWord()
+            setVisible(containerSetting)
+        }
     }
 
 

@@ -21,9 +21,8 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBet
  *
  */
 
-class LiveRoomBetAccessAdapter(context: Context, var mooney: String) : BaseRecyclerAdapter<LotteryBet>(context) {
+class LiveRoomBetAccessAdapter(context: Context) : BaseRecyclerAdapter<LotteryBet>(context) {
 
-    var now = "-1"
 
     private var onMoneyChangeListener: ((it: String, pos: Int) -> Unit)? = null
 
@@ -59,21 +58,27 @@ class LiveRoomBetAccessAdapter(context: Context, var mooney: String) : BaseRecyc
             }
 
             // 第2步：移除TextWatcher之后，设置EditText的Text。
-            if (now != "-1") {
-                edit.setText(now)
-                edit.setSelection(now.length)
-            } else edit.setText(mooney)
+                edit.setText(data.result.money)
 
 
             val watcher: TextWatcher = object : TextWatcher {
                 override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun afterTextChanged(editable: Editable) {
-                    if (!TextUtils.isEmpty(editable.toString()) && editable.toString().toInt() < 10) {
-                        ToastUtils.show("请输入≥10的整数")
+                    if ( editable.isNotEmpty()) {
+                        if (editable.toString().toLong() < 10) {
+                            ToastUtils.show("请输入≥10的整数")
+                        }
+                        val now= if (editable.length > 9) {
+                            edit.setText(editable.substring(0, 9)); //截取前x位
+                            edit.requestFocus()
+                            edit.setSelection(edit.length()) //光标移动到最后
+                            editable.substring(0, 9)
+                        } else {
+                            editable.toString()
+                        }
+                        onMoneyChangeListener?.invoke(now, getDataPosition())
                     }
-                    now = editable.toString()
-                    onMoneyChangeListener?.invoke(now, getDataPosition())
                 }
             }
             edit.addTextChangedListener(watcher)

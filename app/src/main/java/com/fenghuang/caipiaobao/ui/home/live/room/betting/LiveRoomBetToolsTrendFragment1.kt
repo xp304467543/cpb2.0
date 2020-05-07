@@ -33,7 +33,7 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
 
     private var bottomDialog: BottomLotteryDialog? = null
 
-    private var rankList: List<BottomDialogBean>? = null
+    private var rankList: ArrayList<BottomDialogBean>? = null
 
     private var luZhuRecycleAdapter: LotteryChildLuZhuAdapter? = null
 
@@ -93,14 +93,14 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
         val lotteryID = arguments?.getString("lotteryId")!!
         if (lotteryID == "7" || lotteryID == "9" || lotteryID == "11" || lotteryID == "26" || lotteryID == "27") {
             data = arrayOf(LotteryConstant.TYPE_2, LotteryConstant.TYPE_3, LotteryConstant.TYPE_8, LotteryConstant.TYPE_9, LotteryConstant.TYPE_10)
-            rankList = listOf(
+            rankList = arrayListOf(
                     BottomDialogBean("冠军"), BottomDialogBean("亚军"), BottomDialogBean("第三名"),
                     BottomDialogBean("第四名"), BottomDialogBean("第五名"), BottomDialogBean("第六名"),
                     BottomDialogBean("第七名"), BottomDialogBean("第八名"), BottomDialogBean("第九名"),
                     BottomDialogBean("第十名"))
         } else if (lotteryID == "8") {
             data = arrayOf(LotteryConstant.TYPE_2, LotteryConstant.TYPE_3, LotteryConstant.TYPE_12, LotteryConstant.TYPE_5, LotteryConstant.TYPE_15, LotteryConstant.TYPE_16)
-            rankList = listOf(BottomDialogBean("正码一"), BottomDialogBean("正码二"), BottomDialogBean("正码三"),
+            rankList = arrayListOf(BottomDialogBean("正码一"), BottomDialogBean("正码二"), BottomDialogBean("正码三"),
                     BottomDialogBean("正码四"), BottomDialogBean("正码五"), BottomDialogBean("正码六"),
                     BottomDialogBean("特码"))
             tvSelectAll?.text = "筛选号码"
@@ -109,7 +109,7 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
             ViewUtils.setGone(tvBeforeYesterday)
         } else {
             data = arrayOf(LotteryConstant.TYPE_2, LotteryConstant.TYPE_3, LotteryConstant.TYPE_8, LotteryConstant.TYPE_11, LotteryConstant.TYPE_5)
-            rankList = listOf(BottomDialogBean("第一球"), BottomDialogBean("第二球"), BottomDialogBean("第三球"),
+            rankList = arrayListOf(BottomDialogBean("第一球"), BottomDialogBean("第二球"), BottomDialogBean("第三球"),
                     BottomDialogBean("第四球"), BottomDialogBean("第五球"))
             tvSelectAll?.text = "筛选号码"
         }
@@ -120,7 +120,7 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
             if (FastClickUtils.isFastClick()) {
                 lotteryTypeAdapter.changeBackground(position)
                 selectType = getType(type)
-
+                luZhuRecycleAdapter!!.clearList()
                 if (time == "") getLuZhuData(arguments?.getString("lotteryId")!!, getType(type))
                 else getLuZhuData(arguments?.getString("lotteryId")!!, getType(type), time)
                 when (selectType) {
@@ -133,22 +133,7 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
 
     fun initEvent() {
         tvSelectAll?.setOnClickListener {
-            if (bottomDialog == null) {
-                bottomDialog = context?.let { it1 -> BottomLotteryDialog(it1, rankList) }
-                bottomDialog!!.bottomAdapter!!.setOnItemClickListener { data, position ->
-                    data.isSelect = !data.isSelect
-                    bottomDialog!!.bottomAdapter!!.notifyItemChanged(position)
-                }
-                bottomDialog!!.setOnSureClickListener {
-                    val selectList: MutableList<Boolean> = ArrayList()
-                    for (s in it) {
-                        selectList.add(s.isSelect)
-                    }
-                    luZhuRecycleAdapter!!.notifyHideItem(selectList)
-                    bottomDialog!!.dismiss()
-                }
-                bottomDialog!!.show()
-            } else bottomDialog!!.show()
+            initBottomDialog()
         }
         tvToDay?.setOnClickListener {
             tvToDay?.setTextColor(ViewUtils.getColor(R.color.color_FF513E))
@@ -182,6 +167,56 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
             luZhuRecycleAdapter!!.clear()
             luZhuRecycleAdapter!!.type = type
             luZhuRecycleAdapter!!.addAll(bean.data)
+            val lotteryID = arguments?.getString("lotteryId")!!
+            if (rankList == null) rankList = arrayListOf()
+            if (bean.data.isNullOrEmpty()) return
+            rankList?.clear()
+            if (lotteryID == "7" || lotteryID == "9" || lotteryID == "11" || lotteryID == "26" || lotteryID == "27") {
+                for ((index, l1) in bean.data!!.withIndex()) {
+                    val be = BottomDialogBean()
+                    when (index) {
+                        0 -> {
+                            be.str = "冠军"
+                        }
+                        1 -> {
+                            be.str = "亚军"
+                        }
+                        else -> {
+                            be.str = "第" + (index + 1) + "名"
+                        }
+                    }
+                    rankList?.add(be)
+                }
+            } else if (lotteryID == "8") {
+                for ((index, l1) in bean.data!!.withIndex()) {
+                    val be = BottomDialogBean()
+                    when (index) {
+                        bean.data!!.size -> {
+                            be.str = "特码"
+                        }
+                        else -> {
+                            be.str = "正码" + (index + 1)
+                        }
+                    }
+                    rankList?.add(be)
+                }
+            } else {
+                if (selectType != LotteryConstant.TYPE_LUZHU_11){
+                    for ((index, l1) in bean.data!!.withIndex()) {
+                        val be = BottomDialogBean()
+                        be.str = "第" + (index + 1) + "球"
+                        rankList?.add(be)
+                    }
+                }else{
+                    for ((index, l1) in bean.data!!.withIndex()) {
+                        val be = BottomDialogBean()
+                        be.str = "号码 $index"
+                        rankList?.add(be)
+                    }
+                }
+
+            }
+            resetDialog()
         }
     }
 
@@ -203,6 +238,46 @@ class LiveRoomBetToolsTrendFragment1 : BaseNormalFragment() {
         }
     }
 
+
+    //底部选择弹框
+    private fun initBottomDialog() {
+        if (bottomDialog == null) {
+            bottomDialog = context?.let { BottomLotteryDialog(it, rankList) }
+            bottomDialog!!.bottomAdapter!!.setOnItemClickListener { data, position ->
+                data.isSelect = !data.isSelect
+                bottomDialog!!.bottomAdapter!!.notifyItemChanged(position)
+            }
+            bottomDialog!!.setOnSureClickListener {
+                val selectList = ArrayList<Boolean>()
+                for (s in it) {
+                    selectList.add(s.isSelect)
+                }
+                luZhuRecycleAdapter!!.notifyHideItem(selectList)
+                bottomDialog!!.dismiss()
+            }
+            bottomDialog!!.show()
+        } else bottomDialog!!.show()
+    }
+
+    /**
+     * reset
+     */
+    private fun resetDialog() {
+        if (rankList.isNullOrEmpty()) return
+        bottomDialog = context?.let { BottomLotteryDialog(it, rankList) }
+        bottomDialog!!.bottomAdapter!!.setOnItemClickListener { data, position ->
+            data.isSelect = !data.isSelect
+            bottomDialog!!.bottomAdapter!!.notifyItemChanged(position)
+        }
+        bottomDialog!!.setOnSureClickListener {
+            val selectList = ArrayList<Boolean>()
+            for (s in it) {
+                selectList.add(s.isSelect)
+            }
+            luZhuRecycleAdapter!!.notifyHideItem(selectList)
+            bottomDialog!!.dismiss()
+        }
+    }
 
     private fun getType(typeTitle: String): String {
         return when (typeTitle) {

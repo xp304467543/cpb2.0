@@ -169,7 +169,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragment>() {
                     if (userBeanList[it].livestatus == "1") {
                         LaunchUtils.startLive(mView.requireActivity(), userBeanList[it].aid,
                                 userBeanList[it].livestatus,
-                                userBeanList[it].name, userBeanList[it].avatar, userBeanList[it].nickname, 0)
+                                userBeanList[it].name, userBeanList[it].avatar, userBeanList[it].nickname, 0, userBeanList[it].lottery_id)
                     } else {
                         LaunchUtils.startPersonalPage(mView.requireActivity(), userBeanList[it].aid, 2)
                     }

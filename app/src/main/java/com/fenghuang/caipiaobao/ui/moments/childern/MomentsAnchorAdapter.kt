@@ -128,7 +128,7 @@ class MomentsAnchorAdapter(context: Context) : BaseRecyclerAdapter<MomentsAnchor
                     when (getData()?.live_status) {
                         "1" -> {
                             LaunchUtils.startLive(getContext(), getData()?.anchor_id!!, getData()?.live_status!!,
-                                    "", getData()?.avatar!!, getData()?.nickname!!, 0)
+                                    "", getData()?.avatar!!, getData()?.nickname!!, 0,"1")
                         }
                         else -> LaunchUtils.startPersonalPage(getContext(), getData()?.anchor_id!!, 2)
                     }

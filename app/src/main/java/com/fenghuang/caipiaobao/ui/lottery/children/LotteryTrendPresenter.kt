@@ -18,22 +18,26 @@ import kotlinx.android.synthetic.main.child_fragment_trend.*
 class LotteryTrendPresenter : BaseMvpPresenter<LotteryTrendFragment>() {
 
     fun getTrendData(lotteryId: String, num: String = "1", limit: String = "10", date: String = TimeUtils.getToday()) {
+        mView.showPageLoadingDialog()
         LotteryApi.getLotteryTrend(lotteryId, num, limit, date) {
             if (mView.isActive()) {
                 onSuccess {
                     if (!it.isNullOrEmpty()){
                         mView.setGone(mView.linTrendLoading)
                         mView.setGone(mView.tvHolder)
-                        mView.initLineChart(it, null)
+                      if (it.isNotEmpty())  mView.initLineChart(it, null)
                     } else {
                         mView.setGone(mView.linTrendLoading)
                         mView.setVisible(mView.tvHolder)
+                        mView.hidePageLoadingDialog()
                     }
+
                 }
                 onFailed {
                     ToastUtils.show(it.getMsg().toString())
                     mView.setGone(mView.linTrendLoading)
                     mView.setVisible(mView.tvHolder)
+                    mView.hidePageLoadingDialog()
                 }
             }
 

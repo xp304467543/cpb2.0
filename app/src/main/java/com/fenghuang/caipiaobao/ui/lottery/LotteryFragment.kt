@@ -68,8 +68,6 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         mPresenter.getLotteryType()
         lotteryId = "1"
         mPresenter.getLotteryOpenCode(lotteryId)
-
-
     }
     override fun initData() {
         //加载底部
@@ -78,7 +76,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     override fun initEvent() {
         imgVideo.setOnClickListener {
-            if (FastClickUtils.isFastClick()){
+            if (FastClickUtils.isFastClick1000()){
                 if (lotteryId!="") RxBus.get().post(LotteryJumpToLive(lotteryId))
             }
 

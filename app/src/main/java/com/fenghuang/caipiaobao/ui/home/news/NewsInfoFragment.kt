@@ -2,16 +2,12 @@ package com.fenghuang.caipiaobao.ui.home.news
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.core.text.HtmlCompat
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant
-import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
-import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomChatFragment
 import com.tencent.smtt.sdk.WebSettings
 import kotlinx.android.synthetic.main.fragment_news_info.*
 

@@ -27,50 +27,63 @@
                 android:id="@+id/ivHotLiveLogo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:placeholderImageScaleType="fitXY"
                 app:placeholderImage="@mipmap/ic_placeholder"
+                app:placeholderImageScaleType="fitXY"
                 tools:ignore="ContentDescription" />
 
-            <TextView
-                android:id="@+id/tvHotLiveTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_20"
-                android:background="@drawable/shape_home_hot_title"
-                android:gravity="center"
-                android:paddingStart="@dimen/dp_6"
-                android:paddingEnd="@dimen/dp_10"
-                android:text="@string/loading"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_12"
-                tools:ignore="ContentDescription" />
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="@dimen/dp_20">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/tvHotLiveTitleBg"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_20"
+                    android:gravity="center"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvHotLiveTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loading"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12" />
+            </RelativeLayout>
+
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/imgTag"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_25"
+                android:layout_above="@+id/tiaodan"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/dp_5"
-                android:layout_marginBottom="@dimen/dp_30"
+                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:visibility="gone"
-                android:background="@mipmap/ic_live_chat_red_envelope"
-                />
+                android:layout_marginTop="@dimen/dp_10"
+                android:background="@mipmap/ic_live_chat_red_envelope" />
 
             <ImageView
                 android:id="@+id/tiaodan"
-                android:layout_width="@dimen/dp_60"
-                android:layout_height="@dimen/dp_50"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_above="@+id/imgTag"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginBottom="@dimen/dp_40"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:visibility="gone"
-                android:src="@mipmap/tiaodan"/>
+                android:contentDescription="@string/app_confirm"
+                android:src="@mipmap/td" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_30"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/shape_controller_bottom_gradient">
+
                 <TextView
                     android:id="@+id/tvHotLiveIntro"
                     android:layout_width="wrap_content"
@@ -78,9 +91,9 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/dp_6"
                     android:layout_marginBottom="@dimen/dp_6"
-                    android:maxLines="1"
                     android:ellipsize="end"
                     android:maxEms="7"
+                    android:maxLines="1"
                     android:text="@string/loading"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_12" />
@@ -94,10 +107,10 @@
                     android:layout_marginStart="@dimen/dp_6"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:layout_marginBottom="@dimen/dp_6"
-                    android:textColor="@color/white"
-                    android:maxLines="1"
                     android:ellipsize="end"
                     android:maxEms="10"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/sp_12"
                     tools:text="我是标我是标签解说我是标签解说我是标签解说签解说" />
 
@@ -152,11 +165,11 @@
                 android:id="@+id/ivHotLiveTag"
                 android:layout_width="@dimen/dp_12"
                 android:layout_height="@dimen/dp_12"
-                android:scaleType="fitXY"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_2"
-                app:roundAsCircle="true"
                 android:layout_toStartOf="@+id/tvHotLiveTag"
+                android:scaleType="fitXY"
+                app:roundAsCircle="true"
                 tools:ignore="ContentDescription" />
         </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

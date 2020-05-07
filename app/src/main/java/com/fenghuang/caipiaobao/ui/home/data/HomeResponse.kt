@@ -23,8 +23,8 @@ data class HomeTypeListResponse(var type: String? = "", var anchor_id: String? =
 // 热门直播
 data class HomeHotLiveResponse(var anchor_id: String = "", var game_id: String = "", var name: String = "",
                                var live_status: String = "", var nickname: String = "", var avatar: String = "",
-                               var tags: List<HomeExpertTags> = arrayListOf(), var live_intro: String = "",
-                               var red_paper_num: Int, var online: Int?, var daxiu: Boolean?)
+                               var tags: List<HomeExpertTags> = arrayListOf(), var live_intro: String = "",var lottery_id:String?="",
+                               var red_paper_num: Int, var online: Int?, var daxiu: Boolean?, var background: String?="")
 
 data class HomeExpertTags(var icon: String = "", var title: String = "")
 
@@ -83,13 +83,14 @@ data class HomeAnchorSearch(var result: List<SearchResult>?, var related: List<S
 
 data class SearchResult(var anchor_id: String = "", var nickname: String = "", var avatar: String = "", var live_status: String = "",
                         var online: Int?, var live_intro: String = "", var r_id: String = "", var name: String? = "",
-                        var lottery_id: String = "", var tagString: String = "", var live_status_txt: String = "", var red_paper_num: String = "",
+                        var lottery_id: String? = "1", var tagString: String = "", var live_status_txt: String = "", var red_paper_num: String = "",
                         var daxiu: Boolean, var tags: List<Tag>)
 
 data class Tag(var title: String = "", var icon: String = "")
 
-data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String, var protocol: String)
+data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String, var protocol: String,var bettingArr:List<String>?,var app_start_banner:StartBanner?)
 
+data class StartBanner(var type:String?,var image_url:String?)
 
 /**
  * version_data : 版本信息

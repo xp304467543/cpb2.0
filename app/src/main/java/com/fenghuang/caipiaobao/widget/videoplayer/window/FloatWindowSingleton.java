@@ -18,6 +18,7 @@ public class FloatWindowSingleton {
     @SuppressLint("StaticFieldLeak")
     public static FrameLayout mWindowVideoContainer;
     public static String anchorId = "";
+    public static String lotteryId = "1";
     public static String type = "";
     public static String nickname = "";
     public static String liveState = "";
@@ -61,6 +62,10 @@ public class FloatWindowSingleton {
 
     public static String getAnchorId() {
         return anchorId;
+    }
+
+    public static String getLotteryId() {
+        return lotteryId;
     }
 
     public static String getRoomType() {

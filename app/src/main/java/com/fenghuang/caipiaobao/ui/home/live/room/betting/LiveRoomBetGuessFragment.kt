@@ -10,9 +10,11 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryPlayListResponse
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryReset
 import com.fenghuang.caipiaobao.ui.lottery.data.PlayUnitData
 import com.fenghuang.caipiaobao.widget.BaseNormalFragment
 import com.google.android.material.tabs.TabLayout
+import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_guess_play.*
 
 /**
@@ -46,11 +48,14 @@ class LiveRoomBetGuessFragment : BaseNormalFragment() {
             play = it.getParcelable("play")
         }
         play?.let {
+            val fragment = arrayListOf<LiveRoomBetGuessFragment1>()
+            for ( res in it.play_unit_data){
+                fragment.add(LiveRoomBetGuessFragment1.newInstance(res))
+            }
             val adapter = GuessPlayChildAdapter(childFragmentManager, it.play_unit_data)
             live_bet_child_viewpager.adapter = adapter
             live_bet_child_tabLayout.setupWithViewPager(live_bet_child_viewpager)
             live_bet_child_viewpager.offscreenPageLimit = it.play_unit_data.size
-
             for (i in it.play_unit_data.indices) {
                 val tab = live_bet_child_tabLayout.getTabAt(i)
                 if (tab != null) {
@@ -75,6 +80,10 @@ class LiveRoomBetGuessFragment : BaseNormalFragment() {
                     live_bet_child_viewpager.currentItem = tab.position
                     if (tab.customView != null) {
                         val textView = tab.customView?.findViewById(R.id.tab_text) as TextView
+                        if (textView.text == "一中一" || textView.text == "一中二" || textView.text == "一中三" || textView.text == "一中四" || textView.text == "一中五"
+                                || textView.text == "二中二" || textView.text == "三中三") {
+                            RxBus.get().post(LotteryReset(true))
+                        }
                         textView.setTextColor(ViewUtils.getColor(R.color.color_FF513E))
                         textView.setBackgroundResource(R.drawable.guess_tab_background)
                         textView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
@@ -96,13 +105,16 @@ class LiveRoomBetGuessFragment : BaseNormalFragment() {
             })
         }
     }
+
     inner class GuessPlayChildAdapter(fm: FragmentManager, private val play_unit_data: List<PlayUnitData>) : FragmentPagerAdapter(fm) {
         override fun getItem(position: Int): Fragment? {
             return LiveRoomBetGuessFragment1.newInstance(play_unit_data[position])
         }
+
         override fun getCount(): Int {
             return play_unit_data.size
         }
+
         override fun getPageTitle(position: Int): CharSequence {
             return play_unit_data[position].play_sec_cname
         }

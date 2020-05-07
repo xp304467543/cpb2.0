@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
 import android.view.ViewGroup
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.zyyoona7.picker.OptionsPickerView
@@ -28,7 +29,6 @@ class BottomLotterySelectDialog(context: Context, val title: ArrayList<String>) 
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT // 宽度
         lp.dimAmount = 0.3f
         window!!.attributes = lp
-
         val mOptionsPickerView = findViewById<OptionsPickerView<String>>(R.id.lotteryPickerView)
         mOptionsPickerView.setData(title)
         mOptionsPickerView.setTextSize(18f, true)
@@ -38,10 +38,15 @@ class BottomLotterySelectDialog(context: Context, val title: ArrayList<String>) 
         mOptionsPickerView.setLineSpacing(80f)
         mOptionsPickerView.setSelectedItemTextColor(ViewUtils.getColor(R.color.black))
         mOptionsPickerView.setNormalItemTextColor(ViewUtils.getColor(R.color.grey_e6))
+        mOptionsPickerView.setOnOptionsSelectedListener { _, opt1Data, _, _, _, _ ->
+            if (!opt1Data.isNullOrEmpty()) tvLotteryWheelSure.isEnabled = true
+        }
+        mOptionsPickerView.setOnPickerScrollStateChangedListener {
+            tvLotteryWheelSure.isEnabled = false
+        }
         tvWheelCancel.setOnClickListener {
             dismiss()
         }
     }
-
 
 }

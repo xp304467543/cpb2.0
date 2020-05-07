@@ -163,7 +163,7 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
         commentAnchorPhoto.setOnClickListener {
             if (data.live_status == "1" && data.isToLive) {
                 LaunchUtils.startLive(this, data.anchor_id, data.live_status,
-                        "", data.avatar, data.nickname, 0)
+                        "", data.avatar, data.nickname, 0,"1")
             } else LaunchUtils.startPersonalPage(this, data.anchor_id, 2)
         }
     }

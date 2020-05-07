@@ -68,6 +68,7 @@ object GlobalDialog {
         val four = UserInfoSp.getRewardnGuide()
         val five = UserInfoSp.getAttentionGuide()
         val six = UserInfoSp.getLiveeGuide()
+        val skin = UserInfoSp.getSkinSelect()
         SpUtils.clearAll()
         if (one) UserInfoSp.putMainGuide(true)
         if (second) UserInfoSp.putOpenCodeGuide(true)
@@ -75,6 +76,7 @@ object GlobalDialog {
         if (four) UserInfoSp.putRewardnGuide(true)
         if (five) UserInfoSp.putAttentionGuide(true)
         if (six) UserInfoSp.putOpenWindow(true)
+        UserInfoSp.putSkinSelect(skin)
     }
 
     //对所有未登录处理

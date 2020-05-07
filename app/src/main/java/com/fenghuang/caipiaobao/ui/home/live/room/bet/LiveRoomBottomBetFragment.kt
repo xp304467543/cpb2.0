@@ -74,9 +74,10 @@ class LiveRoomBottomBetFragment : BaseNormalFragment() {
                 tvLotterySelectType?.text = lotterySelectDialog.lotteryPickerView.opt1SelectedData as String
                 opt1SelectedPosition = lotterySelectDialog.lotteryPickerView.opt1SelectedPosition
                 getLotteryNewCode(list[opt1SelectedPosition].lottery_id)
+                lotterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
+                lotterySelectDialog.tvLotteryWheelSure.isEnabled = false
                 lotterySelectDialog.dismiss()
             }
-            lotterySelectDialog.lotteryPickerView.opt1SelectedPosition = opt1SelectedPosition
             lotterySelectDialog.show()
         }
     }

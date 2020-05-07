@@ -27,8 +27,9 @@ object UserConstant {
     const val USER_BANK = "user_bank"
     //银行卡提现选择记录
     const val USER_BANK_SELECT = "user_bank_select"
+    //提示音
 
-
+    const val PLAY_SOUND = "PLAY_SOUND"
 
     //跳转用户、主播、专家 主页ID
     const val FOLLOW_ID="follow_id"

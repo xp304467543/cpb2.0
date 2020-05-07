@@ -125,7 +125,7 @@ object LaunchUtils {
     /**
      * 跳转直播
      */
-    fun startLive(context: Context?, anchor_id: String, live_status: String, name: String, avatar: String, nickname: String, online: Int){
+    fun startLive(context: Context?, anchor_id: String, live_status: String, name: String, avatar: String, nickname: String, online: Int,lottery_id:String?="1"){
         if (NetWorkUtils.isNetworkConnected()) {
             try {
                 val intent = Intent(context, LiveRoomActivity::class.java)
@@ -135,6 +135,7 @@ object LaunchUtils {
                 intent.putExtra(IntentConstant.LIVE_ROOM_AVATAR, avatar)
                 intent.putExtra(IntentConstant.LIVE_ROOM_NICK_NAME, nickname)
                 intent.putExtra(IntentConstant.LIVE_ROOM_ONLINE, online)
+                intent.putExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID, lottery_id)
                 startActivity(context, intent)
             }catch (e:Exception){
                 e.printStackTrace()

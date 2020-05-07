@@ -1,12 +1,12 @@
 package com.fenghuang.caipiaobao.ui.home.live.room.betting
 
+import android.app.Activity
 import android.os.Bundle
 import android.os.Looper
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -35,9 +35,8 @@ import java.io.IOException
 
 class LiveRoomBetAccessFragment : BottomDialogFragment() {
 
-    private var totalMoney = 0
+    private var totalMoney = 0L
 
-    private var singleMoney = 0
 
     private var liveRoomBetAccessAdapter: LiveRoomBetAccessAdapter? = null
 
@@ -64,34 +63,39 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         rvBetAccess = rootView?.findViewById(R.id.rvBetAccess)
         tvTotalDiamond = rootView?.findViewById(R.id.tvTotalDiamond)
         tvBetAccessSubmit = rootView?.findViewById(R.id.tvBetAccessSubmit)
+        initLoading()
     }
 
     override fun initData() {
         val dataList = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
         if (dataList.isNullOrEmpty()) return
-        val moneySingle = arguments?.getInt("totalDiamond", 0) ?: 0
-        singleMoney = moneySingle
+        val moneyAll = arguments?.getInt("totalDiamond", 0) ?: 0
         liveRoomBetAccessAdapter = context?.let {
-            LiveRoomBetAccessAdapter(it, moneySingle.toString())
+            LiveRoomBetAccessAdapter(it)
         }
         rvBetAccess?.adapter = liveRoomBetAccessAdapter
         rvBetAccess?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         liveRoomBetAccessAdapter?.addAll(dataList)
-        setMoney((moneySingle * dataList.size).toString())
-        liveRoomBetAccessAdapter?.onMoneyChangeListener { money, _ ->
+        totalMoney = (arguments?.getInt("totalDiamond")?:0).toLong()
+        tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注钻石: <font color=\"#FF513E\">$totalMoney</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
+        liveRoomBetAccessAdapter?.onMoneyChangeListener { money, pos ->
             if (liveRoomBetAccessAdapter?.getAllData().isNullOrEmpty()) return@onMoneyChangeListener
-            liveRoomBetAccessAdapter?.getAllData()?.size?.let { liveRoomBetAccessAdapter?.notifyItemRangeChanged(0, it) }
-            if (money == "") {
-                setMoney("0")
-                singleMoney = 0
-            } else {
-                singleMoney = money.toInt()
-                setMoney((money.toInt() * +liveRoomBetAccessAdapter?.getAllData()?.size!!).toString())
-            }
+            if (money == ""){
+                liveRoomBetAccessAdapter?.getItemData(pos)?.result?.money = "0"
+            }else liveRoomBetAccessAdapter?.getItemData(pos)?.result?.money = money
+            setMoney()
         }
         tvBetAccessSubmit?.setOnClickListener {
+            for (single in liveRoomBetAccessAdapter?.getAllData()!!) {
+                if (single.result.money != "") {
+                    if (single.result.money.toInt() < 10) {
+                        ToastUtils.show("单注投注金额最小为 10")
+                        return@setOnClickListener
+                    }
+                }
+            }
             when {
-                singleMoney < 10 -> {
+                totalMoney < 10 -> {
                     ToastUtils.show("单注投注金额最小为 10")
                 }
                 totalMoney > 999999999 -> {
@@ -112,28 +116,41 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
                         }
                     }
                     //投注
-                    showLoading()
-                    val id = arguments?.getString("lotteryID")
-                    val issue = arguments?.getString("issue")
-                    val jsonRes = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
-                    val bean = arrayListOf<BetBean>()
-                    if (jsonRes != null) {
-                        for (js in jsonRes) {
-                            val result = BetBean(js.result.play_sec_name, js.result.play_class_name, singleMoney.toString())
-                            bean.add(result)
+                    loadingDialog?.show()
+                    try {
+                        val id = arguments?.getString("lotteryID")
+                        val issue = arguments?.getString("issue")
+                        val jsonRes = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
+                        val bean = arrayListOf<BetBean>()
+                        if (jsonRes != null) {
+                            for (js in jsonRes) {
+                                val result = BetBean(js.result.play_sec_name, js.result.play_class_name, js.result.money)
+                                bean.add(result)
+                            }
+                            val followUser = arguments?.getString("followUserId") ?: "0"
+                            lotteryBet(id ?: "", issue ?: "", bean, followUser, jsonRes[0].playName)
                         }
-                        val followUser = arguments?.getString("followUserId") ?: "0"
-                        lotteryBet(id ?: "", issue ?: "", bean, followUser, jsonRes[0].playName)
+                    } catch (e: Exception) {
+                        ToastUtils.show(e.message.toString())
                     }
+
                 }
             }
         }
     }
 
-    private fun setMoney(str: String) {
-        totalMoney = str.toInt()
-        tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注钻石: <font color=\"#FF513E\">$str</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
+
+    private fun setMoney() {
+        var total = 0L
+        for (it in liveRoomBetAccessAdapter?.getAllData()!!) {
+            if (it.result.money != "") {
+                total += it.result.money.toInt()
+            }
+        }
+        totalMoney = total
+        tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注钻石: <font color=\"#FF513E\">$total</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
+
 
     /**
      * 投注 跟投
@@ -160,40 +177,45 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
             val client = OkHttpClient.Builder().build()
             client.newCall(request).enqueue(object : Callback {
                 override fun onResponse(call: Call, response: Response) {
-
                     try {
                         val json = JsonParser().parse(response.body()?.string()!!).asJsonObject
-                        Looper.prepare()
                         if (json.get("code").asString == "1") {
-                            //投注成功
-                            showLoading()
-                            context?.let { it1 ->
-                                if (UserInfoSp.getUserType() == "1" && (arguments?.getBoolean("isFollow") == false)) {
-                                    val dialog = GlobalTipsDialog(it1, "投注成功", "分享方案", "确定", "")
-                                    dialog.setConfirmClickListener {
-                                        getShareOrder(playName)
-                                    }
-                                    dialog.show()
-                                } else GlobalTipsDialog(it1, "投注成功", "确定", "", "").show()
-                                RxBus.get().post(LotteryResetDiamond(true))
-                                dismiss()
+                            (context as Activity).runOnUiThread {
+                                //投注成功
+                                loadingDialog?.dismiss()
+                                context?.let { it1 ->
+                                    if (UserInfoSp.getUserType() == "1" && (arguments?.getBoolean("isFollow") == false)) {
+                                        val dialog = GlobalTipsDialog(it1, "投注成功", "分享方案", "确定", "")
+                                        dialog.setConfirmClickListener {
+                                            getShareOrder(playName)
+                                        }
+                                        dialog.show()
+                                    } else GlobalTipsDialog(it1, "投注成功", "确定", "", "").show()
+                                    RxBus.get().post(LotteryResetDiamond(true))
+                                    dismiss()
+                                }
                             }
 
                         } else {
-                            showLoading()
-                            ToastUtils.showError(json.get("msg").asString)
+                            (context as Activity).runOnUiThread {
+                                loadingDialog?.dismiss()
+                                ToastUtils.showError(json.get("msg").asString)
+                            }
                         }
-                        Looper.loop()
+
                     } catch (e: Exception) {
+                        Looper.prepare()
+                        loadingDialog?.dismiss()
                         e.printStackTrace()
+                        Looper.loop()
                     }
                 }
 
                 override fun onFailure(call: Call, e: IOException) {
-                    Looper.prepare()
-                    showLoading()
-                    ToastUtils.showError(e.toString())
-                    Looper.loop()
+                    (context as Activity).runOnUiThread {
+                        loadingDialog?.dismiss()
+                        ToastUtils.showError(e.toString())
+                    }
                 }
             })
         }
@@ -209,7 +231,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         if (jsonRes != null) {
             for (js in jsonRes) {
 //                typeName + name
-                val result = BetShareBean(name, singleMoney.toString(), js.result.play_class_cname,
+                val result = BetShareBean(name, js.result.money, js.result.play_class_cname,
                         js.result.play_class_name, js.result.play_odds, js.result.play_sec_name)
                 bean.add(result)
             }
@@ -222,9 +244,10 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         RxBus.get().post(LotteryShareBet(true, json))
     }
 
-    fun showLoading() {
-        if (loadingDialog == null) loadingDialog = context?.let { LoadingDialog(it) }
-        if (loadingDialog?.isShowing!!) loadingDialog?.dismiss() else loadingDialog?.show()
+    fun initLoading() {
+            loadingDialog = context?.let { LoadingDialog(it) }
+            loadingDialog?.setCanceledOnTouchOutside(false)
+
     }
 
     override fun initFragment() {

@@ -18,6 +18,7 @@ import androidx.annotation.StyleRes
 import androidx.core.view.isVisible
 import com.fenghuang.baselib.utils.SoftInputUtils
 import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.utils.ViewUtils.setGone
 import com.fenghuang.baselib.utils.ViewUtils.setVisible
 import com.fenghuang.baselib.widget.round.RoundTextView
@@ -32,7 +33,7 @@ import kotlinx.android.synthetic.main.dialog_live_room_chat.*
  *
  */
 
-class LiveRoomChatInputDialog(context: Context, styleRes: Int) : Dialog(context, styleRes) {
+class   LiveRoomChatInputDialog(context: Context, styleRes: Int) : Dialog(context, styleRes) {
 
     private var mSendListener: ((it: String) -> Unit)? = null
 
@@ -63,11 +64,11 @@ class LiveRoomChatInputDialog(context: Context, styleRes: Int) : Dialog(context,
                     return
                 }
                 if (s.isNotEmpty()) {
-                    tvSendMessage.background = context.getDrawable(R.drawable.button_background)
-                    tvSendMessage.setTextColor(context.getColor(R.color.white))
+                    tvSendMessage.background = ViewUtils.getDrawable(R.drawable.button_background)
+                    tvSendMessage.setTextColor(ViewUtils.getColor(R.color.white))
                 } else {
-                    tvSendMessage.background = context.getDrawable(R.drawable.button_grey_background)
-                    tvSendMessage.setTextColor(context.getColor(R.color.grey_95))
+                    tvSendMessage.background =ViewUtils.getDrawable(R.drawable.button_grey_background)
+                    tvSendMessage.setTextColor(ViewUtils.getColor(R.color.grey_95))
                 }
             }
 

@@ -26,7 +26,15 @@ object UserInfoSp {
     fun getIsLogin(): Boolean {
         return SpUtils.getBoolean(UserConstant.USER_LOGIN)
     }
-
+    /**
+     * 提示音
+     */
+    fun putIsPlaySound(isPlay: Boolean){
+        SpUtils.putBoolean(UserConstant.PLAY_SOUND, isPlay)
+    }
+    fun getIsPlaySound(): Boolean {
+        return SpUtils.getBoolean(UserConstant.PLAY_SOUND,true)
+    }
     /**
      * token
      */

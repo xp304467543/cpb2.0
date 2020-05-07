@@ -33,6 +33,8 @@ data class LotteryBetAccess(var result: ArrayList<LotteryBet>, var totalCount: I
 //重置
 data class LotteryReset(var reset: Boolean)
 
+//当前选择的
+data class LotteryCurrent(var name: String,var size:Int)
 
 //重置
 data class LotteryResetDiamond(var reset: Boolean)
