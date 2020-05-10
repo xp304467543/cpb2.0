@@ -133,7 +133,7 @@ class LiveRoomBetToolsTrendFragment2 : BaseNormalFragment() {
                 bottomWheelViewDialog = BottomWheelViewDialog(context!!, list)
                 bottomWheelViewDialog?.setConfirmClickListener { position, it ->
                     this.numTenBase = (position + 1).toString()
-                  getTrendData(arguments?.getString("lotteryId")!!, this.numTenYg, this.limit, this.date)
+                  getTrendData(arguments?.getString("lotteryId")!!, this.numTenBase, this.limit, this.date)
                     tvTrendSelectAll?.text = it
                     bottomWheelViewDialog?.dismiss()
                 }

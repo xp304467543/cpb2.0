@@ -65,7 +65,6 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                 }
             }
             RxBus.get().post(LotteryCurrent(this.play_sec_cname,0))
-            LogUtils.e("---****--->"+this.play_sec_cname)
             adapter = GuessPlay1Adapter(play_sec_data)
             rv_guess_play_child.adapter = adapter
             rv_guess_play_child.setHasFixedSize(true)
@@ -136,6 +135,7 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                                 RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
                             }
                         } else {
+                            singleSelect1?.remove(Bet2Bean(play_sec_data[position].play_class_cname, play_sec_data[position].play_class_name))
                             play_sec_data[position].isSelected = false
                             adapter?.notifyDataSetChanged()
                             RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
@@ -154,6 +154,7 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                                 RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
                             }
                         } else {
+                            singleSelect2?.remove(Bet2Bean(play_sec_data[position].play_class_cname, play_sec_data[position].play_class_name))
                             play_sec_data[position].isSelected = false
                             adapter?.notifyDataSetChanged()
                             RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
@@ -173,6 +174,7 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                                 RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
                             }
                         } else {
+                            singleSelect3?.remove(Bet2Bean(play_sec_data[position].play_class_cname, play_sec_data[position].play_class_name))
                             play_sec_data[position].isSelected = false
                             adapter?.notifyDataSetChanged()
                             RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
@@ -192,6 +194,7 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                                 RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
                             }
                         } else {
+                            singleSelect4?.remove(Bet2Bean(play_sec_data[position].play_class_cname, play_sec_data[position].play_class_name))
                             play_sec_data[position].isSelected = false
                             adapter?.notifyDataSetChanged()
                             RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
@@ -211,6 +214,7 @@ class LiveRoomBetGuessFragment1 : BaseNormalFragment() {
                                 RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))
                             }
                         } else {
+                            singleSelect5?.remove(Bet2Bean(play_sec_data[position].play_class_cname, play_sec_data[position].play_class_name))
                             play_sec_data[position].isSelected = false
                             adapter?.notifyDataSetChanged()
                             RxBus.get().post(LotteryBet(play_sec_data[position], this.play_sec_cname))

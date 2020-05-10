@@ -26,7 +26,6 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
-import com.fenghuang.caipiaobao.constant.IntentConstant.LIVE_ROOM_LOTTERY_ID
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.LiveRoomBetFragment
@@ -164,13 +163,6 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
             initGitWidow()
 
         }
-        //充值
-        imgRecharge.setOnClickListener {
-            if (!UserInfoSp.getIsLogin()) {
-                GlobalDialog.notLogged(requireActivity())
-                return@setOnClickListener
-            }
-        }
         //发红包
         imgRed.setOnClickListener {
             if (!UserInfoSp.getIsLogin()) {
@@ -200,7 +192,8 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
                 GlobalDialog.notLogged(requireActivity())
                 return@setOnClickListener
             }
-            liveRoomBetFragment = LiveRoomBetFragment.newInstance(arguments?.getString(LIVE_ROOM_LOTTERY_ID)?:"1")
+
+            liveRoomBetFragment = LiveRoomBetFragment.newInstance(arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_ID)?:"1")
             liveRoomBetFragment?.show(fragmentManager, "LiveRoomBottomBetFragment")
         }
     }
@@ -449,9 +442,11 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
     }
 
+    var  isFirstRecharge = false
     //首冲
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun IsFirstRecharge(eventBean: IsFirstRecharge) {
+        UserInfoSp.putIsFirstRecharge(eventBean.res)
         val par = imgRecharge.layoutParams as LinearLayout.LayoutParams
         if (eventBean.res) {
             imgRecharge.setBackgroundResource(R.mipmap.ic_live_first_recharge)

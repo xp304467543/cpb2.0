@@ -237,9 +237,9 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                     UserInfoSp.putUserProfile(it.profile)
                     ImageManager.loadImg(it.avatar, mView.imgUserPhoto)
                     mView.edUserName.setText(it.nickname)
-                    when {
-                        it.gender == 1 -> mView.edUserSex.text = "男"
-                        it.gender == 0 -> mView.edUserSex.text = "女"
+                    when (it.gender) {
+                        1 -> mView.edUserSex.text = "男"
+                        0 -> mView.edUserSex.text = "女"
                         else -> mView.edUserSex.text = "未知"
                     }
                     mView.publish_ed_desc.setText(it.profile)

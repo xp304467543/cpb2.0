@@ -206,7 +206,7 @@
             android:orientation="horizontal"
             android:paddingStart="@dimen/dp_10"
             android:paddingEnd="@dimen/dp_10"
-            android:visibility="gone">
+            >
 
             <ImageView
                 android:id="@+id/bottomPlayOrPause"
@@ -241,6 +241,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:paddingStart="@dimen/dp_10"
+                android:layout_marginEnd="10dp"
                 android:text="说点什么吧~"
                 android:textColor="@color/color_DDDDDD"
                 android:textSize="@dimen/sp_11"
@@ -254,10 +255,9 @@
                 android:id="@+id/bottomRecharge"
                 android:layout_width="50dp"
                 android:layout_height="40dp"
+                android:padding="@dimen/dp_8"
                 android:contentDescription="@string/app_name"
-                android:padding="8dp"
-                android:scaleType="centerInside"
-                android:src="@mipmap/ic_live_chat_recharge" />
+                />
 
             <ImageView
                 android:id="@+id/bottomRed"

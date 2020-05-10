@@ -15,7 +15,7 @@ import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant.LIVE_ROOM_LOTTERY_ID
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveBetStateAdapter
@@ -78,11 +78,13 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     override val resetHeight: Int = 0
 
+    private var currentIndex = 0
+
     private var ivPlaySound: ImageView? = null
 
     override fun isShowTop(): Boolean = true
 
-    override fun canceledOnTouchOutside(): Boolean = false
+    override fun canceledOnTouchOutside(): Boolean = true
 
     override fun initView() {
         RxBus.get().register(this)
@@ -90,24 +92,25 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     }
 
     override fun initData() {
-
+        val id = arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: "1"
 
         val type = LotteryApi.getLotteryBetType()
         type.onSuccess {
             val title = arrayListOf<String>()
             resultList = arrayListOf()
-            for (data in it) {
+            for ((index, data) in it.withIndex()) {
                 resultList?.add(data)
                 title.add(data.cname)
-                if (arguments?.getString(LIVE_ROOM_LOTTERY_ID) ?: "1" == data.lottery_id) {
-                    ImageManager.loadImg(data.logo_url, tvRedBall)
-                    tvLotterySelectType?.text = data.cname
+                if (id == data.lottery_id) {
+                    currentIndex = index
                 }
             }
+            ImageManager.loadImg(it[currentIndex].logo_url, tvRedBall)
+            tvLotterySelectType?.text = it[currentIndex].cname
             if (!title.isNullOrEmpty()) initDialog(title, resultList!!)
         }
-        getLotteryNewCode(arguments?.getString(LIVE_ROOM_LOTTERY_ID) ?: "1")//默认加载重庆时时彩  1
-        setTabLayout(arguments?.getString(LIVE_ROOM_LOTTERY_ID) ?: "1")
+        getLotteryNewCode(if (id == "") "1" else id)//默认加载重庆时时彩  1
+        setTabLayout(if (id == "") "1" else id)
         getUserDiamond()
         getPlayMoney()
     }
@@ -544,6 +547,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun lotteryBet(eventBean: LotteryReset) {
         betList.clear()
+        ViewUtils.setGone(bottomBetLayout)
     }
 
     //二中二 三中三
@@ -559,7 +563,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     companion object {
         fun newInstance(lotteryId: String) = LiveRoomBetFragment().apply {
             arguments = Bundle(1).apply {
-                putString(LIVE_ROOM_LOTTERY_ID, lotteryId) //isFollow
+                putString(IntentConstant.LIVE_ROOM_LOTTERY_ID, lotteryId) //isFollow
             }
         }
     }

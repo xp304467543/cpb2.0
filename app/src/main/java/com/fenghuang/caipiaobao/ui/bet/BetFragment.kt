@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.bet
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -33,6 +34,7 @@ import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_bet.*
 import kotlinx.android.synthetic.main.fragment_child_live_chat.*
+import kotlinx.android.synthetic.main.fragment_mine_contant_customer.*
 import java.io.File
 
 
@@ -74,7 +76,8 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 try {
                     if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
-                            url.startsWith("mailto://") || url.startsWith("tel://")) {
+                            url.startsWith("mailto://") || url.startsWith("tel://") || url.startsWith("tel:") || url.startsWith(
+                                    "mqq://")) {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
                         return true
@@ -113,22 +116,21 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
             return
         }
         if (listCheck.isNullOrEmpty()) {
-          return
+            return
         }
-        if (linePop == null){
-            linePop = LotteryLinePop(getPageActivity(), listCheck!!)
-            linePop?.showAtLocationBottom(tvLineDelay, 0f)
-            linePop?.setSelectListener { it, pos ,ms->
-                tvLineOffset.text = "线路"+(pos+1)
-                tvLineDelay.text = ms +"ms"
-                if (ms.toInt() > 100) {
-                    setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorYellow))
-                } else {
-                    setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorGreen))
-                }
-                baseBetWebView.loadUrl(it)
+        linePop = LotteryLinePop(getPageActivity(), listCheck!!)
+        linePop?.showAtLocationBottom(tvLineDelay, 0f)
+        linePop?.setSelectListener { it, pos, ms ->
+            tvLineOffset.text = "线路" + (pos + 1)
+            tvLineDelay.text = ms + "ms"
+            if (ms.toInt() > 100) {
+                setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorYellow))
+            } else {
+                setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorGreen))
             }
-        }else  linePop?.showAtLocationBottom(tvLineDelay, 10f)
+            baseBetWebView.loadUrl(it)
+        }
+        linePop?.showAtLocationBottom(tvLineDelay, 10f)
 
     }
 
@@ -136,10 +138,28 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     private var mUploadMsg: ValueCallback<Uri>? = null
     private var mUploadMsgs: ValueCallback<Array<Uri>>? = null
     private fun initWeb() {
+        baseBetWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                try {
+                    if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
+                            url.startsWith("mailto://") || url.startsWith("tel://") || url.startsWith("tel:") || url.startsWith(
+                                    "mqq://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }//其他自定义的scheme
+                } catch (e: Exception) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false
+                }
+
+                return false
+            }
+        }
         baseBetWebView.setOpenFileChooserCallBack(object : ZpWebChromeClient.OpenFileChooserCallBack {
             override fun openFileChooserCallBack(uploadMsg: ValueCallback<Uri>, acceptType: String) {
                 mUploadMsg = uploadMsg
                 checkPermission(0, null)
+
             }
 
             override fun showFileChooserCallBack(filePathCallback: ValueCallback<Array<Uri>>, fileChooserParams: WebChromeClient.FileChooserParams) {
@@ -172,7 +192,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     // 压缩图片最小宽度
     val COMPRESS_MIN_WIDTH = 675
     var dialog: IosBottomListWindow? = null
-    private fun showSelectPictureDialog(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
+    private fun showSelectPictrueDialog(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
         dialog = IosBottomListWindow(getPageActivity())
         dialog!!
                 .setItem("拍照") { takeCameraPhoto() }
@@ -210,11 +230,11 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     }
 
     private fun takeCameraPhoto() {
-        mFileFromCamera = File(Environment.getExternalStorageDirectory().path + "/" + System.currentTimeMillis() + ".jpg")
+        mFileFromCamera = File(activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)?.path + "/" + System.currentTimeMillis() + ".jpg")
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         val imgUrl: Uri
         if (getPageActivity().applicationInfo.targetSdkVersion > Build.VERSION_CODES.M) {
-            val authority = "com.fenghuang.caipiaobao.ui.widget.mywebview.UploadFileProvider"
+            val authority = "com.fenghuang.caipiaobao.widget.webview.UploadFileProvider"
             imgUrl = FileProvider.getUriForFile(getPageActivity(), authority, mFileFromCamera!!)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         } else {
@@ -225,10 +245,9 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     }
 
     //检测权限
-
     fun checkPermission(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
         if (RxPermissionHelper.checkPermission(android.Manifest.permission.CAMERA)) {
-            showSelectPictureDialog(tag, fileChooserParams)
+            showSelectPictrueDialog(tag, fileChooserParams)
         } else {
             if (RxPermissionHelper.request(this, android.Manifest.permission.CAMERA).isDisposed) {
 
@@ -278,6 +297,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     /**
      * 处理相机返回的图片
      */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private fun takePictureFromCamera() {
         if (mFileFromCamera != null && mFileFromCamera?.exists()!!) {
             val filePath = mFileFromCamera?.absolutePath
@@ -297,8 +317,17 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
                 mUploadMsgs?.onReceiveValue(arrayOf(result))
                 mUploadMsgs = null
             }
+        } else {
+            mUploadMsgs?.onReceiveValue(null)
+            mUploadMsgs = null
         }
     }
+
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            baseBetWebView.destroy()
+        }
 
 
     override fun onBackClick() {

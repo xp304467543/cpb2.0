@@ -60,7 +60,8 @@ class MineContactCustomerFragment : BaseNavFragment() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 try {
                     if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
-                            url.startsWith("mailto://") || url.startsWith("tel://")) {
+                            url.startsWith("mailto://") || url.startsWith("tel://") || url.startsWith("tel:") || url.startsWith(
+                                    "mqq://")) {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                         startActivity(intent)
                         return true
@@ -96,12 +97,16 @@ class MineContactCustomerFragment : BaseNavFragment() {
     val REQUEST_SELECT_FILE_CODE = 100
     private val REQUEST_FILE_CHOOSER_CODE = 101
     private val REQUEST_FILE_CAMERA_CODE = 102
+
     // 相机拍照返回的图片文件
     private var mFileFromCamera: File? = null
+
     // 默认图片压缩大小（单位：K）
     val IMAGE_COMPRESS_SIZE_DEFAULT = 400
+
     // 压缩图片最小高度
     val COMPRESS_MIN_HEIGHT = 900
+
     // 压缩图片最小宽度
     val COMPRESS_MIN_WIDTH = 675
     var dialog: IosBottomListWindow? = null
@@ -230,7 +235,7 @@ class MineContactCustomerFragment : BaseNavFragment() {
                 mUploadMsgs?.onReceiveValue(arrayOf(result))
                 mUploadMsgs = null
             }
-        }else{
+        } else {
             mUploadMsgs?.onReceiveValue(null)
             mUploadMsgs = null
         }

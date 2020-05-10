@@ -59,9 +59,7 @@ class LiveRoomAdvanceFragment : BaseMvpFragment<LiveRoomAdvancePresenter>() {
                     }
                 }
             }
-            adapter?.clear()
-            tvLiveRoomAdvance.removeAllViews()
-            adapter?.addAll(bean)
+            adapter?.notifyDataSetChanged()
         }
 
     }
@@ -71,7 +69,6 @@ class LiveRoomAdvanceFragment : BaseMvpFragment<LiveRoomAdvancePresenter>() {
     fun upDataUserAvatar(eventBean: UpDatePreView) {
         if (isVisible) {
             adapter?.clear()
-            tvLiveRoomAdvance.removeAllViews()
             mPresenter.getAllData(arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, "") ?: "")
         }
 

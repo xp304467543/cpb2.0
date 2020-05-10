@@ -22,7 +22,7 @@ class LiveAnchorFragmentPresenter : BaseMvpPresenter<LiveAnchorFragment>() {
     fun getAll(page: Int, type: String, boolean: Boolean) {
 
         HomeApi.getAllAnchor(page, type) {
-            if (mView.isActive()) {
+            if (mView.isActive() && mView.isSupportVisible) {
                 onSuccess {
                     if (boolean && !it.typeList?.isJsonNull!!) {
                         val bean = JsonUtils.fromJson(it.typeList, Array<HomeLiveAnchor>::class.java)

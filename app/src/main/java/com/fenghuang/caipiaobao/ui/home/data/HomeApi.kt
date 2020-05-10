@@ -10,7 +10,6 @@ import com.pingerx.rxnetgo.rxcache.CacheMode
 import android.widget.Toast
 
 
-
 /**
  *
  * @ Author  QinTian
@@ -22,68 +21,100 @@ object HomeApi : BaseApi {
 
     //轮播图
     private const val HOME_BANNER_LIST = "/api/v1_1/user/get_banner/"
+
     //系统公告
     private const val HOME_SYSTEM_NOTICE = "/api/v1_1/user/system_notice/"
+
     //游戏直播列表
     private const val HOME_GAME_LIST = "/api/v1_1/live/get_game_list/"
+
     //热门直播
     private const val HOME_HOT_LIVE = "/api/v1_1/live/get_hot_list/"
+
     //直播预告
     private const val HOME_LIVE_PREVIEW = "/api/v1_1/user/anchor_pop/"
+
     //主播预告
     private const val Home_LIVE_ADVANCE = "/api/v1_1//user/anchor_advance/"
+
     //最新资讯
     private const val HOME_NEWS = "/api/v1_1/info/getInfoList/"
+
     //广告图
     private const val HOME_AD = "/api/v1_1/user/get_ad_banner/"
+
     //主播推荐
     private const val HOME_ANCHOR_RECOMMEND = "/api/v1_1/live/get_expert_list/"
+
     //专家红单
     private const val HOME_EXPERT_RED = "/plan/expert-list/"
+
     //初始化直播间
     private const val HOME_INIT_LIVE_ROOM = "/api/v1_1/live/get_live_room/"
+
     //初始20条消息
     private const val HOME_INIT_TWENTY_NEWS = "/api/v1_1/live/initChat/"
+
     //初始直播间打赏排行
     private const val HOME_INIT_REWARD_LIST = "/api/v1_1/live/get_reward_list/"
+
     //主播信息
     private const val HOME_LIVE_ANCHOR_INFO = "api/v1_1/live/get_anchor_info"
+
     //主播动态
     const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC = "/api/v1_1/live/get_anchor_dynamic/"
+
     //礼物列表
     private const val HOME_LIVE_GIFT_LIST = "/api/v1_1/live/get_gift_list/"
+
     //资讯
     private const val NEWS_LIST = "/api/v1_1/info/getInfoList/"
+
     //资讯详情
     private const val NEWS_INFO = "/api/v1_1/info/getInfoDetail/"
+
     //搜索 主播推荐
     private const val HOME_SEARCH_POP = "/api/v1_1/live/pop_search/"
+
     //搜索
     private const val HOME_SEARCH = "/api/v1_1/live/search/"
+
     //管理员清屏
     private const val HOME_MANAGER_CLEAR = "/api/v1_1/live/clear_chat/"
+
     //禁言
     private const val FORBIDDEN_WORDS = "/api/v1_1/live/ban_words/"
+
     //发红包
     private const val HOME_LIVE_SEND_RED_ENVELOPE = "/api/v1_1/user/send_red/"
+
     //直播间红包队列
     private const val HOME_LIVE_RED_RECEIVE_ROOM = "/api/v1_1/live/get_room_red/"
+
     //抢红包
     private const val HOME_LIVE_RED_RECEIVE = "/api/v1_1/user/receive_red/"
+
     //直播预告标题
     private const val HOME_LIVE_ADVANCE = "/api/v1_1/live/get_room_list/"
+
     //关注
     private const val HOME_ATTENTION_ANCHCOR = "/api/v1_1/live/follow/"
+
     //所有主播
     private const val HOME_ALL_ANCHOR = "/api/v1_1/live/get_all_list/"
+
     //送礼物
     private const val HOME_LIVE_SEND_GIFT = "/api/v1_1/live/send_gift/"
+
     //购彩
     private const val LOTTERY_URL = "/api/v1_1/user/jump_to/"
+
     //关注专家
     private const val FOLLOW_EXPERT = "/plan/follow/"
+
     //版本更新
     private const val VERSION_UPDATE = "/api/common/init/"
+
     //系统公告
     private const val SYSTEM_NOTICE = "/api/v1_1/live/get_notice/"
 
@@ -131,7 +162,7 @@ object HomeApi : BaseApi {
         getApi()
                 .get<List<HomeHotLiveResponse>>(HOME_HOT_LIVE)
                 .cacheMode(cacheMode)
-                .headers("token",UserInfoSp.getToken())
+                .headers("token", UserInfoSp.getToken())
                 .subscribe(subscriber)
         return subscriber
     }
@@ -178,7 +209,7 @@ object HomeApi : BaseApi {
         getApi()
                 .get<List<HomeHotLiveResponse>>(HOME_ANCHOR_RECOMMEND)
                 .cacheMode(cacheMode)
-                .headers("token",UserInfoSp.getToken())
+                .headers("token", UserInfoSp.getToken())
                 .subscribe(subscriber)
         return subscriber
     }
@@ -186,7 +217,7 @@ object HomeApi : BaseApi {
     /**
      * 初始化直播间(进入直播间)
      */
-    fun enterLiveRoom(anchorId: String = "", client_ip: String = "",function: ApiSubscriber<HomeLiveEnterRoomResponse>.()-> Unit ){
+    fun enterLiveRoom(anchorId: String = "", client_ip: String = "", function: ApiSubscriber<HomeLiveEnterRoomResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<HomeLiveEnterRoomResponse>() {}
         subscriber.function()
         getApi()
@@ -468,17 +499,16 @@ object HomeApi : BaseApi {
     }
 
 
-
     /**
      * 专家关注
      */
-    fun attentionExpert(  expert_id: String,  function: AllEmptySubscriber.() -> Unit) {
+    fun attentionExpert(expert_id: String, function: AllEmptySubscriber.() -> Unit) {
         val subscriber = AllEmptySubscriber()
         subscriber.function()
-        getApiLottery().post<String>( getApiOtherTest()+FOLLOW_EXPERT)
+        getApiLottery().post<String>(getApiOtherTest() + FOLLOW_EXPERT)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
-                .params("expert_id",expert_id)
+                .params("expert_id", expert_id)
                 .subscribe(subscriber)
 
     }
@@ -493,7 +523,7 @@ object HomeApi : BaseApi {
         getApi()
                 .get<UpdateData>(VERSION_UPDATE)
                 .params("client_type", "android")
-                .params("version", "1.1.3")
+                .params("version", "1.2")
                 .subscribe(subscriber)
     }
 

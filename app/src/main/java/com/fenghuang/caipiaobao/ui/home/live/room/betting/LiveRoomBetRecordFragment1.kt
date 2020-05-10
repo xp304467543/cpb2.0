@@ -43,7 +43,7 @@ class LiveRoomBetRecordFragment1 : BaseNormalFragment() {
         smBetRecord = rootView?.findViewById(R.id.smBetRecord)
         tvBetRecordHolder = rootView?.findViewById(R.id.tvBetRecordHolder)
         recordTop = rootView?.findViewById(R.id.recordTop)
-        adapter = context?.let { LiveRoomRecordAdapter(it) }
+        adapter = context?.let { LiveRoomRecordAdapter(it,1) }
         rvBetRecord?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvBetRecord?.adapter = adapter
     }

@@ -94,7 +94,7 @@ class LotteryTrendFragment : BaseMvpFragment<LotteryTrendPresenter>() {
                 bottomWheelViewDialog = BottomWheelViewDialog(context!!, list)
                 bottomWheelViewDialog?.setConfirmClickListener { position, it ->
                     this.numTenBase = (position + 1).toString()
-                    mPresenter.getTrendData(arguments?.getString("lotteryId")!!, this.numTenYg, this.limit, this.date)
+                    mPresenter.getTrendData(arguments?.getString("lotteryId")!!, this.numTenBase, this.limit, this.date)
                     tvTrendSelectAll.text = it
                     bottomWheelViewDialog?.dismiss()
                 }

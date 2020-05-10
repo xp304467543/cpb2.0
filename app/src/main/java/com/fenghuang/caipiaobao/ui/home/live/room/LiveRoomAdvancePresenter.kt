@@ -22,9 +22,9 @@ class LiveRoomAdvancePresenter : BaseMvpPresenter<LiveRoomAdvanceFragment>() {
 
     fun getAllData(type: String) {
         HomeApi.getLiveAdvanceList(type) {
-            if (mView.isActive()) {
+            if (mView.isActive() && mView.isSupportVisible) {
                 onSuccess {
-                    mView.spLiveAdvanceLoading.visibility = View.GONE
+                  if ( mView.spLiveAdvanceLoading!=null)  mView.spLiveAdvanceLoading.visibility = View.GONE
                     if (!it.data!!.isJsonNull && it.data.toString().length > 5) {
                         val dataList = ArrayList<HomeLiveAdvanceList>()
                         //获取到map，取值

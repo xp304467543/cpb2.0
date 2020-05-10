@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
@@ -228,7 +227,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                     }
                     LaunchUtils.startLive(getPageActivity(), HomeTypeListResponse.anchor_id!!, HomeTypeListResponse.live_status!!,
                             HomeTypeListResponse.name!!, HomeTypeListResponse.image!!, HomeTypeListResponse.live_intro!!,
-                            HomeTypeListResponse.online!!, HomeTypeListResponse.lottery_id!!)
+                            HomeTypeListResponse.online!!, HomeTypeListResponse.lottery_id?:"1")
                 }
                 viewList.add(view)
             }

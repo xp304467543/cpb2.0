@@ -16,6 +16,7 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_advance.*
 import kotlinx.android.synthetic.main.fragment_child_live_advance.*
+import kotlinx.android.synthetic.main.fragment_mine.*
 
 
 /**
@@ -58,6 +59,10 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
         headTitleAdapter = HeadTitleAdapter()
         recyclerViewTitle.adapter = headTitleAdapter
         recyclerViewTitle.layoutManager = LinearLayoutManager(context!!, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    override fun initData() {
+        mPresenter.getTitle()
     }
 
     override fun onSupportVisible() {
@@ -134,7 +139,9 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
     //更新关注
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun UpDateAttention(eventBean: UpDateAttention) {
-        mPresenter.getContent(contentAid)
+        if (isActive() && isSupportVisible){
+            mPresenter.getContent(contentAid)
+        }
     }
 
 }

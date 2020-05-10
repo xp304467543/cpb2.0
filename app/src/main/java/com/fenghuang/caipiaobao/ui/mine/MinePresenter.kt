@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
+import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.hwangjr.rxbus.RxBus
 import com.pingerx.rxnetgo.exception.ApiException
 import kotlinx.android.synthetic.main.fragment_mine.*
+import kotlinx.android.synthetic.main.fragment_mine_presonal.*
 
 /**
  *
@@ -96,6 +98,21 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
                 UserInfoSp.putIsSetPayPassWord(true)
             }
         }
+    }
+
+    //获取用户信息
+    @SuppressLint("SetTextI18n")
+    fun getUserInfo() {
+        MineApi.getUserInfo {
+            onSuccess {
+                if (mView.isSupportVisible) {
+                    mView.tvMineUserOther.text =it.following + "关注   |   " + it.followers + "粉丝   |   " + it.like + "获赞"
+                    if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null")
+                    mView.tvMineProfile.text = it.profile
+                }
+            }
+        }
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.widget.pop
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Handler
 import android.view.ViewGroup
@@ -8,13 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
-import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.popup.BasePopupWindow
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.home.data.LineCheck
-import com.fenghuang.caipiaobao.utils.PingUtil
-
+import com.fenghuang.caipiaobao.utils.NetPingManager
 import com.fenghuang.caipiaobao.widget.SwitchButtonRed
 
 
@@ -31,10 +31,12 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
     private var lotteryLineView: RecyclerView
 
 
-    private var getSelectListener: ((it: String,pos:Int,ms:String) -> Unit)? = null
+    private var mLDNetPingService: NetPingManager? = null
+
+    private var getSelectListener: ((it: String, pos: Int, ms: String) -> Unit)? = null
 
 
-    fun setSelectListener(GetSelectListener: ((it: String,pos:Int,ms:String) -> Unit)) {
+    fun setSelectListener(GetSelectListener: ((it: String, pos: Int, ms: String) -> Unit)) {
         getSelectListener = GetSelectListener
     }
 
@@ -47,6 +49,7 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
         val adapter = LineAdapter(context)
         adapter.addAll(listLine)
         lotteryLineView.adapter = adapter
+
     }
 
     inner class LineAdapter(context: Context) : BaseRecyclerAdapter<LineCheck>(context) {
@@ -59,21 +62,27 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
                 val check = findView<SwitchButtonRed>(R.id.lineSwitch)
                 check.isChecked = data.boolean
                 val tvMs = findView<TextView>(R.id.tvLineMs)
-                Handler().post {
-                    if (tvMs.text.toString().isEmpty()) {
-                        val s1 = PingUtil.getAvgRTT(data.url)
-                        setText(R.id.tvLineMs, s1.toString() + "ms")
-                        if (s1 > 100) {
-                            setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorYellow))
-                        } else {
-                            setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorGreen))
-                        }
-                    }
-                }
+                        val str = data.url.indexOf("//")
+                        val realUrl = data.url.substring(str + 2, data.url.length)
+                        mLDNetPingService = NetPingManager(getContext(), realUrl, object : NetPingManager.IOnNetPingListener {
+                            @SuppressLint("SetTextI18n")
+                            override fun ontDelay(log: Long) {
+                                tvMs.post {
+                                    tvMs.text = (log / 2).toString() + "ms"
+                                    if ((log / 2) > 100) {
+                                        setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorYellow))
+                                    } else {
+                                        setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorGreen))
+                                    }
+                                }
+                            }
+                            override fun onError() {
+                                mLDNetPingService?.release()
+                            }
 
+                        })
+                        mLDNetPingService?.getDelay()
                 setText(R.id.tvLine, "线路 " + (getDataPosition() + 1))
-
-
                 findView<SwitchButtonRed>(R.id.lineSwitch).setOnCheckedChangeListener { buttonView, isChecked ->
                     if (isChecked) {
                         for ((index, result) in getAllData().withIndex()) {
@@ -81,7 +90,8 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
                         }
                         Handler().postDelayed({ notifyDataSetChanged() }, 200)
                         val text = tvMs.text.toString()
-                        getSelectListener?.invoke(data.url,getDataPosition(),text.substring(0,text.length-2))
+                        val ms = if (text == "") "" else text.substring(0, text.length - 2)
+                        getSelectListener?.invoke(data.url, getDataPosition(), ms)
                     }
                 }
             }

@@ -60,15 +60,13 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             tvMineUserNickName.text = UserInfoSp.getUserNickName()
             ImageManager.loadImg(UserInfoSp.getUserPhoto(), imgMineUserAvatar)
             tvMineUserId.text = "ID: " + UserInfoSp.getUserUniqueId()
-            val fans = UserInfoSp.getUserFans()?.split(",")
-            tvMineUserOther.text = fans!![0] + "关注   |   " + fans[1] + "粉丝   |   " + fans[2] + "获赞"
-            if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null") tvMineProfile.text = UserInfoSp.getUserProfile()
             setVisible(containerLogin)
             setGone(containerNoLogin)
             mPresenter.getUserVip()
             mPresenter.getUserBalance()
             mPresenter.getUserDiamond()
             mPresenter.getNewMsg()
+            mPresenter.getUserInfo()
             if (!UserInfoSp.getIsSetPayPassWord()) mPresenter.getIsSetPayPassWord()
             setVisible(containerSetting)
         } else {

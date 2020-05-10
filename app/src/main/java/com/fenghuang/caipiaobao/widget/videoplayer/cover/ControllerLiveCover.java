@@ -136,7 +136,6 @@ public class ControllerLiveCover extends BaseCover implements OnTimerUpdateListe
         bottomPlayOrPause = findViewById(R.id.bottomPlayOrPause);
         bottomRefresh = findViewById(R.id.bottomRefresh);
         bottomDanMu = findViewById(R.id.bottomDanMu);
-        bottomRecharge = findViewById(R.id.bottomRecharge);
         bottomRed = findViewById(R.id.bottomRed);
         bottomGift = findViewById(R.id.bottomGift);
         bottomInput = findViewById(R.id.bottomInput);
@@ -159,6 +158,22 @@ public class ControllerLiveCover extends BaseCover implements OnTimerUpdateListe
         imgRedTips.setOnClickListener(v -> notifyReceiverEvent(DataInter.Event.EVENT_CODE_REDTIPS, null));
 
         bottomRecharge.setOnClickListener(v -> notifyReceiverEvent(DataInter.Event.EVENT_CODE_RECHARGE, null));
+
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) bottomRecharge.getLayoutParams();
+        if (UserInfoSp.INSTANCE.getIsFirstRecharge()){
+            bottomRecharge.setBackgroundResource(R.mipmap.ic_live_first_recharge);
+            lp.width = ViewUtils.INSTANCE.dp2px(34);
+            lp.height =  ViewUtils.INSTANCE.dp2px(30);
+            lp.setMargins(ViewUtils.INSTANCE.dp2px(5),0,ViewUtils.INSTANCE.dp2px(5),0);
+            bottomRecharge.setLayoutParams(lp);
+        }else {
+            bottomRecharge.setBackgroundResource(R.mipmap.ic_live_chat_recharge);
+            lp.width = ViewUtils.INSTANCE.dp2px(50);
+            lp.height =  ViewUtils.INSTANCE.dp2px(40);
+            lp.setMargins(ViewUtils.INSTANCE.dp2px(5),0,ViewUtils.INSTANCE.dp2px(5),0);
+            bottomRecharge.setLayoutParams(lp);
+        }
+
 
         //初始化状态
         if (UserInfoSp.INSTANCE.getDanMuSwitch()) {

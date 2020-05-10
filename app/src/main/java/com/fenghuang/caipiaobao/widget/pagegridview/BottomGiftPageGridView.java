@@ -28,6 +28,7 @@ import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.caipiaobao.R;
 import com.fenghuang.caipiaobao.manager.ImageManager;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveGiftList;
+import com.fenghuang.caipiaobao.widget.viewpager.ResolveConflictViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class BottomGiftPageGridView extends FrameLayout {
     private Context mContext;
     private LayoutInflater mInflater;
     private View mContentView;
-    private RollViewPager mViewPager;
+    private ResolveConflictViewPager mViewPager;
     private LinearLayout mLlDot;
     private List<HomeLiveGiftList> mDatas;
     private List mPagerList;

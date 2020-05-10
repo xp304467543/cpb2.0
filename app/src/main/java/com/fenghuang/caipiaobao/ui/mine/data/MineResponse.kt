@@ -13,7 +13,13 @@ import java.math.BigDecimal
  */
 
 // 用户信息
-data class MineUserInfoResponse(var username: String = "", var nickname: String = "", var profile: String = "", var avatar: String = "", var gender: Int = 0, var phone: String = "")
+data class MineUserInfoResponse(var username: String = "",
+                                var nickname: String = "",
+                                var profile: String = "",
+                                var avatar: String = "",
+                                var gender: Int = 0,
+                                var phone: String = "",
+var following:String?,var followers:String?,var like:String?)
 
 // 获取皮肤列表
 data class MineThemSkinResponse(var id: String = "", var type: String = "",

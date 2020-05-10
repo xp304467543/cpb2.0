@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.data.api
 
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_LOTTERY_BET_MAIN
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_LOTTERY_BET_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_MAIN
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
@@ -34,6 +36,12 @@ interface BaseApi {
             API_URL_DEV_OTHER_TEST
         } else API_URL_DEV_OTHER
 
+    }
+
+    fun getLotteryBet():String{
+        return if (isTest) {
+            API_LOTTERY_BET_TEST
+        } else API_LOTTERY_BET_MAIN
     }
 
     fun getBaseUrlMoments(): String {
@@ -76,7 +84,7 @@ interface BaseApi {
      * 开奖
      */
     fun getApiOpenLottery(): RxNetGo {
-        return RxNetGo.getInstance().getRetrofitService("http://156.227.88.24:18306")
+        return RxNetGo.getInstance().getRetrofitService(getLotteryBet())
     }
 
     /**

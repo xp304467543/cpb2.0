@@ -16,7 +16,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBetHistoryResponse
  * @ Describe
  *
  */
-class LiveRoomRecordAdapter(context: Context) : BaseRecyclerAdapter<LotteryBetHistoryResponse>(context) {
+class LiveRoomRecordAdapter(context: Context,val pos:Int) : BaseRecyclerAdapter<LotteryBetHistoryResponse>(context) {
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<LotteryBetHistoryResponse> {
         return LiveRoomRecordHolder(parent)
     }
@@ -29,10 +29,14 @@ class LiveRoomRecordAdapter(context: Context) : BaseRecyclerAdapter<LotteryBetHi
             setText(R.id.tvBetCodeName, data.play_sec_name)
             setText(R.id.tvBetCode, data.play_class_name)
             setText(R.id.tvBetOdds, data.play_odds)
-            setText(R.id.tvBetMoney, data.play_bet_sum)
-            if (data.play_bet_score?.contains("+")!!) {
-                setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
-            } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+            if (pos==1){
+                setText(R.id.tvBetMoney, data.play_bet_sum)
+            }else{
+                setText(R.id.tvBetMoney, data.play_bet_score)
+                if (data.play_bet_score?.contains("+")!!) {
+                    setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
+                } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+            }
         }
     }
 }

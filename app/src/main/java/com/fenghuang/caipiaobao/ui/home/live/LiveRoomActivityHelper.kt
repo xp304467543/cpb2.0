@@ -140,7 +140,9 @@ class LiveRoomActivityHelper {
     fun changeState(avatar: String) {
         initVideoPlayer()
         mAssist!!.attachContainer(videoContainer)
+        mAssist!!.stop()
         mReceiverGroup!!.addReceiver(DataInter.ReceiverKey.KEY_STATE_COVER, LiveStateCover(activity, avatar))
+
     }
 
     private val eventHandler = object : OnAssistPlayEventHandler() {

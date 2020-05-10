@@ -38,6 +38,8 @@ public class AlivcPlayer extends BaseInternalPlayer {
 
     private  AliyunVodPlayer mAliyunVodPlayer;
 
+
+
     private int mTargetState;
 
     private int startSeekPos;
@@ -392,35 +394,30 @@ public class AlivcPlayer extends BaseInternalPlayer {
         }
     };
 
-    IAliyunVodPlayer.OnSeekCompleteListener mOnSeekCompleteListener = new IAliyunVodPlayer.OnSeekCompleteListener() {
-        @Override
-        public void onSeekComplete() {
-            Log.e(TAG,"EVENT_CODE_SEEK_COMPLETE");
-            submitPlayerEvent(OnPlayerEventListener.PLAYER_EVENT_ON_SEEK_COMPLETE,null);
-        }
+    IAliyunVodPlayer.OnSeekCompleteListener mOnSeekCompleteListener = () -> {
+        Log.e(TAG,"EVENT_CODE_SEEK_COMPLETE");
+//        submitPlayerEvent(OnPlayerEventListener.PLAYER_EVENT_ON_SEEK_COMPLETE,null);
+        start();
     };
 
-    IAliyunVodPlayer.OnCompletionListener mCompletionListener = new IAliyunVodPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion() {
-            updateStatus(STATE_PLAYBACK_COMPLETE);
-            mTargetState = STATE_PLAYBACK_COMPLETE;
-            submitPlayerEvent(OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE,null);
-        }
+    IAliyunVodPlayer.OnCompletionListener mCompletionListener = () -> {
+        Log.e(TAG,"PLAYER_EVENT_ON_PLAY_COMPLETE");
+//            updateStatus(STATE_PLAYBACK_COMPLETE);
+//            mTargetState = STATE_PLAYBACK_COMPLETE;
+//            submitPlayerEvent(OnPlayerEventListener.PLAYER_EVENT_ON_PLAY_COMPLETE,null);
+        start();
     };
 
-    IAliyunVodPlayer.OnErrorListener mErrorListener = new IAliyunVodPlayer.OnErrorListener() {
-        @Override
-        public void onError(int i, int i1, String s) {
-            Log.e(TAG, "mErrorListener--"+format.format(new Date())+"--"+i+"--"+i1+"--"+s);
+    IAliyunVodPlayer.OnErrorListener mErrorListener = (i, i1, s) -> {
+        Log.e(TAG, "mErrorListener--"+format.format(new Date())+"--"+i+"--"+i1+"--"+s);
 
-            updateStatus(STATE_ERROR);
-            mTargetState = STATE_ERROR;
-            /* If an error handler has been supplied, use it and finish. */
-            Bundle bundle = BundlePool.obtain();
-            submitErrorEvent(OnErrorEventListener.ERROR_EVENT_COMMON,bundle);
-            mAliyunVodPlayer.replay();
-        }
+//            updateStatus(STATE_ERROR);
+//            mTargetState = STATE_ERROR;
+//            /* If an error handler has been supplied, use it and finish. */
+//            Bundle bundle = BundlePool.obtain();
+//            submitErrorEvent(OnErrorEventListener.ERROR_EVENT_COMMON,bundle);
+//            mAliyunVodPlayer.replay();
+        start();
     };
 
 
