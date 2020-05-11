@@ -14,6 +14,7 @@ import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.home.live.LiveRoomActivity
 import com.fenghuang.caipiaobao.ui.login.WebActivity
 import com.fenghuang.caipiaobao.ui.main.MainActivity
+import com.fenghuang.caipiaobao.ui.mine.children.MineAttentionFragment
 import com.fenghuang.caipiaobao.ui.mine.children.MineInvestFragment
 import com.fenghuang.caipiaobao.ui.mine.children.recharge.MineRechargeActivity
 import com.fenghuang.caipiaobao.ui.moments.childern.HotCommentOnActivity
@@ -171,6 +172,14 @@ object LaunchUtils {
     fun jumpAnchor(context: Context?,data: MomentsAnchorListResponse){
         val intent = Intent(context, HotCommentOnActivity::class.java)
         intent.putExtra("responseAnchor",data)
+        startActivity(context, intent)
+    }
+
+    /**
+     * 跳转 关注
+     */
+    fun jumpAttention(context: Context?){
+        val intent = Intent(context, MineAttentionFragment::class.java)
         startActivity(context, intent)
     }
 

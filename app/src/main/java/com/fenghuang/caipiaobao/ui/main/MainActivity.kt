@@ -73,4 +73,9 @@ class MainActivity : BasePageActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        moveTaskToBack(false)
+//        super.onBackPressed(); //注释super,拦截返回键功能
+    }
+
 }

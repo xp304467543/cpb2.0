@@ -8,9 +8,7 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAdvance
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAdvanceList
-import com.fenghuang.caipiaobao.ui.home.data.UpDateAttention
+import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.room.LiveRoomAdvanceAdapter
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
@@ -144,4 +142,23 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
         }
     }
 
+
+    /**
+     * 跳转购彩
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
+        if (isAdded){
+            pop()
+        }
+    }
+    /**
+     * 跳转mine
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onClickMine(clickMine: HomeJumpToMine) {
+        if (isAdded){
+            pop()
+        }
+    }
 }

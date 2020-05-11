@@ -4,6 +4,7 @@ import android.Manifest
 import android.graphics.drawable.Drawable
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.fragment.BaseFragment
+import com.fenghuang.baselib.utils.AppUtils.moveTaskToBack
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ViewUtils
@@ -184,6 +185,5 @@ class MainFragment : BaseContentFragment() {
         img_protruding.background = getDrawable(R.mipmap.ic_tab_new_year_5)
 
     }
-
 
 }

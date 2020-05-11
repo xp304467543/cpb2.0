@@ -208,7 +208,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
                 return@setOnClickListener
             }
             if (FastClickUtils.isFastClick()) {
-                LaunchUtils.startFragment(requireActivity(), MineAttentionFragment())
+                LaunchUtils.jumpAttention(requireActivity())
             }
         }
         //账单

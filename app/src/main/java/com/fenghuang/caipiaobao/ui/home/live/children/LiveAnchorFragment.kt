@@ -11,7 +11,11 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.home.adapter.HomeHotLiveAdapter
 import com.fenghuang.caipiaobao.ui.home.data.HomeHotLiveResponse
+import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchor
+import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_advance.*
 
 
@@ -45,6 +49,8 @@ class LiveAnchorFragment : BaseMvpFragment<LiveAnchorFragmentPresenter>() {
     override fun isShowBackIconWhite() = false
 
     override fun isSwipeBackEnable() = true
+
+    override fun isRegisterRxBus() = true
 
 
     override fun initContentView() {
@@ -130,5 +136,23 @@ class LiveAnchorFragment : BaseMvpFragment<LiveAnchorFragmentPresenter>() {
             notifyDataSetChanged()
         }
     }
+    /**
+     * 跳转购彩
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
+        if (isAdded){
+            pop()
+        }
+    }
 
+    /**
+     * 跳转mine
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onClickMine(clickMine: HomeJumpToMine) {
+        if (isAdded){
+            pop()
+        }
+    }
 }

@@ -482,7 +482,6 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
         if (liveState) liveRoomActivityHelper.switchWindowPlay()
-        finish()
     }
 
     //更新关注
@@ -504,11 +503,8 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
 
     //投注 钻石不足 退出
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun lotteryDiamondNotEnough(eventBean: LotteryDiamondNotEnough) {
-        if (eventBean.reset) {
-            finish()
-            RxBus.get().post(HomeJumpToMine(true))
-        }
+    fun lotteryDiamondNotEnough(eventBean: HomeJumpToMine) {
+        if (liveState) liveRoomActivityHelper.switchWindowPlay()
     }
 
     //发弹幕

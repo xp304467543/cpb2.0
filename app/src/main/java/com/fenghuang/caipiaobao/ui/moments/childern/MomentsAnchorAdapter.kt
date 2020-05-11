@@ -80,12 +80,17 @@ class MomentsAnchorAdapter(context: Context) : BaseRecyclerAdapter<MomentsAnchor
                 findView<ImageView>(R.id.imgHotDiscussHolderDianZan).background = getDrawable(R.mipmap.ic_yidianzan)
             } else findView<ImageView>(R.id.imgHotDiscussHolderDianZan).background = getDrawable(R.mipmap.ic_dianzan)
 
-            if (!data.media.isNullOrEmpty()) mAdapter.setData(data.media)
-            mAdapter.setLayoutManage(layoutManagerImg)
+            if (!data.media.isNullOrEmpty()) {
+                mAdapter.setData(data.media)
+                mAdapter.setLayoutManage(layoutManagerImg)
+            }else setGone(findView<RecyclerView>(R.id.rvMomentsDiscussHolderListImg))
+
 
             if (data.live_status == "1") {
                 findView<WaveView>(R.id.circleWave).setInitialRadius(50f)
                 findView<WaveView>(R.id.circleWave).start()
+            }else{
+                setGone(findView<WaveView>(R.id.circleWave))
             }
 
             setOnClick(findView<ImageView>(R.id.linDianZan))

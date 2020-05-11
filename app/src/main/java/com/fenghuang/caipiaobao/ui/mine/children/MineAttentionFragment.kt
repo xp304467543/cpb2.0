@@ -1,13 +1,19 @@
 package com.fenghuang.caipiaobao.ui.mine.children
 
 import androidx.viewpager.widget.ViewPager
+import com.fenghuang.baselib.base.activity.BaseNavActivity
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
+import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
 import com.google.android.material.tabs.TabLayout
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_attention.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  *
@@ -17,12 +23,11 @@ import kotlinx.android.synthetic.main.fragment_attention.*
  *
  */
 
-class MineAttentionFragment : BaseNavFragment() {
+class MineAttentionFragment : BaseNavActivity() {
 
 
     override fun getContentResID() = R.layout.fragment_attention
 
-    override fun isOverridePage() = false
 
     override fun isSwipeBackEnable() = true
 
@@ -30,21 +35,19 @@ class MineAttentionFragment : BaseNavFragment() {
 
     override fun isShowBackIconWhite() = false
 
+    override fun isRegisterRxBus() = true
 
-    override fun onSupportVisible() {
-        super.onSupportVisible()
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-    }
+
+
 
     override fun initContentView() {
-
         attentionTab.addTab(attentionTab.newTab().setText("主播"))
         attentionTab.addTab(attentionTab.newTab().setText("用户"))
         attentionTab.addTab(attentionTab.newTab().setText("专家"))
         val fragmentList = arrayListOf<BaseFragment>(MineAttentionFragmentChild(1),MineAttentionFragmentChild(2),
                 MineAttentionFragmentChild(3))
         xViewPageAttention.offscreenPageLimit = 3
-        xViewPageAttention.adapter = BaseFragmentPageAdapter(childFragmentManager,fragmentList)
+        xViewPageAttention.adapter = BaseFragmentPageAdapter(supportFragmentManager,fragmentList)
     }
 
     override fun initEvent() {
@@ -72,5 +75,21 @@ class MineAttentionFragment : BaseNavFragment() {
             }
 
         })
+    }
+
+    /**
+     * 跳转购彩
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
+        finish()
+    }
+
+    /**
+     * 跳转mine
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onClickMine(clickMine: HomeJumpToMine) {
+            finish()
     }
 }

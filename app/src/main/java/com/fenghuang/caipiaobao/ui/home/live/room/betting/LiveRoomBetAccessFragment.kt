@@ -12,6 +12,7 @@ import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
+import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveRoomBetAccessAdapter
 import com.fenghuang.caipiaobao.ui.lottery.data.*
 import com.fenghuang.caipiaobao.utils.AESUtils
@@ -108,7 +109,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
                                         ?: "0").toDouble() < (totalMoney.toString().toDouble())) {
                             val tips = context?.let { it1 -> GlobalTipsDialog(it1, "您的钻石不足,请兑换钻石", "确定", "取消", "") }
                             tips?.setConfirmClickListener {
-                                RxBus.get().post(LotteryDiamondNotEnough(true))
+                                RxBus.get().post(HomeJumpToMine(true))
                                 dismiss()
                             }
                             tips?.show()

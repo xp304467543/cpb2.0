@@ -67,31 +67,10 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     override fun initContentView() {
         setStatusBarHeight(statusViewBet)
-    }
-
-
-    override fun initData() {
         initWeb()
-        baseBetWebView.webViewClient = object : WebViewClient() {
-            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
-                try {
-                    if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
-                            url.startsWith("mailto://") || url.startsWith("tel://") || url.startsWith("tel:") || url.startsWith(
-                                    "mqq://")) {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-                        startActivity(intent)
-                        return true
-                    }//其他自定义的scheme
-                } catch (e: Exception) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
-                    return false
-                }
-
-                return false
-            }
-        }
         mPresenter.getUrl()
-
     }
+
 
     override fun initEvent() {
         findView<ImageView>(R.id.betBack).setOnClickListener {

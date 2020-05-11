@@ -53,7 +53,7 @@ object GlobalDialog {
     private fun noMoney(activity: Activity,isHor:Boolean){
         val dialog = ReChargeDialog(activity,isHor)
         dialog.setOnSendClickListener {
-            activity.finish()
+            dialog.dismiss()
             RxBus.get().post(HomeJumpToMine(true))
         }
         dialog.show()
