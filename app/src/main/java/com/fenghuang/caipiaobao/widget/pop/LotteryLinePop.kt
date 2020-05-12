@@ -62,35 +62,36 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
                 val check = findView<SwitchButtonRed>(R.id.lineSwitch)
                 check.isChecked = data.boolean
                 val tvMs = findView<TextView>(R.id.tvLineMs)
-                        val str = data.url.indexOf("//")
-                        val realUrl = data.url.substring(str + 2, data.url.length)
-                        mLDNetPingService = NetPingManager(getContext(), realUrl, object : NetPingManager.IOnNetPingListener {
-                            @SuppressLint("SetTextI18n")
-                            override fun ontDelay(log: Long) {
-                                tvMs.post {
-                                    tvMs.text = (log / 2).toString() + "ms"
-                                    if ((log / 2) > 100) {
-                                        setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorYellow))
-                                    } else {
-                                        setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorGreen))
-                                    }
-                                }
+                val str = data.url.indexOf("//")
+                val realUrl = data.url.substring(str + 2, data.url.length)
+                mLDNetPingService = NetPingManager(getContext(), realUrl, object : NetPingManager.IOnNetPingListener {
+                    @SuppressLint("SetTextI18n")
+                    override fun ontDelay(log: Long) {
+                        tvMs.post {
+                            tvMs.text = (log / 2).toString() + "ms"
+                            if ((log / 2) > 100) {
+                                setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorYellow))
+                            } else {
+                                setTextColor(R.id.tvLineMs, ViewUtils.getColor(R.color.colorGreen))
                             }
-                            override fun onError() {
-                                mLDNetPingService?.release()
-                            }
+                        }
+                    }
 
-                        })
-                        mLDNetPingService?.getDelay()
+                    override fun onError() {
+                        mLDNetPingService?.release()
+                    }
+
+                })
+                mLDNetPingService?.getDelay()
                 setText(R.id.tvLine, "线路 " + (getDataPosition() + 1))
                 findView<SwitchButtonRed>(R.id.lineSwitch).setOnCheckedChangeListener { buttonView, isChecked ->
                     if (isChecked) {
+                        val text = tvMs.text.toString()
                         for ((index, result) in getAllData().withIndex()) {
                             result.boolean = index == getDataPosition()
                         }
                         Handler().postDelayed({ notifyDataSetChanged() }, 200)
-                        val text = tvMs.text.toString()
-                        val ms = if (text == "") "" else text.substring(0, text.length - 2)
+                        val ms = if (text == "") "50" else text.substring(0, text.length - 2)
                         getSelectListener?.invoke(data.url, getDataPosition(), ms)
                     }
                 }

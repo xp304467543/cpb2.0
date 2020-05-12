@@ -401,8 +401,7 @@ object TimeUtils {
     /**
      * long 类型转换成日期  只有月日 时分
      */
-    private val formatMDSF = SimpleDateFormat("mm-dd HH:mm", Locale.getDefault())
-
+    private val formatMDSF = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault())
     fun longToDateStringMDTime(long: Long): String? {
         val date = Date(long * 1000)
         return formatMDSF.format(date)

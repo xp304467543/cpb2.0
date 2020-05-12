@@ -73,12 +73,12 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
         ))
         xViewPageMoments.currentItem = 0
         xViewPageMoments.offscreenPageLimit = 3
-
+        mPresenter.getMomentsData()
     }
 
 
     override fun initData() {
-        mPresenter.getMomentsData()
+
     }
 
     override fun initEvent() {

@@ -229,7 +229,7 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
                             .pingInterval(1000 * 50, TimeUnit.SECONDS)
                             .retryOnConnectionFailure(true)
                             .build())
-                    .needReconnect(true).wsUrl(WebUrlProvider.API_URL_WEB_SOCKET)
+                    .needReconnect(true).wsUrl(WebUrlProvider.getBaseUrl())
                     .build()
             mWsManager?.setWsStatusListener(mWsStatusListener)
             mWsManager?.startConnect()

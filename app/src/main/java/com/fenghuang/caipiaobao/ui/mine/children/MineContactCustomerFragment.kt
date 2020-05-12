@@ -79,7 +79,6 @@ class MineContactCustomerFragment : BaseNavFragment() {
                 checkPermission(0, null)
 
             }
-
             override fun showFileChooserCallBack(filePathCallback: ValueCallback<Array<Uri>>, fileChooserParams: WebChromeClient.FileChooserParams) {
                 if (mUploadMsgs != null) {
                     mUploadMsgs!!.onReceiveValue(null)

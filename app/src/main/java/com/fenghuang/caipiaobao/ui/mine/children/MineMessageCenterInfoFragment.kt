@@ -57,12 +57,15 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                     rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     MineApi.getMessageTips("2") {
                         onSuccess {
-                            if (!it.isNullOrEmpty() && isSupportVisible) {
-                                adapter1.addAll(it)
-                            }else {
-                                tvHolder.text = "当前暂无任何系统消息哦~"
-                                setVisible(tvHolder)
+                            if (isVisible){
+                                if (!it.isNullOrEmpty() && isSupportVisible) {
+                                    adapter1.addAll(it)
+                                }else {
+                                    tvHolder.text = "当前暂无任何系统消息哦~"
+                                    setVisible(tvHolder)
+                                }
                             }
+
                         }
                         onFailed {
                             GlobalDialog.showError(requireActivity(), it)
@@ -76,12 +79,15 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                     rvMsg.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     MineApi.getMessageTips("3") {
                         onSuccess {
-                            if (!it.isNullOrEmpty() && isSupportVisible) {
-                                adapter2.addAll(it)
-                            }else {
-                                tvHolder.text = "当前暂无任何系统消息哦~"
-                                setVisible(tvHolder)
+                            if (isVisible){
+                                if (!it.isNullOrEmpty() && isSupportVisible) {
+                                    adapter2.addAll(it)
+                                }else {
+                                    tvHolder.text = "当前暂无任何系统消息哦~"
+                                    setVisible(tvHolder)
+                                }
                             }
+
                         }
                         onFailed {
                             GlobalDialog.showError(requireActivity(), it)
@@ -96,12 +102,15 @@ class MineMessageCenterInfoFragment : BaseNavFragment() {
                     MineApi.getMessageTips("0") {
                         if (isAdded){
                             onSuccess {
-                                if (!it.isNullOrEmpty() && isSupportVisible) {
-                                    adapter2.addAll(it)
-                                }else {
-                                    tvHolder.text = "当前暂无任何系统消息哦~"
-                                    setVisible(tvHolder)
+                                if (isVisible){
+                                    if (!it.isNullOrEmpty() && isSupportVisible) {
+                                        adapter2.addAll(it)
+                                    }else {
+                                        tvHolder.text = "当前暂无任何系统消息哦~"
+                                        setVisible(tvHolder)
+                                    }
                                 }
+
                             }
                             onFailed {
                                 GlobalDialog.showError(requireActivity(), it)

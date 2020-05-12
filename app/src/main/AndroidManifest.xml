@@ -93,6 +93,7 @@
         <activity
             android:name="com.fenghuang.caipiaobao.ui.main.MainActivity"
             android:configChanges="keyboard|orientation|screenSize"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"
             tools:ignore="LockedOrientationActivity">
@@ -111,7 +112,7 @@
         <activity
             android:name="com.fenghuang.caipiaobao.ui.home.live.LiveRoomActivity"
             android:configChanges="keyboard|orientation|screenSize"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             android:windowSoftInputMode="adjustNothing"

@@ -21,6 +21,7 @@ import com.example.playerlibrary.PLog;
 import com.example.playerlibrary.touch.OnTouchGestureListener;
 import com.example.playerlibrary.utils.TimeUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.fenghuang.baselib.utils.LogUtils;
 import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.baselib.widget.round.RoundLinearLayout;
 import com.fenghuang.baselib.widget.round.RoundTextView;
@@ -573,6 +574,8 @@ public class ControllerLiveCover extends BaseCover implements OnTimerUpdateListe
 
     //横竖屏切换   true 横屏  false 竖屏
     private void changeScreen(Boolean isLandscape) {
+        LogUtils.INSTANCE.e("-------->"+isLandscape);
+        LogUtils.INSTANCE.e("-------->"+containerHor.getVisibility());
         if (!isLandscape) {
             containerAttention.setVisibility(View.GONE);
             containerHor.setVisibility(View.GONE);

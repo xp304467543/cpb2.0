@@ -13,13 +13,15 @@ object WebUrlProvider {
 //    生产环境： wss://www.cpbadmin.com/wss
 //
 //    测试环境： ws://www.cpbh5.com/wss
-    const val API_URL_WEB_SOCKET = "ws://www.cpbh5.com/wss"
+    private const val API_URL_WEB_SOCKET = "ws://www.cpbh5.com/wss"
 
-    private fun getBaseUrl(): String {
-        return if (DebugUtils.isDebugModel()) {
-            ApiConstant.WEB_URL
+    private const val API_URL_WEB_SOCKET_MAIN = "wss://www.cpbadmin.com/wss"
+
+     fun getBaseUrl(): String {
+        return if (ApiConstant.isTest) {
+            API_URL_WEB_SOCKET
         } else {
-            ApiConstant.WEB_URL_DEV
+            API_URL_WEB_SOCKET_MAIN
         }
     }
 

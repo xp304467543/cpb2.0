@@ -306,7 +306,7 @@ public class GestureCover extends BaseCover implements OnTouchGestureListener {
             mBundle.putInt(EventKey.INT_ARG1, (int) newPosition);
             mBundle.putInt(EventKey.INT_ARG2, (int) duration);
             notifyReceiverPrivateEvent(
-                    DataInter.ReceiverKey.KEY_CONTROLLER_COVER,
+                    DataInter.ReceiverKey.KEY_CONTROLLER_live_COVER,
                     DataInter.PrivateEvent.EVENT_CODE_UPDATE_SEEK,
                     mBundle);
             setFastForwardState(true);

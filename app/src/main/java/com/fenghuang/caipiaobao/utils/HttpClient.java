@@ -2,9 +2,12 @@ package com.fenghuang.caipiaobao.utils;
 
 import android.content.Context;
 
+import com.fenghuang.caipiaobao.constant.UserInfoSp;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -76,7 +79,7 @@ public class HttpClient {
     }
 
     // POST 方法
-    public void post(String url, HashMap<String, String> param, MyCallback callback) {
+    public void post(String url,HashMap<String, String> param, MyCallback callback) {
         FormBody.Builder formBody = new FormBody.Builder();
         if(!param.isEmpty()) {
             for (Map.Entry<String,String> entry: param.entrySet()) {
@@ -87,6 +90,34 @@ public class HttpClient {
         Request.Builder builder = new Request.Builder();
         Request request = builder.post(form)
                 .url(url)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.failed(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                callback.success(response);
+            }
+        });
+    }
+
+    // POST 方法
+    public void postWithHead(String url,HashMap<String, String> param, MyCallback callback) {
+        FormBody.Builder formBody = new FormBody.Builder();
+        if(!param.isEmpty()) {
+            for (Map.Entry<String,String> entry: param.entrySet()) {
+                formBody.add(entry.getKey(),entry.getValue());
+            }
+        }
+        RequestBody form = formBody.build();
+        Request.Builder builder = new Request.Builder();
+        Request request = builder.post(form)
+                .url(url)
+                .addHeader("Authorization", Objects.requireNonNull(UserInfoSp.INSTANCE.getTokenWithBearer()))
                 .build();
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
