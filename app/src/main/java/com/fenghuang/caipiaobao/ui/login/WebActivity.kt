@@ -13,7 +13,9 @@ import com.fenghuang.baselib.base.activity.BaseNavActivity
 import com.fenghuang.baselib.web.utils.ZpImageUtils
 import com.fenghuang.baselib.web.utils.ZpWebChromeClient
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
+import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
@@ -30,7 +32,7 @@ import java.io.File
  *
  */
 
-class WebActivity : BaseNavActivity(){
+class WebActivity : BaseNavActivity() {
 
     override fun isOverride() = false
 
@@ -50,8 +52,22 @@ class WebActivity : BaseNavActivity(){
 
 
     override fun initContentView() {
-        wbContact.loadUrl("https://alni.otixz.com/chat/chatClient/chatbox.jsp?companyID=80005980&configID=333")
+        if (UserInfoSp.getCustomer().isNullOrEmpty()) {
+            initSome()
+        } else wbContact.loadUrl(UserInfoSp.getCustomer())
+
         initWeb()
+    }
+
+    private fun initSome() {
+        HomeApi.getLotteryUrl {
+            onSuccess {
+                UserInfoSp.putCustomer(it.customer)
+                wbContact.loadUrl(it.customer)
+            }
+            onFailed { }
+        }
+
     }
 
     private var mUploadMsg: ValueCallback<Uri>? = null
@@ -97,12 +113,16 @@ class WebActivity : BaseNavActivity(){
     val REQUEST_SELECT_FILE_CODE = 100
     private val REQUEST_FILE_CHOOSER_CODE = 101
     private val REQUEST_FILE_CAMERA_CODE = 102
+
     // 相机拍照返回的图片文件
     private var mFileFromCamera: File? = null
+
     // 默认图片压缩大小（单位：K）
     val IMAGE_COMPRESS_SIZE_DEFAULT = 400
+
     // 压缩图片最小高度
     val COMPRESS_MIN_HEIGHT = 900
+
     // 压缩图片最小宽度
     val COMPRESS_MIN_WIDTH = 675
     var dialog: IosBottomListWindow? = null
@@ -231,7 +251,7 @@ class WebActivity : BaseNavActivity(){
                 mUploadMsgs?.onReceiveValue(arrayOf(result))
                 mUploadMsgs = null
             }
-        }else{
+        } else {
             mUploadMsgs?.onReceiveValue(null)
             mUploadMsgs = null
         }

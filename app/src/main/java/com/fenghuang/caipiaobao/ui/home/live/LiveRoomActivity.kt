@@ -103,7 +103,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         val fragments = ArrayList<BaseFragment>()
         fragments.add(LiveRoomChatFragment.newInstance(anchorID,
                 intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE) ?: "",
-                intent?.getStringExtra(IntentConstant.LIVE_ROOM_NICK_NAME) ?: "",intent?.getStringExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: ""))
+                intent?.getStringExtra(IntentConstant.LIVE_ROOM_NICK_NAME) ?: "",intent?.getStringExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: "1"))
         fragments.add(LiveRoomAnchorFragment.newInstance(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE)
                 ?: "0"))
         fragments.add(LiveRoomRankFragment.newInstance(anchorID))

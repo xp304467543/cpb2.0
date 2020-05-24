@@ -75,6 +75,17 @@ object UserInfoSp {
     }
 
     /**
+     * 客服地址
+     */
+    fun putCustomer(customer:String){
+        SpUtils.putString("customer", customer)
+    }
+
+    fun getCustomer(): String? {
+        return SpUtils.getString("customer")
+    }
+
+    /**
      * 用户名 Name
      */
     fun putUserName(Name: String) {

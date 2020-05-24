@@ -6,8 +6,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import com.fenghuang.baselib.utils.LogUtils
+import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.main.MainActivity
@@ -37,7 +39,7 @@ class SplashActivity : Activity(), CancelAdapt {
 
     private fun initContent() {
         tvDaoJiShi.setOnClickListener {
-            if (FastClickUtils.isFastClick1000()){
+            if (FastClickUtils.isFastClick1000()) {
                 isTurn = false
                 timer?.cancel()
                 startActivity(Intent(baseContext, MainActivity::class.java))
@@ -46,7 +48,7 @@ class SplashActivity : Activity(), CancelAdapt {
         }
         timer = object : CountDownTimer(4000, 1000) {
             override fun onFinish() {
-                if (isTurn){
+                if (isTurn) {
                     startActivity(Intent(baseContext, MainActivity::class.java))
                     finish()
                 }
@@ -63,7 +65,8 @@ class SplashActivity : Activity(), CancelAdapt {
     private fun initSome() {
         HomeApi.getLotteryUrl {
             onSuccess {
-             ImageManager.loadImg(it.app_start_banner?.image_url,startImg)
+                UserInfoSp.putCustomer(it.customer)
+                ImageManager.loadImg(it.app_start_banner?.image_url, startImg)
                 timer?.start()
             }
             onFailed { }

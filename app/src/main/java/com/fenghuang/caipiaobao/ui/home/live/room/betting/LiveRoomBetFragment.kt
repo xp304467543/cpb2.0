@@ -93,7 +93,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
     override fun initData() {
         val id = arguments?.getString(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: "1"
-
+        currentLotteryId = id
         val type = LotteryApi.getLotteryBetType()
         type.onSuccess {
             val title = arrayListOf<String>()

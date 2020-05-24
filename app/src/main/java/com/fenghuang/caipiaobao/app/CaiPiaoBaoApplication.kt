@@ -28,7 +28,6 @@ class CaiPiaoBaoApplication : BaseApplication() {
 
 
     companion object {
-        var ignoreMobile: Boolean = false
         private lateinit var mInstance: CaiPiaoBaoApplication
         fun getInstance(): BaseApplication {
             return mInstance

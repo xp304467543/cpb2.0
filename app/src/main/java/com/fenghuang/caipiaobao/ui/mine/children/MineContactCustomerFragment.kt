@@ -14,7 +14,9 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.web.utils.ZpImageUtils
 import com.fenghuang.baselib.web.utils.ZpWebChromeClient
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
+import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
@@ -49,8 +51,22 @@ class MineContactCustomerFragment : BaseNavFragment() {
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        wbContact.loadUrl("https://alni.otixz.com/chat/chatClient/chatbox.jsp?companyID=80005980&configID=333")
+        if (UserInfoSp.getCustomer().isNullOrEmpty()){
+            initSome()
+        }else  wbContact.loadUrl(UserInfoSp.getCustomer())
+
         initWeb()
+    }
+
+    private fun initSome() {
+        HomeApi.getLotteryUrl {
+            onSuccess {
+                UserInfoSp.putCustomer(it.customer)
+                wbContact.loadUrl(it.customer)
+            }
+            onFailed { }
+        }
+
     }
 
     private var mUploadMsg: ValueCallback<Uri>? = null

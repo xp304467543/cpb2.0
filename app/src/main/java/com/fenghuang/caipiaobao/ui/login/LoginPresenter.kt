@@ -3,17 +3,18 @@ package com.fenghuang.caipiaobao.ui.login
 import android.os.Looper
 import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
-import com.fenghuang.caipiaobao.ui.login.data.*
+import com.fenghuang.caipiaobao.ui.login.data.LoginApi
+import com.fenghuang.caipiaobao.ui.login.data.LoginResponse
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
+import com.fenghuang.caipiaobao.ui.login.data.RegisterSuccess
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.*
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.Response
@@ -64,25 +65,6 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
      * 密码登录
      */
     fun userLoginWithPassWord(phone: String, passWord: String, loadMode: String) {
-//        LoginApi.userLoginWithPassWord(phone, passWord, loadMode) {
-//            if (mView.isActive()) {
-//                onSuccess {
-//                    it.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
-//                    val str = AESUtils.decrypt(getBase64Key(), it.encryption)
-//                    val res = str?.let { it1 -> JsonUtils.fromJson(it1, LoginResponse::class.java) }
-//                    res?.let { result ->
-//                        UserInfoSp.putToken(result.token)
-//                        getLoginInfo("Bearer ${result.token}")
-//                        UserInfoSp.putRandomStr(result.random_str)
-//                    }
-//                }
-//                onFailed {
-//                    mView.hidePageLoadingDialog()
-//                    ToastUtils.showError(it.getMsg())
-//                    mView.hidePageLoadingDialog()
-//                }
-//            }
-//        }
         val map = hashMapOf<String, Any>()
         map["username"] = phone
         map["password"] = passWord
@@ -93,10 +75,7 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
             val param = HashMap<String, String>()
             param["datas"] = it
             HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + "/" + LoginApi.getApiOtherUserTest() + LoginApi.LOGIN, param, object : HttpClient.MyCallback {
-                override fun failed(e: IOException?) {
-
-                }
-
+                override fun failed(e: IOException?) {}
                 override fun success(res: Response?) {
                     if (mView.isActive()) {
                         Looper.prepare()
@@ -125,25 +104,6 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
      * 验证码登录
      */
     fun userLoginWithIdentify(phoneNum: String, captcha: String, isAutoLogin: Int) {
-//        LoginApi.userLoginWithIdentify(phone, code, isAutoLogin) {
-//            if (mView.isActive()) {
-//                onSuccess {
-//                    it.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
-//                    val str = AESUtils.decrypt(getBase64Key(), it.encryption)
-//                    val res = str?.let { it1 -> JsonUtils.fromJson(it1, LoginResponse::class.java) }
-//                    res?.let { result ->
-//                        UserInfoSp.putToken(result.token)
-//                        getLoginInfo("Bearer ${result.token}")
-//                        UserInfoSp.putRandomStr(result.random_str)
-//                    }
-//                }
-//
-//                onFailed {
-//                    mView.hidePageLoadingDialog()
-//                    ToastUtils.showError(it.getMsg())
-//                }
-//            }
-//        }
         if (mView.isActive()) {
             val map = hashMapOf<String, Any>()
             map["phone"] = phoneNum
@@ -161,7 +121,6 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
                         if (mView.isActive()) {
                             Looper.prepare()
                             val op = res?.body()?.string()
-                            LogUtils.e("-------?????----???--->" + op)
                             val bean = op?.let { it1 -> JsonUtils.fromJson(it1, BaseApiBean::class.java) }
                             if (bean?.code == 1) {
                                 bean.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
@@ -228,7 +187,6 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
                     override fun success(res: Response?) {
                         Looper.prepare()
                         val op = res?.body()?.string()
-                        LogUtils.e("-------?????----???--->" + op)
                         val bean = op?.let { it1 -> JsonUtils.fromJson(it1, BaseApiBean::class.java) }
                         if (bean?.code == 1) {
                             bean.data?.asJsonObject?.get("user_type")?.asString?.let { it1 -> UserInfoSp.setUserType(it1) }
@@ -247,7 +205,6 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
                 })
             }
         }
-
 //        LoginApi.userRegister(phone, code, password, is_auto_login) {
 //            if (mView.isActive()) {
 //                onSuccess {
