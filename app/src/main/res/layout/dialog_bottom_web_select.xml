@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    android:layout_height="@dimen/dp_220"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius_TL="@dimen/dp_10"
+    app:rv_cornerRadius_TR="@dimen/dp_10">
+
+
+    <LinearLayout
+        android:id="@+id/webLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_35"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgWebCp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_76"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_web_cp" />
+
+        <ImageView
+            android:id="@+id/imgWebQp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_76"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_web_qp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/webLin2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/webLin"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="彩票游戏"
+            android:textColor="@color/color_333333" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="红包游戏"
+            android:textColor="@color/color_333333" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imgWebClose"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_34"
+        android:layout_below="@+id/webLin2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:src="@mipmap/ic_web_close" />
+
+</com.fenghuang.baselib.widget.round.RoundRelativeLayout>

@@ -5,13 +5,16 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.WindowManager;
 
 import com.example.playerlibrary.utils.PUtils;
+import com.fenghuang.baselib.utils.LogUtils;
 
 
 /**
@@ -34,10 +37,11 @@ public class WindowHelper implements IWindow {
 
     private OnWindowListener mOnWindowListener;
 
-    public WindowHelper(Context context, View windowView, FloatWindowParams params){
+    public WindowHelper(Context context, View windowView, FloatWindowParams params) {
         this.mWindowView = windowView;
         wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         wmParams = new WindowManager.LayoutParams();
+
         wmParams.type = params.getWindowType();
         wmParams.gravity = params.getGravity();
         wmParams.format = params.getFormat();
@@ -66,32 +70,56 @@ public class WindowHelper implements IWindow {
         wm.updateViewLayout(mWindowView, wmParams);
     }
 
+    public void upDataSize(int width, int height){
+        wmParams.width = width;
+        wmParams.height = height;
+        wm.updateViewLayout(mWindowView, wmParams);
+    }
+
+    public void upDataSizeRotate(int width, int height){
+        wmParams.width = width;
+        wmParams.height = height;
+        wm.updateViewLayout(mWindowView, wmParams);
+    }
+
+    public void setOrientation(int orientation){
+
+    }
+
     @Override
     public boolean isWindowShow() {
         return isWindowShow;
     }
 
+
+    @Override
+    public void rotationView(int rotate) {
+        mWindowView.setRotation(rotate);
+    }
+
+
     /**
      * add to WindowManager
+     *
      * @return
      */
     @Override
     public boolean show() {
-        return show(defaultAnimation?
-                getDefaultAnimators(true):
+        return show(defaultAnimation ?
+                getDefaultAnimators(true) :
                 null);
     }
 
     @Override
     public boolean show(Animator... items) {
         boolean addToWindow = addToWindow();
-        if(!addToWindow)
+        if (!addToWindow)
             return false;
         ViewParent parent = mWindowView.getParent();
-        if(parent!=null){
+        if (parent != null) {
             parent.requestLayout();
         }
-        if(items!=null && items.length>0){
+        if (items != null && items.length > 0) {
             cancelCloseAnimation();
             cancelShowAnimation();
             mShowAnimatorSet = new AnimatorSet();
@@ -105,20 +133,20 @@ public class WindowHelper implements IWindow {
             });
             mShowAnimatorSet.start();
         }
-        if(mOnWindowListener!=null){
+        if (mOnWindowListener != null) {
             mOnWindowListener.onShow();
         }
         return true;
     }
 
     private void cancelShowAnimation() {
-        if(mShowAnimatorSet!=null){
+        if (mShowAnimatorSet != null) {
             mShowAnimatorSet.cancel();
             mShowAnimatorSet.removeAllListeners();
         }
     }
 
-    private boolean addToWindow(){
+    private boolean addToWindow() {
         if (wm != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 if (!mWindowView.isAttachedToWindow()) {
@@ -144,9 +172,9 @@ public class WindowHelper implements IWindow {
         }
     }
 
-    private Animator[] getDefaultAnimators(boolean showAnimators){
-        final float startV = showAnimators?0:1;
-        final float endV = showAnimators?1:0;
+    private Animator[] getDefaultAnimators(boolean showAnimators) {
+        final float startV = showAnimators ? 0 : 1;
+        final float endV = showAnimators ? 1 : 0;
         return new Animator[]{
                 ObjectAnimator.ofFloat(mWindowView, "scaleX", startV, endV).setDuration(DURATION_ANIMATION),
                 ObjectAnimator.ofFloat(mWindowView, "scaleY", startV, endV).setDuration(DURATION_ANIMATION),
@@ -161,14 +189,14 @@ public class WindowHelper implements IWindow {
      */
     @Override
     public void close() {
-        close(defaultAnimation?
-                getDefaultAnimators(false):
+        close(defaultAnimation ?
+                getDefaultAnimators(false) :
                 null);
     }
 
     @Override
     public void close(Animator... items) {
-        if(items!=null && items.length>0){
+        if (items != null && items.length > 0) {
             cancelShowAnimation();
             cancelCloseAnimation();
             mCloseAnimatorSet = new AnimatorSet();
@@ -182,19 +210,19 @@ public class WindowHelper implements IWindow {
                 }
             });
             mCloseAnimatorSet.start();
-        }else{
+        } else {
             removeFromWindow();
         }
     }
 
     private void cancelCloseAnimation() {
-        if(mCloseAnimatorSet!=null){
+        if (mCloseAnimatorSet != null) {
             mCloseAnimatorSet.cancel();
             mCloseAnimatorSet.removeAllListeners();
         }
     }
 
-    private boolean removeFromWindow(){
+    private boolean removeFromWindow() {
         boolean isClose = false;
         if (wm != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -215,23 +243,23 @@ public class WindowHelper implements IWindow {
                 }
             }
         }
-        if(isClose && mOnWindowListener!=null){
+        if (isClose && mOnWindowListener != null) {
             mOnWindowListener.onClose();
         }
         return isClose;
     }
 
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if(!mDragEnable)
+        if (!mDragEnable)
             return false;
-        switch (ev.getAction()){
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mDownX = ev.getRawX();
                 mDownY = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                if(Math.abs(ev.getRawX() - mDownX) > MIN_MOVE_DISTANCE
-                        || Math.abs(ev.getRawY() - mDownY) > MIN_MOVE_DISTANCE){
+                if (Math.abs(ev.getRawX() - mDownX) > MIN_MOVE_DISTANCE
+                        || Math.abs(ev.getRawY() - mDownY) > MIN_MOVE_DISTANCE) {
                     return true;
                 }
                 return false;
@@ -248,8 +276,9 @@ public class WindowHelper implements IWindow {
 
     private int wX, wY;
 
+    //针对控件的坐标系，即控件左上角为原点
     public boolean onTouchEvent(MotionEvent event) {
-        if(!mDragEnable)
+        if (!mDragEnable)
             return false;
         final int X = (int) event.getRawX();
         final int Y = (int) event.getRawY();

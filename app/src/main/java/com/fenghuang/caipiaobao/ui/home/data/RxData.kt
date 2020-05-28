@@ -58,8 +58,12 @@ data class UpDataHorDiamon(var boolean: Boolean)
 //直播间@功能
 data class LiveCallPersonal(var name:String)
 
-//跳转购彩
-data class JumpToBuyLottery(var boolean: Boolean)
+//跳转购彩nt
+data class JumpToBuyLottery(var index: Int)
 
 //关注更新
 data class UpDateAttention(var boolean: Boolean,var anchorId:String)
+
+
+//web
+data class WebSelect(var pos:Int)

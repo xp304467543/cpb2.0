@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.ImageView
@@ -23,6 +24,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
 import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
 import com.fenghuang.caipiaobao.ui.home.data.LineCheck
+import com.fenghuang.caipiaobao.ui.home.data.WebSelect
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.fenghuang.caipiaobao.widget.pop.LotteryLinePop
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -47,6 +49,8 @@ import java.io.File
  */
 open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
+    var currentId = -1
+
     var baseUrl: String? = null
 
     var linePop: LotteryLinePop? = null
@@ -68,7 +72,17 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     override fun initContentView() {
         setStatusBarHeight(statusViewBet)
         initWeb()
-        mPresenter.getUrl()
+    }
+
+    /**
+     * 选择web
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun webSelect(eventBean: WebSelect) {
+        if (currentId!=eventBean.pos){
+            currentId = eventBean.pos
+            mPresenter.getUrl(currentId)
+        }
     }
 
 
@@ -78,7 +92,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
                 baseBetWebView.goBack()
             }
         }
-        findView<ImageView>(R.id.betRefresh).setOnClickListener { mPresenter.getUrl() }
+        findView<ImageView>(R.id.betRefresh).setOnClickListener { mPresenter.getUrl(currentId) }
 
         tvLineOffset.setOnClickListener {
             showLinePop()
@@ -303,10 +317,10 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     }
 
 
-        override fun onDestroyView() {
-            super.onDestroyView()
-            baseBetWebView.destroy()
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        baseBetWebView.destroy()
+    }
 
 
     override fun onBackClick() {
@@ -315,7 +329,15 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
         }
     }
 
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+        baseBetWebView.onResume()
+    }
 
+    override fun onSupportInvisible() {
+        super.onSupportInvisible()
+        baseBetWebView.onPause()
+    }
     /**
      * 跳转购彩
      */
@@ -324,4 +346,5 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
         //引导层
         NewbieGuide.with(this).setLabel("guide2").addGuidePage(GuidePage().setLayoutRes(R.layout.guide_bet)).show()
     }
+
 }

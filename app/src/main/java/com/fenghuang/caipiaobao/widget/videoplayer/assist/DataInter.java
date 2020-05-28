@@ -6,7 +6,9 @@ public interface DataInter {
 
         int EVENT_CODE_REQUEST_BACK = -100;
         int EVENT_CODE_REQUEST_CLOSE = -101;
+        int EVENT_CODE_REQUEST_ROTATE = -1002;
         int EVENT_CODE_REQUEST_CLOSE_ENTER = -109;
+        int EVENT_CODE_REQUEST_CHANGE = -1001;
         int EVENT_CODE_REQUEST_TOGGLE_SCREEN = -104;
         int EVENT_CODE_REQUEST_NEXT = -106;
         int EVENT_CODE_ERROR_SHOW = -111;

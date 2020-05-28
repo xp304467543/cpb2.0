@@ -47,4 +47,6 @@ public interface OnTouchGestureListener {
     void onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY);
 
     void onEndGesture();
+
+    void onSingleConfirm(MotionEvent event);
 }

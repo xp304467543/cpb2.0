@@ -3,13 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/shape_controller_top_gradient"/>
+
+    <ImageView
+        android:id="@+id/iv_rotate"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="10dp"
+        android:src="@drawable/rotation" />
+
     <ImageView
         android:id="@+id/iv_close"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
+        android:contentDescription="@string/app_name"
         android:padding="@dimen/dp10"
-        android:src="@drawable/icon_close"
-        android:contentDescription="@string/app_name" />
+        android:src="@drawable/icon_close" />
 
 </RelativeLayout>

@@ -78,6 +78,11 @@ public final class StyleSetter implements IStyleSetter {
     }
 
     @Override
+    public void setRotate(int rotate) {
+        this.mView.setRotationX(90);
+    }
+
+    @Override
     public void setElevationShadow(int backgroundColor, float elevation) {
         mView.setBackgroundColor(backgroundColor);
         ViewCompat.setElevation(mView,elevation);

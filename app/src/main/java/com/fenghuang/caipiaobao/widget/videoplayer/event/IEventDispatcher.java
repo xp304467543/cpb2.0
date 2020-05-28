@@ -20,6 +20,7 @@ public interface IEventDispatcher {
 
 
     void dispatchTouchEventOnSingleTabUp(MotionEvent event);
+    void dispatchTouchEventOnSingleTabConfirm(MotionEvent event);
     void dispatchTouchEventOnDoubleTabUp(MotionEvent event);
     void dispatchTouchEventOnDown(MotionEvent event);
     void dispatchTouchEventOnScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY);

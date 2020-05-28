@@ -16,12 +16,15 @@ import com.fenghuang.caipiaobao.ui.home.HomeFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
 import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
+import com.fenghuang.caipiaobao.ui.home.data.WebSelect
 import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
 import com.fenghuang.caipiaobao.ui.mine.MineFragment
 import com.fenghuang.caipiaobao.ui.mine.data.ChangeSkin
 import com.fenghuang.caipiaobao.ui.moments.MomentsFragment
 import com.fenghuang.caipiaobao.widget.dialog.SystemNoticeDialog
 import com.fenghuang.caipiaobao.widget.dialog.VersionDialog
+import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomWebSelect
+import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -30,6 +33,8 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : BaseContentFragment() {
 
     private val mFragments = arrayListOf<BaseFragment>()
+
+    private var bottomWebSelect: BottomWebSelect? = null
 
     override fun getContentResID(): Int = R.layout.fragment_main
 
@@ -56,10 +61,17 @@ class MainFragment : BaseContentFragment() {
         }
         tabLotteryOpen.setOnClickListener {
             showHideFragment(mFragments[1])
+
         }
         rlCenter.setOnClickListener {
             tabBetting.isChecked = true
-            showHideFragment(mFragments[2])
+//            showHideFragment(mFragments[2])
+            if (bottomWebSelect == null) bottomWebSelect = BottomWebSelect(getPageActivity())
+            bottomWebSelect?.setSelectListener {
+                RxBus.get().post(WebSelect(it))
+                showHideFragment(mFragments[2])
+            }
+            bottomWebSelect?.show()
         }
         tabFriends.setOnClickListener {
             showHideFragment(mFragments[3])
@@ -92,6 +104,7 @@ class MainFragment : BaseContentFragment() {
                 Manifest.permission.SYSTEM_ALERT_WINDOW,
                 Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
     }
+
     //更新
     private fun getUpDate() {
         HomeApi.getVersion {
@@ -112,11 +125,12 @@ class MainFragment : BaseContentFragment() {
             }
         }
     }
+
     //系统公告
-    private fun getNotice(){
+    private fun getNotice() {
         HomeApi.getSystemNotice {
             onSuccess {
-                if (it.content!=null){
+                if (it.content != null) {
                     val dialog = SystemNoticeDialog(getPageActivity())
                     dialog.setContent(it.content.toString())
                     dialog.show()
@@ -143,6 +157,7 @@ class MainFragment : BaseContentFragment() {
     fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
         tabBetting.isChecked = true
         showHideFragment(mFragments[2])
+        RxBus.get().post(WebSelect(eventBean.index))
     }
 
     //换肤

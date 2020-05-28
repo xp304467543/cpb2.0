@@ -3,7 +3,6 @@ package com.fenghuang.caipiaobao.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -93,11 +92,7 @@ public class NetPingManager {
             if (null != mHandlerThread) {
                 Looper looper = this.mHandlerThread.getLooper();
                 if (looper != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                        looper.quitSafely();
-                    } else {
-                        looper.quit();
-                    }
+                    looper.quitSafely();
                 }
             }
             this.mHandlerThread = null;
@@ -228,12 +223,10 @@ public class NetPingManager {
             RttTimes[index] = -2;// 作为IO异常标识
             e.printStackTrace();
         } finally {
-            if (mSocket != null) {
-                try {
-                    mSocket.close();
-                } catch (IOException io) {
-                    io.printStackTrace();
-                }
+            try {
+                mSocket.close();
+            } catch (IOException io) {
+                io.printStackTrace();
             }
         }
     }
@@ -261,7 +254,7 @@ public class NetPingManager {
             try {
                 mAddressIpList.add(mAddress[0].getHostAddress());
                 flag = true;
-            }catch (Exception e){
+            }catch (Exception ignored){
 
             }
         } else {// 解析不到，判断第一次解析耗时，如果大于10s进行第二次解析

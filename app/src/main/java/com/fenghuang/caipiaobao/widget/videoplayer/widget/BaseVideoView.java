@@ -581,6 +581,11 @@ public class BaseVideoView extends FrameLayout implements IVideoView, IStyleSett
     }
 
     @Override
+    public void setRotate(int rotate) {
+        mStyleSetter.setRotate(rotate);
+    }
+
+    @Override
     public void setElevationShadow(int backgroundColor, float elevation) {
         mStyleSetter.setElevationShadow(backgroundColor, elevation);
     }

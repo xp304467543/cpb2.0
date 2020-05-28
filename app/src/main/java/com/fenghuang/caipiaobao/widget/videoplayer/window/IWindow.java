@@ -84,4 +84,5 @@ public interface IWindow {
         void onClose();
     }
 
+    void rotationView(int rotate);
 }

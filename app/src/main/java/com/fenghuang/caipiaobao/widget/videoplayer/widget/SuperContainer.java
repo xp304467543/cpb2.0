@@ -303,4 +303,11 @@ public class SuperContainer extends FrameLayout implements OnTouchGestureListene
         if(mEventDispatcher!=null)
             mEventDispatcher.dispatchTouchEventOnEndGesture();
     }
+
+    @Override
+    public void onSingleConfirm(MotionEvent event) {
+        if(mEventDispatcher!=null)
+            mEventDispatcher.dispatchTouchEventOnSingleTabConfirm(event);
+
+    }
 }

@@ -88,7 +88,13 @@ data class SearchResult(var anchor_id: String = "", var nickname: String = "", v
 
 data class Tag(var title: String = "", var icon: String = "")
 
-data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String, var protocol: String,var bettingArr:List<String>?,var app_start_banner:StartBanner?)
+data class BetLotteryBean(var betting: String,
+                          var customer: String,
+                          var gameUrl: String,
+                          var protocol: String,
+                          var bettingArr:List<String>?,
+                          var chessArr:List<String>?,
+                          var app_start_banner:StartBanner?)
 
 data class StartBanner(var type:String?,var image_url:String?)
 

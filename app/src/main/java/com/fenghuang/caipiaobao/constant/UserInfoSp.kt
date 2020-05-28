@@ -16,6 +16,17 @@ import com.fenghuang.caipiaobao.utils.JsonUtils
 object UserInfoSp {
 
     /**
+     * 小视频初始大小
+     */
+    fun getVideoSize(): Int {
+        return SpUtils.getInt("VideoSize",1)
+    }
+
+    fun getVideoSize(size:Int){
+        return SpUtils.putInt("VideoSize",size)
+    }
+
+    /**
      * 是否登录
      */
     fun putIsLogin(isLogin: Boolean) {

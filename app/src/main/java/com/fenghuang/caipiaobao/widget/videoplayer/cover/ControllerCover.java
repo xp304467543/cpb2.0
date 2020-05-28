@@ -575,4 +575,9 @@ public class ControllerCover extends BaseCover implements OnTimerUpdateListener,
     @Override
     public void onEndGesture() {
     }
+
+    @Override
+    public void onSingleConfirm(MotionEvent event) {
+
+    }
 }

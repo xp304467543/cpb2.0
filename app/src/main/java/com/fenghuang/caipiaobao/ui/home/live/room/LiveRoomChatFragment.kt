@@ -184,7 +184,10 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
         }
 
         imgBuyLottery.setOnClickListener {
-            RxBus.get().post(JumpToBuyLottery(true))
+            RxBus.get().post(JumpToBuyLottery(0))
+        }
+        imgBuyLotteryQp.setOnClickListener {
+            RxBus.get().post(JumpToBuyLottery(1))
         }
 
         imgShake.setOnClickListener {

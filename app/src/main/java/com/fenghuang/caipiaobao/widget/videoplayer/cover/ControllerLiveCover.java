@@ -22,6 +22,7 @@ import com.example.playerlibrary.touch.OnTouchGestureListener;
 import com.example.playerlibrary.utils.TimeUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.fenghuang.baselib.utils.LogUtils;
+import com.fenghuang.baselib.utils.ToastUtils;
 import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.baselib.widget.round.RoundLinearLayout;
 import com.fenghuang.baselib.widget.round.RoundTextView;
@@ -549,12 +550,20 @@ public class ControllerLiveCover extends BaseCover implements OnTimerUpdateListe
         if (isShowControllerView) {
             toggleController();
         } else {
+//            notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE_ENTER, null);
+        }
+    }
+
+    @Override
+    public void onSingleConfirm(MotionEvent event) {
+        if (!isShowControllerView) {
             notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CLOSE_ENTER, null);
         }
     }
 
     @Override
     public void onDoubleTap(MotionEvent event) {
+        notifyReceiverEvent(DataInter.Event.EVENT_CODE_REQUEST_CHANGE, null);
     }
 
     @Override
@@ -574,8 +583,6 @@ public class ControllerLiveCover extends BaseCover implements OnTimerUpdateListe
 
     //横竖屏切换   true 横屏  false 竖屏
     private void changeScreen(Boolean isLandscape) {
-        LogUtils.INSTANCE.e("-------->"+isLandscape);
-        LogUtils.INSTANCE.e("-------->"+containerHor.getVisibility());
         if (!isLandscape) {
             containerAttention.setVisibility(View.GONE);
             containerHor.setVisibility(View.GONE);

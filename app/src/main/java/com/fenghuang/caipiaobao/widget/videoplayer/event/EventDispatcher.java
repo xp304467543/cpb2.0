@@ -111,6 +111,11 @@ public final class EventDispatcher implements IEventDispatcher{
     }
 
     @Override
+    public void dispatchTouchEventOnSingleTabConfirm(MotionEvent event) {
+        filterImplOnTouchEventListener(receiver -> ((OnTouchGestureListener)receiver).onSingleConfirm(event));
+    }
+
+    @Override
     public void dispatchTouchEventOnDoubleTabUp(final MotionEvent event) {
         filterImplOnTouchEventListener(receiver -> ((OnTouchGestureListener)receiver).onDoubleTap(event));
     }

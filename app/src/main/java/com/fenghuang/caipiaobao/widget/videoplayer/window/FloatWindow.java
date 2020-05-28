@@ -100,6 +100,11 @@ public class FloatWindow extends FrameLayout implements IWindow, IStyleSetter {
         setElevationShadow(Color.BLACK, elevation);
     }
 
+    @Override
+    public void setRotate(int rotate) {
+      setRotationX(90);
+    }
+
     /**
      * must setting a color when set shadow, not transparent.
      * @param backgroundColor
@@ -118,6 +123,11 @@ public class FloatWindow extends FrameLayout implements IWindow, IStyleSetter {
     @Override
     public boolean isWindowShow() {
         return mWindowHelper.isWindowShow();
+    }
+
+    @Override
+    public void rotationView(int rotate) {
+        setRotation(rotate);
     }
 
     @Override
@@ -171,6 +181,19 @@ public class FloatWindow extends FrameLayout implements IWindow, IStyleSetter {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return mWindowHelper.onTouchEvent(event) || super.onTouchEvent(event);
+    }
+
+
+    public void upDateSize(int width, int height){
+        mWindowHelper.upDataSize(width, height);
+    }
+
+    public void upDateSizeRotate(int width, int height){
+        mWindowHelper.upDataSizeRotate(width, height);
+    }
+
+    public void setOrientation(int orientation){
+        setRotation(90);
     }
 
 }

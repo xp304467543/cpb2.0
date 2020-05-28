@@ -540,4 +540,8 @@ public final class RelationAssist implements AssistPlay {
         detachSuperContainer();
         setReceiverGroup(null);
     }
+
+    public void rotate(int rotate){
+        mRender.setVideoRotation(rotate);
+    }
 }

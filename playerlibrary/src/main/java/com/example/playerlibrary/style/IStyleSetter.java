@@ -36,6 +36,8 @@ public interface IStyleSetter {
 
     void setElevationShadow(float elevation);
 
+    void setRotate(int rotate);
+
     /**
      * must setting a color when set shadow, not transparent.
      * @param backgroundColor

@@ -397,4 +397,9 @@ public class GestureCover extends BaseCover implements OnTouchGestureListener {
         }
         mHorizontalSlide = false;
     }
+
+    @Override
+    public void onSingleConfirm(MotionEvent event) {
+
+    }
 }

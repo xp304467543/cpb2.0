@@ -16,7 +16,7 @@ import com.fenghuang.caipiaobao.widget.videoplayer.widget.BaseVideoView;
  *
  */
 @SuppressLint("ViewConstructor")
-public class WindowVideoView extends BaseVideoView implements IWindow {
+    public class WindowVideoView extends BaseVideoView implements IWindow {
 
     private WindowHelper mWindowHelper;
 
@@ -61,6 +61,11 @@ public class WindowVideoView extends BaseVideoView implements IWindow {
     @Override
     public boolean isWindowShow() {
         return mWindowHelper.isWindowShow();
+    }
+
+    @Override
+    public void rotationView(int rotate) {
+        mWindowHelper.rotationView(rotate);
     }
 
     @Override

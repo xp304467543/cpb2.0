@@ -54,6 +54,15 @@ public class BaseGestureCallbackHandler extends GestureDetector.SimpleOnGestureL
         return super.onSingleTapUp(e);
     }
 
+
+    @Override
+    public boolean onSingleTapConfirmed(MotionEvent e) {
+        if(mOnTouchGestureListener !=null){
+            mOnTouchGestureListener.onSingleConfirm(e);
+        }
+        return super.onSingleTapConfirmed(e);
+    }
+
     @Override
     public boolean onDoubleTap(MotionEvent e) {
         if(mOnTouchGestureListener !=null){

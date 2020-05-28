@@ -9,11 +9,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.ViewGroup
 import android.view.WindowManager.LayoutParams
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import com.example.playerlibrary.AlivcLiveRoom.ScreenUtils
 import com.example.playerlibrary.utils.WindowPermissionCheck
 import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveEnterRoomResponse
 import com.fenghuang.caipiaobao.widget.videoplayer.assist.*
 import com.fenghuang.caipiaobao.widget.videoplayer.assist.DataInter.ReceiverKey.KEY_CONTROLLER_live_COVER
@@ -77,7 +80,7 @@ class LiveRoomActivityHelper {
     private fun initVideoPlayer() {
         if (data != null) {
             decorView = ScreenUtils.getDecorView(activity)
-            if (mAssist!=null)mAssist?.destroy()
+            if (mAssist != null) mAssist?.destroy()
             mAssist = RelationAssistSingleton.getAssist(activity)
             FloatWindowSingleton.releaseFloatWindow()
             mFloatWindow = FloatWindowSingleton.getFloatWindow(activity)
@@ -111,18 +114,18 @@ class LiveRoomActivityHelper {
     }
 
     fun startPlay(url: String) {
-            RelationAssistSingleton.releaseAssist()
-            initVideoPlayer()
-            //http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8
-            val dataSource = DataSource()
-            dataSource.data = url
-            dataSource.title = ""
-            mAssist!!.setDataSource(dataSource)
-            mAssist!!.attachContainer(videoContainer)
-            mAssist!!.play()
-            if (mFloatWindow != null && mFloatWindow!!.isWindowShow) {
-                normalPlay()
-            }
+        RelationAssistSingleton.releaseAssist()
+        initVideoPlayer()
+        //http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8
+        val dataSource = DataSource()
+        dataSource.data = url
+        dataSource.title = ""
+        mAssist!!.setDataSource(dataSource)
+        mAssist!!.attachContainer(videoContainer)
+        mAssist!!.play()
+        if (mFloatWindow != null && mFloatWindow!!.isWindowShow) {
+            normalPlay()
+        }
 
     }
 
@@ -179,6 +182,8 @@ class LiveRoomActivityHelper {
                     intent.putExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID, FloatWindowSingleton.getLotteryId())
                     activity.startActivity(intent)
                     if (mFloatWindow != null && mFloatWindow!!.isWindowShow) {
+                        FloatWindowSingleton.isLan = false
+                        mAssist?.rotate(0)
                         normalPlay()
                     }
                 }
@@ -202,6 +207,80 @@ class LiveRoomActivityHelper {
                 }
                 DataInter.Event.EVENT_CODE_RECHARGE -> {
                     activity.goReCharge()
+                }
+                DataInter.Event.EVENT_CODE_REQUEST_CHANGE -> {
+                    val widthPixels = activity.resources.displayMetrics.widthPixels
+                    if (FloatWindowSingleton.isLan) {
+                        val height = when {
+                            UserInfoSp.getVideoSize() == 1 -> {
+                                UserInfoSp.getVideoSize(2)
+                                (widthPixels * 0.8f).toInt()
+                            }
+                            UserInfoSp.getVideoSize() == 2 -> {
+                                UserInfoSp.getVideoSize(3)
+                                (widthPixels * 0.9f).toInt()
+                            }
+                            else -> {
+                                UserInfoSp.getVideoSize(1)
+                                (widthPixels * 0.6f).toInt()
+                            }
+                        }
+                        val width = height * 9 / 16
+                        FloatWindowSingleton.upDateSizeNormal(width, height)
+                    } else {
+                        val width = when {
+                            UserInfoSp.getVideoSize() == 1 -> {
+                                UserInfoSp.getVideoSize(2)
+                                (widthPixels * 0.8f).toInt()
+                            }
+                            UserInfoSp.getVideoSize() == 2 -> {
+                                UserInfoSp.getVideoSize(3)
+                                (widthPixels * 0.9f).toInt()
+                            }
+                            else -> {
+                                UserInfoSp.getVideoSize(1)
+                                (widthPixels * 0.6f).toInt()
+                            }
+                        }
+                        val height = width * 9 / 16
+                        FloatWindowSingleton.upDateSizeNormal(width, height)
+                    }
+
+                }
+
+                DataInter.Event.EVENT_CODE_REQUEST_ROTATE -> {
+                    val widthPixels = activity.resources.displayMetrics.widthPixels
+                    if (!FloatWindowSingleton.isLan) {
+                        val height = when {
+                            UserInfoSp.getVideoSize() == 1 -> {
+                                (widthPixels * 0.6f).toInt()
+                            }
+                            UserInfoSp.getVideoSize() == 2 -> {
+                                (widthPixels * 0.8f).toInt()
+                            }
+                            else -> {
+                                (widthPixels * 0.9f).toInt()
+                            }
+                        }
+                        val width = height * 9 / 16
+                        FloatWindowSingleton.upDateSizeRotate(width, height)
+                        mAssist?.rotate(90)
+                    } else {
+                        val width = when {
+                            UserInfoSp.getVideoSize() == 1 -> {
+                                (widthPixels * 0.6f).toInt()
+                            }
+                            UserInfoSp.getVideoSize() == 2 -> {
+                                (widthPixels * 0.8f).toInt()
+                            }
+                            else -> {
+                                (widthPixels * 0.9f).toInt()
+                            }
+                        }
+                        val height = width * 9 / 16
+                        FloatWindowSingleton.upDateSize(width, height)
+                        mAssist?.rotate(0)
+                    }
                 }
             }
         }
@@ -255,7 +334,7 @@ class LiveRoomActivityHelper {
         if (mFloatWindow != null && !mFloatWindow!!.isWindowShow) {
             mReceiverGroup!!.getReceiver<ControllerLiveCover>(KEY_CONTROLLER_live_COVER).setIsShowControllerView(false)
             changeMode(true)
-            mFloatWindow!!.setElevationShadow(50f)
+//            mFloatWindow!!.setElevationShadow(50f)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 mFloatWindow!!.setRoundRectShape(20f)
             mFloatWindow!!.show()
