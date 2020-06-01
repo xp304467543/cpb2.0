@@ -96,7 +96,7 @@ data class BetLotteryBean(var betting: String,
                           var chessArr:List<String>?,
                           var app_start_banner:StartBanner?)
 
-data class StartBanner(var type:String?,var image_url:String?)
+data class StartBanner(var type:String?,var image_url:String?,var url:String?)
 
 /**
  * version_data : 版本信息

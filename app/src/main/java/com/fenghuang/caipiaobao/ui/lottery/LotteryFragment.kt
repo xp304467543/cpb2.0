@@ -54,8 +54,16 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         setStatusBarHeight(stateViewLottery)
         initBaseView()
         //皮肤
-        if (UserInfoSp.getSkinSelect()!=1){
-            skin2()
+        when (UserInfoSp.getSkinSelect()) {
+            1 -> {
+                skin()
+            }
+            2 -> {
+                skin2()
+            }
+            3 -> {
+                skin3()
+            }
         }
     }
 
@@ -160,7 +168,11 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             2 -> {
                 skin2()
             }
+            3 -> {
+                skin3()
+            }
         }
+        lotteryTypeAdapter?.notifyDataSetChanged()
     }
 
     private fun skin(){
@@ -170,6 +182,11 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     private fun skin2(){
         topContainer.background = getDrawable(R.mipmap.ic_skin_new_year_top)
+        tvTitle.setTextColor(getColor(R.color.white))
+    }
+
+    private fun skin3(){
+        topContainer.background = getDrawable(R.mipmap.ic_skin_d5_top)
         tvTitle.setTextColor(getColor(R.color.white))
     }
 }

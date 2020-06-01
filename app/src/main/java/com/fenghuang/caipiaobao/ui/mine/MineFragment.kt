@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.mine
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color.red
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ViewUtils
@@ -49,8 +50,16 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
         ImageManager.loadImg(UserInfoSp.getUserPhoto(), imgMineUserAvatar)
         //皮肤
-        if (UserInfoSp.getSkinSelect()!=1){
-            skin2()
+        when (UserInfoSp.getSkinSelect()) {
+            1 -> {
+                skin()
+            }
+            2 -> {
+                skin2()
+            }
+            3 -> {
+                skin3()
+            }
         }
     }
 
@@ -165,6 +174,12 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
                 LaunchUtils.startFragment(requireActivity(), MinePersonalFragment())
             }
         }
+        //官方群
+        containerGroup.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                LaunchUtils.startFragment(requireActivity(), MineContentGroupFragment())
+            }
+        }
         //设置
         containerSetting.setOnClickListener {
             if (!UserInfoSp.getIsLogin()) {
@@ -276,7 +291,9 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             tvMineUserId.text = "ID: " + UserInfoSp.getUserUniqueId()
             val fans = UserInfoSp.getUserFans()?.split(",")
             tvMineUserOther.text = fans!![0] + "关注   |   " + fans[1] + "粉丝   |   " + fans[2] + "获赞"
-            if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null") tvMineProfile.text = UserInfoSp.getUserProfile()
+            if (!UserInfoSp.getUserProfile().isNullOrEmpty() && UserInfoSp.getUserProfile() != "null") {
+                tvMineProfile.text = UserInfoSp.getUserProfile()
+            }else  tvMineProfile.text ="说点什么吧..."
             setVisible(containerLogin)
             setGone(containerNoLogin)
             mPresenter.getUserVip()
@@ -299,7 +316,9 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             2 -> {
                 skin2()
             }
-            else -> {}
+            3 -> {
+                skin3()
+            }
         }
 
     }
@@ -313,7 +332,12 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         imgAnchor.background = getDrawable(R.mipmap.ic_mine_anchor_get)
         imgFeedBack.background = getDrawable(R.mipmap.ic_mine_suggest)
         imgCustomer.background = getDrawable(R.mipmap.ic_mine_customer)
+        imgGroup.background = getDrawable(R.mipmap.ic_mine_imggrooup)
         imgSetting.background = getDrawable(R.mipmap.ic_mine_setting)
+        tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_deposit), null, null)
+        tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_wallet), null, null)
+        tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_attention), null, null)
+        tvLogin.setTextColor(ViewUtils.getColor(R.color.text_red))
     }
 
     private fun skin2(){
@@ -324,7 +348,28 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         imgAnchor.background = getDrawable(R.mipmap.ic_skin_4)
         imgFeedBack.background = getDrawable(R.mipmap.ic_skin_5)
         imgCustomer.background = getDrawable(R.mipmap.ic_skin_6)
-        imgSetting.background = getDrawable(R.mipmap.ic_skin_7)
+        imgGroup.background = getDrawable(R.mipmap.ic_skin_7)
+        imgSetting.background = getDrawable(R.mipmap.ic_skin_8)
+        tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_deposit), null, null)
+        tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_wallet), null, null)
+        tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_attention), null, null)
+        tvLogin.setTextColor(ViewUtils.getColor(R.color.text_red))
+    }
+
+    private fun skin3(){
+        imgChangeDiamon.background = getDrawable(R.mipmap.ic_skin_d5)
+        imgMessage.background = getDrawable(R.mipmap.ic_skin_d5_1)
+        imgCheck.background = getDrawable(R.mipmap.ic_skin_d5_2)
+        imgSkin.background = getDrawable(R.mipmap.ic_skin_d5_3)
+        imgAnchor.background = getDrawable(R.mipmap.ic_skin_d5_4)
+        imgFeedBack.background = getDrawable(R.mipmap.ic_skin_d5_5)
+        imgCustomer.background = getDrawable(R.mipmap.ic_skin_d5_6)
+        imgGroup.background = getDrawable(R.mipmap.ic_skin_d5_7)
+        imgSetting.background = getDrawable(R.mipmap.ic_skin_d5_8)
+        tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_1), null, null)
+        tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_2), null, null)
+        tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_3), null, null)
+        tvLogin.setTextColor(ViewUtils.getColor(R.color.alivc_green))
     }
 
 }

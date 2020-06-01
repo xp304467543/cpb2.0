@@ -11,6 +11,7 @@ import com.fenghuang.baselib.utils.NetWorkUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserConstant
+import com.fenghuang.caipiaobao.ui.WebGlobalActivity
 import com.fenghuang.caipiaobao.ui.home.live.LiveRoomActivity
 import com.fenghuang.caipiaobao.ui.login.WebActivity
 import com.fenghuang.caipiaobao.ui.main.MainActivity
@@ -153,7 +154,15 @@ object LaunchUtils {
         val intent = Intent(context, WebActivity::class.java)
         startActivity(context, intent)
     }
-
+    /**
+     * 跳转公共 web
+     */
+    fun starGlobalWeb(context: Context?,title:String,url:String){
+        val intent = Intent(context, WebGlobalActivity::class.java)
+        intent.putExtra("title",title)
+        intent.putExtra("urlGlobal",url)
+        startActivity(context, intent)
+    }
     /**
      * 跳转充值
      */

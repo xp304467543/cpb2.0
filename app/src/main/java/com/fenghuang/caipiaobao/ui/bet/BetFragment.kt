@@ -16,15 +16,18 @@ import com.app.hubert.guide.NewbieGuide
 import com.app.hubert.guide.model.GuidePage
 import com.app.hubert.guide.model.HighLight
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.web.utils.ZpImageUtils
 import com.fenghuang.baselib.web.utils.ZpWebChromeClient
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
+import com.fenghuang.caipiaobao.ui.home.data.BetLotteryBean
 import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
 import com.fenghuang.caipiaobao.ui.home.data.LineCheck
 import com.fenghuang.caipiaobao.ui.home.data.WebSelect
+import com.fenghuang.caipiaobao.utils.NetPingManager
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.fenghuang.caipiaobao.widget.pop.LotteryLinePop
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -51,13 +54,23 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     var currentId = -1
 
+    var isLoad: Boolean = false
+
+    var isloadW1:Boolean = false
+    var isloadW2:Boolean = false
     var baseUrl: String? = null
 
     var linePop: LotteryLinePop? = null
 
     var lineList: List<String>? = null
 
+    var lineList2: List<String>? = null
+
     var listCheck: ArrayList<LineCheck>? = null
+
+    var listCheck2: ArrayList<LineCheck>? = null
+
+    var dataBean: BetLotteryBean? = null
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -79,20 +92,123 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun webSelect(eventBean: WebSelect) {
-        if (currentId!=eventBean.pos){
-            currentId = eventBean.pos
-            mPresenter.getUrl(currentId)
+        currentId = eventBean.pos
+        if (dataBean == null) {
+            mPresenter.getUrl()
+        } else {
+            if (!isLoad) {
+                loadWeb()
+            } else {
+                if (currentId == 0) {
+                    setVisible(baseBetWebView)
+                    setGone(qbtWebView)
+                    qbtWebView.onPause()
+                    baseBetWebView.onResume()
+                    loadPing(realUrl1)
+                    if (!isloadW1)  {
+                        isloadW1 = true
+                        baseBetWebView.loadUrl(dataBean?.bettingArr!![0])
+                    }
+                } else {
+                    baseBetWebView.onPause()
+                    qbtWebView.onResume()
+                    setGone(baseBetWebView)
+                    setVisible(qbtWebView)
+                    loadPing(realUrl2)
+                    if (!isloadW2)   {
+                        isloadW2 = true
+                        qbtWebView.loadUrl(dataBean?.chessArr!![0])
+                    }
+                }
+            }
+
         }
+    }
+
+    var mLDNetPingService: NetPingManager? = null
+    var realUrl1 = ""
+    var realUrl2 = ""
+     fun loadWeb() {
+        isLoad = true
+        listCheck = arrayListOf()
+        listCheck2 = arrayListOf()
+        lineList = dataBean?.bettingArr
+        lineList2 = dataBean?.chessArr
+        val str1 = dataBean?.bettingArr!![0].indexOf("//")
+         realUrl1 = dataBean?.bettingArr!![0].substring(str1 + 2, dataBean?.bettingArr!![0].length)
+
+        for ((index, res) in lineList!!.withIndex()) {
+            val url = res.substring(str1 + 2, res.length)
+            val check = if (index == 0) {
+                LineCheck(url, true)
+            } else LineCheck(url)
+            listCheck?.add(check)
+        }
+        val last = dataBean?.chessArr!![0].split("?")[0]
+        val str2 = last.indexOf("//")
+         realUrl2 = last.substring(str2 + 2, last.length - 1)
+        for ((index, res) in lineList2!!.withIndex()) {
+            val url = last.substring(str2 + 2, last.length - 1)
+            val check = if (index == 0) {
+                LineCheck(url, true)
+            } else LineCheck(url)
+            listCheck2?.add(check)
+        }
+        if (currentId == 0) {
+            setVisible(baseBetWebView)
+            setGone(qbtWebView)
+            baseBetWebView.loadUrl(dataBean?.bettingArr!![0])
+            loadPing(realUrl1)
+            isloadW1 = true
+        } else if (currentId == 1) {
+            setGone(baseBetWebView)
+            setVisible(qbtWebView)
+            qbtWebView.loadUrl(dataBean?.chessArr!![0])
+            loadPing(realUrl2)
+            isloadW2 = true
+        }
+
+
+    }
+
+    private fun loadPing(url:String){
+        mLDNetPingService = NetPingManager(context, url, object : NetPingManager.IOnNetPingListener {
+            @SuppressLint("SetTextI18n")
+            override fun ontDelay(log: Long) {
+                mLDNetPingService?.release()
+                post {
+                    tvLineDelay.text = (log / 5).toString() + "ms"
+                    if ((log / 5) > 100) {
+                        setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorYellow))
+                    } else {
+                        setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorGreen))
+                    }
+                }
+            }
+
+            override fun onError() {
+                mLDNetPingService?.release()
+            }
+
+        })
+        mLDNetPingService?.getDelay()
     }
 
 
     override fun initEvent() {
         findView<ImageView>(R.id.betBack).setOnClickListener {
-            if (baseBetWebView.canGoBack()) {
-                baseBetWebView.goBack()
+            if (currentId == 0) {
+                if (baseBetWebView.canGoBack()) {
+                    baseBetWebView.goBack()
+                }
+            } else {
+                if (qbtWebView.canGoBack()) {
+                    qbtWebView.goBack()
+                }
             }
+
         }
-        findView<ImageView>(R.id.betRefresh).setOnClickListener { mPresenter.getUrl(currentId) }
+        findView<ImageView>(R.id.betRefresh).setOnClickListener { mPresenter.getUrl() }
 
         tvLineOffset.setOnClickListener {
             showLinePop()
@@ -104,14 +220,13 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     @SuppressLint("SetTextI18n")
     private fun showLinePop() {
-        if (lineList == null) {
-            ToastUtils.show("暂无其他线路")
-            return
+        linePop = if (currentId == 0){
+            if (listCheck.isNullOrEmpty())return
+            LotteryLinePop(getPageActivity(), listCheck!!)
+        }else {
+            if (listCheck2.isNullOrEmpty())return
+            LotteryLinePop(getPageActivity(), listCheck2!!)
         }
-        if (listCheck.isNullOrEmpty()) {
-            return
-        }
-        linePop = LotteryLinePop(getPageActivity(), listCheck!!)
         linePop?.showAtLocationBottom(tvLineDelay, 0f)
         linePop?.setSelectListener { it, pos, ms ->
             tvLineOffset.text = "线路" + (pos + 1)
@@ -121,7 +236,12 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
             } else {
                 setTextColor(R.id.tvLineDelay, ViewUtils.getColor(R.color.colorGreen))
             }
-            baseBetWebView.loadUrl(it)
+
+            if (currentId == 0) {
+                baseBetWebView.loadUrl(it)
+            } else {
+                qbtWebView.loadUrl(it)
+            }
         }
         linePop?.showAtLocationBottom(tvLineDelay, 10f)
 
@@ -131,6 +251,38 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     private var mUploadMsg: ValueCallback<Uri>? = null
     private var mUploadMsgs: ValueCallback<Array<Uri>>? = null
     private fun initWeb() {
+        qbtWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                try {
+                    if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
+                            url.startsWith("mailto://") || url.startsWith("tel://") || url.startsWith("tel:") || url.startsWith(
+                                    "mqq://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }//其他自定义的scheme
+                } catch (e: Exception) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false
+                }
+
+                return false
+            }
+        }
+        qbtWebView.setOpenFileChooserCallBack(object : ZpWebChromeClient.OpenFileChooserCallBack {
+            override fun openFileChooserCallBack(uploadMsg: ValueCallback<Uri>, acceptType: String) {
+                mUploadMsg = uploadMsg
+                checkPermission(0, null)
+
+            }
+
+            override fun showFileChooserCallBack(filePathCallback: ValueCallback<Array<Uri>>, fileChooserParams: WebChromeClient.FileChooserParams) {
+                if (mUploadMsgs != null) {
+                    mUploadMsgs!!.onReceiveValue(null)
+                }
+                mUploadMsgs = filePathCallback
+                checkPermission(1, fileChooserParams)
+            }
+        })
         baseBetWebView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 try {
@@ -331,13 +483,17 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     override fun onSupportVisible() {
         super.onSupportVisible()
-        baseBetWebView.onResume()
+        if (currentId == 0){
+            baseBetWebView.onResume()
+        }else  qbtWebView.onResume()
     }
 
     override fun onSupportInvisible() {
         super.onSupportInvisible()
         baseBetWebView.onPause()
+        qbtWebView.onPause()
     }
+
     /**
      * 跳转购彩
      */

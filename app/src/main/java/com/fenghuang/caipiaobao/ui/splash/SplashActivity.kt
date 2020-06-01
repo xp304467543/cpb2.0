@@ -14,6 +14,7 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.main.MainActivity
 import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import kotlinx.android.synthetic.main.activity_splash.*
 import me.jessyan.autosize.internal.CancelAdapt
 
@@ -25,9 +26,12 @@ import me.jessyan.autosize.internal.CancelAdapt
 @SuppressLint("SetTextI18n")
 class SplashActivity : Activity(), CancelAdapt {
     // ===== 倒计时 =====
-    var timer: CountDownTimer? = null
+//    var timer: CountDownTimer? = null
 
-    var isTurn = true
+//    var isTurn = true
+
+    var goToURL = ""
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,36 +42,49 @@ class SplashActivity : Activity(), CancelAdapt {
     }
 
     private fun initContent() {
-        tvDaoJiShi.setOnClickListener {
+        btEnter.setOnClickListener {
             if (FastClickUtils.isFastClick1000()) {
-                isTurn = false
-                timer?.cancel()
                 startActivity(Intent(baseContext, MainActivity::class.java))
                 finish()
             }
         }
-        timer = object : CountDownTimer(4000, 1000) {
-            override fun onFinish() {
-                if (isTurn) {
-                    startActivity(Intent(baseContext, MainActivity::class.java))
-                    finish()
-                }
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                //文字显示3秒跳转
-                tvDaoJiShi.text = (millisUntilFinished / 1000).toString() + "秒跳转"
+        startImg.setOnClickListener {
+            if (goToURL != ""){
+                LaunchUtils.starGlobalWeb(this,"",goToURL)
             }
         }
+//        tvDaoJiShi.setOnClickListener {
+//            if (FastClickUtils.isFastClick1000()) {
+//                isTurn = false
+//                timer?.cancel()
+//                startActivity(Intent(baseContext, MainActivity::class.java))
+//                finish()
+//            }
+//        }
+//        timer = object : CountDownTimer(4000, 1000) {
+//            override fun onFinish() {
+//                if (isTurn) {
+//                    startActivity(Intent(baseContext, MainActivity::class.java))
+//                    finish()
+//                }
+//            }
+//
+//            override fun onTick(millisUntilFinished: Long) {
+//                //文字显示3秒跳转
+//                tvDaoJiShi.text = (millisUntilFinished / 1000).toString() + "秒跳转"
+//            }
+//        }
         initSome()
     }
+
 
     private fun initSome() {
         HomeApi.getLotteryUrl {
             onSuccess {
                 UserInfoSp.putCustomer(it.customer)
                 ImageManager.loadImg(it.app_start_banner?.image_url, startImg)
-                timer?.start()
+//                timer?.start()
+                goToURL = it.app_start_banner?.url ?: ""
             }
             onFailed { }
         }

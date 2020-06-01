@@ -62,9 +62,7 @@ class LotteryLinePop(context: Context, listLine: List<LineCheck>) : BasePopupWin
                 val check = findView<SwitchButtonRed>(R.id.lineSwitch)
                 check.isChecked = data.boolean
                 val tvMs = findView<TextView>(R.id.tvLineMs)
-                val str = data.url.indexOf("//")
-                val realUrl = data.url.substring(str + 2, data.url.length)
-                mLDNetPingService = NetPingManager(getContext(), realUrl, object : NetPingManager.IOnNetPingListener {
+                mLDNetPingService = NetPingManager(getContext(), data.url, object : NetPingManager.IOnNetPingListener {
                     @SuppressLint("SetTextI18n")
                     override fun ontDelay(log: Long) {
                         tvMs.post {

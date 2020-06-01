@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 
 /**
@@ -29,7 +30,9 @@ class LotteryTypeAdapter(context: Context) : BaseRecyclerAdapter<LotteryTypeResp
         override fun onBindData(data: LotteryTypeResponse) {
             if (clickPosition == getDataPosition()) {
                 findView<TextView>(R.id.tvLotteryType).setTextColor(getColor(R.color.white))
-                findView<TextView>(R.id.tvLotteryType).setBackgroundResource(R.drawable.button_background)
+                if (UserInfoSp.getSkinSelect() == 3) {
+                    findView<TextView>(R.id.tvLotteryType).setBackgroundResource(R.drawable.button_green_background)
+                } else findView<TextView>(R.id.tvLotteryType).setBackgroundResource(R.drawable.button_background)
                 findView<TextView>(R.id.tvLotteryType).typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             } else {
                 findView<TextView>(R.id.tvLotteryType).setTextColor(getColor(R.color.color_999999))

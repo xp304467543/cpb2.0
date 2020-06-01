@@ -108,6 +108,9 @@ object MineApi : BaseApi {
     //热门讨论列表 - 单个
     private const val HOT_DISCUSS = "/article/index"
 
+    //官方联系
+    private const val CONTENT_GROUP = "/api/v1_1/live/contact/"
+
     /**
      * 获取用户信息
      */
@@ -450,7 +453,7 @@ object MineApi : BaseApi {
     fun getMessageTips(msg_type: String, function: ApiSubscriber<List<MineMessageCenter>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineMessageCenter>>() {}
         subscriber.function()
-        getApi().get<List<MineMessageCenter>>(USER_MESSAGE_CENTER)
+        getApi().get<List<MineMessageCenter>>(  USER_MESSAGE_CENTER)
                 .headers("token", UserInfoSp.getToken())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("msg_type", msg_type)
@@ -468,6 +471,18 @@ object MineApi : BaseApi {
                 .params("user_id", UserInfoSp.getUserId())
                 .subscribe(subscriber)
     }
+
+
+    /**
+     * 官方联系
+     */
+    fun getContentGroup(function: ApiSubscriber<List<MineGroup>>.() -> Unit){
+        val subscriber = object : ApiSubscriber<List<MineGroup>>() {}
+        subscriber.function()
+        getApi().get<List<MineGroup>>(CONTENT_GROUP)
+                .subscribe(subscriber)
+    }
+
 
     /**
      * 设置支付密码

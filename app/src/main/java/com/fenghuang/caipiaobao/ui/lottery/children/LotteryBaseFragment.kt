@@ -6,15 +6,20 @@ import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryExpertPlay
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryNewCode
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeSelect
+import com.fenghuang.caipiaobao.ui.mine.data.ChangeSkin
 import com.google.android.material.tabs.TabLayout
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
+import kotlinx.android.synthetic.main.child_fragment_lu_zhu.*
 import kotlinx.android.synthetic.main.child_lottery_base.*
+import kotlinx.android.synthetic.main.fragment_moments.*
 
 /**
  *
@@ -48,6 +53,18 @@ class LotteryBaseFragment : BaseContentFragment() {
             "-999" -> {
             }
             else -> initView(arguments?.getString("lotteryId")!!)
+        }
+        //皮肤
+        when (UserInfoSp.getSkinSelect()) {
+            1 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+            }
+            2 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+            }
+            3 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.alivc_green))
+            }
         }
     }
 
@@ -169,5 +186,21 @@ class LotteryBaseFragment : BaseContentFragment() {
         }
     }
 
+    //换肤
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun changeSkin(eventBean: ChangeSkin) {
+        when (eventBean.id) {
 
+            1 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+            }
+            2 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+            }
+            3 -> {
+                lotteryTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.alivc_green))
+            }
+        }
+        lotteryLuZhuFragment?.luZhuRecycleAdapter?.notifyDataSetChanged()
+    }
 }

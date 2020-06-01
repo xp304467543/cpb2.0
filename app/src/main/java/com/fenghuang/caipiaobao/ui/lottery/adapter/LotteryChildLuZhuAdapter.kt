@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
+import com.fenghuang.baselib.utils.ViewUtils
+import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryComposeUtil
 import com.fenghuang.caipiaobao.ui.lottery.constant.LotteryConstant
 import com.fenghuang.caipiaobao.widget.VerticalTextView
@@ -40,6 +43,11 @@ class LotteryChildLuZhuAdapter(context: Context, private val lotteryID: String) 
             LotteryComposeUtil.initTitle(findView(R.id.tvLuZhuTotal), findView(R.id.tvLuZhuBallIndex), lotteryID, type, total, getDataPosition())
             initLuZhuData(findView(R.id.horizontalRecycle), data)
             val param = itemView.layoutParams
+            when(UserInfoSp.getSkinSelect()){
+                1 -> findView<RoundTextView>(R.id.topLine).delegate.backgroundColor = ViewUtils.getColor(R.color.text_red)
+                2 -> findView<RoundTextView>(R.id.topLine).delegate.backgroundColor = ViewUtils.getColor(R.color.text_red)
+                3 -> findView<RoundTextView>(R.id.topLine).delegate.backgroundColor = ViewUtils.getColor(R.color.alivc_green)
+            }
             if (hideList != null && hideList!!.isNotEmpty()) {
                 if (!hideList!![getDataPosition()]) {
                     param.height = 0

@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home.live.room
 
+import android.app.Activity
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.Button
@@ -24,6 +25,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBet
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBetAccess
 import com.fenghuang.caipiaobao.ui.lottery.data.PlaySecData
 import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.ForbiddenWordsDialog
@@ -260,6 +262,10 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
         //跟投
         private fun betFollow(data: HomeLiveTwentyNewsResponse?) {
             if (FastClickUtils.isFastClick()){
+                if (!UserInfoSp.getIsLogin()) {
+                    GlobalDialog.notLogged(getContext() as Activity )
+                    return
+                }
                 val result = JSONObject(data?.orders!!.toString())
                 val array = JsonUtils.fromJson(result.getString("order_detail"), Array<BetShareBean>::class.java)
                 val arrayList = arrayListOf<LotteryBet>()
@@ -268,7 +274,7 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
                             play_class_name = res.play_class_name, play_odds = res.play_odds,money = "10"
                     ), res.play_sec_cname))
                 }
-                val liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(arrayList, 1, 10, result.getString("play_bet_lottery_id"),
+                val liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(arrayList, 1, 10*arrayList.size, result.getString("play_bet_lottery_id"),
                         result.getString("play_bet_issue"), "0x11", result.getString("lottery_cid"), "",true,data.user_id))
                 liveRoomBetAccessFragment.show(fragmentManager, "liveRoomBetAccessFragment")
             }

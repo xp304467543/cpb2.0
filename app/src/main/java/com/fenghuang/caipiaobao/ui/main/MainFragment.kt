@@ -1,7 +1,10 @@
 package com.fenghuang.caipiaobao.ui.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
+import android.os.Build
+import androidx.core.content.ContextCompat
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.utils.AppUtils.moveTaskToBack
@@ -50,8 +53,16 @@ class MainFragment : BaseContentFragment() {
         loadMultipleRootFragment(R.id.mainContainer, 0,
                 mFragments[0], mFragments[1], mFragments[2], mFragments[3], mFragments[4])
         //皮肤
-        if (UserInfoSp.getSkinSelect() != 1) {
-            skin2()
+        when (UserInfoSp.getSkinSelect()) {
+            1 -> {
+                skin()
+            }
+            2 -> {
+                skin2()
+            }
+            3 -> {
+                skin3()
+            }
         }
     }
 
@@ -170,20 +181,32 @@ class MainFragment : BaseContentFragment() {
             2 -> {
                 skin2()
             }
-            else -> {
+            3 -> {
+                skin3()
             }
         }
 
     }
-
+    @SuppressLint("ResourceType")
     private fun skin() {
         tabHome.setCompoundDrawablesRelativeWithIntrinsicBounds(null, getDrawable(R.drawable.button_tab_home), null, null)
         tabLotteryOpen.setCompoundDrawablesRelativeWithIntrinsicBounds(null, getDrawable(R.drawable.button_tab_lottery), null, null)
         tabFriends.setCompoundDrawablesRelativeWithIntrinsicBounds(null, getDrawable(R.drawable.button_tab_quiz), null, null)
         tabMine.setCompoundDrawablesRelativeWithIntrinsicBounds(null, getDrawable(R.drawable.button_tab_mine), null, null)
+        tabHome.setTextColor(R.drawable.tab_bottom_menu_text_selector)
+        tabLotteryOpen.setTextColor(R.drawable.tab_bottom_menu_text_selector)
+        tabFriends.setTextColor(R.drawable.tab_bottom_menu_text_selector)
+        tabMine.setTextColor(R.drawable.tab_bottom_menu_text_selector)
         img_protruding.background = getDrawable(R.drawable.ic_tab)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tabHome.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabLotteryOpen.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabFriends.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabMine.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+        }
     }
 
+    @SuppressLint("ResourceType")
     private fun skin2() {
         val drawable1 = getDrawable(R.mipmap.ic_tab_new_year_1)
         val drawable2 = getDrawable(R.mipmap.ic_tab_new_year_2)
@@ -198,6 +221,35 @@ class MainFragment : BaseContentFragment() {
         tabFriends.setCompoundDrawables(null, drawable3, null, null)
         tabMine.setCompoundDrawables(null, drawable4, null, null)
         img_protruding.background = getDrawable(R.mipmap.ic_tab_new_year_5)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tabHome.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabLotteryOpen.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabFriends.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+            tabMine.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector,null))
+        }
+    }
+
+    @SuppressLint("ResourceType")
+    private fun skin3() {
+        val drawable1 = getDrawable(R.mipmap.ic_tab_d5_1)
+        val drawable2 = getDrawable(R.mipmap.ic_tab_d5_2)
+        val drawable3 = getDrawable(R.mipmap.ic_tab_d5_3)
+        val drawable4 = getDrawable(R.mipmap.ic_tab_d5_4)
+        drawable1?.setBounds(0, 0, ViewUtils.dp2px(30), ViewUtils.dp2px(30))
+        drawable2?.setBounds(0, 0, ViewUtils.dp2px(30), ViewUtils.dp2px(30))
+        drawable3?.setBounds(0, 0, ViewUtils.dp2px(30), ViewUtils.dp2px(30))
+        drawable4?.setBounds(0, 0, ViewUtils.dp2px(30), ViewUtils.dp2px(30))
+        tabHome.setCompoundDrawables(null, drawable1, null, null)
+        tabLotteryOpen.setCompoundDrawables(null, drawable2, null, null)
+        tabFriends.setCompoundDrawables(null, drawable3, null, null)
+        tabMine.setCompoundDrawables(null, drawable4, null, null)
+        img_protruding.background = getDrawable(R.mipmap.ic_tab_d5_5)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            tabHome.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector_green,null))
+            tabLotteryOpen.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector_green,null))
+            tabFriends.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector_green,null))
+            tabMine.setTextColor(resources.getColorStateList(R.drawable.tab_bottom_menu_text_selector_green,null))
+        }
 
     }
 

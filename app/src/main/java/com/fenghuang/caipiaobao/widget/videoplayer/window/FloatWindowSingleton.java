@@ -71,6 +71,7 @@ public class FloatWindowSingleton {
 
 
     public static void releaseFloatWindow() {
+        isLan = false;
         if (floatWindow != null) {
             floatWindow.close();
             floatWindow = null;

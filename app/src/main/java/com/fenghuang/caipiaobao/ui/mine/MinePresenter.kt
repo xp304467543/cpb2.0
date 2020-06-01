@@ -106,9 +106,11 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
         MineApi.getUserInfo {
             onSuccess {
                 if (mView.isSupportVisible) {
-                    mView.tvMineUserOther.text =it.following + "关注   |   " + it.followers + "粉丝   |   " + it.like + "获赞"
-                    if (!UserInfoSp.getUserProfile().isNullOrEmpty() || UserInfoSp.getUserProfile() != "null")
-                    mView.tvMineProfile.text = it.profile
+                    mView.tvMineUserOther.text = it.following + "关注   |   " + it.followers + "粉丝   |   " + it.like + "获赞"
+                    if (!UserInfoSp.getUserProfile().isNullOrEmpty() && UserInfoSp.getUserProfile() != "null") {
+                        mView.tvMineProfile.text = it.profile
+                    } else mView.tvMineProfile.text = "说点什么吧..."
+
                 }
             }
         }

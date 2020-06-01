@@ -3,9 +3,12 @@ package com.fenghuang.caipiaobao.ui.home
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
+import com.app.hubert.guide.NewbieGuide
+import com.app.hubert.guide.model.GuidePage
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
@@ -103,8 +106,10 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         //加载默认视图
         initBaseView()
         //皮肤
-        if (UserInfoSp.getSkinSelect() != 1) {
-            skin2()
+        when(UserInfoSp.getSkinSelect()){
+            1 -> skin()
+            2 -> skin2()
+            3 -> skin3()
         }
     }
 
@@ -398,15 +403,25 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
             2 -> {
                 skin2()
             }
-            else -> {
+            3 -> skin3()
+        }
+
+    }
+    //guide
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun guideShow(eventBean: GuideShow) {
+        if (eventBean.show) {
+            if (isVisible){
+                NewbieGuide.with(this).setLabel("guideVideo").addGuidePage(GuidePage().setLayoutRes(R.layout.guide_video)).show()
             }
         }
 
     }
-
     //默认
     private fun skin() {
         setGone(imgSkin)
+        tabLottery.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+        homeSmartRefreshLayout.setBackgroundResource(R.color.color_F5F7FA)
         tvTitle.setTextColor(getColor(R.color.black))
         imgSkin.background = getDrawable(R.mipmap.ic_mine_top)
         ivTitleRightSecond.background = getDrawable(R.mipmap.ic_search)
@@ -421,10 +436,15 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         setVisible(rtv3)
         setVisible(rtv4)
         setVisible(rtv5)
+        tvPreMore.setTextColor(ViewUtils.getColor(R.color.text_red))
+        tvNewsMore.setTextColor(ViewUtils.getColor(R.color.text_red))
+        tvAnchorMore.setTextColor(ViewUtils.getColor(R.color.text_red))
     }
 
     private fun skin2() {
         setVisible(imgSkin)
+        tabLottery.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
+        homeSmartRefreshLayout.setBackgroundResource(R.color.color_F5F7FA)
         tvTitle.setTextColor(getColor(R.color.white))
         imgSkin.background = getDrawable(R.mipmap.ic_skin_new_year)
         ivTitleRightSecond.background = getDrawable(R.mipmap.search_white)
@@ -439,6 +459,30 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         setGone(rtv3)
         setGone(rtv4)
         setGone(rtv5)
+        tvPreMore.setTextColor(ViewUtils.getColor(R.color.text_red))
+        tvNewsMore.setTextColor(ViewUtils.getColor(R.color.text_red))
+        tvAnchorMore.setTextColor(ViewUtils.getColor(R.color.text_red))
     }
 
+    private fun skin3() {
+        setGone(imgSkin)
+        tabLottery.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.alivc_green))
+        homeSmartRefreshLayout.setBackgroundResource(R.mipmap.ic_skin_d5_home)
+        tvTitle.setTextColor(getColor(R.color.black))
+        ivTitleRightSecond.background = getDrawable(R.mipmap.ic_search)
+        ivTitleRight.background = getDrawable(R.mipmap.ic_home_top_notice)
+        tvHot.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.mipmap.ic_skin_home_d5_1), null, null, null)
+        tvPre.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.mipmap.ic_skin_home_d5_2), null, null, null)
+        tvNews.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.mipmap.ic_skin_home_d5_3), null, null, null)
+        tuiJi.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.mipmap.ic_skin_home_d5_4), null, null, null)
+        expertHot.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.mipmap.ic_skin_home_d5_5), null, null, null)
+        setGone(rtv1)
+        setGone(rtv2)
+        setGone(rtv3)
+        setGone(rtv4)
+        setGone(rtv5)
+        tvPreMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
+        tvNewsMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
+        tvAnchorMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
+    }
 }

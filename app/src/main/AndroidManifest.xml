@@ -169,10 +169,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             tools:ignore="LockedOrientationActivity" />
-        <activity android:name=".ui.mine.children.MineAttentionFragment"
+        <activity
+            android:name=".ui.mine.children.MineAttentionFragment"
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.WebGlobalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -276,6 +277,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
 
     //拼接分享注单
     fun getShareOrder(name: String) {
+        LogUtils.e("---->>>"+arguments?.getParcelableArrayList<LotteryBet>("lotteryBet"))
         val jsonRes = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
         val goon = GsonBuilder().disableHtmlEscaping().create()
         val bean = arrayListOf<BetShareBean>()
@@ -283,7 +285,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         if (jsonRes != null) {
             for (js in jsonRes) {
 //                typeName + name
-                val result = BetShareBean(name, js.result.money, js.result.play_class_cname,
+                val result = BetShareBean(js.playName, js.result.money, js.result.play_class_cname,
                         js.result.play_class_name, js.result.play_odds, js.result.play_sec_name)
                 bean.add(result)
             }
@@ -293,6 +295,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         json.put("play_bet_lottery_id", arguments?.getString("lotteryID") ?: "")
         json.put("lottery_cid", arguments?.getString("lotteryName") ?: "")
         json.put("order_detail", goon.toJson(bean))
+        LogUtils.e("---->>>"+json)
         RxBus.get().post(LotteryShareBet(true, json))
     }
 

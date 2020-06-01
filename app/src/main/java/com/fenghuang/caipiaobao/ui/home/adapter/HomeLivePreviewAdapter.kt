@@ -9,6 +9,7 @@ import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLivePreResponse
 import com.fenghuang.caipiaobao.widget.WaveView
@@ -57,7 +58,10 @@ class HomeLivePreviewAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePre
                 findView<RoundTextView>(R.id.tvLiveNoticeAttention).setTextColor(ViewUtils.getColor(R.color.color_DDDDDD))
             } else {
                 findView<RoundTextView>(R.id.tvLiveNoticeAttention).text = "关注"
-                findView<RoundTextView>(R.id.tvLiveNoticeAttention).delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
+                if (UserInfoSp.getSkinSelect() == 3) {
+                    findView<RoundTextView>(R.id.tvLiveNoticeAttention).delegate.backgroundColor = ViewUtils.getColor(R.color.color_A3E41A)
+                } else findView<RoundTextView>(R.id.tvLiveNoticeAttention).delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
+
                 findView<RoundTextView>(R.id.tvLiveNoticeAttention).setTextColor(ViewUtils.getColor(R.color.white))
             }
             if (data.livestatus == "1") {

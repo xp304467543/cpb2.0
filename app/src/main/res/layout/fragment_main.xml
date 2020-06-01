@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@+id/rg_oder"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="3dp"
             android:background="#CDF5F5F5" />
 
 
@@ -129,6 +129,7 @@
                 android:id="@+id/img_protruding"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:padding="@dimen/dp_10"
                 android:layout_centerInParent="true"
                 android:background="@drawable/ic_tab"
                 android:contentDescription="@string/app_name" />

@@ -63,7 +63,6 @@ class LotteryLuZhuFragment : BaseMvpFragment<LotteryLuZhuFragmentPresenter>() {
 
     override fun initData() {
         mPresenter.getLuZhuData(arguments?.getString("lotteryId")!!, selectType)
-        rvLotteryLuZhu
         luZhuRecycleAdapter = LotteryChildLuZhuAdapter(context!!, arguments?.getString("lotteryId")!!)
         rvLotteryLuZhu.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvLotteryLuZhu.adapter = luZhuRecycleAdapter

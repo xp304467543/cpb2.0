@@ -99,5 +99,8 @@ data class MineNewBean(@SerializedName("0") var `_$0`:String,@SerializedName("2"
 //换肤
 data class ChangeSkin(var id:Int)
 
+//官方群
+data class MineGroup(var title: String,var icon: String,var url: String)
+
 
 

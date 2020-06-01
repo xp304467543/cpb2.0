@@ -42,7 +42,7 @@ class MineFragmentThemSkinAdapter(context: Context) : BaseRecyclerAdapter<MineTh
             if (data.id != "1") {
                 LaunchUtils.startFragment(getContext(), MineFragmentThemSkinSelect.newInstance(data.id))
             } else {
-                UserInfoSp.putSkinSelect(1)
+                UserInfoSp.putSkinSelect(data.id.toInt())
                 RxBus.get().post(ChangeSkin(data.id.toInt()))
                 notifyDataSetChanged()
             }

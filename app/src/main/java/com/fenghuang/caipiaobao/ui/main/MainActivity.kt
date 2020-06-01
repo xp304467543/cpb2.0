@@ -74,8 +74,11 @@ class MainActivity : BasePageActivity() {
     }
 
     override fun onBackPressed() {
-        moveTaskToBack(false)
-//        super.onBackPressed(); //注释super,拦截返回键功能
+        if (supportFragmentManager.backStackEntryCount > 1) {
+            super.onBackPressedSupport()
+        } else {
+            moveTaskToBack(false)
+        }
     }
 
 }

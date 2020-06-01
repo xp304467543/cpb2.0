@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="红包游戏"
+            android:text="棋牌游戏"
             android:textColor="@color/color_333333" />
 
 

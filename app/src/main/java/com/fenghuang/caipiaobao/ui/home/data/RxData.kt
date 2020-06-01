@@ -67,3 +67,5 @@ data class UpDateAttention(var boolean: Boolean,var anchorId:String)
 
 //web
 data class WebSelect(var pos:Int)
+
+data class GuideShow(var show:Boolean)

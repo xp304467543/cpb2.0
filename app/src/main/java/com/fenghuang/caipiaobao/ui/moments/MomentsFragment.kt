@@ -4,11 +4,14 @@ import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ViewUtils
+import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -23,7 +26,6 @@ import com.hwangjr.rxbus.thread.EventThread
 import com.pingerx.banner.BannerView
 import com.pingerx.banner.holder.BannerHolderCreator
 import com.pingerx.banner.holder.BaseBannerHolder
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_moments.*
 import kotlinx.android.synthetic.main.my_top_bar.*
 
@@ -60,12 +62,27 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
         tvTitle.text = "圈子"
         setStatusBarHeight(stateViewMoment)
         //皮肤
-        if (UserInfoSp.getSkinSelect()!=1){
-            skin2()
+        when (UserInfoSp.getSkinSelect()) {
+            1 -> {
+                skin()
+            }
+            2 -> {
+                skin2()
+            }
+            3 -> {
+                skin3()
+            }
         }
         momentsTab.addTab(momentsTab.newTab().setText("热门讨论"))
         momentsTab.addTab(momentsTab.newTab().setText("主播"))
-        momentsTab.addTab(momentsTab.newTab().setText("精品推荐"))
+        val tab = momentsTab.newTab()
+        tab.setCustomView(R.layout.tab_red)
+        val redBall = tab.customView?.findViewById<RoundTextView>(R.id.iv_tab_red)
+        val textTab = tab.customView?.findViewById<TextView>(R.id.tv_tab_title)
+        textTab?.text = "精品推荐"
+        tab.text = "精品推荐"
+        momentsTab.addTab(tab)
+        if (!UserInfoSp.getIsShowRed()) setGone(redBall)
         xViewPageMoments.adapter = BaseFragmentPageAdapter(childFragmentManager, arrayListOf<BaseFragment>(
                 MomentsHotDiscussFragment(),
                 MomentsAnchorFragment.newInstance(""),
@@ -74,14 +91,7 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
         xViewPageMoments.currentItem = 0
         xViewPageMoments.offscreenPageLimit = 3
         mPresenter.getMomentsData()
-    }
 
-
-    override fun initData() {
-
-    }
-
-    override fun initEvent() {
         //ViewPage监听
         xViewPageMoments.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
@@ -97,20 +107,31 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
         //TabLayout监听
         momentsTab.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
+
             }
 
             override fun onTabUnselected(p0: TabLayout.Tab?) {
+                textTab?.setTextColor(ViewUtils.getColor(R.color.color_999999))
             }
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
                 when (p0?.text) {
+
                     "热门讨论" -> xViewPageMoments.currentItem = 0
                     "主播" -> xViewPageMoments.currentItem = 1
-                    "精品推荐" -> xViewPageMoments.currentItem = 2
+                    "精品推荐" -> {
+                        textTab?.setTextColor(ViewUtils.getColor(R.color.black))
+                        xViewPageMoments.currentItem = 2
+                        if (UserInfoSp.getIsShowRed()) {
+                            UserInfoSp.putIsShowRed(false)
+                            setGone(p0.customView?.findViewById<RoundTextView>(R.id.iv_tab_red))
+                        }
+                    }
                 }
             }
         })
     }
+
 
     // ========= banner =========
     fun upDateBanner(data: List<MomentsTopBannerResponse>) {
@@ -154,20 +175,30 @@ class MomentsFragment : BaseMvpFragment<MomentsPresenter>() {
                 skin2()
 
             }
-            else -> { }
+            3 -> {
+                skin3()
+            }
         }
 
     }
 
-    private fun skin(){
+    private fun skin() {
         setGone(skinMoment)
         tvTitle.setTextColor(getColor(R.color.black))
         skinMoment.background = getDrawable(R.color.white)
     }
 
-    private fun skin2(){
+    private fun skin2() {
         setVisible(skinMoment)
+        momentsTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.text_red))
         tvTitle.setTextColor(getColor(R.color.white))
         skinMoment.background = getDrawable(R.mipmap.ic_skin_new_year)
+    }
+
+    private fun skin3() {
+        setVisible(skinMoment)
+        momentsTab.setSelectedTabIndicatorColor(ViewUtils.getColor(R.color.alivc_green))
+        tvTitle.setTextColor(getColor(R.color.white))
+        skinMoment.background = getDrawable(R.mipmap.ic_skin_d5)
     }
 }

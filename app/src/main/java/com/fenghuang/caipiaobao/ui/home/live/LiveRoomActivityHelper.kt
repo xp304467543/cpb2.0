@@ -17,6 +17,7 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.constant.UserInfoSp
+import com.fenghuang.caipiaobao.ui.home.data.GuideShow
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveEnterRoomResponse
 import com.fenghuang.caipiaobao.widget.videoplayer.assist.*
 import com.fenghuang.caipiaobao.widget.videoplayer.assist.DataInter.ReceiverKey.KEY_CONTROLLER_live_COVER
@@ -28,6 +29,7 @@ import com.fenghuang.caipiaobao.widget.videoplayer.entity.DataSource
 import com.fenghuang.caipiaobao.widget.videoplayer.receiver.ReceiverGroup
 import com.fenghuang.caipiaobao.widget.videoplayer.window.FloatWindow
 import com.fenghuang.caipiaobao.widget.videoplayer.window.FloatWindowSingleton
+import com.hwangjr.rxbus.RxBus
 
 
 /**
@@ -323,6 +325,7 @@ class LiveRoomActivityHelper {
         } else {
             if (WindowPermissionCheck.checkPermission(activity)) {
                 windowPlay()
+                RxBus.get().post(GuideShow(true))
                 activity.finish()
             }
         }

@@ -27,6 +27,17 @@ object UserInfoSp {
     }
 
     /**
+     * 推荐红点
+     */
+    fun putIsShowRed(IsShow: Boolean) {
+        SpUtils.putBoolean("renBall", IsShow)
+    }
+
+    fun getIsShowRed(): Boolean {
+        return SpUtils.getBoolean("renBall",true)
+    }
+
+    /**
      * 是否登录
      */
     fun putIsLogin(isLogin: Boolean) {
