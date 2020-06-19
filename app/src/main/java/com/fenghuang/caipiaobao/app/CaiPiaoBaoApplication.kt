@@ -95,7 +95,7 @@ class CaiPiaoBaoApplication : BaseApplication() {
                 .setNetworkFetcher(OkHttpNetworkFetcher(okHttpClient))
                 .setRequestListeners(requestListeners)
                 .build()
-        Phoenix.init(this, imagePipelineConfig) // this-->Context
+        Phoenix.init(this,  imagePipelineConfig) // this-->Context
     }
 
 

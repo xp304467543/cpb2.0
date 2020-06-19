@@ -211,6 +211,7 @@ class LiveRoomActivityHelper {
                     activity.goReCharge()
                 }
                 DataInter.Event.EVENT_CODE_REQUEST_CHANGE -> {
+                    if (mFloatWindow == null || mFloatWindow?.isWindowShow == false)return
                     val widthPixels = activity.resources.displayMetrics.widthPixels
                     if (FloatWindowSingleton.isLan) {
                         val height = when {

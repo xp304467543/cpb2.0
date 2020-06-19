@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
 
 /**
- * 日志打印工具类[https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor]
+ * 日志打印工具类[`https://github.com/square/okhttp/blob/master/okhttp-logging-interceptor`]
  */
 class LogInterceptor(tag: String) : Interceptor {
 

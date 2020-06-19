@@ -44,6 +44,9 @@ interface BaseApi {
         } else API_LOTTERY_BET_MAIN
     }
 
+    /**
+     * 圈子
+     */
     fun getBaseUrlMoments(): String {
         return if (isTest) {
             API_MOMENTS_TEST

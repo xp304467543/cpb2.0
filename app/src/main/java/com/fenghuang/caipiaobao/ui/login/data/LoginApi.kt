@@ -56,20 +56,18 @@ object LoginApi : BaseApi {
         map["client_type"] = 3
         map["ip"] = IpUtils.getIPAddress(ViewUtils.getContext())
         AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
-//            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
-//                    .params("datas", it)
-//                    .subscribe(subscriber)
             val param = HashMap<String,String>()
             param["datas"] = it
-            HttpClient.getInstance(context).post(LoginApi.getApiOtherUserTest() + LOGIN,param,object :HttpClient.MyCallback{
-                override fun failed(e: IOException?) {
-
-                }
-                override fun success(res: Response?) {
-
-                }
-
-            })
+//            HttpClient.getInstance(context).post(LoginApi.getApiOtherUserTest() + LOGIN,param,object :HttpClient.MyCallback{
+//                override fun failed(e: IOException?) {
+//
+//                }
+//                override fun success(res: Response?) {
+//
+//                }
+//
+//            })
+            getApiOther().post<LoginResponse>(getApiOtherUserTest() + LOGIN_INFO).isMultipart(true)
         }
     }
 

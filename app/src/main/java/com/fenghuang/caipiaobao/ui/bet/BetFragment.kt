@@ -134,11 +134,11 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
         listCheck2 = arrayListOf()
         lineList = dataBean?.bettingArr
         lineList2 = dataBean?.chessArr
-        val str1 = dataBean?.bettingArr!![0].indexOf("//")
-         realUrl1 = dataBean?.bettingArr!![0].substring(str1 + 2, dataBean?.bettingArr!![0].length)
-
+         val last0 = dataBean?.bettingArr!![0].split("?")[0]
+        val str1 =last0.indexOf("//")
+         realUrl1 = last0.substring(str1 + 2, last0.length )
         for ((index, res) in lineList!!.withIndex()) {
-            val url = res.substring(str1 + 2, res.length)
+            val url = res.substring(str1 + 2, res.split("?")[0].length )
             val check = if (index == 0) {
                 LineCheck(url, true)
             } else LineCheck(url)
@@ -148,7 +148,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
         val str2 = last.indexOf("//")
          realUrl2 = last.substring(str2 + 2, last.length - 1)
         for ((index, res) in lineList2!!.withIndex()) {
-            val url = last.substring(str2 + 2, last.length - 1)
+            val url = last.substring(str2 + 2, res.split("?")[0].length - 1)
             val check = if (index == 0) {
                 LineCheck(url, true)
             } else LineCheck(url)

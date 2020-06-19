@@ -22,10 +22,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonParser
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_child_live_chat.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import me.jessyan.autosize.utils.LogUtils
 import okhttp3.OkHttpClient
 import okhttp3.Response
