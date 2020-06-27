@@ -13,14 +13,6 @@ import kotlinx.android.synthetic.main.fragment_mine_presonal.publish_ed_desc
 import kotlinx.android.synthetic.main.fragment_mine_presonal.publish_text_num
 import java.util.regex.Pattern
 
-
-
-
-
-
-
-
-
 /**
  *
  * @ Author  QinTian

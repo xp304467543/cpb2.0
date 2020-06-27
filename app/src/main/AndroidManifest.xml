@@ -179,6 +179,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.recharge.MineCardRechargeAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.recharge.MineRechargeCardContactAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

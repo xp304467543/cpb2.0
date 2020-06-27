@@ -111,6 +111,11 @@ object MineApi : BaseApi {
     //官方联系
     private const val CONTENT_GROUP = "/api/v1_1/live/contact/"
 
+    //卡密充值
+    private const val RECHARGE_CARD = "/api/v2/Recharge/code_recharge"
+
+    //获取卡商列表
+    private const val CARD_LIST = "/api/v2/Recharge/getcardlist"
     /**
      * 获取用户信息
      */
@@ -530,5 +535,26 @@ object MineApi : BaseApi {
                 .subscribe(subscriber)
     }
 
+    /**
+     * 卡密充值
+     */
+    fun cardRecharge(code: String, pass: String, function: ApiSubscriber<BaseApiBean>.() -> Unit){
+        val subscriber = object : ApiSubscriber<BaseApiBean>() {}
+        subscriber.function()
+        getApi().post<BaseApiBean>(RECHARGE_CARD)
+                .headers("token", UserInfoSp.getToken())
+                .params("code", code)
+                .params("pass", pass)
+                .subscribe(subscriber)
+    }
 
+    /**
+     * 获取卡商列表
+     */
+    fun cardList( function: ApiSubscriber<List<MineRechargeDiamond>>.() -> Unit){
+        val subscriber = object : ApiSubscriber<List<MineRechargeDiamond>>() {}
+        subscriber.function()
+        getApi().get<List<MineRechargeDiamond>>(CARD_LIST)
+                .subscribe(subscriber)
+    }
 }

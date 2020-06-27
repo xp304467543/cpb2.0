@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine.children.recharge
 
 import android.content.Context
+import android.content.Intent
 import android.text.TextUtils
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePayTypeList
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.InvestDialog
@@ -52,6 +54,13 @@ class MineRechargeItemFragment : BaseContentFragment() {
             onFailed {
                 GlobalDialog.showError(getPageActivity(),it)
             }
+        }
+    }
+
+    override fun initEvent() {
+        rl_kami.setOnClickListener {
+            if (FastClickUtils.isFastClick())
+            startActivity(Intent(getPageActivity(),MineCardRechargeAct::class.java))
         }
     }
 

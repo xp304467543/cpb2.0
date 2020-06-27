@@ -55,7 +55,7 @@ data class MineBankList(var name: String, var img: String, var code: String)
 data class MineUpDateBank(var isUpdate: Boolean)
 
 //更新余额
-data class MineUpDateMoney(var money: String, var isUpdate: Boolean)
+data class MineUpDateMoney(var money: String, var isUpdate: Boolean,var isDiamond:Boolean=false)
 
 //Rx存储用户选择的银行卡
 data class MineSaveBank(var data: MineUserBankList)
@@ -101,6 +101,10 @@ data class ChangeSkin(var id:Int)
 
 //官方群
 data class MineGroup(var title: String,var icon: String,var url: String)
+
+//钻石充值联系方式
+data class MineRechargeDiamond(val id:String,val name:String,val quota:String,val contact:List<MineRechargeDiamondChild>)
+data class MineRechargeDiamondChild(val title:String?,val value:String?,val icon:String?)
 
 
 

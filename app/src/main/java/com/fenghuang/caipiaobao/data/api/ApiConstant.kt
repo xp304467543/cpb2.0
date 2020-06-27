@@ -31,7 +31,7 @@ object ApiConstant {
 
     const val API_LOTTERY_BET_TEST = "http://156.227.88.24:18306"
 
-    const val isTest = false
+    const val isTest = true
 
     /**
      *  key

@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.activity.BaseNavActivity
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateMoney
@@ -85,12 +86,24 @@ class MineRechargeActivity : BaseNavActivity() {
                 GlobalDialog.showError(this@MineRechargeActivity, it)
             }
         }
+        upDateDiamond()
+    }
+
+    private fun upDateDiamond(){
+        MineApi.getUserDiamond {
+            onSuccess {
+                tvCountBalanceDiamond.text = it.diamond
+            }
+            onFailed {
+                ToastUtils.show("钻石获取失败")
+            }
+        }
     }
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDateUserMoney(event: MineUpDateMoney) {
         if (!event.isUpdate) {
-            upDateBalance(false)
+          if (!event.isDiamond)  upDateBalance(false) else upDateDiamond()
         }
     }
 

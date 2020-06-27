@@ -94,7 +94,7 @@ class MainFragment : BaseContentFragment() {
 
     override fun initData() {
         checkDialog()
-        getUpDate()
+//        getUpDate()
         getNotice()
     }
 
