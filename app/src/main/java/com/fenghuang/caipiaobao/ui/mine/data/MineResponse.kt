@@ -106,5 +106,18 @@ data class MineGroup(var title: String,var icon: String,var url: String)
 data class MineRechargeDiamond(val id:String,val name:String,val quota:String,val contact:List<MineRechargeDiamondChild>)
 data class MineRechargeDiamondChild(val title:String?,val value:String?,val icon:String?)
 
+//团队报表
+data class MineTeamReport(val invitee_num:String?,val recharge_user_num:String?,val exchange:String?,val recharge:String?,
+                          val brokerage:String?,val sub_brokerage:String?)
 
+data class MineTeamReportLast( val invitee_num:String?, val recharge:String?, val brokerage:String?)
 
+data class MineGameReport( val amount:String?, val prize:String?, val count:String?, val bl_amount:String?, val bl_prize:String?, val bl_count:String?)
+
+data class MineGameReportInfo( val lottery_id:String?, val lottery_name:String?, val amount:String?, val prize:String?, val count:String?, val lottery_icon:String?)
+
+data class MineReportCode( val market_id:String?,val user_id:String?,val nickname:String?,val market_code:String?
+                           ,val market_url:String?,val status:String?,val status_cn:String?,val created_at	:String?
+                           ,val reviewed_at:String?,val level_id:String?,val level:String?,val level_name:String?
+                           ,val next_level:String?,val next_level_name:String?,val next_level_invitee_num:String?,val next_level_diff:String?
+                           ,val invitee_num:String?,val rebate:String?)

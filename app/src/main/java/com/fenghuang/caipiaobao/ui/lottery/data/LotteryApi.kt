@@ -187,15 +187,18 @@ object LotteryApi : BaseApi {
     }
 
     /**
-     * 获取竞彩彩种玩法
+     * 投注记录
      */
-    fun getLotteryBetHistory(play_bet_state: Int, page: Int): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
+    fun getLotteryBetHistory(play_bet_state: Int, page: Int,lotteryId: String="0",st:String="",et:String=""): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
         val subscriber = object : ApiSubscriber<ArrayList<LotteryBetHistoryResponse>>() {}
         getApiLottery()
                 .get<ArrayList<LotteryBetHistoryResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_HISTORY)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("play_bet_state", play_bet_state)
                 .params("limit", 20)
+                .params("lottery_id", lotteryId)
+                .params("st", st)
+                .params("et", et)
                 .params("page", page)
                 .subscribe(subscriber)
         return subscriber

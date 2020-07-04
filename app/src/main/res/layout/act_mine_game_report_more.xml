@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_F5F7FA"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/dp_10">
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tv_start"
+            android:layout_width="@dimen/dp_96"
+            android:layout_height="@dimen/dp_32"
+            android:gravity="center"
+            android:text="钻石"
+            android:textColor="@color/white"
+            app:rv_backgroundColor="@color/color_FF513E"
+            app:rv_cornerRadius_BL="@dimen/dp_5"
+            app:rv_cornerRadius_TL="@dimen/dp_5"
+            app:rv_strokeColor="@color/color_FF513E"
+            app:rv_strokeWidth="0.5dp" />
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tv_end"
+            android:layout_width="@dimen/dp_96"
+            android:layout_height="@dimen/dp_32"
+            android:gravity="center"
+            android:text="余额"
+            android:textColor="@color/color_999999"
+            app:rv_cornerRadius_BR="@dimen/dp_5"
+            app:rv_cornerRadius_TR="@dimen/dp_5"
+            app:rv_strokeColor="@color/color_FF513E"
+            app:rv_strokeWidth="0.5dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dp_35"
+        android:paddingBottom="@dimen/dp_30">
+
+        <TextView
+            android:id="@+id/tv_data_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="今天"
+            android:textColor="@color/color_FF513E" />
+
+        <TextView
+            android:id="@+id/tv_data_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="近7天"
+            android:textColor="@color/color_333333" />
+
+        <TextView
+            android:id="@+id/tv_data_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="三个月"
+            android:textColor="@color/color_333333" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_game"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:overScrollMode="never" />
+
+    <TextView
+        android:id="@+id/place_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        android:drawableTop="@mipmap/ic_zanwudashang"
+        android:drawablePadding="@dimen/dp_15"
+        android:gravity="center"
+        android:text="暂无投注记录"
+        android:visibility="gone" />
+</LinearLayout>

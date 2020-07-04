@@ -14,6 +14,8 @@ import com.fenghuang.caipiaobao.ui.home.data.UpDateUserPhoto
 import com.fenghuang.caipiaobao.ui.login.LoginActivity
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.ui.mine.children.*
+import com.fenghuang.caipiaobao.ui.mine.children.report.MineGameReportAct
+import com.fenghuang.caipiaobao.ui.mine.children.report.MineReportAct
 import com.fenghuang.caipiaobao.ui.mine.data.ChangeSkin
 import com.fenghuang.caipiaobao.ui.mine.data.MineUserDiamond
 import com.fenghuang.caipiaobao.utils.FastClickUtils
@@ -248,6 +250,27 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             }
         }
 
+        //游戏报表
+        containerGameReport.setOnClickListener {
+            if (!UserInfoSp.getIsLogin()) {
+                GlobalDialog.notLogged(requireActivity())
+                return@setOnClickListener
+            }
+            if (FastClickUtils.isFastClick()) {
+                startActivity(Intent(getPageActivity(),MineGameReportAct::class.java))
+            }
+        }
+        //团队报表
+        containerTuiReport.setOnClickListener {
+            if (!UserInfoSp.getIsLogin()) {
+                GlobalDialog.notLogged(requireActivity())
+                return@setOnClickListener
+            }
+            if (FastClickUtils.isFastClick()) {
+                startActivity(Intent(getPageActivity(),MineReportAct::class.java))
+            }
+        }
+
     }
 
     //更新用户头像
@@ -334,6 +357,8 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         imgCustomer.background = getDrawable(R.mipmap.ic_mine_customer)
         imgGroup.background = getDrawable(R.mipmap.ic_mine_imggrooup)
         imgSetting.background = getDrawable(R.mipmap.ic_mine_setting)
+        imgGameReport.background = getDrawable(R.mipmap.ic_mine_game)
+        imgTuiReport.background = getDrawable(R.mipmap.ic_mine_tui)
         tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_deposit), null, null)
         tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_wallet), null, null)
         tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_attention), null, null)
@@ -350,6 +375,8 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         imgCustomer.background = getDrawable(R.mipmap.ic_skin_6)
         imgGroup.background = getDrawable(R.mipmap.ic_skin_7)
         imgSetting.background = getDrawable(R.mipmap.ic_skin_8)
+        imgGameReport.background = getDrawable(R.mipmap.ic_skin_game)
+        imgTuiReport.background = getDrawable(R.mipmap.ic_skin_tui)
         tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_deposit), null, null)
         tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_wallet), null, null)
         tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_mine_attention), null, null)
@@ -366,6 +393,8 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         imgCustomer.background = getDrawable(R.mipmap.ic_skin_d5_6)
         imgGroup.background = getDrawable(R.mipmap.ic_skin_d5_7)
         imgSetting.background = getDrawable(R.mipmap.ic_skin_d5_8)
+        imgGameReport.background = getDrawable(R.mipmap.ic_skin_d5_game)
+        imgTuiReport.background = getDrawable(R.mipmap.ic_skin_d5_tui)
         tvDepositMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_1), null, null)
         tvDrawMoney.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_2), null, null)
         tvAttention.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_skin_d5_m_3), null, null)

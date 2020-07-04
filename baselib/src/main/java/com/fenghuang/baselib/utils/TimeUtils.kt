@@ -2,6 +2,7 @@ package com.fenghuang.baselib.utils
 
 import android.annotation.SuppressLint
 import android.text.TextUtils
+import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -468,5 +469,63 @@ object TimeUtils {
         val d = Date(time)
         val sf = SimpleDateFormat("HH:mm:ss")
         return sf.format(d)
+    }
+
+    /*
+     * 比较时间大小
+     *
+     * @param nowDate
+     * @param compareDate
+     * @return
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun compareDate(nowDate: String, compareDate: String): Boolean {
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        return try {
+            val now = df.parse(nowDate)
+            val compare = df.parse(compareDate)
+            now.before(compare)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+    /**
+     * 得到指定月的天数
+     */
+    fun getMonthLastDay(year: Int, month: Int): Int {
+        val a = Calendar.getInstance()
+        a[Calendar.YEAR] = year
+        a[Calendar.MONTH] = month - 1
+        a[Calendar.DATE] = 1 //把日期设置为当月第一天
+        a.roll(Calendar.DATE, -1) //日期回滚一天，也就是最后一天
+        return a[Calendar.DATE]
+    }
+
+    /**
+     * 近7天
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun get7before(): String {
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        cal.add(Calendar.DAY_OF_YEAR, -7)
+        val sevenDateBefore = cal.time
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        return df.format(sevenDateBefore)
+    }
+
+    /**
+     * 近7天
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun get3MonthBefore(): String {
+        val cal = Calendar.getInstance()
+        cal.time = Date()
+        cal.add(Calendar.MONTH, -3)
+        val sevenDateBefore = cal.time
+        val df = SimpleDateFormat("yyyy-MM-dd")
+        return df.format(sevenDateBefore)
     }
 }

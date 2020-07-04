@@ -54,7 +54,6 @@
         android:id="@+id/lotteryPickerView"
         android:background="@color/white"
         android:layout_width="match_parent"
-        app:layout_optimizationLevel=""
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 

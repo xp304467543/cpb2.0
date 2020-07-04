@@ -464,6 +464,7 @@ object HomeApi : BaseApi {
         val subscriber = AllSubscriber()
         subscriber.function()
         getApi().get<BaseApiBean>(HOME_ALL_ANCHOR)
+                .headers("token", UserInfoSp.getToken())
                 .params("page", page)
                 .params("type", type)
                 .params("limit", "10")

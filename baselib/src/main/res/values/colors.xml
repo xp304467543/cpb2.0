@@ -69,7 +69,7 @@
     <color name="colorYellowMain">#DA8D1B</color>
     <!--blue-->
     <color name="colorBluePrimary">#2196F3</color>
-    <color name="colorBluePrimaryDark">#1976D2</color>
+    <color name="colorBluePrimaryDark">#1E7FDF</color>
     <color name="colorBlueAccent">#FF4081</color>
     <color name="colorBluePrimaryCenter">#062748</color>
     <!--red-->

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvDate"
+    android:textSize="@dimen/sp_14"
+    android:textColor="@color/white"
+    android:background="@color/text_red"
+    android:layout_width="@dimen/dp_25"
+    android:layout_height="@dimen/dp_25" />
+

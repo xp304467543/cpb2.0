@@ -189,6 +189,26 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineReportAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineGameReportAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineGameReportMoreAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineGameReportMoreInfoAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

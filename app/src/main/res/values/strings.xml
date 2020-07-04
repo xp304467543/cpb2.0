@@ -126,4 +126,7 @@
     <string name="mine_card_number_edit">请输入您的银行卡号</string>
     <string name="mine_card_open_pass">请输入您的平台支付密码</string>
     <string name="mine_card_list">银行卡列表</string>
+    <string name="mine_report">推广给好友成功下载APP并注册（注册时好友必须填写你的邀请码）后，
+        被邀用户初次消费50即算邀请成功。被邀用户消费的余额，按照用户等级百分比转化给邀请用户。
+        被邀请用户申请为推广员，邀请来的下级用户消费收入，会继续以10%比例向上转化收入。以此类推</string>
 </resources>

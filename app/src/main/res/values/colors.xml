@@ -100,6 +100,7 @@
     <color name="color_E03940">#E03940</color>
     <color name="color_84EC7F">#84EC7F</color>
     <color name="color_F5F7FA">#F5F7FA</color>
+    <color name="color_F5F7F9">#F5F7F9</color>
     <color name="color_282828">#282828</color>
     <color name="color_FA2020">#FA2020</color>
     <color name="color_FFEDEB">#FFEDEB</color>
@@ -110,9 +111,11 @@
     <color name="color_1A88FF">#1A88FF</color>
 
     <color name="color_EDE5F9">#EDE5F9</color>
+    <color name="color_EDEDED">#EDEDED</color>
     <color name="color_D444F3">#D444F3</color>
     <color name="color_5F84B0">#5F84B0</color>
     <color name="color_FF3131">#FF3131</color>
     <color name="color_A3E41A">#A3E41A</color>
+    <color name="color_66000000">#66000000</color>
 
 </resources>

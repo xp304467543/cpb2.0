@@ -116,6 +116,28 @@ object MineApi : BaseApi {
 
     //获取卡商列表
     private const val CARD_LIST = "/api/v2/Recharge/getcardlist"
+
+    //团队报表
+    private const val TEAM_REPORT = "/market/team-count"
+
+    //团队报表 最新数据
+    private const val TEAM_REPORT_LAST = "/market/latest-count"
+
+    //游戏报表
+    private const val GAME_REPORT_LAST = "/guess/report"
+
+    //彩票游戏
+    private const val GAME_LOTTERY = "/guess/lottery-count"
+
+
+    //彩票游戏详情
+    private const val GAME_LOTTERY_INFO = "/guess/lottery-detail-count"
+
+    //推广码
+
+    private const val GET_CODE = "/market/index"
+
+
     /**
      * 获取用户信息
      */
@@ -555,6 +577,82 @@ object MineApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<MineRechargeDiamond>>() {}
         subscriber.function()
         getApi().get<List<MineRechargeDiamond>>(CARD_LIST)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 团队报表
+     */
+    fun getTeamReport(start:String="",end:String="",function: ApiSubscriber<MineTeamReport>.() -> Unit){
+        val subscriber = object : ApiSubscriber<MineTeamReport>() {}
+        subscriber.function()
+        getApiOther().get<MineTeamReport>(MineApi.getApiOtherUserTest() + TEAM_REPORT)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("st", start)
+                .params("et", end)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 团队报表最新数据
+     */
+    fun getTeamReportLast(range:String ,function: ApiSubscriber<MineTeamReportLast>.() -> Unit){
+        val subscriber = object : ApiSubscriber<MineTeamReportLast>() {}
+        subscriber.function()
+        getApiOther().get<MineTeamReportLast>(MineApi.getApiOtherUserTest() + TEAM_REPORT_LAST)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("range",range)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 推广码
+     */
+    fun getCode(function: ApiSubscriber<MineReportCode>.() -> Unit){
+        val subscriber = object : ApiSubscriber<MineReportCode>() {}
+        subscriber.function()
+        getApiOther().get<MineReportCode>(MineApi.getApiOtherUserTest() + GET_CODE)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 游戏报表
+     */
+    fun getGameReportLast(start:String,end:String,function: ApiSubscriber<MineGameReport>.() -> Unit){
+        val subscriber = object : ApiSubscriber<MineGameReport>() {}
+        subscriber.function()
+        getApiLottery().get<MineGameReport>(MineApi.getApiOtherTest() + GAME_REPORT_LAST)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("st", start)
+                .params("et", end)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 彩票游戏
+     */
+    fun getGameLottery(start:String,end:String,function: ApiSubscriber<MineGameReport>.() -> Unit){
+        val subscriber = object : ApiSubscriber<MineGameReport>() {}
+        subscriber.function()
+        getApiLottery().get<MineGameReport>(MineApi.getApiOtherTest() + GAME_LOTTERY)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("st", start)
+                .params("et", end)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 彩票游戏
+     */
+    fun getGameLotteryInfo(is_bl_play:Int=0,start:String,end:String,function: ApiSubscriber<List<MineGameReportInfo>>.() -> Unit){
+        val subscriber = object : ApiSubscriber<List<MineGameReportInfo>>() {}
+        subscriber.function()
+        getApiLottery().get<List<MineGameReportInfo>>(MineApi.getApiOtherTest() + GAME_LOTTERY_INFO)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .params("is_bl_play",is_bl_play)
+                .params("st", start)
+                .params("et", end)
                 .subscribe(subscriber)
     }
 }

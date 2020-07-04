@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
 
-open class BasePopupWindow(protected var context: Context, private val mLayoutId: Int) : PopupWindow() {
+open class BasePopupWindow(protected var context: Context, private val mLayoutId: Int,isTrans:Boolean = true) : PopupWindow() {
 
     private var mLayoutView: View? = null
 
@@ -23,7 +23,7 @@ open class BasePopupWindow(protected var context: Context, private val mLayoutId
 
         // this.setFocusable(true);// 可点击
         // 实例化一个ColorDrawable颜色为半透明(半透明遮罩颜色代码#66000000)
-        setBackground(Color.TRANSPARENT)
+       if (isTrans) setBackground(Color.TRANSPARENT)
         isOutsideTouchable = true
         isTouchable = true
     }
