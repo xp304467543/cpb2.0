@@ -102,7 +102,6 @@ data class BetShareBean(
         val play_odds: Double,
         val play_sec_name: String,
         var isShow: Boolean = false
-
 )
 
 data class LotteryBetHistoryResponse(var play_bet_time: Long?, var play_bet_lottery_id: String?, var play_bet_lottery_name: String?,

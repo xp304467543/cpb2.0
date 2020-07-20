@@ -20,10 +20,10 @@ object AESUtils {
 
 
     //加密
-    fun encrypt(key: String, cleartext: String): String? {
+    fun encrypt(key: String?, cleartext: String): String? {
         return try {
             val cipher = Cipher.getInstance(CBC_PKCS5_PADDING)
-            val keyspace = SecretKeySpec(key.toByteArray(), AES)
+            val keyspace = SecretKeySpec(key?.toByteArray(), AES)
             cipher.init(Cipher.ENCRYPT_MODE, keyspace)
             val encrypted = cipher.doFinal(cleartext.toByteArray())
             Base64.encodeToString(encrypted, Base64.DEFAULT)

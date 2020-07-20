@@ -209,6 +209,16 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineReportPosterAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.mine.children.report.MineReportSearchAct"
+            android:screenOrientation="portrait"
+            android:theme="@style/SwipeBackStyle"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

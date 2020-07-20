@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="sp">
+        <item>钻石</item>
+        <item>余额</item>
+
+    </string-array>
+
+</resources>

@@ -106,4 +106,6 @@ object LiveRoomChaPresenterHelper {
         jsonObject.put("commend", "clear")
         return jsonObject.toString()
     }
+
+
 }

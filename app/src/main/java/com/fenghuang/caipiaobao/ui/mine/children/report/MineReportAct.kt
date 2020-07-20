@@ -1,14 +1,12 @@
 package com.fenghuang.caipiaobao.ui.mine.children.report
 
+import android.content.Intent
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpActivity
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.bet.BetFragment
-import com.fenghuang.caipiaobao.ui.home.HomeFragment
-import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
-import com.fenghuang.caipiaobao.ui.mine.MineFragment
-import com.fenghuang.caipiaobao.ui.moments.MomentsFragment
+import com.fenghuang.caipiaobao.widget.dialog.SearchDialog
 import kotlinx.android.synthetic.main.act_mine_report.*
+import kotlinx.android.synthetic.main.my_top_bar.*
 
 /**
  *
@@ -36,6 +34,8 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
     private val mFragments = arrayListOf<BaseFragment>()
 
     override fun initContentView() {
+        setVisible(ivTitleRight)
+        ivTitleRight.setBackgroundResource(R.mipmap.ic_search)
         mFragments.add(ReportFragment1())
         mFragments.add(ReportFragment2())
         mFragments.add(ReportFragment3())
@@ -53,7 +53,7 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
     override fun initEvent() {
         tab1.setOnClickListener {
             setVisible(containerTop)
-           setPageTitle("团队统计")
+            setPageTitle("团队统计")
             mPresenter.getNew("0")
             showHideFragment(mFragments[0])
         }
@@ -62,10 +62,12 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
             setPageTitle("会员报表")
             mPresenter.getNew("1")
             showHideFragment(mFragments[1])
+            setVisible(ivTitleRight)
+
         }
         tab3.setOnClickListener {
             setVisible(containerTop)
-            setPageTitle("下级报表")
+            setPageTitle("会员下级报表")
             mPresenter.getNew("2")
             showHideFragment(mFragments[2])
         }
@@ -73,6 +75,17 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
             setGone(containerTop)
             setPageTitle("邀请")
             showHideFragment(mFragments[3])
+            setGone(ivTitleRight)
+        }
+        ivTitleRight.setOnClickListener {
+            val dialog = SearchDialog(this)
+            dialog.setConfirmClickListener {
+                val intent = Intent(this, MineReportSearchAct::class.java)
+                intent.putExtra("searchName", it)
+                startActivity(intent)
+                dialog.dismiss()
+            }
+            dialog.show()
         }
     }
 }

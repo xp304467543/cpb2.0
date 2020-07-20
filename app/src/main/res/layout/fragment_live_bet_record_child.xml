@@ -22,7 +22,6 @@
 
             <com.fenghuang.baselib.widget.round.RoundLinearLayout
                 android:id="@+id/recordTop"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_30"
                 android:layout_marginTop="@dimen/dp_5"
@@ -65,14 +64,17 @@
                     android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_12" />
 
-                <TextView
-                    android:layout_width="@dimen/dp_0"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/sp_down"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
+                    android:layout_marginEnd="@dimen/dp_5"
+                    android:background="@drawable/shape_spinner_drop_down"
+                    android:entries="@array/sp"
                     android:gravity="center"
-                    android:text="金额"
-                    android:textColor="@color/color_999999"
-                    android:textSize="@dimen/sp_12" />
+                    android:overlapAnchor="false"
+                    android:spinnerMode="dropdown" />
 
             </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 

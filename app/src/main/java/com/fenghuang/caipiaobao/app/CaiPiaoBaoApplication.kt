@@ -120,8 +120,7 @@ class CaiPiaoBaoApplication : BaseApplication() {
             override fun onCoreInitFinished() {
             }
         })
-
-
     }
+
 
 }

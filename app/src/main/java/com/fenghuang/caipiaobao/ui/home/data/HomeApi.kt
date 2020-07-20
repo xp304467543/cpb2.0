@@ -524,7 +524,7 @@ object HomeApi : BaseApi {
         getApi()
                 .get<UpdateData>(VERSION_UPDATE)
                 .params("client_type", "android")
-                .params("version", "2.2")
+                .params("version", "2.2.1")
                 .subscribe(subscriber)
     }
 

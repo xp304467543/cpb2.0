@@ -192,6 +192,8 @@ dependencies {
     implementation(name: 'AlivcReporter-1.2', ext: 'aar')
     implementation(name: 'hipraiseanimationlib', ext: 'aar')
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.40'
+
+    implementation 'com.google.zxing:core:3.3.3'
 }
 
 afterEvaluate {

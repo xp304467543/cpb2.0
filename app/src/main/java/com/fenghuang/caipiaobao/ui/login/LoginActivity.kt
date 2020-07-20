@@ -20,7 +20,6 @@ import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.LoginWebDialog
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.fragment_modify_pass_word.*
 
 
 /**
@@ -32,6 +31,9 @@ import kotlinx.android.synthetic.main.fragment_modify_pass_word.*
  */
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>() {
+
+
+    var isReport = true //是否必须填邀请码
 
     var loadMode = 0 //  0-验证码登录  1-密码登录
 
@@ -71,13 +73,19 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>() {
                 loginOrRegister()
             }
         }
-
+        if (isReport) {
+            setVisible(etRegisterInviteNum)
+            setVisible(linLast2)
+        } else {
+            setVisibility(etRegisterInviteNum, false)
+            setVisibility(linLast2, false)
+        }
     }
 
 
     override fun initEvent() {
         tvForgetWithMode.setOnClickListener {
-        LaunchUtils.startCustomer(this)
+            LaunchUtils.startCustomer(this)
         }
         tvChangeInWithMode.setOnClickListener {
             LaunchUtils.startCustomer(this)
@@ -160,7 +168,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>() {
         tvRegister.setOnClickListener {
             loginOrRegister()
         }
-        //注册-----
+        //注册--验证码---
         tvRegisterIdentify.setOnClickListener {
             if (etRegisterPhone.text.isEmpty()) {
                 ToastUtils.show("请输入手机号")
@@ -198,7 +206,17 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>() {
                 ToastUtils.show("密码长度不得小于6位")
                 return@setOnClickListener
             }
-            mPresenter.userRegister(etRegisterPhone.text.toString(), etRegisterIdentify.text.toString(), etRegisterPassWord.text.toString(), "1")
+            if (isReport) {
+                if (etRegisterInviteNum.text.isEmpty()) {
+                    ToastUtils.show("请输入邀请码")
+                    return@setOnClickListener
+                }
+            }
+            if (isReport) {
+                mPresenter.checkMarkCode(etRegisterPhone.text.toString(), etRegisterIdentify.text.toString(), etRegisterInviteNum.text.toString())
+            } else {
+                mPresenter.userRegister(etRegisterPhone.text.toString(), etRegisterIdentify.text.toString(), etRegisterPassWord.text.toString(), "1")
+            }
         }
 
         /**
@@ -242,11 +260,11 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>() {
                 ToastUtils.showWarning("请确认新密码")
                 return@setOnClickListener
             }
-            if (etChange1.text.toString()!=etChange2.text.toString()) {
+            if (etChange1.text.toString() != etChange2.text.toString()) {
                 ToastUtils.showWarning("两次新密码输入不一致")
                 return@setOnClickListener
             }
-            mPresenter.getPass(etForgetPhone.text.toString(),etForgetPassWord.text.toString(),etChange1.text.toString())
+            mPresenter.getPass(etForgetPhone.text.toString(), etForgetPassWord.text.toString(), etChange1.text.toString())
         }
     }
 

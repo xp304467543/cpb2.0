@@ -18,8 +18,56 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/dp_20">
 
+            <LinearLayout
+                android:id="@+id/topLevel"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/dp_40"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_50"
+                android:layout_marginEnd="@dimen/dp_50"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="青铜"
+                    android:textColor="@color/ffffff"/>
+                <ProgressBar
+                    android:id="@+id/pro_level"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:max="100"
+                    android:progress="7"
+                    android:progressDrawable="@drawable/layer_list_progress_drawable"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_height="@dimen/dp_20"/>
+                <TextView
+                    android:id="@+id/tvEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="青铜"
+                    android:gravity="center"
+                    android:textColor="@color/ffffff"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvLevelContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="您还未申请推广员，来申请推广员致富吧"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="@dimen/sp_12"
+                android:textColor="@color/ffffff"
+                app:layout_constraintTop_toBottomOf="@+id/topLevel"/>
 
             <ImageView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/ic_tg"
@@ -53,7 +101,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_15"
@@ -68,150 +116,13 @@
                 app:rv_backgroundColor="#D0E8FD"
                 app:rv_cornerRadius="@dimen/dp_5">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@mipmap/ic_v_1"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="0-50人"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请一人立即到账3元-返现比例10%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/levelList"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:drawableStart="@mipmap/ic_v_2"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="50-100人"
-                    android:textColor="@color/color_333333" />
+                    android:nestedScrollingEnabled="false" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请立即到账3元-返现比例15%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:drawableStart="@mipmap/ic_v_3"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="100-200人"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请立即到账5元-返现比例20%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:drawableStart="@mipmap/ic_v_4"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="200-500人"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请立即到账5元-返现比例25%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:drawableStart="@mipmap/ic_v_5"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="500-1000人"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请立即到账10元-返现比例30%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:drawableStart="@mipmap/ic_v_6"
-                    android:drawablePadding="@dimen/dp_15"
-                    android:text="1000人以上"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_6"
-                    android:text="成功邀请立即到账10元-返现比例35%"
-                    android:textColor="@color/color_666666"
-                    android:textSize="@dimen/sp_12" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_5"
-                    android:layout_marginTop="@dimen/dp_15"
-                    android:background="@drawable/line_stroke"
-                    android:layerType="software" />
-
-            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

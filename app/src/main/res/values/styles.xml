@@ -14,6 +14,12 @@
         <item name="android:windowBackground">@drawable/splash_bg</item>  <!--闪屏页图片-->//
     </style>
 
+
+    <style name="MyRadioButton" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/alivc_color_gray</item>
+        <item name="colorControlActivated">@color/color_FF513E</item>
+    </style>
+
     <declare-styleable name="CircleProgressView">
         <attr name="cpv_progressNormalColor" format="color" />
         <attr name="cpv_progressReachColor" format="color" />

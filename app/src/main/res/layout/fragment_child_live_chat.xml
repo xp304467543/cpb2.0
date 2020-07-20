@@ -66,13 +66,11 @@
         android:layout_marginTop="@dimen/dp_35"
         android:padding="@dimen/dp_5"
         android:src="@mipmap/ic_live_more_select"
-        app:customIsAttach="false"
+        app:customIsAttach="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        />
     <!-- ==========================购彩  / 红包  /棋牌========================================= -->
-
     <ImageView
         android:id="@+id/liveRedTips"
         android:layout_width="@dimen/dp_44"
@@ -80,8 +78,8 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:layout_marginBottom="@dimen/dp_20"
         android:contentDescription="@string/app_name"
-        android:visibility="gone"
         android:src="@mipmap/ic_live_chat_red_envelope_tips"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/imgBuyLotteryQp"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -219,8 +217,7 @@
                 android:layout_height="@dimen/dp_25"
                 android:layout_marginEnd="@dimen/dp_20"
                 android:contentDescription="@string/app_name"
-                android:src="@mipmap/jingcai"
-               />
+                android:src="@mipmap/jingcai" />
 
             <ImageView
                 android:id="@+id/imgRecharge"

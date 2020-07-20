@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.my_top_bar.*
  */
 class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
 
-    var index = 0
+    var index = "0"
 
     var start = TimeUtils.getToday()
 
@@ -62,7 +62,7 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
 
     override fun initEvent() {
         tv_start.setOnClickListener {
-            index = 0
+            index = "0"
             tv_start.delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
             tv_start.setTextColor(ViewUtils.getColor(R.color.white))
             tv_end.delegate.backgroundColor = ViewUtils.getColor(R.color.white)
@@ -70,7 +70,7 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
             mPresenter.getInfo(index, start, end)
         }
         tv_end.setOnClickListener {
-            index = 1
+            index = "1"
             tv_end.delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
             tv_end.setTextColor(ViewUtils.getColor(R.color.white))
             tv_start.delegate.backgroundColor = ViewUtils.getColor(R.color.white)
@@ -125,7 +125,7 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
                 setText(R.id.tv_lottery_1, data.count)
                 setText(R.id.tv_lottery_2, data.amount)
                 setText(R.id.tv_lottery_3, data.prize)
-                if (index == 0) {
+                if (index == "0") {
                     setText(R.id.tv_t_1, "注单钻石")
                     setText(R.id.tv_t_2, "下单钻石")
                     setText(R.id.tv_t_3, "中奖钻石")
@@ -143,6 +143,7 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
                 if (id == R.id.tvLookMore) {
                     val intent = Intent(this@MineGameReportMoreAct, MineGameReportMoreInfoAct::class.java)
                     intent.putExtra("rLotteryId", getData()?.lottery_id)
+                    intent.putExtra("is_bl_play", index)
                     startActivity(intent)
                 }
             }

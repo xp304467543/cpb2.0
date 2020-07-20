@@ -43,6 +43,10 @@ object LoginApi : BaseApi {
     //找回登录密码
     private const val GET_LOGIN_PASS = "/home/retrieve-password"
 
+
+    // 检测邀请码接口
+    private const val GET_LOGIN_MARK_CODE= "/market/check-market-code"
+
     /**
      * 密码登录
      */
@@ -159,4 +163,17 @@ object LoginApi : BaseApi {
                 .params("new_pwd", new_pwd)
                 .subscribe(subscriber)
     }
+
+    /**
+     * 找回登录密码
+     */
+    fun checkMarkCode(datas: String, function: AllEmptySubscriber.() -> Unit) {
+        val subscriber = AllEmptySubscriber()
+        subscriber.function()
+        getApiOther().post<String>(getApiOtherUserTest() +GET_LOGIN_MARK_CODE).isMultipart(true)
+                .params("datas", datas)
+                .subscribe(subscriber)
+    }
+
+
 }

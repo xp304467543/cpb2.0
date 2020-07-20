@@ -1,6 +1,8 @@
 package com.fenghuang.caipiaobao.ui.home.live.room.betting
 
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveRoomRecord
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
 import com.fenghuang.caipiaobao.widget.BaseNormalFragment
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import kotlinx.android.synthetic.main.fragment_live_bet_record_child.*
 
 /**
  *
@@ -24,6 +27,10 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 class LiveRoomBetRecordFragment2 : BaseNormalFragment() {
 
     private var index = 1
+
+    var str = arrayListOf("钻石", "余额")
+
+    var currentSel = "0" //默认钻石
 
     private var adapter: LiveRoomRecordAdapter? = null
 
@@ -42,12 +49,27 @@ class LiveRoomBetRecordFragment2 : BaseNormalFragment() {
         smBetRecord = rootView?.findViewById(R.id.smBetRecord)
         tvBetRecordHolder = rootView?.findViewById(R.id.tvBetRecordHolder)
         recordTop = rootView?.findViewById(R.id.recordTop)
-        adapter = context?.let { LiveRoomRecordAdapter(it,2) }
+        adapter = context?.let { LiveRoomRecordAdapter(it, 2) }
         rvBetRecord?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         rvBetRecord?.adapter = adapter
     }
 
     override fun initData() {
+        val spAdapter: ArrayAdapter<String> = ArrayAdapter<String>(context!!, R.layout.my_spinner, str)
+        spAdapter.setDropDownViewResource(R.layout.dropdown_stytle)
+        sp_down.adapter = spAdapter
+        sp_down.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                index = 1
+                adapter?.clear()
+                currentSel = if (position == 0) {
+                    "0"
+                } else "1"
+                getResponse()
+            }
+
+        }
         getResponse()
         smBetRecord?.setOnRefreshListener {
             index = 1
@@ -63,7 +85,8 @@ class LiveRoomBetRecordFragment2 : BaseNormalFragment() {
 
 
     private fun getResponse() {
-        val res = LotteryApi.getLotteryBetHistory(2, index)
+        adapter?.currentSel = currentSel
+        val res = LotteryApi.getLotteryBetHistory(2, page = index, is_bl_play = currentSel)
         res.onSuccess {
             smBetRecord?.finishLoadMore()
             smBetRecord?.finishRefresh()

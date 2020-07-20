@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.act_mine_game_report_more_info.*
  */
 class MineGameReportMoreInfoPresenter : BaseMvpPresenter<MineGameReportMoreInfoAct>() {
 
-    fun getResponse(play_bet_state: Int,lotteryId:String,st:String="",et:String="") {
-        val res = LotteryApi.getLotteryBetHistory(play_bet_state, mView.index,lotteryId,st,et)
+    fun getResponse(play_bet_state: Int,lotteryId:String,st:String="",et:String="",is_bl_play:String="0") {
+        val res = LotteryApi.getLotteryBetHistory(play_bet_state, page = mView.index,lotteryId = lotteryId,st = st,et = et,is_bl_play =is_bl_play )
         res.onSuccess {
             if (mView.isActive()) {
                 mView.smBetRecord_1.finishLoadMore()

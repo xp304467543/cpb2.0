@@ -375,6 +375,16 @@ object UserInfoSp {
 
     }
 
+    /**
+     * 显示动画效果
+     */
 
+    fun putIsShowAnim(boolean: Boolean) {
+        SpUtils.putBoolean("IsShowAnim", boolean)
+    }
+
+    fun getIsShowAnim(): Boolean {
+        return SpUtils.getBoolean("IsShowAnim", true)
+    }
 
 }

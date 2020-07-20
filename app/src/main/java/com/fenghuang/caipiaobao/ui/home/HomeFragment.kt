@@ -1,10 +1,12 @@
 package com.fenghuang.caipiaobao.ui.home
 
+import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.app.hubert.guide.NewbieGuide
 import com.app.hubert.guide.model.GuidePage
+import com.example.playerlibrary.utils.WindowPermissionCheck
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
@@ -28,6 +30,7 @@ import com.fenghuang.caipiaobao.ui.mine.data.ChangeSkin
 import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
+import com.fenghuang.caipiaobao.utils.view.TitleTextWindow
 import com.fenghuang.caipiaobao.widget.dialog.RegisterSuccessDialog
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomGiftAdapter
 import com.fenghuang.caipiaobao.widget.pagegridview.HomePageGridView
@@ -106,7 +109,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         //加载默认视图
         initBaseView()
         //皮肤
-        when(UserInfoSp.getSkinSelect()){
+        when (UserInfoSp.getSkinSelect()) {
             1 -> skin()
             2 -> skin2()
             3 -> skin3()
@@ -232,7 +235,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                     }
                     LaunchUtils.startLive(getPageActivity(), HomeTypeListResponse.anchor_id!!, HomeTypeListResponse.live_status!!,
                             HomeTypeListResponse.name!!, HomeTypeListResponse.image!!, HomeTypeListResponse.live_intro!!,
-                            HomeTypeListResponse.online!!, HomeTypeListResponse.lottery_id?:"1")
+                            HomeTypeListResponse.online!!, HomeTypeListResponse.lottery_id ?: "1")
                 }
                 viewList.add(view)
             }
@@ -407,16 +410,18 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         }
 
     }
+
     //guide
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun guideShow(eventBean: GuideShow) {
         if (eventBean.show) {
-            if (isVisible){
+            if (isVisible) {
                 NewbieGuide.with(this).setLabel("guideVideo").addGuidePage(GuidePage().setLayoutRes(R.layout.guide_video)).show()
             }
         }
 
     }
+
     //默认
     private fun skin() {
         setGone(imgSkin)

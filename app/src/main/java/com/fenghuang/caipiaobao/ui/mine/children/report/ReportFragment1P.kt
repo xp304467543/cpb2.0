@@ -21,7 +21,7 @@ class ReportFragment1P : BaseMvpPresenter<ReportFragment1>() {
         MineApi.getTeamReport(start, end) {
             onSuccess {
                 if (mView.isActive()) {
-                    mView.tv_r_1.text = it.invitee_num
+                    mView.tv_r_1.text = it.reg_num
                     mView.tv_r_2.text = it.recharge_user_num
                     mView.tv_r_3.text = it.exchange
                     mView.tv_r_4.text = it.recharge

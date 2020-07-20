@@ -4,8 +4,6 @@ import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.activity.BaseNavActivity
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
-import com.fenghuang.baselib.base.fragment.BaseNavFragment
-import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
 import com.fenghuang.caipiaobao.ui.home.data.JumpToBuyLottery
@@ -13,7 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_attention.*
-import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  *
@@ -44,8 +41,8 @@ class MineAttentionFragment : BaseNavActivity() {
         attentionTab.addTab(attentionTab.newTab().setText("主播"))
         attentionTab.addTab(attentionTab.newTab().setText("用户"))
         attentionTab.addTab(attentionTab.newTab().setText("专家"))
-        val fragmentList = arrayListOf<BaseFragment>(MineAttentionFragmentChild(1),MineAttentionFragmentChild(2),
-                MineAttentionFragmentChild(3))
+        val fragmentList = arrayListOf<BaseFragment>(MineAttentionFragmentChild.newInstance(1),MineAttentionFragmentChild.newInstance(2),
+                MineAttentionFragmentChild.newInstance(3))
         xViewPageAttention.offscreenPageLimit = 3
         xViewPageAttention.adapter = BaseFragmentPageAdapter(supportFragmentManager,fragmentList)
     }

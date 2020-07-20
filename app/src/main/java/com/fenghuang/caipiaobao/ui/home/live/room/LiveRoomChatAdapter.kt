@@ -42,7 +42,7 @@ import org.json.JSONObject
  *
  */
 
-class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager) : BaseRecyclerAdapter<HomeLiveTwentyNewsResponse>(context) {
+class LiveRoomChatAdapter(context: Context, var fragmentManager: FragmentManager) : BaseRecyclerAdapter<HomeLiveTwentyNewsResponse>(context) {
 
 
     val TYPE_NORMAL = 0
@@ -208,14 +208,16 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
                     val result = JSONObject(data.orders!!.toString())
                     setText(R.id.tvOrderName, result.getString("lottery_cid"))
                     setText(R.id.tvOrderIssIue, result.getString("play_bet_issue") + "期")
-                    if (!followList.contains(result.getString("play_bet_issue")+","+getDataPosition())){
-                        followList.add(result.getString("play_bet_issue")+","+getDataPosition())
+                    if (!followList.contains(result.getString("play_bet_issue") + "," + getDataPosition())) {
+                        followList.add(result.getString("play_bet_issue") + "," + getDataPosition())
                     }
                     val arrayList = JsonUtils.fromJson(result.getString("order_detail"), Array<BetShareBean>::class.java)
                     setText(R.id.tv_t1, arrayList[0].play_sec_cname)
                     setText(R.id.tv_t2, arrayList[0].play_class_cname)
                     setText(R.id.tv_t3, arrayList[0].play_odds.toString())
-                    setText(R.id.tv_t4, arrayList[0].play_bet_sum)
+                    if ( result.getString("is_bl_play") == "0") {
+                        setText(R.id.tv_t4, arrayList[0].play_bet_sum + " 钻石")
+                    } else setText(R.id.tv_t4, arrayList[0].play_bet_sum + " 余额")
                     if (arrayList.size > 1) {
                         setVisible(tvShowMore)
                     } else setGone(tvShowMore)
@@ -226,6 +228,7 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
                         setVisible(R.id.betLin)
                         childAdapter.clear()
                         recyclerView.removeAllViews()
+                        childAdapter.isBl = result.getString("is_bl_play")
                         childAdapter.addAll(arrayList)
                     } else {
                         tvShowMore.text = "展开"
@@ -261,9 +264,9 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
 
         //跟投
         private fun betFollow(data: HomeLiveTwentyNewsResponse?) {
-            if (FastClickUtils.isFastClick()){
+            if (FastClickUtils.isFastClick()) {
                 if (!UserInfoSp.getIsLogin()) {
-                    GlobalDialog.notLogged(getContext() as Activity )
+                    GlobalDialog.notLogged(getContext() as Activity)
                     return
                 }
                 val result = JSONObject(data?.orders!!.toString())
@@ -271,16 +274,18 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
                 val arrayList = arrayListOf<LotteryBet>()
                 for (res in array) {
                     arrayList.add(LotteryBet(PlaySecData(play_class_cname = res.play_class_cname, play_class_id = 0, play_sec_name = res.play_sec_name,
-                            play_class_name = res.play_class_name, play_odds = res.play_odds,money = "10"
+                            play_class_name = res.play_class_name, play_odds = res.play_odds, money = "10"
                     ), res.play_sec_cname))
                 }
-                val liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(arrayList, 1, 10*arrayList.size, result.getString("play_bet_lottery_id"),
-                        result.getString("play_bet_issue"), "0x11", result.getString("lottery_cid"), "",true,data.user_id))
+                val liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(arrayList, 1, 10 * arrayList.size, result.getString("play_bet_lottery_id"),
+                        result.getString("play_bet_issue"), "0x11123", result.getString("lottery_cid"), "", true, followUserId = data.user_id,isBalanceBet = result.getString("is_bl_play")))
                 liveRoomBetAccessFragment.show(fragmentManager, "liveRoomBetAccessFragment")
             }
         }
 
         inner class ShareAdapter(context: Context) : BaseRecyclerAdapter<BetShareBean>(context) {
+
+            var isBl = "0"
 
             override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<BetShareBean> {
                 return ShareChildHolder(parent)
@@ -292,7 +297,10 @@ class LiveRoomChatAdapter(context: Context,var fragmentManager: FragmentManager)
                         setText(R.id.tv_1, data.play_sec_cname)
                         setText(R.id.tv_2, data.play_class_cname)
                         setText(R.id.tv_3, data.play_odds.toString())
-                        setText(R.id.tv_4, data.play_bet_sum)
+//                        setText(R.id.tv_4, data.play_bet_sum)
+                        if (isBl == "1") {
+                            setText(R.id.tv_4, data.play_bet_sum + " 余额")
+                        } else setText(R.id.tv_4, data.play_bet_sum + " 钻石")
                     } else {
                         val param = itemView.layoutParams
                         param.height = 0

@@ -92,7 +92,7 @@ public class ImageLoader {
      * 保存图片到picture 目录，Android Q适配，最简单的做法就是保存到公共目录，不用SAF存储
 
      */
-    private static Uri addPictureToAlbum(Context context, Bitmap bitmap, String fileName) {
+    public static Uri addPictureToAlbum(Context context, Bitmap bitmap, String fileName) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(MediaStore.Images.Media.DISPLAY_NAME, fileName);
         contentValues.put(MediaStore.Images.Media.DESCRIPTION, fileName);

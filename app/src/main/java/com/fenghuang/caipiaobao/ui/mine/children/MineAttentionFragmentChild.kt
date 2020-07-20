@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine.children
 
+import android.content.Context
+import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,8 @@ import com.fenghuang.caipiaobao.ui.home.HomePresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineExpertBean
 import com.fenghuang.caipiaobao.ui.mine.data.MineUserAttentionBean
+import com.fenghuang.caipiaobao.ui.moments.childern.CommentOnFragment
+import com.fenghuang.caipiaobao.ui.moments.data.MomentsHotDiscussResponse
 import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
@@ -27,7 +31,7 @@ import kotlinx.android.synthetic.main.fragment_child_attention.*
  *
  */
 
-class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
+class MineAttentionFragmentChild() : BaseContentFragment() {
 
     lateinit var anchorAdapter: AnchorAdapter
 
@@ -42,6 +46,8 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
     }
 
+
+
     override fun initContentView() {
         tvHolder.setCompoundDrawablesWithIntrinsicBounds(null, getDrawable(R.mipmap.ic_zanwuiguanzhu), null, null)
         attentionSmartRefreshLayout.setEnableRefresh(false)//是否启用下拉刷新功能
@@ -49,7 +55,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
         attentionSmartRefreshLayout.setEnableOverScrollBounce(true)//是否启用越界回弹
         attentionSmartRefreshLayout.setEnableOverScrollDrag(true)//是否启用越界拖动（仿苹果效果）
         rvAttention.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.VERTICAL, false)
-        when (type) {
+        when (arguments?.getInt("AttentionFragmentChildType")) {
             1 -> {
                 anchorAdapter = AnchorAdapter()
                 rvAttention.adapter = anchorAdapter
@@ -67,7 +73,7 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
     }
 
     override fun initData() {
-        when (type) {
+        when (arguments?.getInt("AttentionFragmentChildType")) {
             1 -> MineApi.getAttentionList("0") {
                 onSuccess {
                     if (!it.isNullOrEmpty()) anchorAdapter.addAll(it) else {
@@ -239,6 +245,16 @@ class MineAttentionFragmentChild(var type: Int) : BaseContentFragment() {
             }
         }
 
+    }
+
+    companion object {
+        fun newInstance(type:Int): MineAttentionFragmentChild {
+            val fragment = MineAttentionFragmentChild()
+            val bundle = Bundle()
+            bundle.putInt("AttentionFragmentChildType", type)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 }

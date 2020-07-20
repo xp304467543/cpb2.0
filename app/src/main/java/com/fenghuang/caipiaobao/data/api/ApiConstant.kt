@@ -15,11 +15,11 @@ object ApiConstant {
      */
     const val API_URL_DEV_Main = "https://www.cpbadmin.com" //davis
 
-    const val API_URL_DEV_OTHER = "http://47.75.130.69:18306" //bill
+    const val API_URL_DEV_OTHER = "http://api.cpbcs.com" //用户中心
 
-    const val API_MOMENTS_MAIN = "http://47.75.130.69:18308"  //圈子
+    const val API_MOMENTS_MAIN = "http://api.cpbcs.com"  //圈子
 
-    const val API_LOTTERY_BET_MAIN = "http://47.75.167.133:18306"
+    const val API_LOTTERY_BET_MAIN = "http://lott.zhibojk.com" //开奖
     /**
      * 测试
      */

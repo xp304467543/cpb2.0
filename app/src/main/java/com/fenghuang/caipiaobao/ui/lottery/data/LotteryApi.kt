@@ -189,7 +189,7 @@ object LotteryApi : BaseApi {
     /**
      * 投注记录
      */
-    fun getLotteryBetHistory(play_bet_state: Int, page: Int,lotteryId: String="0",st:String="",et:String=""): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
+    fun getLotteryBetHistory(play_bet_state: Int,is_bl_play:String="0", page: Int,lotteryId: String="0",st:String="",et:String=""): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
         val subscriber = object : ApiSubscriber<ArrayList<LotteryBetHistoryResponse>>() {}
         getApiLottery()
                 .get<ArrayList<LotteryBetHistoryResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_HISTORY)
@@ -199,6 +199,7 @@ object LotteryApi : BaseApi {
                 .params("lottery_id", lotteryId)
                 .params("st", st)
                 .params("et", et)
+                .params("is_bl_play", is_bl_play)
                 .params("page", page)
                 .subscribe(subscriber)
         return subscriber

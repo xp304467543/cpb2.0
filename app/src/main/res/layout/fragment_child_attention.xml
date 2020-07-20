@@ -2,6 +2,7 @@
 <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/attentionSmartRefreshLayout"
     android:background="@color/white">
 
@@ -15,8 +16,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
+        <LinearLayout
+            android:id="@+id/topLin"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center"
+            android:paddingBottom="@dimen/dp10"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dp_10">
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tv_start"
+                android:layout_width="@dimen/dp_96"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center"
+                android:text="钻石"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="@color/color_FF513E"
+                app:rv_cornerRadius_BL="@dimen/dp_5"
+                app:rv_cornerRadius_TL="@dimen/dp_5"
+                app:rv_strokeColor="@color/color_FF513E"
+                app:rv_strokeWidth="0.5dp" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tv_end"
+                android:layout_width="@dimen/dp_96"
+                android:layout_height="@dimen/dp_32"
+                android:gravity="center"
+                android:text="余额"
+                android:textColor="@color/color_999999"
+                app:rv_cornerRadius_BR="@dimen/dp_5"
+                app:rv_cornerRadius_TR="@dimen/dp_5"
+                app:rv_strokeColor="@color/color_FF513E"
+                app:rv_strokeWidth="0.5dp" />
+
+        </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAttention"
+            android:layout_below="@+id/topLin"
             android:overScrollMode="never"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

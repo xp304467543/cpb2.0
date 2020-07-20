@@ -21,6 +21,9 @@ data class EnterVip(var vip:String)
 //视频的打开或收起
 data class LiveVideoClose(var closeOrOpen:Boolean)
 
+//动画或收起
+data class LiveAnimClose(var closeOrOpen:Boolean)
+
 //跟新预告关注
 data class UpDatePreView(var boolean: Boolean)
 

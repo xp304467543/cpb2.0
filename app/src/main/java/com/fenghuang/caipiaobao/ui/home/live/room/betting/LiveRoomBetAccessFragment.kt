@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home.live.room.betting
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.os.Looper
@@ -7,7 +8,6 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -16,6 +16,8 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeJumpToMine
 import com.fenghuang.caipiaobao.ui.home.live.room.betting.adapter.LiveRoomBetAccessAdapter
 import com.fenghuang.caipiaobao.ui.lottery.data.*
+import com.fenghuang.caipiaobao.ui.mine.MinePresenter
+import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.AESUtils
 import com.fenghuang.caipiaobao.utils.HttpClient
 import com.fenghuang.caipiaobao.widget.dialog.GlobalTipsDialog
@@ -27,6 +29,7 @@ import com.hwangjr.rxbus.RxBus
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
+import java.math.BigDecimal
 
 /**
  *
@@ -40,6 +43,9 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
 
     private var totalMoney = 0L
 
+    private var UserDiamond = BigDecimal(0.00)
+
+    private var UserBalance = BigDecimal(0.00)
 
     private var liveRoomBetAccessAdapter: LiveRoomBetAccessAdapter? = null
 
@@ -70,9 +76,19 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
     }
 
     override fun initData() {
+        if (arguments?.getString("diamond") == "0x11123") {
+            if ((arguments?.getString("isBalanceBet")) == "0") {
+                getUserDiamond()
+            } else getUserBalance()
+        } else {
+            if ((arguments?.getString("isBalanceBet")) == "0") {
+                UserDiamond = (arguments?.getString("diamond") ?: "0").toBigDecimal()
+            } else {
+                UserBalance = (arguments?.getString("totalBalance") ?: "0").toBigDecimal()
+            }
+        }
         val dataList = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
         if (dataList.isNullOrEmpty()) return
-        val moneyAll = arguments?.getInt("totalDiamond", 0) ?: 0
         liveRoomBetAccessAdapter = context?.let {
             LiveRoomBetAccessAdapter(it)
         }
@@ -80,7 +96,11 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         rvBetAccess?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         liveRoomBetAccessAdapter?.addAll(dataList)
         totalMoney = (arguments?.getInt("totalDiamond") ?: 0).toLong()
-        tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注钻石: <font color=\"#FF513E\">$totalMoney</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
+        if ((arguments?.getString("isBalanceBet") ?: "1") == "0") {
+            tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注钻石: <font color=\"#FF513E\">$totalMoney</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
+        } else {
+            tvTotalDiamond?.text = HtmlCompat.fromHtml("总下注金额: <font color=\"#FF513E\">$totalMoney</font>", HtmlCompat.FROM_HTML_MODE_COMPACT)
+        }
         liveRoomBetAccessAdapter?.onMoneyChangeListener { money, pos ->
             if (liveRoomBetAccessAdapter?.getAllData().isNullOrEmpty()) return@onMoneyChangeListener
             if (money == "") {
@@ -106,10 +126,19 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
                 }
                 else -> {
                     //余额不足
-                    if (arguments?.getString("diamond") ?: "" != "0x11") {
-                        if ((arguments?.getString("diamond")
-                                        ?: "0").toDouble() < (totalMoney.toString().toDouble())) {
+                    if ((arguments?.getString("isBalanceBet") ?: "1") == "0") {
+                        if (UserDiamond < (totalMoney.toBigDecimal())) {
                             val tips = context?.let { it1 -> GlobalTipsDialog(it1, "您的钻石不足,请兑换钻石", "确定", "取消", "") }
+                            tips?.setConfirmClickListener {
+                                RxBus.get().post(HomeJumpToMine(true))
+                                dismiss()
+                            }
+                            tips?.show()
+                            return@setOnClickListener
+                        }
+                    } else {
+                        if (UserBalance < (totalMoney.toBigDecimal())) {
+                            val tips = context?.let { it1 -> GlobalTipsDialog(it1, "您余额不足,请充值", "确定", "取消", "") }
                             tips?.setConfirmClickListener {
                                 RxBus.get().post(HomeJumpToMine(true))
                                 dismiss()
@@ -167,11 +196,13 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         orderMap!!["play_bet_issue"] = play_bet_issue
         orderMap!!["play_bet_follow_user"] = play_bet_follow_user
         orderMap!!["order_detail"] = orderString
+        orderMap!!["is_bl_play"] = arguments?.getString("isBalanceBet") ?: "1"
         AESUtils.encrypt(UserInfoSp.getRandomStr() ?: "", goon.toJson(orderMap))?.let {
             val param = HashMap<String, String>()
             param["datas"] = it
             HttpClient.getInstance(context).postWithHead(LotteryApi.getBaseUrlMoments() + "/" + HomeApi.getApiOtherTest() + LotteryApi.LOTTERY_BET, param, object : HttpClient.MyCallback {
-                override fun failed(e: IOException?) {param
+                override fun failed(e: IOException?) {
+                    param
                     (context as Activity).runOnUiThread {
                         try {
                             loadingDialog?.dismiss()
@@ -224,7 +255,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
 
     //拼接分享注单
     fun getShareOrder(name: String) {
-        LogUtils.e("---->>>"+arguments?.getParcelableArrayList<LotteryBet>("lotteryBet"))
+//        LogUtils.e("---->>>"+arguments?.getParcelableArrayList<LotteryBet>("lotteryBet"))
         val jsonRes = arguments?.getParcelableArrayList<LotteryBet>("lotteryBet")
         val goon = GsonBuilder().disableHtmlEscaping().create()
         val bean = arrayListOf<BetShareBean>()
@@ -242,7 +273,8 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         json.put("play_bet_lottery_id", arguments?.getString("lotteryID") ?: "")
         json.put("lottery_cid", arguments?.getString("lotteryName") ?: "")
         json.put("order_detail", goon.toJson(bean))
-        LogUtils.e("---->>>"+json)
+        json.put("is_bl_play", arguments?.getString("isBalanceBet") ?: "0")
+//        LogUtils.e("---->>>"+json)
         RxBus.get().post(LotteryShareBet(true, json))
     }
 
@@ -268,6 +300,44 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
                 putString("lotteryNameType", lotteryBet.lotteryNameType) //lotteryNameType
                 putBoolean("isFollow", lotteryBet.isFollow) //isFollow
                 putString("followUserId", lotteryBet.followUserId) //isFollow
+                putString("isBalanceBet", lotteryBet.isBalanceBet) //是否余额投注 0不是 1是
+                putString("totalBalance", lotteryBet.totalBalance) //余额
+            }
+        }
+    }
+
+    /**
+     * 获取钻石
+     */
+    private fun getUserDiamond() {
+        try {
+            val presenter = MinePresenter()
+            presenter.getUserDiamond()
+            presenter.getUserDiamondSuccessListener {
+                if (isAdded) {
+//                    userDiamond = it
+//                    if (tvUserDiamond != null) tvUserDiamond.text = userDiamond
+                    UserDiamond = it.toBigDecimal()
+                }
+            }
+        } catch (e: Exception) {
+            ToastUtils.show(e.toString())
+        }
+
+    }
+
+    //获取余额
+    @SuppressLint("SetTextI18n")
+    fun getUserBalance() {
+        MineApi.getUserBalance {
+            onSuccess {
+//                    mView.setBalance(it.balance.toString())
+//                userBalance = it.balance.toString()
+//                if (tvUserDiamond != null) tvUserDiamond.text = userBalance
+                UserBalance = it.balance
+            }
+            onFailed {
+                ToastUtils.show(it.getMsg() ?: "")
             }
         }
     }

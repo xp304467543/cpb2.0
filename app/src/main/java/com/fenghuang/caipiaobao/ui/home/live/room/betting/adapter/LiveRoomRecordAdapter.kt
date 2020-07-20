@@ -17,6 +17,9 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryBetHistoryResponse
  *
  */
 class LiveRoomRecordAdapter(context: Context,val pos:Int) : BaseRecyclerAdapter<LotteryBetHistoryResponse>(context) {
+
+    var currentSel = "0"
+
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<LotteryBetHistoryResponse> {
         return LiveRoomRecordHolder(parent)
     }
@@ -30,9 +33,14 @@ class LiveRoomRecordAdapter(context: Context,val pos:Int) : BaseRecyclerAdapter<
             setText(R.id.tvBetCode, data.play_class_name)
             setText(R.id.tvBetOdds, data.play_odds)
             if (pos==1){
-                setText(R.id.tvBetMoney, data.play_bet_sum)
+                if (currentSel == "0"){
+                    setText(R.id.tvBetMoney, data.play_bet_sum+"\n钻石")
+                }else setText(R.id.tvBetMoney, data.play_bet_sum+"\n余额")
+
             }else{
-                setText(R.id.tvBetMoney, data.play_bet_score)
+                if (currentSel == "0"){
+                    setText(R.id.tvBetMoney, data.play_bet_sum+"\n钻石")
+                }else setText(R.id.tvBetMoney, data.play_bet_sum+"\n余额")
                 if (data.play_bet_score?.contains("+")!!) {
                     setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
                 } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))

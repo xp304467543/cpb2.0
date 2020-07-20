@@ -183,6 +183,11 @@ data class HomeLiveChatBeanNormal(var position: String = "",
 
 )
 
+//全局Socket
+data class AllSocket(var type:String?,var client_id:String?,var dataType:String?,var data:DataRes?)
+
+data class DataRes(val msg_id:String?, var msg:String?,var is_win:Boolean)
+
 @Parcelize
 data class HomeLiveChatChildBean(var id: String = "", var lottery_id: String = "", var method_cname: String = "",
                                  var result_c: String = "", var nums: String = "", var updated: String = "") : Parcelable

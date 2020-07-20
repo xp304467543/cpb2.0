@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_165"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/dp_20"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius_TL="@dimen/dp_10"
+    app:rv_cornerRadius_TR="@dimen/dp_10">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="邀请码"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/tvInviteNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@color/color_EEEEEE" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_report_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_report_1"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:text="复制链接"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_report_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_report_2"
+            android:drawablePadding="@dimen/dp_5"
+            android:textColor="@color/color_999999"
+            android:gravity="center"
+            android:text="复制邀请码"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tv_report_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/ic_report_3"
+            android:textColor="@color/color_999999"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:text="推广海报"
+            android:textSize="@dimen/sp_12" />
+
+
+    </LinearLayout>
+
+
+</com.fenghuang.baselib.widget.round.RoundLinearLayout>

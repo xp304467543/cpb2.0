@@ -14,7 +14,7 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineApi
  */
 class MineGameReportMorePresenter : BaseMvpPresenter<MineGameReportMoreAct>() {
 
-    fun getInfo(is_bl_play: Int = 0, start: String, end: String) {
+    fun getInfo(is_bl_play: String = "0", start: String, end: String) {
         MineApi.getGameLotteryInfo(is_bl_play, start, end) {
             onSuccess {
                 if (mView.isActive()){

@@ -93,21 +93,13 @@ interface BaseApi {
     /**
      *  其他的BaseUrl 是否是测试库
      */
-    fun getApiOtherTest(): String {
-        return if (isTest) {
-            "forum"
-        } else ""
+    fun getApiOtherTest(): String = "forum"
 
-    }
 
     /**
      *  其他的User 是否是测试库
      */
-    fun getApiOtherUserTest(): String {
-        return if (isTest) {
-            "userinfo"
-        } else ""
-    }
+    fun getApiOtherUserTest(): String = "userinfo"
 
 
 }

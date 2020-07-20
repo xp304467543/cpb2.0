@@ -103,7 +103,8 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         val fragments = ArrayList<BaseFragment>()
         fragments.add(LiveRoomChatFragment.newInstance(anchorID,
                 intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE) ?: "",
-                intent?.getStringExtra(IntentConstant.LIVE_ROOM_NICK_NAME) ?: "",intent?.getStringExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: "1"))
+                intent?.getStringExtra(IntentConstant.LIVE_ROOM_NICK_NAME)
+                        ?: "", intent?.getStringExtra(IntentConstant.LIVE_ROOM_LOTTERY_ID) ?: "1"))
         fragments.add(LiveRoomAnchorFragment.newInstance(anchorID, intent?.getStringExtra(IntentConstant.LIVE_ROOM_ANCHOR_STATUE)
                 ?: "0"))
         fragments.add(LiveRoomRankFragment.newInstance(anchorID))
@@ -244,29 +245,31 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
         if (bottomHorGiftWindow != null) {
             bottomHorGiftWindow?.hideLoading()
         }
-        when (eventBean.gift_id) {
-            "16" -> svgaUtils.startAnimator("烟花城堡", svgaImage)
-            "15" -> svgaUtils.startAnimator("兰博基尼", svgaImage)
-            "17" -> svgaUtils.startAnimator("凤凰机车", svgaImage)
+        if (UserInfoSp.getIsShowAnim()) {
+            when (eventBean.gift_id) {
+                "16" -> svgaUtils.startAnimator("烟花城堡", svgaImage)
+                "15" -> svgaUtils.startAnimator("兰博基尼", svgaImage)
+                "17" -> svgaUtils.startAnimator("凤凰机车", svgaImage)
 
-            "21" -> svgaUtils.startAnimator("口红", svgaImage)
-            "23" -> svgaUtils.startAnimator("LOVE", svgaImage)
+                "21" -> svgaUtils.startAnimator("口红", svgaImage)
+                "23" -> svgaUtils.startAnimator("LOVE", svgaImage)
 
-            "29" -> svgaUtils.startAnimator("游艇一号", svgaImage)
-            "28" -> svgaUtils.startAnimator("火凤凰", svgaImage)
-            "27" -> svgaUtils.startAnimator("帝王花车", svgaImage)
+                "29" -> svgaUtils.startAnimator("游艇一号", svgaImage)
+                "28" -> svgaUtils.startAnimator("火凤凰", svgaImage)
+                "27" -> svgaUtils.startAnimator("帝王花车", svgaImage)
 
-            "51" -> svgaUtils.startAnimator("天灯祈福", svgaImage)
-            "52" -> svgaUtils.startAnimator("新春大鼓", svgaImage)
-            "53" -> svgaUtils.startAnimator("年年有余", svgaImage)
-            "54" -> svgaUtils.startAnimator("鞭炮齐鸣", svgaImage)
+                "51" -> svgaUtils.startAnimator("天灯祈福", svgaImage)
+                "52" -> svgaUtils.startAnimator("新春大鼓", svgaImage)
+                "53" -> svgaUtils.startAnimator("年年有余", svgaImage)
+                "54" -> svgaUtils.startAnimator("鞭炮齐鸣", svgaImage)
 
-            "41" -> svgaUtils.startAnimator("电动棒", svgaImage)
-            "42" -> svgaUtils.startAnimator("黄瓜", svgaImage)
-            "43" -> svgaUtils.startAnimator("茄子", svgaImage)
-            "44" -> svgaUtils.startAnimator("皮鞭", svgaImage)
-            "45" -> svgaUtils.startAnimator("滴蜡", svgaImage)
-            "46" -> svgaUtils.startAnimator("为所欲为", svgaImage)
+                "41" -> svgaUtils.startAnimator("电动棒", svgaImage)
+                "42" -> svgaUtils.startAnimator("黄瓜", svgaImage)
+                "43" -> svgaUtils.startAnimator("茄子", svgaImage)
+                "44" -> svgaUtils.startAnimator("皮鞭", svgaImage)
+                "45" -> svgaUtils.startAnimator("滴蜡", svgaImage)
+                "46" -> svgaUtils.startAnimator("为所欲为", svgaImage)
+            }
         }
     }
 
@@ -505,6 +508,15 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun lotteryDiamondNotEnough(eventBean: HomeJumpToMine) {
         if (liveState) liveRoomActivityHelper.switchWindowPlay()
+    }
+
+    //动画效果
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun isShowAnim(eventBean: LiveAnimClose) {
+        if (eventBean.closeOrOpen) {
+            setVisible(svgaImage)
+        } else setGone(svgaImage)
     }
 
     //发弹幕

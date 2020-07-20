@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/containerCode"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/ic_bg_poster">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/dp_40"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp_40"
+        android:padding="@dimen/dp_10"
+        android:src="@mipmap/ic_arrow_back_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:src="@mipmap/ic_bg_poster_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBack" />
+
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:id="@+id/linC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_40"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/dp_35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_1"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="@dimen/dp_5">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="注册输入邀请码，可立即获得100钻石"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/linCoder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_18"
+            android:divider="@drawable/divider_lin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:showDividers="middle">
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ImgQrCode"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="@dimen/dp_150"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="扫码下载乐购直播APP"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12" />
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_105"
+        android:src="@mipmap/ic_bg_poster_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBack" />
+
+    <LinearLayout
+        android:id="@+id/linB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_35"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linC">
+
+        <Button
+            android:id="@+id/bt_save"
+            android:layout_width="@dimen/dp_145"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:background="@drawable/button_background"
+            android:text="保存图片"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/bt_copy"
+            android:layout_width="@dimen/dp_145"
+            android:layout_height="@dimen/dp_45"
+            android:background="@drawable/button_background"
+            android:text="复制链接"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:gravity="center"
+        android:lineSpacingExtra="@dimen/dp_10"
+        android:text="保存网址，可在官网下载最新APP\nwww.lgzb88.com"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_13"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

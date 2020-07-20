@@ -11,6 +11,7 @@ import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
@@ -57,18 +58,22 @@ class MineBillFragmentChild : BaseContentFragment() {
         rvAttention.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.VERTICAL, false)
         when (arguments?.getInt(IntentConstant.LIVE_ROOM_LOTTERY_TYPE, 1)) {
             1 -> {
+                setGone(topLin)
                 balanceAdapter = BalanceAdapter()
                 rvAttention.adapter = balanceAdapter
             }
             2 -> {
+                setVisible(topLin)
                 betRecordAdapter = BetRecordAdapter()
                 rvAttention.adapter = betRecordAdapter
             }
             3 -> {
+                setGone(topLin)
                 exchangeAdapter = ExchangeAdapter()
                 rvAttention.adapter = exchangeAdapter
             }
             else -> {
+                setGone(topLin)
                 rewardAdapter = RewardAdapter()
                 rvAttention.adapter = rewardAdapter
             }
@@ -79,6 +84,29 @@ class MineBillFragmentChild : BaseContentFragment() {
 
     override fun initData() {
         initDataAdapter(true)
+    }
+
+    var is_bal = false
+    override fun initEvent() {
+        tv_start.setOnClickListener {
+            page = 1
+            is_bal = false
+            tv_start.delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
+            tv_start.setTextColor(ViewUtils.getColor(R.color.white))
+            tv_end.delegate.backgroundColor = ViewUtils.getColor(R.color.white)
+            tv_end.setTextColor(ViewUtils.getColor(R.color.color_999999))
+            initRecord(true, "0")
+
+        }
+        tv_end.setOnClickListener {
+            page = 1
+            is_bal = true
+            tv_end.delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF513E)
+            tv_end.setTextColor(ViewUtils.getColor(R.color.white))
+            tv_start.delegate.backgroundColor = ViewUtils.getColor(R.color.white)
+            tv_start.setTextColor(ViewUtils.getColor(R.color.color_999999))
+            initRecord(true, "1")
+        }
     }
 
     private fun initDataAdapter(isFirst: Boolean) {
@@ -121,42 +149,9 @@ class MineBillFragmentChild : BaseContentFragment() {
                     }
                 }
             2 -> {
-                MineApi.betRecord(page) {
-                    onSuccess {
-                        val data = parseResult(it)
-                        if (data != null) {
-                            if (page == 1) {
-                                betRecordAdapter.clear()
-                                rvAttention.removeAllViews()
-                            }
-                            if (data.isNotEmpty()) {
-                                page++
-                                openLoadMore()
-                            }
-                            betRecordAdapter.addAll(data)
-                        } else {
-                            if (isFirst) {
-                                tvHolder.text = "暂无投注记录~ ~"
-                                setVisible(tvHolder)
-                            }
-
-                        }
-                        hidePageLoadingDialog()
-                        closeRefresh()
-                        openRefresh()
-                    }
-                    onFailed {
-                        if (betRecordAdapter.getAllData().isNullOrEmpty() && isFirst) {
-                            tvHolder.text = "暂无投注记录~ ~"
-                            setVisible(tvHolder)
-                        }
-                        GlobalDialog.showError(requireActivity(), it)
-                        hidePageLoadingDialog()
-                        closeRefresh()
-                        openRefresh()
-                    }
-
-                }
+                if (is_bal) {
+                    initRecord(isFirst, "1")
+                } else initRecord(isFirst)
 
             }
             3 ->
@@ -232,6 +227,50 @@ class MineBillFragmentChild : BaseContentFragment() {
                         openRefresh()
                     }
                 }
+        }
+    }
+
+    private fun initRecord(isFirst: Boolean, is_bl_play: String = "0") {
+        MineApi.betRecord(page, is_bl_play) {
+            onSuccess {
+                val data = parseResult(it)
+                if (data != null) {
+                    if (page == 1) {
+                        betRecordAdapter.clear()
+                        rvAttention.removeAllViews()
+                    }
+                    if (data.isNotEmpty()) {
+                        page++
+                        openLoadMore()
+                    }
+                    setGone(tvHolder)
+                    betRecordAdapter.addAll(data)
+                } else {
+                    if (isFirst) {
+                        betRecordAdapter.clear()
+                        rvAttention.removeAllViews()
+                        tvHolder.text = "暂无投注记录~ ~"
+                        setVisible(tvHolder)
+                    }
+
+                }
+                hidePageLoadingDialog()
+                closeRefresh()
+                openRefresh()
+            }
+            onFailed {
+                if (betRecordAdapter.getAllData().isNullOrEmpty() && isFirst) {
+                    betRecordAdapter.clear()
+                    rvAttention.removeAllViews()
+                    tvHolder.text = "暂无投注记录~ ~"
+                    setVisible(tvHolder)
+                }
+                GlobalDialog.showError(requireActivity(), it)
+                hidePageLoadingDialog()
+                closeRefresh()
+                openRefresh()
+            }
+
         }
     }
 
@@ -418,6 +457,11 @@ class MineBillFragmentChild : BaseContentFragment() {
                                 setText(R.id.tvEnd, "- " + data.amount + " 元")
                                 Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_fahongbao)
                             }
+                            "5" -> {
+                                setText(R.id.tvName, "返佣")
+                                setText(R.id.tvEnd, "+ " + data.amount + " 元")
+                                Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_fanyong)
+                            }
                         }
                     }
                     1 -> {
@@ -437,7 +481,9 @@ class MineBillFragmentChild : BaseContentFragment() {
                         setText(R.id.tvTime, data.issue + "   " + data.time)
                         setText(R.id.tvName, data.lottery_name)
                         setText(R.id.tvGiftName, data.method_name + "  " + data.code + "  " + data.type)
-                        setText(R.id.tvGiftPrise, data.amount + " 钻石")
+                        if (is_bal) {
+                            setText(R.id.tvGiftPrise, data.amount + " 余额")
+                        } else setText(R.id.tvGiftPrise, data.amount + " 钻石")
                         if (data.type == "中奖") {
                             Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.icc_re_bet_get)
                         } else Phoenix.with(findView<SimpleDraweeView>(R.id.imgPhoto)).load(R.mipmap.ic_re_bet)

@@ -24,7 +24,7 @@ import okio.ByteString;
 
 public class WsManager implements IWsManager {
 
-    private final static int RECONNECT_INTERVAL = 10 * 1000;    //重连自增步长
+    private final static int RECONNECT_INTERVAL = 5 * 1000;    //重连自增步长
     private final static long RECONNECT_MAX_TIME = 120 * 1000;   //最大重连间隔
     private Context mContext;
     private String wsUrl;
@@ -37,7 +37,7 @@ public class WsManager implements IWsManager {
     private WsStatusListener wsStatusListener;
     private Lock mLock;
     private Handler wsMainHandler = new Handler(Looper.getMainLooper());
-    private int reconnectCount = 2;   //重连次数
+    private int reconnectCount = 5;   //重连次数
     private WebSocketListener mWebSocketListener = new WebSocketListener() {
 
         @Override

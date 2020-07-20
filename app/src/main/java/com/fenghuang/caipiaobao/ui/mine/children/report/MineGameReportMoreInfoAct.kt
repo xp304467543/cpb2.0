@@ -1,6 +1,5 @@
 package com.fenghuang.caipiaobao.ui.mine.children.report
 
-import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpActivity
@@ -26,9 +25,12 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
 
     var dataDialog: DataPickDoubleDialog? = null
 
+
+    var currentSel = "0" //默认钻石
+
     var index = 1
 
-    var pos = 1
+    var pos = 2
 
     var state = 0
 
@@ -61,18 +63,19 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
         rvGameReportInfo.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         rvGameReportInfo.adapter = adapter
         lotteryId = intent.getStringExtra("rLotteryId") ?: "0"
+        currentSel = intent.getStringExtra("is_bl_play") ?: "0"
     }
 
     override fun initData() {
-        mPresenter.getResponse(state, lotteryId)
+        mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         smBetRecord_1?.setOnRefreshListener {
             index = 1
             adapter?.clear()
-            mPresenter.getResponse(state, lotteryId)
+            mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         }
         smBetRecord_1?.setOnLoadMoreListener {
             index++
-            mPresenter.getResponse(state, lotteryId)
+            mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         }
     }
 
@@ -85,10 +88,10 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
             tv_01.setTextColor(ViewUtils.getColor(R.color.color_333333))
             tv_02.setTextColor(ViewUtils.getColor(R.color.color_333333))
             state = 0
-            pos = 1
+            pos = 2
+            index = 1
             adapter?.clear()
-            mPresenter.getResponse(state, lotteryId)
-            mPresenter.getResponse(state,lotteryId, st, et)
+            mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         }
         tv_01.setOnClickListener {
             tv_01.setBackgroundResource(R.drawable.button_background)
@@ -99,8 +102,9 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
             tv_02.setTextColor(ViewUtils.getColor(R.color.color_333333))
             state = 1
             pos = 1
+            index = 1
             adapter?.clear()
-            mPresenter.getResponse(state,lotteryId, st, et)
+            mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         }
         tv_02.setOnClickListener {
             tv_02.setBackgroundResource(R.drawable.button_background)
@@ -111,8 +115,9 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
             tv_all.setTextColor(ViewUtils.getColor(R.color.color_333333))
             state = 2
             pos = 0
+            index = 1
             adapter?.clear()
-            mPresenter.getResponse(state,lotteryId, st, et)
+            mPresenter.getResponse(state, lotteryId, st, et, currentSel)
         }
         ivTitleRight.setOnClickListener {
             if (dataDialog == null) {
@@ -121,7 +126,8 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
                     index = 1
                     st = data1
                     et = data2
-                    mPresenter.getResponse(state,lotteryId, data1, data2)
+                    adapter?.clear()
+                    mPresenter.getResponse(state, lotteryId, data1, data2, currentSel)
                     dataDialog?.dismiss()
                 }
             } else dataDialog?.show()
@@ -142,13 +148,32 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
                 setText(R.id.tvBetCodeName, data.play_sec_name)
                 setText(R.id.tvBetCode, data.play_class_name)
                 setText(R.id.tvBetOdds, data.play_odds)
-                if (pos == 1) {
-                    setText(R.id.tvBetMoney, data.play_bet_sum)
-                } else {
-                    setText(R.id.tvBetMoney, data.play_bet_score)
-                    if (data.play_bet_score?.contains("+")!!) {
-                        setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
-                    } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                when (pos) {
+                    1 -> {
+                        setText(R.id.tvBetMoney, data.play_bet_sum)
+                        setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                    }
+                    0 -> {
+                        setText(R.id.tvBetMoney, data.play_bet_score)
+                        if (data.play_bet_score?.contains("+")!!) {
+                            setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
+                        } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                    }
+                    2 -> {
+                        if (data.play_bet_score == "0") {
+                            setText(R.id.tvBetMoney, data.play_bet_sum)
+                            setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                        } else {
+                            setText(R.id.tvBetMoney, data.play_bet_score)
+                            if (data.play_bet_score?.contains("+")!!) {
+                                setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_FF513E))
+                            } else setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                        }
+                    }
+                    else -> {
+                        setText(R.id.tvBetMoney, data.play_bet_sum)
+                        setTextColor(R.id.tvBetMoney, ViewUtils.getColor(R.color.color_333333))
+                    }
                 }
             }
         }

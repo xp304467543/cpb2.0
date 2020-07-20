@@ -243,4 +243,25 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
             }
         }
     }
+
+    /**
+     * 检测邀请码
+     */
+    fun checkMarkCode(phone: String, captcha: String, market_code: String){
+        val map = hashMapOf<String, Any>()
+        map["phone"] = phone
+        map["captcha"] = captcha
+        map["market_code"] = market_code
+        AESUtils.encrypt(LoginApi.getBase64Key(), Gson().toJson(map))?.let { it ->
+            LoginApi.checkMarkCode(it){
+                    onSuccess {
+                    if (mView.isActive()){
+                        userRegister(phone, captcha, mView.etRegisterPassWord.text.toString(), "1")
+                    }
+                }
+                onFailed { err ->
+                    ToastUtils.show(err.getMsg()?:"服务器异常") }
+            }
+        }
+    }
 }

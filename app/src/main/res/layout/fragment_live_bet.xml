@@ -25,11 +25,11 @@
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/tvRedBall"
-            app:actualImageScaleType="centerInside"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_10" />
+            android:layout_marginStart="@dimen/dp_10"
+            app:actualImageScaleType="centerInside" />
 
         <TextView
             android:id="@+id/tvLotterySelectType"
@@ -135,8 +135,7 @@
                 android:id="@+id/imgPlaySound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_2"
-                />
+                android:layout_marginTop="@dimen/dp_2" />
         </LinearLayout>
 
         <LinearLayout
@@ -210,11 +209,12 @@
 
 
         <ImageView
+            android:id="@+id/imgIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_10"
-            android:src="@mipmap/ic_diamond_big" />
+             />
 
         <TextView
             android:id="@+id/tvUserDiamond"
@@ -254,10 +254,40 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomBetLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_90"
-        android:background="@color/white"
+        android:layout_height="@dimen/dp_130"
         android:visibility="gone"
+        android:background="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/linBottom">
+
+        <RadioGroup
+            android:id="@+id/selectRadio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp10"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/dp_5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RadioButton
+                android:id="@+id/rb_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp10"
+                android:checked="true"
+                android:text="余额竞猜"
+                android:textSize="@dimen/sp_10"
+                android:theme="@style/MyRadioButton" />
+
+            <RadioButton
+                android:id="@+id/rb_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="钻石竞猜"
+                android:textSize="@dimen/sp_10"
+                android:theme="@style/MyRadioButton" />
+
+        </RadioGroup>
 
         <HorizontalScrollView
             android:id="@+id/radioHor"
@@ -266,7 +296,7 @@
             android:layout_marginTop="@dimen/dp_10"
             android:overScrollMode="never"
             android:scrollbars="none"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/selectRadio">
 
             <RadioGroup
                 android:id="@+id/radioGroupLayout"
@@ -279,7 +309,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_90"
             android:layout_marginStart="@dimen/dp_10"
             android:layout_marginTop="@dimen/dp_10"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -342,7 +372,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:gravity="center"
-                android:text="钻石"
+                android:text="元"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_12" />
         </RelativeLayout>

@@ -26,8 +26,6 @@
             toos:text="若要进行兑换等消费操作,请联系客服"
              />
 
-
-
         <TextView
             android:id="@+id/tvContentDescription"
             android:layout_width="match_parent"

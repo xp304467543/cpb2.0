@@ -28,7 +28,7 @@ data class LotteryBet(var result: PlaySecData,var playName:String) : Parcelable
 data class LotteryBetAccess(var result: ArrayList<LotteryBet>, var totalCount: Int,
                             var totalMoney: Int,var lotteryID:String,var issue:String,
                             var diamond:String,var lotteryName:String,var lotteryNameType:String,
-                            var isFollow:Boolean =false,var followUserId:String = "0")
+                            var isFollow:Boolean =false,var followUserId:String = "0",var isBalanceBet:String = "1",var totalBalance:String = "0")
 
 //重置
 data class LotteryReset(var reset: Boolean)
