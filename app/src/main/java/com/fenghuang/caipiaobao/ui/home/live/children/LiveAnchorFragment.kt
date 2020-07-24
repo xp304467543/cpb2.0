@@ -34,7 +34,7 @@ class LiveAnchorFragment : BaseMvpFragment<LiveAnchorFragmentPresenter>() {
 
 
     private var headTitleAdapter: HeadTitleAdapter? = null
-    private var contentAdapter: HomeHotLiveAdapter? = null
+     var contentAdapter: HomeHotLiveAdapter? = null
 
     override fun attachView() = mPresenter.attachView(this)
 

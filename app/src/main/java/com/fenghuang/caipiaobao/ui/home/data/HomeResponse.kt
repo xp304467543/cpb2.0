@@ -122,3 +122,7 @@ data class Update(var enforce: Int = 0,
 data class SystemNotice(var msg_id: String? = null,var msg_type: String? = null,var content: String? = null,var create_time: String? = null
                         ,var createtime_txt: String? = null)
 
+
+data class SystemUrl(val live_api:String?,val user_api:String?,val forum_api:String?,
+                     val lottery_api:String?,val chat_url:String?,val notice_url:String?)
+

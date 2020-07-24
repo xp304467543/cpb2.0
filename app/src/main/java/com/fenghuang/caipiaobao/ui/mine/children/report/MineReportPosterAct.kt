@@ -73,6 +73,7 @@ class MineReportPosterAct : BaseNavActivity() {
         bt_save.setOnClickListener {
             setXml()
         }
+        imgBack.setOnClickListener { finish() }
     }
 
     private fun setXml() {

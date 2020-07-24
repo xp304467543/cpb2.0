@@ -103,7 +103,7 @@ class LiveRoomAnchorAdapter(context: Context,val liveState:String) : BaseRecycle
                             , getData()?.pls ?: "0", getData()?.shares
                             ?: "0", getData()?.avatar ?: "0"
                             ,  liveState, getData()?.create_time
-                            ?: 0, getData()?.nickname ?: "0",  getData()?.is_zan ?:false,"",false)
+                            ?: 0, getData()?.nickname ?: "0",  getData()?.is_zan ?:false,"",false,getData()?.sex)
                     LaunchUtils.jumpAnchor(getContext(), ben)
                 }
 

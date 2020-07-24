@@ -2,7 +2,6 @@ package com.fenghuang.caipiaobao.ui.mine.children.report
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
-import kotlinx.android.synthetic.main.fragment_report_2.*
 import kotlinx.android.synthetic.main.fragment_report_3.*
 import kotlinx.android.synthetic.main.fragment_report_3.vipHolder
 
@@ -42,12 +41,14 @@ class ReportFragment3P : BaseMvpPresenter<ReportFragment3>() {
             }
             onFailed {
                 if (mView.isActive()) {
-                    mView.smartVip3.finishRefresh()
-                    mView.smartVip3.finishLoadMore()
-                    mView.adapter?.clear()
-                    mView.rvReport3.removeAllViews()
-                    mView.setVisible(mView.vipHolder)
-                    mView.vipHolder.text = it.getMsg()
+                        mView.smartVip3.finishRefresh()
+                        mView.smartVip3.finishLoadMore()
+                    if (page == 1){
+                        mView.adapter?.clear()
+                        mView.rvReport3.removeAllViews()
+                        mView.setVisible(mView.vipHolder)
+                        mView.vipHolder.text = "暂无下级信息"
+                    }
                 }
             }
         }

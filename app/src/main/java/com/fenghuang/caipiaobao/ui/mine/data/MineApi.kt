@@ -6,7 +6,6 @@ import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
-import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.moments.data.MomentsAnchorListResponse
 import com.fenghuang.caipiaobao.ui.moments.data.MomentsHotDiscussResponse
 import com.fenghuang.caipiaobao.utils.AESUtils
@@ -24,138 +23,137 @@ object MineApi : BaseApi {
 
 
     //用户信息
-    private const val USER_INFO = "/index/index"
+    private const val USER_INFO = "index/index"
 
     //修改用户信息
-    private const val USER_INFO_EDIT = "/index/edit"
+    private const val USER_INFO_EDIT = "index/edit"
 
     //上传头像
-    const val USER_UPLOAD_AVATAR = "/index/upload-avatar"
+    const val USER_UPLOAD_AVATAR = "index/upload-avatar"
 
     //意见反馈
-    private const val MINE_FEED_BACK = "/api/v1_1/user/user_feedback"
+    private const val MINE_FEED_BACK = "api/v1_1/user/user_feedback"
 
     //获取皮肤列表/详情
-    private const val MINE_THEM_SKIN = "/api/common/get_skin_list/"
+    private const val MINE_THEM_SKIN = "api/common/get_skin_list/"
 
     //查询Vip等级
-    private const val MINE_CHECK_VIP = "/api/v1_1/user/vip_now/"
+    private const val MINE_CHECK_VIP = "api/v1_1/user/vip_now/"
 
     //获取余额
-    private const val USER_BALANCE = "/index/balance"
+    private const val USER_BALANCE = "index/balance"
 
     //获取钻石
-    private const val USER_DIAMOND = "/api/v1_1/user/diamond_now/"
+    private const val USER_DIAMOND = "api/v1_1/user/diamond_now/"
 
     //是否设置支付密码
-    private const val USER_IS_SET_PAY_PASS = "/index/check-fund-password"
+    private const val USER_IS_SET_PAY_PASS = "index/check-fund-password"
 
     //验证支付密码
-    private const val MINE_VERIFY_PASS_WORD = "/index/verify-fund-password"
+    private const val MINE_VERIFY_PASS_WORD = "index/verify-fund-password"
 
     //兑换钻石
-    private const val USER_EXCHANGE_DIAMOND = "/api/v1_1/user/exchange_diamond/"
+    private const val USER_EXCHANGE_DIAMOND = "api/v1_1/user/exchange_diamond/"
 
     //获取支付列表
-    private const val PAY_TYPE_LIST = "/api/v1_1/Recharge/getList"
+    private const val PAY_TYPE_LIST = "api/v1_1/Recharge/getList"
 
     //银行卡列表
-    private const val BANK_LIST = "/index/bank-list"
+    private const val BANK_LIST = "index/bank-list"
 
     //绑定银行卡
-    private const val USER_BIND_CARD = "/index/bind-card/"
+    private const val USER_BIND_CARD = "index/bind-card/"
 
     //用户银行卡列表
-    private const val USER_BANK_LIST = "/index/user-card-list/"
+    private const val USER_BANK_LIST = "index/user-card-list/"
 
     //用户提现
-    private const val USER_DEPOAIT = "/api/v1_1/withdraws/UserDeposit/"
+    private const val USER_DEPOAIT = "api/v1_1/withdraws/UserDeposit/"
 
     //关注列表 用户 主播
-    private const val USER_ATTENTION = "/api/v1_1/user/User_follow_list/"
+    private const val USER_ATTENTION = "api/v1_1/user/User_follow_list/"
 
     //关注列表 专家
-    private const val USER_ATTENTION_EXPERT = "/plan/follow-list"
+    private const val USER_ATTENTION_EXPERT = "plan/follow-list"
 
     //余额记录
-    private const val USER_BALANCE_LIST = "/api/v1_1/Recharge/accountChange"
+    private const val USER_BALANCE_LIST = "api/v1_1/Recharge/accountChange"
 
     //打赏记录
-    private const val USER_PAY_LIST = "/api/v1_1/user/user_reward_list_new/"
+    private const val USER_PAY_LIST = "api/v1_1/user/user_reward_list_new/"
 
     //兑换记录
-    private const val USER_CHANGE_LIST = "/api/v1_1/user/diamond_list/"
+    private const val USER_CHANGE_LIST = "api/v1_1/user/diamond_list/"
 
     //投注记录
-    private const val USER_BET_LIST = "/quiz/change_log"
+    private const val USER_BET_LIST = "quiz/change_log"
 
     //消息中心
-    private const val USER_MESSAGE_CENTER = "/api/v1_1/live/get_notice/"
+    private const val USER_MESSAGE_CENTER = "api/v1_1/live/get_notice/"
 
     //获取新消息通知
-    private const val USER_MESSAGE_NEW = "/api/v1_1/live/get_notice_new/"
+    private const val USER_MESSAGE_NEW = "api/v1_1/live/get_notice_new/"
 
     //获取某个主播动态
-    private const val ANCHOR_LIST = "/api/v1_1/live/get_dynamic/"
+    private const val ANCHOR_LIST = "api/v1_1/live/get_dynamic/"
 
     //修改支付密码
-    private const val HOME_LIVE_RED_SET_PASS = "/index/set-fund-password/"
+    private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password/"
 
     //修改密码
-    private const val USER_MODIFY_PASSWORD = "/index/reset-password"
+    private const val USER_MODIFY_PASSWORD = "index/reset-password"
 
     // 验证码修改  登录/支付密码接口
-    private const val SETTING_PASSWORD = "/index/sms-reset-pwd"
+    private const val SETTING_PASSWORD = "index/sms-reset-pwd"
 
     //热门讨论列表 - 单个
-    private const val HOT_DISCUSS = "/article/index"
+    private const val HOT_DISCUSS = "article/index"
 
     //官方联系
-    private const val CONTENT_GROUP = "/api/v1_1/live/contact/"
+    private const val CONTENT_GROUP = "api/v1_1/live/contact/"
 
     //卡密充值
-    private const val RECHARGE_CARD = "/api/v2/Recharge/code_recharge"
+    private const val RECHARGE_CARD = "api/v2/Recharge/code_recharge"
 
     //获取卡商列表
-    private const val CARD_LIST = "/api/v2/Recharge/getcardlist"
+    private const val CARD_LIST = "api/v2/Recharge/getcardlist"
 
     //团队报表
-    private const val TEAM_REPORT = "/market/team-count"
+    private const val TEAM_REPORT = "market/team-count"
 
     //团队报表 最新数据
-    private const val TEAM_REPORT_LAST = "/market/latest-count"
+    private const val TEAM_REPORT_LAST = "market/latest-count"
 
     //游戏报表
-    private const val GAME_REPORT_LAST = "/guess/report"
+    private const val GAME_REPORT_LAST = "guess/report"
 
     //彩票游戏
-    private const val GAME_LOTTERY = "/guess/lottery-count"
+    private const val GAME_LOTTERY = "guess/lottery-count"
 
 
     //彩票游戏详情
-    private const val GAME_LOTTERY_INFO = "/guess/lottery-detail-count"
+    private const val GAME_LOTTERY_INFO = "guess/lottery-detail-count"
 
     //推广码
-    private const val GET_CODE = "/market/index"
+    private const val GET_CODE = "market/index"
 
     //申请推广码
-    private const val SUPPORT_REPORT_CODE = "/market/apply"
+    private const val SUPPORT_REPORT_CODE = "market/apply"
 
     //推广级别列表
-    private const val LEVEL_LIST = "/market/level-list"
+    private const val LEVEL_LIST = "market/level-list"
 
     //会员报表
-    private const val VIP_LEVEL = "/market/member-count"
+    private const val VIP_LEVEL = "market/member-count"
 
 
     /**
      * 获取用户信息
      */
-
     fun getUserInfo(function: ApiSubscriber<MineUserInfoResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineUserInfoResponse>() {}
         subscriber.function()
-        getApiOther().get<MineUserInfoResponse>(HomeApi.getApiOtherUserTest() + USER_INFO)
+        getApiOther().get<MineUserInfoResponse>( USER_INFO)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -167,7 +165,7 @@ object MineApi : BaseApi {
     fun upLoadPersonalInfo(nickname: String, gender: Int, profile: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + USER_INFO_EDIT)
+        getApiOther().post<String>( USER_INFO_EDIT).isMultipart(true)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("nickname", nickname)
                 .params("gender", gender)
@@ -234,7 +232,7 @@ object MineApi : BaseApi {
     fun getUserBalance(function: ApiSubscriber<MineUserBalance>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineUserBalance>() {}
         subscriber.function()
-        getApiOther().get<MineUserBalance>(HomeApi.getApiOtherUserTest() + USER_BALANCE)
+        getApiOther().get<MineUserBalance>( USER_BALANCE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -258,7 +256,7 @@ object MineApi : BaseApi {
     fun getIsSetPayPass(function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().get<String>(HomeApi.getApiOtherUserTest() + USER_IS_SET_PAY_PASS)
+        getApiOther().get<String>( USER_IS_SET_PAY_PASS)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -269,7 +267,7 @@ object MineApi : BaseApi {
     fun verifyPayPass(passWord: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + MINE_VERIFY_PASS_WORD)
+        getApiOther().post<String>( MINE_VERIFY_PASS_WORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("password", passWord)
                 .subscribe(subscriber)
@@ -306,7 +304,7 @@ object MineApi : BaseApi {
     fun getBankList(function: ApiSubscriber<List<MineBankList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineBankList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineBankList>>(HomeApi.getApiOtherUserTest() + BANK_LIST)
+        getApiOther().get<List<MineBankList>>( BANK_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -319,7 +317,7 @@ object MineApi : BaseApi {
     fun bingBankCard(bank_code: String, province: String, city: String, branch: String, realname: String, card_num: String, fund_password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + USER_BIND_CARD)
+        getApiOther().post<String>( USER_BIND_CARD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("bank_code", bank_code)
                 .params("province", province)
@@ -338,7 +336,7 @@ object MineApi : BaseApi {
     fun getUserBankList(function: ApiSubscriber<List<MineUserBankList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineUserBankList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineUserBankList>>(HomeApi.getApiOtherUserTest() + USER_BANK_LIST)
+        getApiOther().get<List<MineUserBankList>>( USER_BANK_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -393,7 +391,7 @@ object MineApi : BaseApi {
     fun getAttentionList(function: ApiSubscriber<List<MineExpertBean>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineExpertBean>>() {}
         subscriber.function()
-        getApiLottery().get<List<MineExpertBean>>(getApiOtherTest() + USER_ATTENTION_EXPERT)
+        getApiLottery().get<List<MineExpertBean>>( USER_ATTENTION_EXPERT)
                 .headers("token", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
                 .subscribe(subscriber)
@@ -434,7 +432,7 @@ object MineApi : BaseApi {
         val subscriber = object : ApiSubscriber<MomentsHotDiscussResponse>() {}
         subscriber.function()
         getApiLottery()
-                .get<MomentsHotDiscussResponse>(HomeApi.getApiOtherTest() + HOT_DISCUSS)
+                .get<MomentsHotDiscussResponse>( HOT_DISCUSS)
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())
                 .params("article_id", article_id)
@@ -476,7 +474,7 @@ object MineApi : BaseApi {
     fun betRecord(page: Int,is_bl_play:String="0", function: AllSubscriber.() -> Unit) {
         val subscriber = AllSubscriber()
         subscriber.function()
-        getApiLottery().get<BaseApiBean>(HomeApi.getApiOtherTest() + USER_BET_LIST)
+        getApiLottery().get<BaseApiBean>( USER_BET_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("page", page)
                 .params("limit", "10")
@@ -529,7 +527,7 @@ object MineApi : BaseApi {
     fun getSettingPayPassword(oldPassword: String, newPassword: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + HOME_LIVE_RED_SET_PASS)
+        getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("old_password", oldPassword)
                 .params("new_password", newPassword)
@@ -545,7 +543,7 @@ object MineApi : BaseApi {
     fun modifyPassWord(old_password: String, new_password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + USER_MODIFY_PASSWORD)
+        getApiOther().post<String>( USER_MODIFY_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("old_password", old_password)
                 .params("new_password", new_password)
@@ -559,7 +557,7 @@ object MineApi : BaseApi {
     fun modifyPassWord(phone: String, captcha: String, new_pwd: String, type: Int, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(HomeApi.getApiOtherUserTest() + SETTING_PASSWORD)
+        getApiOther().post<String>(SETTING_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("phone", phone)
                 .params("captcha", captcha)
@@ -597,7 +595,7 @@ object MineApi : BaseApi {
     fun getTeamReport(start: String = "", end: String = "", function: ApiSubscriber<MineTeamReport>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineTeamReport>() {}
         subscriber.function()
-        getApiOther().get<MineTeamReport>(MineApi.getApiOtherUserTest() + TEAM_REPORT)
+        getApiOther().get<MineTeamReport>(MineApi. TEAM_REPORT)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("st", start)
                 .params("et", end)
@@ -610,7 +608,7 @@ object MineApi : BaseApi {
     fun getTeamReportLast(range: String, function: ApiSubscriber<MineTeamReportLast>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineTeamReportLast>() {}
         subscriber.function()
-        getApiOther().get<MineTeamReportLast>(MineApi.getApiOtherUserTest() + TEAM_REPORT_LAST)
+        getApiOther().get<MineTeamReportLast>(TEAM_REPORT_LAST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("range", range)
                 .subscribe(subscriber)
@@ -622,7 +620,7 @@ object MineApi : BaseApi {
     fun getCode(function: ApiSubscriber<MineReportCode>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineReportCode>() {}
         subscriber.function()
-        getApiOther().get<MineReportCode>(MineApi.getApiOtherUserTest() + GET_CODE)
+        getApiOther().get<MineReportCode>(GET_CODE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -636,7 +634,7 @@ object MineApi : BaseApi {
         val map = hashMapOf<String, Any>()
         map["qq"] = qq
         AESUtils.encrypt(UserInfoSp.getRandomStr() ?: "", Gson().toJson(map))?.let {
-            getApiOther().post<String>(MineApi.getApiOtherUserTest() + SUPPORT_REPORT_CODE)
+            getApiOther().post<String>(SUPPORT_REPORT_CODE).isMultipart(true)
                     .headers("Authorization", UserInfoSp.getTokenWithBearer())
                     .params("datas", it)
                     .subscribe(subscriber)
@@ -649,7 +647,7 @@ object MineApi : BaseApi {
     fun getLevelList(function: ApiSubscriber<List<MineLevelList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineLevelList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineLevelList>>(MineApi.getApiOtherUserTest() + LEVEL_LIST)
+        getApiOther().get<List<MineLevelList>>( LEVEL_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -660,7 +658,7 @@ object MineApi : BaseApi {
     fun getVipLevel(sub_user_id:String="",sub_nickname:String="", is_sub:Int = 0,page:Int,   function: ApiSubscriber<List<MineVipList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineVipList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineVipList>>(MineApi.getApiOtherUserTest() + VIP_LEVEL)
+        getApiOther().get<List<MineVipList>>( VIP_LEVEL)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("sub_user_id", sub_user_id)
                 .params("sub_nickname", sub_nickname)
@@ -676,7 +674,7 @@ object MineApi : BaseApi {
     fun getGameReportLast(start: String, end: String, function: ApiSubscriber<MineGameReport>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineGameReport>() {}
         subscriber.function()
-        getApiLottery().get<MineGameReport>(MineApi.getApiOtherTest() + GAME_REPORT_LAST)
+        getApiLottery().get<MineGameReport>( GAME_REPORT_LAST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("st", start)
                 .params("et", end)
@@ -689,7 +687,7 @@ object MineApi : BaseApi {
     fun getGameLottery(start: String, end: String, function: ApiSubscriber<MineGameReport>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineGameReport>() {}
         subscriber.function()
-        getApiLottery().get<MineGameReport>(MineApi.getApiOtherTest() + GAME_LOTTERY)
+        getApiLottery().get<MineGameReport>( GAME_LOTTERY)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("st", start)
                 .params("et", end)
@@ -702,7 +700,7 @@ object MineApi : BaseApi {
     fun getGameLotteryInfo(is_bl_play: String = "0", start: String, end: String, function: ApiSubscriber<List<MineGameReportInfo>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineGameReportInfo>>() {}
         subscriber.function()
-        getApiLottery().get<List<MineGameReportInfo>>(MineApi.getApiOtherTest() + GAME_LOTTERY_INFO)
+        getApiLottery().get<List<MineGameReportInfo>>( GAME_LOTTERY_INFO)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("is_bl_play", is_bl_play)
                 .params("st", start)

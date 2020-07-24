@@ -83,19 +83,24 @@ class MomentsAnchorAdapter(context: Context) : BaseRecyclerAdapter<MomentsAnchor
             if (!data.media.isNullOrEmpty()) {
                 mAdapter.setData(data.media)
                 mAdapter.setLayoutManage(layoutManagerImg)
-            }else setGone(findView<RecyclerView>(R.id.rvMomentsDiscussHolderListImg))
+            } else setGone(findView<RecyclerView>(R.id.rvMomentsDiscussHolderListImg))
 
 
             if (data.live_status == "1") {
                 findView<WaveView>(R.id.circleWave).setInitialRadius(50f)
                 findView<WaveView>(R.id.circleWave).start()
-            }else{
+            } else {
                 setGone(findView<WaveView>(R.id.circleWave))
             }
 
             setOnClick(findView<ImageView>(R.id.linDianZan))
             setOnClick(findView<ImageView>(R.id.linReply))
             setOnClick(findView<ImageView>(R.id.imgMomentsDiscussHolderPhoto))
+            if (data.sex == 1) {
+                findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_boy)
+            } else if (data.sex == 0) {
+                findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_girl)
+            }
         }
 
         override fun onClick(id: Int) {
@@ -133,7 +138,7 @@ class MomentsAnchorAdapter(context: Context) : BaseRecyclerAdapter<MomentsAnchor
                     when (getData()?.live_status) {
                         "1" -> {
                             LaunchUtils.startLive(getContext(), getData()?.anchor_id!!, getData()?.live_status!!,
-                                    "", getData()?.avatar!!, getData()?.nickname!!, 0,"1")
+                                    "", getData()?.avatar!!, getData()?.nickname!!, 0, "1")
                         }
                         else -> LaunchUtils.startPersonalPage(getContext(), getData()?.anchor_id!!, 2)
                     }

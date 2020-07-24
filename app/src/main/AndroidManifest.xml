@@ -219,6 +219,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/SwipeBackStyle"
             tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".widget.dialog.ActivityDialogSuccess"
+            android:launchMode="singleTop"
+            android:theme="@style/DialogActivity" />
     </application>
 
 </manifest>

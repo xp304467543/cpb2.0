@@ -63,12 +63,12 @@ class ReportFragment3 : BaseMvpFragment<ReportFragment3P>() {
         inner class LevelNextHolder(parent: ViewGroup) : BaseViewHolder<MineVipList>(getContext(), parent, R.layout.holder_item_vip) {
             override fun onBindData(data: MineVipList) {
                 setText(R.id.tv_title_1,"团队人数")
-                setText(R.id.tv_title_2,"投注金额")
+                setText(R.id.tv_title_2,"兑换金额")
                 setText(R.id.tv_title_3,"返点金额")
                 ImageManager.loadImg(data.avatar, findView(R.id.imgPhotoUser))
                 val userLevel = findView<TextView>(R.id.tvNameUser)
-                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay(data.created ?: 0))
-                setText(R.id.tv1_vip, data.recharge)
+                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay(data.created?.times(1000)?:0))
+                setText(R.id.tv1_vip, data.invitee_num)
                 setText(R.id.tv2_vip, data.exchange )
                 setText(R.id.tv3_vip, data.brokerage)
                 val imgLevel= findView<ImageView>(R.id.imgLevel)

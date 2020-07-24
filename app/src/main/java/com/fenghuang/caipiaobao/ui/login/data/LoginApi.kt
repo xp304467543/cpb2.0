@@ -9,11 +9,8 @@ import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.fenghuang.caipiaobao.utils.AESUtils
-import com.fenghuang.caipiaobao.utils.HttpClient
 import com.fenghuang.caipiaobao.utils.IpUtils
 import com.google.gson.Gson
-import okhttp3.Response
-import java.io.IOException
 
 /**
  *
@@ -26,26 +23,26 @@ import java.io.IOException
 object LoginApi : BaseApi {
 
     //登录
-     const val LOGIN = "/v2/login"
+     const val LOGIN = "v2/login"
 
     //登录信息，登录成功后获取
-    private const val LOGIN_INFO = "/index/index"
+    private const val LOGIN_INFO = "index/index"
 
     //获取验证码
-    private const val GET_CODE = "/reg/send-sms"
+    private const val GET_CODE = "reg/send-sms"
 
     //注册
-     const val REGISTER = "/v2/reg"
+     const val REGISTER = "v2/reg"
 
     //首冲
-    private const val FIRST_RECHARGE = "/api/v1_1/Recharge/IsFirst"
+    private const val FIRST_RECHARGE = "api/v1_1/Recharge/IsFirst"
 
     //找回登录密码
-    private const val GET_LOGIN_PASS = "/home/retrieve-password"
+    private const val GET_LOGIN_PASS = "home/retrieve-password"
 
 
     // 检测邀请码接口
-    private const val GET_LOGIN_MARK_CODE= "/market/check-market-code"
+    private const val GET_LOGIN_MARK_CODE= "market/check-market-code"
 
     /**
      * 密码登录
@@ -62,7 +59,7 @@ object LoginApi : BaseApi {
         AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
             val param = HashMap<String,String>()
             param["datas"] = it
-//            HttpClient.getInstance(context).post(LoginApi.getApiOtherUserTest() + LOGIN,param,object :HttpClient.MyCallback{
+//            HttpClient.getInstance(context).post( LOGIN,param,object :HttpClient.MyCallback{
 //                override fun failed(e: IOException?) {
 //
 //                }
@@ -71,7 +68,7 @@ object LoginApi : BaseApi {
 //                }
 //
 //            })
-            getApiOther().post<LoginResponse>(getApiOtherUserTest() + LOGIN_INFO).isMultipart(true)
+            getApiOther().post<LoginResponse>(  LOGIN_INFO).isMultipart(true)
         }
     }
 
@@ -90,7 +87,7 @@ object LoginApi : BaseApi {
         map["ip"] = IpUtils.getIPAddress(ViewUtils.getContext())
         map["is_auto_login"] = isAutoLogin
         AESUtils.encrypt(getBase64Key(), Gson().toJson(map))?.let {
-            getApiOther().post<BaseApiBean>(getApiOtherUserTest() + LOGIN)
+            getApiOther().post<BaseApiBean>(  LOGIN)
                     .params("datas", it)
                     .subscribe(subscriber)
         }
@@ -103,7 +100,7 @@ object LoginApi : BaseApi {
     fun getLoginInfo(token: String, function: ApiSubscriber<LoginInfoResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginInfoResponse>() {}
         subscriber.function()
-        getApiOther().get<LoginInfoResponse>(getApiOtherUserTest() + LOGIN_INFO)
+        getApiOther().get<LoginInfoResponse>( LOGIN_INFO)
                 .headers("Authorization", token)
                 .subscribe(subscriber)
     }
@@ -127,7 +124,7 @@ object LoginApi : BaseApi {
     fun userGetCode(phone: String, type: String, function: ApiSubscriber<RegisterCode>.() -> Unit) {
         val subscriber = object : ApiSubscriber<RegisterCode>() {}
         subscriber.function()
-        getApiOther().post<RegisterCode>(getApiOtherUserTest() + GET_CODE)
+        getApiOther().post<RegisterCode>( GET_CODE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("phone", phone)
@@ -141,7 +138,7 @@ object LoginApi : BaseApi {
     fun userRegister(phone: String, code: String, password: String, is_auto_login: String, function: ApiSubscriber<LoginInfoResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginInfoResponse>() {}
         subscriber.function()
-        getApiOther().post<LoginInfoResponse>(getApiOtherUserTest() + REGISTER)
+        getApiOther().post<LoginInfoResponse>( REGISTER)
                 .params("phone", phone)
                 .params("password", password)
                 .params("captcha", code)
@@ -157,7 +154,7 @@ object LoginApi : BaseApi {
     fun getLoginPass(phone: String, captcha: String, new_pwd: String, function: AllEmptySubscriber.() -> Unit) {
         val subscriber = AllEmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(getApiOtherUserTest() + GET_LOGIN_PASS)
+        getApiOther().post<String>( GET_LOGIN_PASS)
                 .params("phone", phone)
                 .params("captcha", captcha)
                 .params("new_pwd", new_pwd)
@@ -170,7 +167,7 @@ object LoginApi : BaseApi {
     fun checkMarkCode(datas: String, function: AllEmptySubscriber.() -> Unit) {
         val subscriber = AllEmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>(getApiOtherUserTest() +GET_LOGIN_MARK_CODE).isMultipart(true)
+        getApiOther().post<String>(GET_LOGIN_MARK_CODE).isMultipart(true)
                 .params("datas", datas)
                 .subscribe(subscriber)
     }

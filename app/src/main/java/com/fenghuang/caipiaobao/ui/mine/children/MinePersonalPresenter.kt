@@ -172,7 +172,7 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                 .addFormDataPart("avatar", "data:image/png;base64," + bitMapToBase64(bitmap))
         val requestBody = builder.build()
         val request = Request.Builder()
-                .url(MineApi.getBaseUrlMe() + "/" + MineApi.getApiOtherUserTest() + MineApi.USER_UPLOAD_AVATAR)
+                .url(MineApi.getBaseUrlMe() + MineApi.USER_UPLOAD_AVATAR)
                 .addHeader("Authorization", UserInfoSp.getTokenWithBearer())
                 .post(requestBody)
                 .build()

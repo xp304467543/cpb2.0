@@ -64,6 +64,8 @@ class MineGameReportMoreInfoAct : BaseMvpActivity<MineGameReportMoreInfoPresente
         rvGameReportInfo.adapter = adapter
         lotteryId = intent.getStringExtra("rLotteryId") ?: "0"
         currentSel = intent.getStringExtra("is_bl_play") ?: "0"
+        st =   intent.getStringExtra("startTime") ?: ""
+        et =   intent.getStringExtra("endTime") ?: ""
     }
 
     override fun initData() {

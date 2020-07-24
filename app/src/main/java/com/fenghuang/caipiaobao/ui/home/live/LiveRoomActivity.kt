@@ -484,7 +484,7 @@ class LiveRoomActivity : BaseMvpActivity<LiveRoomPresenter>() {
     //跳转购彩
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun jumpToBuyLottery(eventBean: JumpToBuyLottery) {
-        if (liveState) liveRoomActivityHelper.switchWindowPlay()
+        if (liveState) liveRoomActivityHelper.switchWindowPlay() else finish()
     }
 
     //更新关注

@@ -71,13 +71,13 @@ class ReportFragment2 : BaseMvpFragment<ReportFragment2P>() {
             override fun onBindData(data: MineVipList) {
                 ImageManager.loadImg(data.avatar, findView(R.id.imgPhotoUser))
                 val userLevel = findView<TextView>(R.id.tvNameUser)
-                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay(data.created ?: 0))
+                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay((data.created?.times(1000)) ?: 0))
                 setText(R.id.tv1_vip, data.recharge)
                 setText(R.id.tv2_vip, data.exchange )
                 setText(R.id.tv3_vip, data.brokerage)
                 val imgLevel= findView<ImageView>(R.id.imgLevel)
                 when (data.level) {
-                    "1","0" -> {
+                    "1" -> {
                         imgLevel.setBackgroundResource(R.mipmap.ic_v_1)
                     }
                     "2" -> {

@@ -16,14 +16,14 @@ data class MomentsHotDiscussResponse(var id: String = "", var user_id: String = 
                                      var nickname: String = "", var avatar: String = "", var lottery_name: String = "",
                                      var issue: String = "", var like: String = "", var comment_nums: String = "",
                                      var created: Long = 0, var is_like: String = "", var url: String = "",
-                                     var is_promote: String = ""):Serializable
+                                     var is_promote: String = "",var gender:Int?):Serializable
 
 
 data class MomentsAnchorListResponse(var anchor_id: String = "", var dynamic_id: String = "", var media: MutableList<String>? = null,
                                      var text: String = "", var zans: String = "", var pls: String = "",
                                      var shares: String = "", var avatar: String = "", var live_status: String = "",
                                      var create_time: Long = 0, var nickname: String = "", var is_zan: Boolean = false,
-                                     var live_status_txt: String = "",var isToLive:Boolean=true):Serializable
+                                     var live_status_txt: String = "",var isToLive:Boolean=true,var sex:Int?):Serializable
 
 data class MomentsRecommend(var id: String = "", var title: String = "", var description: String = "", var icon: String = "", var url: String = "", var create: String = "")
 

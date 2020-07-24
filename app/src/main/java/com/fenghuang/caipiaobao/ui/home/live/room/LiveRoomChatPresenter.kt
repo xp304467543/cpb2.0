@@ -536,7 +536,15 @@ class LiveRoomChatPresenter(private val anchorId: String) : BaseMvpPresenter<Liv
         if (id != 0) {
             mView.setVisible(mView.imgEnterImg)
             mView.setImageResource(imageView, id)
-        } else mView.setGone(mView.imgEnterImg)
+            mView.setVisible(mView.tvBottomChat)
+            mView.setGone(mView.tvVip1)
+        } else {
+            mView.setGone(mView.imgEnterImg)
+            if (UserInfoSp.getIsLogin()){
+                mView.setGone(mView.tvBottomChat)
+                mView.setVisible(mView.tvVip1)
+            }
+        }
     }
 
     private fun scrollBottom() {

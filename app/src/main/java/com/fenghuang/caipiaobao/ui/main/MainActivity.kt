@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.main
 
 import android.Manifest
+import android.content.Intent
 import android.os.Bundle
 import com.fenghuang.baselib.base.activity.BasePageActivity
 import com.fenghuang.baselib.utils.AppUtils
@@ -18,6 +19,7 @@ import com.fenghuang.caipiaobao.ui.home.data.LoginOut
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.utils.view.PushToast
 import com.fenghuang.caipiaobao.utils.view.TitleTextWindow
+import com.fenghuang.caipiaobao.widget.dialog.ActivityDialogSuccess
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import me.jessyan.autosize.utils.LogUtils
@@ -114,6 +116,7 @@ class MainActivity : BasePageActivity() {
     private var isReconnect = false
     private var mTimer: Timer? = null
     private fun allSocket() {
+        LogUtils.d("AllWsManager-----WebUrlProvider="+WebUrlProvider.getALLBaseUrl())
         initStatusListener()
         mWsManager = WsManager.Builder(this)
                 .client(OkHttpClient().newBuilder()
@@ -188,14 +191,19 @@ class MainActivity : BasePageActivity() {
                         override fun run() {
                             mWsManager?.sendMessage(ping(client_id))
                             LogUtils.d("AllWsManager-----发送了心跳")
-
                         }
                     }, 0, 1000 * 54)
                 }
                 "ServerPush" -> {
                     if (res.dataType == "open_lottery_push") {
-                            mWsManager?.sendMessage(makeSure(res.data?.msg_id))
-                            systemDialog(res.data?.msg ?: "获取消息失败")
+                        mWsManager?.sendMessage(makeSure(res.data?.msg_id))
+                        systemDialog(res.data?.msg ?: "获取消息失败")
+                    } else if (res.dataType == "pop_result_push") {
+                        mWsManager?.sendMessage(makeSurePop(res.data?.msg_id))
+                        val intent = Intent(this, ActivityDialogSuccess::class.java)
+                        intent.putExtra("msgSuccess",res.data?.msg)
+                        intent.putExtra("is_success",res.data?.is_success)
+                        startActivity(intent)
                     }
                 }
             }
@@ -213,11 +221,11 @@ class MainActivity : BasePageActivity() {
 //                float?.show(msg)
 //            }z
 //        }
-        if (toast == null ) {
+        if (toast == null) {
             toast = PushToast()
             toast?.getToastInstance()?.init(this)
         }
-        if (UserInfoSp.getIsLogin()){
+        if (UserInfoSp.getIsLogin()) {
             toast?.getToastInstance()?.createToast(msg)
         }
     }
@@ -247,6 +255,18 @@ class MainActivity : BasePageActivity() {
         jsonObject.put("msg_id", msg_id)
         return jsonObject.toString()
     }
+
+    private fun makeSurePop(msg_id: String?): String {
+        val jsonObject = JSONObject()
+        jsonObject.put("type", "confirm")
+        jsonObject.put("event", "pop_result_push")
+        jsonObject.put("client_id", client_id)
+        jsonObject.put("user_id", UserInfoSp.getUserId())
+        jsonObject.put("msg_id", msg_id)
+        return jsonObject.toString()
+    }
+
+
 
 
     @Subscribe(thread = EventThread.MAIN_THREAD)

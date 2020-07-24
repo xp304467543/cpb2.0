@@ -486,8 +486,8 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         setGone(rtv3)
         setGone(rtv4)
         setGone(rtv5)
-        tvPreMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
-        tvNewsMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
-        tvAnchorMore.setTextColor(ViewUtils.getColor(R.color.alivc_green))
+        tvPreMore.setTextColor(ViewUtils.getColor(R.color.color_333333))
+        tvNewsMore.setTextColor(ViewUtils.getColor(R.color.color_333333))
+        tvAnchorMore.setTextColor(ViewUtils.getColor(R.color.color_333333))
     }
 }

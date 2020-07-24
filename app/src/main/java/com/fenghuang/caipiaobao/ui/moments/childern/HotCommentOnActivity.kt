@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpActivity
@@ -25,7 +26,7 @@ import java.util.*
  *
  * @ Author  QinTian
  * @ Date  2020-02-19
- * @ Describe 评论详情页面
+ * @ Describe 评论详情页面  davis
  *
  */
 
@@ -81,6 +82,11 @@ class HotCommentOnActivity() : BaseMvpActivity<HotCommentOnActivityPresenter>() 
         if (data.live_status == "1") {
             circleWave.setInitialRadius(50f)
             circleWave.start()
+        }
+        if (data.sex == 1) {
+            findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_boy)
+        } else if (data.sex == 0) {
+            findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_girl)
         }
     }
 

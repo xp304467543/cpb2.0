@@ -1,18 +1,10 @@
 package com.fenghuang.caipiaobao.ui.lottery.data
 
-import android.os.Looper
-import com.fenghuang.baselib.utils.LogUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.AllEmptySubscriber
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
-import com.fenghuang.caipiaobao.ui.home.data.HomeApi
-import com.fenghuang.caipiaobao.utils.AESUtils
-import com.google.gson.GsonBuilder
 import com.pingerx.rxnetgo.rxcache.CacheMode
-import okhttp3.*
-import java.io.IOException
 
 
 /**
@@ -26,40 +18,40 @@ import java.io.IOException
 object LotteryApi : BaseApi {
 
     //彩种
-    private const val LOTTERY_TYPE = "/idx/sort"
+    private const val LOTTERY_TYPE = "idx/sort"
 
     //最新开奖号
-    private const val LOTTERY_NEW_CODE = "/ch/indexNewOne"
+    private const val LOTTERY_NEW_CODE = "ch/indexNewOne"
 
     //历史开奖号
-    private const val LOTTERY_HISTORY_CODE = "/idx/history"
+    private const val LOTTERY_HISTORY_CODE = "idx/history"
 
     //露珠
-    private const val LOTTERY_LU_ZHU = "/lottery/dewdrop"
+    private const val LOTTERY_LU_ZHU = "lottery/dewdrop"
 
     //走势
-    private const val LOTTERY_TREND = "/lottery/trending"
+    private const val LOTTERY_TREND = "lottery/trending"
 
     //专家计划
-    private const val LOTTERY_EXPERT_PLAN = "/plan/index"
+    private const val LOTTERY_EXPERT_PLAN = "plan/index"
 
     //竞彩彩种
-    private const val LOTTERY_BET_TYPE = "/ch/bet_sort"
+    private const val LOTTERY_BET_TYPE = "ch/bet_sort"
 
     //竞彩彩种玩法
-    private const val LOTTERY_BET_RULE_TYPE = "/guess/play_rule"
+    private const val LOTTERY_BET_RULE_TYPE = "guess/play_rule"
 
     //投注记录
-    private const val LOTTERY_BET_HISTORY = "/guess/play_bet_history"
+    private const val LOTTERY_BET_HISTORY = "guess/play_bet_history"
 
     //玩法列表
-    private const val GUESS_PLAY_LIST = "/guess/play_list"
+    private const val GUESS_PLAY_LIST = "guess/play_list"
 
     //投注可选金额
-    private const val LOTTERY_BET_COUNT_MONEY = "/guess/play_sum_list"
+    private const val LOTTERY_BET_COUNT_MONEY = "guess/play_sum_list"
 
     //投注
-     const val LOTTERY_BET = "/guess/play_bet"
+     const val LOTTERY_BET = "guess/play_bet"
 
     /**
      * 获取彩种
@@ -108,7 +100,7 @@ object LotteryApi : BaseApi {
         val subscriber = AllEmptySubscriber()
         subscriber.function()
         getApiLottery()
-                .get<String>(HomeApi.getApiOtherTest() + LOTTERY_LU_ZHU)
+                .get<String>( LOTTERY_LU_ZHU)
                 .cacheMode(CacheMode.NONE)
                 .params("lottery_id", lotteryId)
                 .params("belong_date", date)
@@ -125,7 +117,7 @@ object LotteryApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<LotteryCodeTrendResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<LotteryCodeTrendResponse>>(HomeApi.getApiOtherTest() + LOTTERY_TREND)
+                .get<List<LotteryCodeTrendResponse>>( LOTTERY_TREND)
                 .cacheMode(CacheMode.NONE)
                 .params("lottery_id", lotteryId)
                 .params("num", num)
@@ -141,7 +133,7 @@ object LotteryApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPaleyResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<LotteryExpertPaleyResponse>>(HomeApi.getApiOtherTest() + LOTTERY_EXPERT_PLAN)
+                .get<List<LotteryExpertPaleyResponse>>( LOTTERY_EXPERT_PLAN)
                 .cacheMode(CacheMode.NONE)
                 .params("lottery_id", lotteryId)
                 .params("issue", issue)
@@ -157,7 +149,7 @@ object LotteryApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<LotteryPlayListResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<LotteryPlayListResponse>>(HomeApi.getApiOtherTest() + GUESS_PLAY_LIST)
+                .get<List<LotteryPlayListResponse>>( GUESS_PLAY_LIST)
                 .cacheMode(CacheMode.NONE)
                 .params("lottery_id", lotteryId)
                 .subscribe(subscriber)
@@ -181,7 +173,7 @@ object LotteryApi : BaseApi {
     fun getLotteryBetRule(): ApiSubscriber<ArrayList<LotteryBetRuleResponse>> {
         val subscriber = object : ApiSubscriber<ArrayList<LotteryBetRuleResponse>>() {}
         getApiLottery()
-                .get<ArrayList<LotteryBetRuleResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_RULE_TYPE)
+                .get<ArrayList<LotteryBetRuleResponse>>( LOTTERY_BET_RULE_TYPE)
                 .subscribe(subscriber)
         return subscriber
     }
@@ -192,7 +184,7 @@ object LotteryApi : BaseApi {
     fun getLotteryBetHistory(play_bet_state: Int,is_bl_play:String="0", page: Int,lotteryId: String="0",st:String="",et:String=""): ApiSubscriber<ArrayList<LotteryBetHistoryResponse>> {
         val subscriber = object : ApiSubscriber<ArrayList<LotteryBetHistoryResponse>>() {}
         getApiLottery()
-                .get<ArrayList<LotteryBetHistoryResponse>>(HomeApi.getApiOtherTest() + LOTTERY_BET_HISTORY)
+                .get<ArrayList<LotteryBetHistoryResponse>>( LOTTERY_BET_HISTORY)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("play_bet_state", play_bet_state)
                 .params("limit", 20)
@@ -213,7 +205,7 @@ object LotteryApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<PlayMoneyData>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<PlayMoneyData>>(HomeApi.getApiOtherTest() + LOTTERY_BET_COUNT_MONEY)
+                .get<List<PlayMoneyData>>( LOTTERY_BET_COUNT_MONEY)
                 .cacheMode(CacheMode.NONE)
                 .subscribe(subscriber)
     }

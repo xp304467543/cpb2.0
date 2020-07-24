@@ -61,7 +61,7 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
         }
         btUpLoadUserInfo.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-                mPresenter.upLoadPersonalInfo(edUserName.text.toString(), if (edUserSex.text.toString() == "男") 1 else 0, publish_ed_desc.text.toString())
+                mPresenter.upLoadPersonalInfo(edUserName.text.toString(), if (edUserSex.text.toString() == "男") 1 else 2, publish_ed_desc.text.toString())
             }
         }
 

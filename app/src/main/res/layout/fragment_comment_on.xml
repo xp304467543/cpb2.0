@@ -72,6 +72,15 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="三生三世" />
 
+                <ImageView
+                    android:id="@+id/imgAnchorSex"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:background="@mipmap/ic_live_anchor_girl"
+                    android:layout_marginStart="@dimen/dp15"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/commentAnchorName"/>
+
                 <TextView
                     android:id="@+id/commentAnchorTime"
                     android:layout_width="wrap_content"

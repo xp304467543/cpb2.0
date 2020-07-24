@@ -74,7 +74,7 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
         AESUtils.encrypt(LoginApi.getBase64Key(), Gson().toJson(map))?.let {
             val param = HashMap<String, String>()
             param["datas"] = it
-            HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + "/" + LoginApi.getApiOtherUserTest() + LoginApi.LOGIN, param, object : HttpClient.MyCallback {
+            HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe()  + LoginApi.LOGIN, param, object : HttpClient.MyCallback {
                 override fun failed(e: IOException?) {}
                 override fun success(res: Response?) {
                     if (mView.isActive()) {
@@ -116,7 +116,7 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
             AESUtils.encrypt(LoginApi.getBase64Key(), Gson().toJson(map))?.let {
                 val param = HashMap<String, String>()
                 param["datas"] = it
-                HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + "/" + LoginApi.getApiOtherUserTest() + LoginApi.LOGIN, param, object : HttpClient.MyCallback {
+                HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + LoginApi.LOGIN, param, object : HttpClient.MyCallback {
                     override fun failed(e: IOException?) {}
                     override fun success(res: Response?) {
                         if (mView.isActive()) {
@@ -182,7 +182,7 @@ class LoginPresenter : BaseMvpPresenter<LoginActivity>(), BaseApi {
             AESUtils.encrypt(LoginApi.getBase64Key(), Gson().toJson(map))?.let {
                 val param = HashMap<String, String>()
                 param["datas"] = it
-                HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + "/" + LoginApi.getApiOtherUserTest() + LoginApi.REGISTER, param, object : HttpClient.MyCallback {
+                HttpClient.getInstance(mView).post(MineApi.getBaseUrlMe() + "/"  + LoginApi.REGISTER, param, object : HttpClient.MyCallback {
                     override fun failed(e: IOException?) {
                     }
                     override fun success(res: Response?) {

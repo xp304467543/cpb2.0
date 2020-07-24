@@ -11,7 +11,6 @@ import android.view.Gravity
 import android.view.View
 import android.widget.*
 import androidx.viewpager.widget.ViewPager
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -24,7 +23,6 @@ import com.fenghuang.caipiaobao.ui.lottery.data.*
 import com.fenghuang.caipiaobao.ui.mine.MinePresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.FastClickUtils
-import com.fenghuang.caipiaobao.utils.GlobalDialog
 import com.fenghuang.caipiaobao.utils.SoundPoolHelper
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomDialogFragment
 import com.fenghuang.caipiaobao.widget.dialog.bottom.BottomLotterySelectDialog
@@ -34,7 +32,6 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.dialog_lottery_select.*
 import kotlinx.android.synthetic.main.fragment_live_bet.*
-import kotlinx.android.synthetic.main.fragment_mine.*
 
 
 /**
@@ -63,6 +60,8 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     private var nextIssue = ""
 
     private var isOpenCode = false
+
+    private var minMonty = 1 //最小投注金额
 
     private var isBalanceBet = "1" //是余额投注 默认是
 
@@ -153,7 +152,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             @SuppressLint("SetTextI18n")
             override fun afterTextChanged(str: Editable?) {
                 if (str != null && str.isNotEmpty()) {
-                    if (str.toString().toLong() < 10) {
+                    if (minMonty > 1 && str.toString().toLong() < 10) {
                         ToastUtils.show("请输入≥10的整数")
                     }
                     betMoney = if (str.length > 9) {
@@ -176,7 +175,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 ToastUtils.show("当前期已封盘或已开奖，请购买下一期")
                 return@setOnClickListener
             }
-            if (userDiamond != "-1" && userBalance!="-1") {
+            if (userDiamond != "-1" && userBalance != "-1") {
                 if (currentName == "二中二" && currentNum != 2) {
                     ToastUtils.show("二中二必须选择2个号码")
                     return@setOnClickListener
@@ -186,7 +185,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                     return@setOnClickListener
                 }
                 if (!betList.isNullOrEmpty() && rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text != null) {
-                    if (rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString() != "" && rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString().toInt() >= 10) {
+                    if (rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString() != "" && rootView?.findViewById<EditText>(R.id.etBetPlayMoney)?.text.toString().toInt() >= minMonty) {
                         if (nextIssue != "") {
                             if (tvUserDiamond.text.toString().isNotEmpty()) {
                                 //打开投注确认
@@ -194,25 +193,27 @@ class LiveRoomBetFragment : BottomDialogFragment() {
 
                             } else ToastUtils.show("钻石信息获取失败,请重试")
                         } else ToastUtils.show("当前期已封盘或已开奖，请购买下一期")
-                    } else ToastUtils.show("投注金额最小为 10")
+                    } else ToastUtils.show("投注金额最小为 $minMonty")
                 } else ToastUtils.show("未选择任何玩法或投注金额,请选择后再提交")
             } else getUserDiamond()
         }
 
         rootView?.findViewById<RadioButton>(R.id.rb_1)?.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 rootView?.findViewById<ImageView>(R.id.imgIcon)?.setBackgroundResource(R.mipmap.ic_ye_tz)
                 rootView?.findViewById<TextView>(R.id.tvEnd)?.text = "元"
                 if (tvUserDiamond != null) tvUserDiamond.text = userBalance
                 isBalanceBet = "1"
+                minMonty = 1
             }
         }
         rootView?.findViewById<RadioButton>(R.id.rb_2)?.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 rootView?.findViewById<ImageView>(R.id.imgIcon)?.setBackgroundResource(R.mipmap.ic_diamond_big)
                 rootView?.findViewById<TextView>(R.id.tvEnd)?.text = "钻"
                 if (tvUserDiamond != null) tvUserDiamond.text = userDiamond
                 isBalanceBet = "0"
+                minMonty = 10
             }
         }
     }
@@ -230,7 +231,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
                 betList[it].result.money = etBetPlayMoney.text.toString()
             }
             liveRoomBetAccessFragment = LiveRoomBetAccessFragment.newInstance(LotteryBetAccess(betList, betCount, tvDiamond.text.toString().toInt(), currentLotteryId,
-                    nextIssue, tvUserDiamond.text.toString(), tvLotterySelectType?.text.toString(), vpGuss?.currentItem?.let { it1 -> viewPagerAdapter?.getPageTitle(it1) }.toString(),isBalanceBet = isBalanceBet,totalBalance = userBalance))
+                    nextIssue, tvUserDiamond.text.toString(), tvLotterySelectType?.text.toString(), vpGuss?.currentItem?.let { it1 -> viewPagerAdapter?.getPageTitle(it1) }.toString(), isBalanceBet = isBalanceBet, totalBalance = userBalance))
             liveRoomBetAccessFragment?.show(fragmentManager, "liveRoomBetAccessFragment")
         }
     }
@@ -438,7 +439,7 @@ class LiveRoomBetFragment : BottomDialogFragment() {
             presenter.getUserDiamondSuccessListener {
                 if (isAdded) {
                     userDiamond = it
-                    if (isBalanceBet == "0"){
+                    if (isBalanceBet == "0") {
                         if (tvUserDiamond != null) tvUserDiamond.text = userDiamond
                     }
                 }
@@ -452,19 +453,20 @@ class LiveRoomBetFragment : BottomDialogFragment() {
     //获取余额
     @SuppressLint("SetTextI18n")
     fun getUserBalance() {
-            MineApi.getUserBalance {
-                onSuccess {
+        MineApi.getUserBalance {
+            onSuccess {
 //                    mView.setBalance(it.balance.toString())
-                    userBalance = it.balance.toString()
-                  if (isBalanceBet == "1"){
-                      if (tvUserDiamond != null) tvUserDiamond.text = userBalance
-                  }
-                }
-                onFailed {
-                    ToastUtils.show(it.getMsg()?:"")
+                userBalance = it.balance.toString()
+                if (isBalanceBet == "1") {
+                    if (tvUserDiamond != null) tvUserDiamond.text = userBalance
                 }
             }
+            onFailed {
+                ToastUtils.show(it.getMsg() ?: "")
+            }
+        }
     }
+
     /**
      * 快选金额
      */

@@ -41,8 +41,6 @@ class SearchDialog (context: Context) : Dialog(context,R.style.dialog){
         tvCancel.setOnClickListener { dismiss() }
         etSearchName.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                ToastUtils.show(etSearchName.text.toString())
            if (!etSearchName.text.isNullOrEmpty()) mListener?.invoke(etSearchName.text.toString())
 
             }

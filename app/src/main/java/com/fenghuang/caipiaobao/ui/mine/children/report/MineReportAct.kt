@@ -54,12 +54,14 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
         tab1.setOnClickListener {
             setVisible(containerTop)
             setPageTitle("团队统计")
+            tvTopTitle1.text = "会员人数"
             mPresenter.getNew("0")
             showHideFragment(mFragments[0])
         }
         tab2.setOnClickListener {
             setVisible(containerTop)
             setPageTitle("会员报表")
+            tvTopTitle1.text = "会员人数"
             mPresenter.getNew("1")
             showHideFragment(mFragments[1])
             setVisible(ivTitleRight)
@@ -68,12 +70,14 @@ class MineReportAct : BaseMvpActivity<MineReportPresenter>() {
         tab3.setOnClickListener {
             setVisible(containerTop)
             setPageTitle("会员下级报表")
+            tvTopTitle1.text = "团队人数"
             mPresenter.getNew("2")
             showHideFragment(mFragments[2])
         }
         tab4.setOnClickListener {
             setGone(containerTop)
             setPageTitle("邀请")
+            tvTopTitle1.text = "会员人数"
             showHideFragment(mFragments[3])
             setGone(ivTitleRight)
         }

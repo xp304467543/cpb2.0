@@ -61,13 +61,7 @@ class LiveAdvanceFragment : BaseMvpFragment<LiveAdvanceFragmentPresenter>() {
 
     override fun initData() {
         mPresenter.getTitle()
-    }
-
-    override fun onSupportVisible() {
-        if (isActive()) {
-            mPresenter.getContent(contentAid)
-        }
-
+        mPresenter.getContent(contentAid)
     }
 
 

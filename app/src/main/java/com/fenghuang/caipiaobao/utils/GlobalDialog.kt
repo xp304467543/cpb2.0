@@ -79,9 +79,9 @@ object GlobalDialog {
         UserInfoSp.putSkinSelect(skin)
     }
 
-    //对所有未登录处理
+    //对所有未登录处理  2003
     fun showError(context: Activity, error: ApiException, horizontal: Boolean = false) {
-        if (error.getCode() == 2001 || error.getCode() == 401 || error.getCode() == 2000 || error.getMsg().toString().contains("请登录")) {
+        if (error.getCode() == 2001 || error.getCode() == 2003 || error.getCode() == 401 || error.getCode() == 2000 || error.getMsg().toString().contains("请登录")) {
             notLogged(context, horizontal)
         } else if (error.getCode() == 9) {
             noSetPassWord(context)

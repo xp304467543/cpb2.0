@@ -44,7 +44,7 @@ class ReportFragment2P : BaseMvpPresenter<ReportFragment2>() {
                     mView.smartVip.finishLoadMore()
                    if (mView.page == 1){
                        mView.setVisible(mView.vipHolder)
-                       mView.vipHolder.text = it.getMsg()
+                       mView.vipHolder.text = "暂无会员信息"
                    }
                 }
             }

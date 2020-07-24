@@ -49,7 +49,7 @@
         </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 
         <TextView
-            android:id="@+id/tvCancel"
+            android:id="@+id/tvActCancel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"

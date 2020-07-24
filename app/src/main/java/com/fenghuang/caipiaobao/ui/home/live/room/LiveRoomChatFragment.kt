@@ -526,17 +526,17 @@ class LiveRoomChatFragment : BaseMvpFragment<LiveRoomChatPresenter>() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun enter(eventBean: EnterVip) {
         if (eventBean.vip == "0") {
-            tvEnterContent.text = "欢迎 " + UserInfoSp.getUserNickName() + " 进入直播间"
-            mPresenter.setVip(eventBean.vip, imgEnterImg)
-            ObjectAnimatorViw.setShowAnimation(linEnter, 1000)
-            Timer().schedule(object : TimerTask() {
-                override fun run() {
-                    if (isSupportVisible && linEnter != null) {
-                        linEnter.post { ObjectAnimatorViw.setHideAnimation(linEnter, 1000) }
-                    }
-                    this.cancel()
-                }
-            }, 3000)
+//            tvEnterContent.text = "欢迎 " + UserInfoSp.getUserNickName() + " 进入直播间"
+//            mPresenter.setVip(eventBean.vip, imgEnterImg)
+//            ObjectAnimatorViw.setShowAnimation(linEnter, 1000)
+//            Timer().schedule(object : TimerTask() {
+//                override fun run() {
+//                    if (isSupportVisible && linEnter != null) {
+//                        linEnter.post { ObjectAnimatorViw.setHideAnimation(linEnter, 1000) }
+//                    }
+//                    this.cancel()
+//                }
+//            }, 3000)
         } else {
             SpanLite.with(tvVipEnter).append(SpanBuilder.Builder("VIP" + eventBean.vip).drawTextColor("#FF513E").drawTypeFaceBold().drawTypeFaceItalic().build())
                     .append(SpanBuilder.Builder(" 贵族 ").drawTextColor("#333333").build())

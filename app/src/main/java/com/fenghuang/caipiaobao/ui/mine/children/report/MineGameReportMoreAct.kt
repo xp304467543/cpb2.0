@@ -126,7 +126,7 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
                 setText(R.id.tv_lottery_2, data.amount)
                 setText(R.id.tv_lottery_3, data.prize)
                 if (index == "0") {
-                    setText(R.id.tv_t_1, "注单钻石")
+                    setText(R.id.tv_t_1, "钻石注单")
                     setText(R.id.tv_t_2, "下单钻石")
                     setText(R.id.tv_t_3, "中奖钻石")
                 } else {
@@ -144,6 +144,8 @@ class MineGameReportMoreAct : BaseMvpActivity<MineGameReportMorePresenter>() {
                     val intent = Intent(this@MineGameReportMoreAct, MineGameReportMoreInfoAct::class.java)
                     intent.putExtra("rLotteryId", getData()?.lottery_id)
                     intent.putExtra("is_bl_play", index)
+                    intent.putExtra("startTime", start)
+                    intent.putExtra("endTime", end)
                     startActivity(intent)
                 }
             }

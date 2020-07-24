@@ -40,7 +40,7 @@ import java.util.*
  *
  */
 
-class   MomentsHotDiscussAdapter(context: Context) : BaseRecyclerAdapter<MomentsHotDiscussResponse>(context) {
+class MomentsHotDiscussAdapter(context: Context) : BaseRecyclerAdapter<MomentsHotDiscussResponse>(context) {
 
 
     var isShowFooter = false
@@ -111,6 +111,11 @@ class   MomentsHotDiscussAdapter(context: Context) : BaseRecyclerAdapter<Moments
             setOnClick(findView<ImageView>(R.id.linDianZan))
             setOnClick(findView<ImageView>(R.id.linReply))
             setOnClick(findView<ImageView>(R.id.imgMomentsDiscussHolderPhoto))
+            if (data.gender == 1) {
+                findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_boy)
+            } else if (data.gender == 2) {
+                findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_girl)
+            }
         }
 
         override fun onClick(id: Int) {
@@ -146,11 +151,11 @@ class   MomentsHotDiscussAdapter(context: Context) : BaseRecyclerAdapter<Moments
 //                        GlobalDialog.notLogged(getContext() as Activity)
 //                        return
 //                    }
-                    LaunchUtils.startFragment(getContext(),CommentOnFragment.newInstance(getData()!!))
+                    LaunchUtils.startFragment(getContext(), CommentOnFragment.newInstance(getData()!!))
                 }
 
                 R.id.imgMomentsDiscussHolderPhoto -> {
-                   LaunchUtils.startPersonalPage(getContext(),getData()?.user_id!!,1)
+                    LaunchUtils.startPersonalPage(getContext(), getData()?.user_id!!, 1)
                 }
             }
         }

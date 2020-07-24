@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.mine.children.report
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +52,7 @@ class MineReportSearchAct : BaseNavActivity() {
     override fun initData() {
         if ((intent.getStringExtra("searchName") ?: "").isNotEmpty()) {
             MineApi.getVipLevel(sub_nickname = intent.getStringExtra("searchName")
-                    ?: "", page = 1,is_sub = 1) {
+                    ?: "", page = 1, is_sub = 1) {
                 onSuccess {
                     if (!it.isNullOrEmpty()) {
                         setGone(linSearchHolder)
@@ -68,6 +69,35 @@ class MineReportSearchAct : BaseNavActivity() {
 
     }
 
+    override fun initEvent() {
+
+        etSearchName.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                if (!etSearchName.text.isNullOrEmpty()) {
+                    MineApi.getVipLevel(sub_nickname = etSearchName.text.toString(), page = 1, is_sub = 1) {
+                        onSuccess {
+                            if (!it.isNullOrEmpty()) {
+                                setGone(linSearchHolder)
+                                adapter?.clear()
+                                adapter?.addAll(it)
+                            } else setVisible(linSearchHolder)
+                        }
+                        onFailed {
+                            adapter?.clear()
+                            rvSearch.removeAllViews()
+                            setVisible(linSearchHolder)
+                        }
+                    }
+                }
+            }
+            false
+        }
+        tvActCancel.setOnClickListener {
+            finish()
+        }
+
+    }
+
 
     inner class LevelAdapter(context: Context) : BaseRecyclerAdapter<MineVipList>(context) {
         override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineVipList> {
@@ -79,7 +109,7 @@ class MineReportSearchAct : BaseNavActivity() {
             override fun onBindData(data: MineVipList) {
                 ImageManager.loadImg(data.avatar, findView(R.id.imgPhotoUser))
                 val userLevel = findView<TextView>(R.id.tvNameUser)
-                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay(data.created ?: 0))
+                setText(R.id.tvTimeUser, TimeUtils.getYearMonthDay((data.created?.times(1000)) ?: 0))
                 setText(R.id.tv1_vip, data.recharge)
                 setText(R.id.tv2_vip, data.exchange)
                 setText(R.id.tv3_vip, data.brokerage)

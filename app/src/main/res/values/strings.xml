@@ -5,10 +5,10 @@
     <string name="tab_live">直播</string>
     <string name="tab_lottery">开奖</string>
     <string name="tab_betting">投注</string>
-    <string name="tab_quiz">圈子</string>
+    <string name="tab_quiz">友圈</string>
     <string name="tab_mine">我的</string>
     <!-- ================================================================== 规则 ================================================================== -->
-    <string name="password_rule">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#038;</string>
+    <string name="password_rule">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
     <string name="smart_last_update">最后更新</string>
     <string name="loading">加载中..</string>
     <string name="loading_short">~</string>

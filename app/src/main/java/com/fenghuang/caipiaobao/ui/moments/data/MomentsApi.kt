@@ -5,7 +5,6 @@ import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
 import com.pingerx.rxnetgo.rxcache.CacheMode
 
 /**
@@ -18,25 +17,25 @@ import com.pingerx.rxnetgo.rxcache.CacheMode
 object MomentsApi : BaseApi {
 
     //顶部Banner
-    private const val TOP_BANNER = "/article/banner"
+    private const val TOP_BANNER = "article/banner"
     //热门讨论列表
-    private const val HOT_DISCUSS = "/article/index"
+    private const val HOT_DISCUSS = "article/index"
     //主播动态列表
-    private const val ANCHOR_LIST = "/api/v1_1//live/get_dynamic"
+    private const val ANCHOR_LIST = "api/v1_1//live/get_dynamic"
     //精品推荐
-    private const val RECOMMEND_GOOD = "/article/recommended"
+    private const val RECOMMEND_GOOD = "article/recommended"
     //评论列表
-    private const val COMMENT_ON = "/article/comment"
+    private const val COMMENT_ON = "article/comment"
     //评论回复
-    private const val COMMENT_REPLY = "/article/publish-comment"
+    private const val COMMENT_REPLY = "article/publish-comment"
     //点赞
-    private const val QUIZ_ARTICLE_LIKE = "/article/like"
+    private const val QUIZ_ARTICLE_LIKE = "article/like"
     //评论列表 Davis
-    private const val COMMENT_LIST ="/api/v1_1/user/get_comment_list/"
+    private const val COMMENT_LIST ="api/v1_1/user/get_comment_list/"
     //评论回复 Davis
-    private const val COMMENT_ON_DAVIS = "/api/v1_1/live/dynamic_comment/"
+    private const val COMMENT_ON_DAVIS = "api/v1_1/live/dynamic_comment/"
     //评论点赞 Davis
-    private const val COMMENT_ZAN = "/api/v1_1/live/dynamic_like/"
+    private const val COMMENT_ZAN = "api/v1_1/live/dynamic_like/"
 
 
 
@@ -47,7 +46,7 @@ object MomentsApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<MomentsTopBannerResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<MomentsTopBannerResponse>>(HomeApi.getApiOtherTest() + TOP_BANNER)
+                .get<List<MomentsTopBannerResponse>>( TOP_BANNER)
                 .cacheMode(CacheMode.NONE)
                 .subscribe(subscriber)
     }
@@ -59,7 +58,7 @@ object MomentsApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<MomentsHotDiscussResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<MomentsHotDiscussResponse>>(HomeApi.getApiOtherTest() + HOT_DISCUSS)
+                .get<List<MomentsHotDiscussResponse>>( HOT_DISCUSS)
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())
                 .params("limit", limit)
@@ -104,7 +103,7 @@ object MomentsApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<MomentsRecommend>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<MomentsRecommend>>(HomeApi.getApiOtherTest() + RECOMMEND_GOOD)
+                .get<List<MomentsRecommend>>( RECOMMEND_GOOD)
                 .cacheMode(CacheMode.NONE)
                 .subscribe(subscriber)
     }
@@ -117,7 +116,7 @@ object MomentsApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApiLottery()
-                .post<String>(HomeApi.getApiOtherTest() + QUIZ_ARTICLE_LIKE)
+                .post<String>( QUIZ_ARTICLE_LIKE)
                 .cacheMode(CacheMode.NONE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("article_id", articleId)
@@ -132,7 +131,7 @@ object MomentsApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<CommentOnResponse>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<CommentOnResponse>>(HomeApi.getApiOtherTest() + COMMENT_ON)
+                .get<List<CommentOnResponse>>( COMMENT_ON)
                 .cacheMode(CacheMode.NONE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("article_id", articleId)
@@ -149,7 +148,7 @@ object MomentsApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApiLottery()
-                .post<String>(HomeApi.getApiOtherTest() + COMMENT_ZAN)
+                .post<String>( COMMENT_ZAN)
                 .cacheMode(CacheMode.NONE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("comment_id", comment_id)
@@ -164,7 +163,7 @@ object MomentsApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApiLottery()
-                .post<String>(HomeApi.getApiOtherTest() + COMMENT_REPLY)
+                .post<String>( COMMENT_REPLY)
                 .cacheMode(CacheMode.NONE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())

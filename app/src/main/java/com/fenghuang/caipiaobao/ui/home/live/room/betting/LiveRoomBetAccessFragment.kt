@@ -200,7 +200,7 @@ class LiveRoomBetAccessFragment : BottomDialogFragment() {
         AESUtils.encrypt(UserInfoSp.getRandomStr() ?: "", goon.toJson(orderMap))?.let {
             val param = HashMap<String, String>()
             param["datas"] = it
-            HttpClient.getInstance(context).postWithHead(LotteryApi.getBaseUrlMoments() + "/" + HomeApi.getApiOtherTest() + LotteryApi.LOTTERY_BET, param, object : HttpClient.MyCallback {
+            HttpClient.getInstance(context).postWithHead(LotteryApi.getBaseUrlMoments() + "/" +  LotteryApi.LOTTERY_BET, param, object : HttpClient.MyCallback {
                 override fun failed(e: IOException?) {
                     param
                     (context as Activity).runOnUiThread {

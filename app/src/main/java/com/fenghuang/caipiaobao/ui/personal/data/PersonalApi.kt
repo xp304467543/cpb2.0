@@ -3,7 +3,6 @@ package com.fenghuang.caipiaobao.ui.personal.data
 import com.fenghuang.caipiaobao.constant.UserInfoSp
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
-import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.pingerx.rxnetgo.rxcache.CacheMode
 
 /**
@@ -15,13 +14,13 @@ import com.pingerx.rxnetgo.rxcache.CacheMode
  */
 object PersonalApi : BaseApi {
     //用户个人页
-    private const val USER_PAGE = "/api/v1_1/user/user_owner/"
+    private const val USER_PAGE = "api/v1_1/user/user_owner/"
     //主播个人页
-    private const val ANCHOR_PAGE = "/api/v1_1/live/get_anchor_info/"
+    private const val ANCHOR_PAGE = "api/v1_1/live/get_anchor_info/"
     //专家个人页
-    private const val EXPERT_PAGE = "/plan/expert"
+    private const val EXPERT_PAGE = "plan/expert"
     //专家历史
-    private const val EXPERT_HISTORY = "/plan/history"
+    private const val EXPERT_HISTORY = "plan/history"
 
     /**
      * 获取用户个人页
@@ -63,7 +62,7 @@ object PersonalApi : BaseApi {
         val subscriber = object : ApiSubscriber<ExpertPageInfo>() {}
         subscriber.function()
         getApiLottery()
-                .get<ExpertPageInfo>(HomeApi.getApiOtherTest() + EXPERT_PAGE)
+                .get<ExpertPageInfo>( EXPERT_PAGE)
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())
                 .params("expert_id", expert_id)
@@ -79,7 +78,7 @@ object PersonalApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<ExpertPageHistory>>() {}
         subscriber.function()
         getApiLottery()
-                .get<List<ExpertPageHistory>>(HomeApi.getApiOtherTest() + EXPERT_HISTORY)
+                .get<List<ExpertPageHistory>>( EXPERT_HISTORY)
                 .cacheMode(CacheMode.NONE)
                 .params("user_id", UserInfoSp.getUserId())
                 .params("expert_id", expert_id)

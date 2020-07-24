@@ -128,4 +128,4 @@ data class MineLevelList(val level_id: String?, val level: String?, val name: St
 
 data class MineVipList(val avatar: String?, val nickname: String?, val created: Long?, val user_id: String?
                        , val level_id: String?, val level: String?, val level_name: String?, val recharge: String?
-                       , val exchange: String?, val brokerage: String?)
+                       , val exchange: String?, val brokerage: String?, val invitee_num :String?)

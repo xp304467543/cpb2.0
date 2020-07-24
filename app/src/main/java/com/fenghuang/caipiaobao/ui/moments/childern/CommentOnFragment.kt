@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
+import android.widget.ImageView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
@@ -27,7 +28,7 @@ import java.util.*
  *
  * @ Author  QinTian
  * @ Date  2020-02-19
- * @ Describe 评论详情页面
+ * @ Describe 评论详情页面  bill
  *
  */
 
@@ -85,6 +86,11 @@ class CommentOnFragment : BaseMvpFragment<CommentOnFragmentPresenter>() {
         commentAnchorImg.adapter = adapter
         if (!data?.images.isNullOrEmpty()) {
             adapter.addAll(data?.images)
+        }
+        if (data?.gender == 1) {
+            findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_boy)
+        } else if (data?.gender == 2) {
+            findView<ImageView>(R.id.imgAnchorSex).setBackgroundResource(R.mipmap.ic_live_anchor_girl)
         }
     }
 

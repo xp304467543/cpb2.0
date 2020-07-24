@@ -92,7 +92,7 @@ class RxNetGo {
 
         private val TAG = RxNetGo::class.java.simpleName
 
-        const val DEFAULT_MILLISECONDS: Long = 100000     // 默认的超时时间,10秒
+        const val DEFAULT_MILLISECONDS: Long = 50000     // 默认的超时时间,5秒
         const val CACHE_NEVER_EXPIRE: Long = -1           // 缓存永不过期
 
         fun getInstance(): RxNetGo = NetGoHolder.holder

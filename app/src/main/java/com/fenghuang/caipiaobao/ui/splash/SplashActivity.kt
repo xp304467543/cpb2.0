@@ -4,12 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
-import com.fenghuang.baselib.utils.LogUtils
-import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserInfoSp
+import com.fenghuang.caipiaobao.data.api.ApiConstant
+import com.fenghuang.caipiaobao.data.api.WebUrlProvider
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.main.MainActivity
@@ -49,8 +49,8 @@ class SplashActivity : Activity(), CancelAdapt {
             }
         }
         startImg.setOnClickListener {
-            if (goToURL != ""){
-                LaunchUtils.starGlobalWeb(this,"",goToURL)
+            if (goToURL != "") {
+                LaunchUtils.starGlobalWeb(this, "", goToURL)
             }
         }
 //        tvDaoJiShi.setOnClickListener {
@@ -74,7 +74,24 @@ class SplashActivity : Activity(), CancelAdapt {
 //                tvDaoJiShi.text = (millisUntilFinished / 1000).toString() + "秒跳转"
 //            }
 //        }
+        initSysTemUrl()
         initSome()
+    }
+
+    private fun initSysTemUrl() {
+        HomeApi.getSystemUrl {
+            onSuccess {
+                ViewUtils.setGone(btWaite)
+                ViewUtils.setVisible(btEnter)
+                ApiConstant.API_URL_DEV_Main_S = it.live_api
+                ApiConstant.API_URL_DEV_OTHER_S = it.user_api
+                ApiConstant.API_MOMENTS_MAIN_S = it.forum_api
+                ApiConstant.API_LOTTERY_BET_MAIN_S = it.lottery_api
+                WebUrlProvider.ALL_URL_WEB_SOCKET_MAIN_S = it.notice_url
+                WebUrlProvider.API_URL_WEB_SOCKET_MAIN_S = it.chat_url
+            }
+
+        }
     }
 
 

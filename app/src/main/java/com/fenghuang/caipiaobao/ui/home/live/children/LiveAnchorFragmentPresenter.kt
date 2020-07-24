@@ -29,7 +29,7 @@ class LiveAnchorFragmentPresenter : BaseMvpPresenter<LiveAnchorFragment>() {
                         mView.initTitle(bean)
                     }
                     if (!it.data?.isJsonNull!!) {
-
+                        if (mView.page == 1) mView.contentAdapter?.clear()
                         mView.page++
                         val content = JsonUtils.fromJson(it.data, Array<HomeHotLiveResponse>::class.java)
                         mView.initAdvanceRecycle(content)

@@ -1,12 +1,16 @@
 package com.fenghuang.caipiaobao.data.api
 
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_LOTTERY_BET_MAIN
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_LOTTERY_BET_MAIN_S
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_LOTTERY_BET_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_MAIN
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_MAIN_S
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_MOMENTS_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_Main
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_Main_S
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER_S
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.MAIN_KEY
 import com.fenghuang.caipiaobao.data.api.ApiConstant.TEST_KEY
@@ -25,7 +29,11 @@ interface BaseApi {
     fun getBaseUrl(): String {
         return if (isTest) {
             API_URL_DEV
-        } else API_URL_DEV_Main
+        } else {
+            if (API_URL_DEV_Main_S.isNullOrEmpty()) {
+                API_URL_DEV_Main
+            } else "$API_URL_DEV_Main_S/"
+        }
     }
 
     /**
@@ -34,14 +42,22 @@ interface BaseApi {
     fun getBaseUrlMe(): String {
         return if (isTest) {
             API_URL_DEV_OTHER_TEST
-        } else API_URL_DEV_OTHER
-
+        } else {
+            if (API_URL_DEV_OTHER_S.isNullOrEmpty()) {
+                API_URL_DEV_OTHER
+            } else "$API_URL_DEV_OTHER_S/"
+        }
     }
 
-    fun getLotteryBet():String{
+    fun getLotteryBet(): String {
         return if (isTest) {
             API_LOTTERY_BET_TEST
-        } else API_LOTTERY_BET_MAIN
+        } else {
+            if (API_LOTTERY_BET_MAIN_S.isNullOrEmpty()) {
+                API_LOTTERY_BET_MAIN
+            }else "$API_LOTTERY_BET_MAIN_S/"
+        }
+
     }
 
     /**
@@ -50,15 +66,25 @@ interface BaseApi {
     fun getBaseUrlMoments(): String {
         return if (isTest) {
             API_MOMENTS_TEST
-        } else API_MOMENTS_MAIN
+        } else {
+            if (API_MOMENTS_MAIN_S.isNullOrEmpty()) {
+                API_MOMENTS_MAIN
+            }else "$API_MOMENTS_MAIN_S/"
+        }
     }
 
-    fun getBase64Key():String{
+    fun getBase64Key(): String {
         return if (isTest) {
             TEST_KEY
         } else MAIN_KEY
     }
 
+    /**
+     * 服务器地址获取
+     */
+    fun getSystemApi(): RxNetGo {
+        return RxNetGo.getInstance().getRetrofitService("https://www.lgadmin561.com/")
+    }
 
     /**
      * 获取默认的Service
@@ -93,13 +119,13 @@ interface BaseApi {
     /**
      *  其他的BaseUrl 是否是测试库
      */
-    fun getApiOtherTest(): String = "forum"
+//    fun getApiOtherTest(): String = "forum"
 
 
     /**
      *  其他的User 是否是测试库
      */
-    fun getApiOtherUserTest(): String = "userinfo"
+//    fun getApiOtherUserTest(): String = "userinfo"
 
 
 }
