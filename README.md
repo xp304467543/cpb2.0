@@ -1,8 +1,7 @@
 ### 彩票宝
 
 
-### http://www.cpbh5.com/api.html
-### http://www.cpbh5.com/myapi.html
+### http://47.244.212.147/myapi.html
 ### https://lanhuapp.com/
 ### http://10.10.40.130:8777/web/#/1
 ### 聊天室文档
